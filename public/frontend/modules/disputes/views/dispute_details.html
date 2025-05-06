@@ -1,0 +1,523 @@
+<!-- <script src="/assets/javascripts/jquery-3.2.0.min.js"></script> -->
+<div class="container" ng-init="getDisputeDetails()">
+    <div class="row">
+        <div class="setting-section">
+            <div class="col-sm-4 strata_Pdetl marT30">
+                <ol class="breadcrumb">
+                    <li><a class="text-capitalize pointer" ui-sref="dispute">Disputes</a></li>
+                    <li><a class="active text-capitalize "> {{disputeDetail.subject | limitTo:15}}
+                            {{disputeDetail.subject.length > 15 ? "..." : ""}}</a></li>
+                </ol>
+                <h4 class="marB30 dispute_sub">Subject : {{disputeDetail.subject}}</h4>
+                <p>{{disputeDetail.message}}</p>
+
+                <div class="row marT20 marB20">
+                    <div class="col-sm-1">
+                        <img src="assets/images/property-id.svg" alt="property id" class="marker">
+                    </div>
+                    <div class="col-sm-11">
+                        <span style="word-wrap: break-word;">{{disputeDetail.dispute_id}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 marT20">
+                        <!-- <div class="my-property_listview shadow-hover inspection">
+                            <div class="img_list">
+                                <a ui-sref="propertyDetails({id:disputeDetail.property_id._id})" class="my-property-img1">
+                                    <img ng-if="disputeDetail.property_id.image[0].path && disputeDetail.property_id.image[0].is_from_my_file==false && disputeDetail.property_id.image[0].is_from_csv_file==false"
+                                        src="{{imageUrl}}thumb/{{disputeDetail.property_id.image[0].path}}" alt="propimg">
+                                    <img ng-if="disputeDetail.property_id.image[0].path && disputeDetail.property_id.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+                                        src="{{fileImageUrl}}{{disputeDetail.property_id.image[0].path}}" alt="propimg">
+                                    <img ng-if="disputeDetail.property_id.image[0].path && disputeDetail.property_id.image[0].is_from_csv_file==true && disputeDetail.property_id.image[0].is_from_my_file==false"
+                                        src="{{disputeDetail.property_id.image[0].path}}" alt="propimg">
+                                    <img ng-if="!disputeDetail.property_id.image[0].path" src="assets/images/placeholder.jpg">
+                                </a>
+                            </div>
+                            <div class="my-property-content_listview">
+                                <div class="my-property-title">
+                                    <h4>
+                                        <a ui-sref="propertyDetails({id:disputeDetail.property_id._id})">{{disputeDetail.property_id.address | limitTo : 50}}{{disputeDetail.property_id.address.length
+                                            > 50 ? "..." : ""}}</a>
+                                    </h4>
+                                    <p class="my-property-address property-address">{{disputeDetail.property_id.description | limitTo : 94}}{{disputeDetail.property_id.description.length
+                                        > 94 ? "..." : ""}}
+                                    </p>
+                                </div>
+                                <table class="property-details marT20 bottom-position-set">
+                                    <tbody>
+                                        <tr>
+                                            <td class="userName">{{disputeDetail.property_id.owned_by.firstname}} {{disputeDetail.property_id.owned_by.lastname}}</td>
+                                            <td class="userpic">
+                                                <a class="pointer" ng-click="myPropertyToOwnerProfile(disputeDetail.property_id.owned_by._id)">
+                                                    <img ng-src="{{userImageUrl}}{{disputeDetail.property_id.owned_by.image}}"
+                                                        src="/assets/images/no_image.png" alt="user">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> -->
+                        <div class="property shadow-hover">
+                            <a ui-sref="propertyDetails({id:disputeDetail.property_id._id})" class="my-property-img1">
+                                <img ng-if="disputeDetail.property_id.image[0].path && disputeDetail.property_id.image[0].is_from_my_file==false && disputeDetail.property_id.image[0].is_from_csv_file==false"
+                                    src="{{imageUrl}}thumb/{{disputeDetail.property_id.image[0].path}}" alt="propimg">
+                                <img ng-if="disputeDetail.property_id.image[0].path && disputeDetail.property_id.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{disputeDetail.property_id.image[0].path}}" alt="propimg">
+                                <img ng-if="disputeDetail.property_id.image[0].path && disputeDetail.property_id.image[0].is_from_csv_file==true && disputeDetail.property_id.image[0].is_from_my_file==false"
+                                    src="{{disputeDetail.property_id.image[0].path}}" alt="propimg">
+                                <img ng-if="!disputeDetail.property_id.image[0].path"
+                                    src="assets/images/placeholder.jpg">
+                            </a>
+                            <div class="property-content">
+                                <div class="property-title">
+                                    <h4>
+                                        <a ui-sref="propertyDetails({id:disputeDetail.property_id._id})">{{disputeDetail.property_id.address | limitTo : 50}}{{disputeDetail.property_id.address.length
+                                            > 50 ? "..." : ""}}</a>
+                                    </h4>
+                                    <p class="my-property-address property-address dispute-address">{{disputeDetail.property_id.description | limitTo : 325}}{{disputeDetail.property_id.description.length
+                                        > 325 ? "..." : ""}}
+                                    </p>
+                                </div>
+                                <table class="property-details prop-card-view">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                    src="/assets/images/Bedroom-new.png" />{{disputeDetail.property_id.number_bedroom}}
+                                            </td>
+                                            <td>
+                                                <img
+                                                    src="/assets/images/Bathroom-new.png" />{{disputeDetail.property_id.number_of_bathroom}}
+                                            </td>
+                                            <td>
+                                                <img
+                                                    src="/assets/images/Garage-new.png" />{{disputeDetail.property_id.number_of_parking}}
+                                            </td>
+                                            <td>
+                                                <img src="/assets/images/townhouse-new.png" />
+                                                <span
+                                                    class="text-capitalize">{{disputeDetail.property_id.property_type}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- <span class="propertyNoti">4</span> -->
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-sm-12">
+                        <div class="tags clearfix" ng-repeat="(key,allowedRole) in noticePost.assign_to_roles">
+                            <ul>
+                                <li>
+                                    <span>{{allowedRole.role_id.description}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="horiLine marB20"></div>
+                <div class="toggleSwitch">
+                    <label class="switch">
+                        <input checked="" type="checkbox" ng-model="noticePost.enable_thread_post">
+                        <span class="slider round"></span>
+                    </label>
+                    <p ng-show="noticePost.enable_thread_post==true">Yes, allow thread</p>
+                    <p ng-show="noticePost.enable_thread_post==false">No, not allow thread</p>
+                </div> -->
+                <!-- <div class="horiLine marT20"></div> -->
+                <div ng-if="userRoleId==agent || userRoleId==tenant ">
+                    <button ng-if="disputeDetail.dispute_status==1" class="btn dispute_det_btn pointer"
+                        ng-click="changeDisputeStatus(disputeDetail._id,2)">Resolved</button>
+                    <button ng-if="disputeDetail.dispute_status==1" class="btn dispute_det_btn pointer"
+                        ng-click="changeDisputeStatus(disputeDetail._id,3)">Not Resolved</button>
+                </div>
+            </div>
+
+            <div class="col-sm-8 marT30">
+                <div class="filtering-recent" ng-if="userRoleId==owner||userRoleId==agent">
+                    <ul>
+                        <li ng-click="selected=1" ng-class="selected=='group_chat'?'active':''">
+                            <a href="javascript:void(0)" id="groupChat" ng-click="setSelection('group_chat')">Group
+                                Chat</a>
+                        </li>
+                        <li ng-click="selected=2" ng-class="selected=='private_chat'?'active':''">
+                            <a href="javascript:void(0)" id="privateChat"
+                                ng-click="setSelection('private_chat')">Private Chat</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="conversation" ng-if="groupChat">
+                    <div class="row heading" ng-if="userRoleId==owner">
+                        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                            <div class="heading-avatar-icon inspection">
+                                <img src="assets/images/no_image.png"
+                                    ng-src="{{userImageUrl}}{{disputeDetail.agent_id.image}}">
+                                <span ng-if="disputeDetail.agent_id.is_online" class="colorGreen"></span>
+                                <span ng-if="disputeDetail.agent_id.is_online==false" class="colorRed"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-3 heading-name">
+                            <a class="heading-name-meta">{{disputeDetail.agent_id.firstname}}
+                                {{disputeDetail.agent_id.lastname}}</a>
+                        </div>
+                        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                            <div class="heading-avatar-icon inspection">
+                                <img src="assets/images/no_image.png"
+                                    ng-src="{{userImageUrl}}{{disputeDetail.tenant_id.image}}">
+                                <span ng-if="disputeDetail.tenant_id.is_online" class="colorGreen"></span>
+                                <span ng-if="disputeDetail.tenant_id.is_online==false" class="colorRed"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-3 heading-name">
+                            <a class="heading-name-meta">{{disputeDetail.tenant_id.firstname}}
+                                {{disputeDetail.tenant_id.lastname}}</a>
+                        </div>
+                    </div>
+                    <div class="row heading" ng-if="userRoleId==agent">
+                        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                            <div class="heading-avatar-icon inspection">
+                                <img src="assets/images/no_image.png"
+                                    ng-src="{{userImageUrl}}{{disputeDetail.owner_id.image}}">
+                                <span ng-if="disputeDetail.owner_id.is_online" class="colorGreen"></span>
+                                <span ng-if="disputeDetail.owner_id.is_online==false" class="colorRed"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-3 heading-name">
+                            <a class="heading-name-meta">{{disputeDetail.owner_id.firstname}}
+                                {{disputeDetail.owner_id.lastname}} </a>
+                        </div>
+                        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                            <div class="heading-avatar-icon inspection">
+                                <img src="assets/images/no_image.png"
+                                    ng-src="{{userImageUrl}}{{disputeDetail.tenant_id.image}}">
+                                <span ng-if="disputeDetail.tenant_id.is_online" class="colorGreen"></span>
+                                <span ng-if="disputeDetail.tenant_id.is_online==false" class="colorRed"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-3 heading-name">
+                            <a class="heading-name-meta">{{disputeDetail.tenant_id.firstname}}
+                                {{disputeDetail.tenant_id.lastname}}</a>
+                        </div>
+                    </div>
+                    <div class="row heading" ng-if="userRoleId==tenant">
+                        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                            <div class="heading-avatar-icon inspection">
+                                <img src="assets/images/no_image.png"
+                                    ng-src="{{userImageUrl}}{{disputeDetail.agent_id.image}}">
+                                <span ng-if="disputeDetail.agent_id.is_online" class="colorGreen"></span>
+                                <span ng-if="disputeDetail.agent_id.is_online==false" class="colorRed"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-3 heading-name">
+                            <a class="heading-name-meta">{{disputeDetail.agent_id.firstname}}
+                                {{disputeDetail.agent_id.lastname}}</a>
+                        </div>
+                        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                            <div class="heading-avatar-icon inspection">
+                                <img src="assets/images/no_image.png"
+                                    ng-src="{{userImageUrl}}{{disputeDetail.owner_id.image}}">
+                                <span ng-if="disputeDetail.owner_id.is_online" class="colorGreen"></span>
+                                <span ng-if="disputeDetail.owner_id.is_online==false" class="colorRed"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-3 heading-name">
+                            <a class="heading-name-meta">{{disputeDetail.owner_id.firstname}}
+                                {{disputeDetail.owner_id.lastname}} </a>
+                        </div>
+                    </div>
+
+                    <div class="row message scrollBar message-dispute" id="conversation">
+
+                        <div class="row message-body" ng-init="chatInitialize()">
+                            <div ng-repeat="message in privateMessage">
+                                <div class="row message-body" ng-if="message.from._id!=loggedInUserId">
+                                    <div class="col-sm-2 col-xs-2 text-center">
+                                        <div class="">
+                                            <img height="50px" width="50px" class="img-circle"
+                                                ng-src="{{userImageUrl}}{{message.from.image}}"
+                                                src="assets/images/no_image.png">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10 col-xs-10 message-main-receiver">
+                                        <div class="receiver" ng-if="!message.is_file">
+                                            <div class="message-text">
+                                                {{message.msg}}
+                                            </div>
+                                            <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                                                <a href="{{baseUrl}}{{message.document_path}}"
+                                                    target="_blank">{{message.msg}}</a>
+                                                <p>{{message.size}} kb</p>
+                                                <p>
+                                                    <i class="fa fa-file"></i> File</p>
+                                                <div class="horiLine"></div>
+                                                <div class="text-center">
+                                                    <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                                                        <span>Open</span>
+                                                    </a>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div ng-if="message.is_file" class="chat_img">
+                                            <a href="{{baseUrl}}{{message.document_path}}" target="_blank"><img
+                                                    src="{{baseUrl}}{{message.document_path}}"></a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <span class="message-time pull-left"> {{message.time|date}} </span>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body" ng-if="message.from._id==loggedInUserId">
+                                    <div class="col-sm-2 col-xs-2 pull-right  text-center">
+                                        <div class="">
+                                            <img height="50px" width="50px" src="assets/images/no_image.png"
+                                                class="img-circle" ng-src="{{userImageUrl}}{{message.from.image}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10 col-xs-10 message-main-sender">
+                                        <div class="sender" ng-if="!message.is_file">
+                                            <div class="message-text">
+                                                {{message.msg}}
+                                            </div>
+                                            <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                                                <a href="{{baseUrl}}{{message.document_path}}" target="_blank">
+                                                    {{message.msg}}</a>
+                                                <p>{{message.size}} kb</p>
+                                                <p>
+                                                    <i class="fa fa-file"></i> File </p>
+                                                <div class="horiLine"></div>
+                                                <div class="text-center">
+                                                    <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                                                        <span>Open</span>
+                                                    </a>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div ng-if="message.is_file" class="chat_img">
+                                            <a href="{{baseUrl}}{{message.document_path}}" target="_blank"><img
+                                                    src="{{baseUrl}}{{message.document_path}}"></a>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <span class="message-time"> {{message.time|date}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row message-body">
+                                <div ng-if="privateMessage.length==0"
+                                    style="margin-top:25%;text-align:center;margin-right:1%;margin-left:1%"
+                                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                    <strong>No Chat initaited Yet!</strong>
+                                </div>
+                                <div class="row message-body">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div ng-if="disputeDetail.dispute_status!=1"
+                                            class="counter-Proposal text-center">
+                                            <p>Dispute Closed</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row reply">
+                        <div class="col-sm-10 col-xs-12 reply-main">
+                            <!-- id="example1" -->
+                            <textarea ng-model="chat.generalMsg" class="form-control" rows="1" id="comment"
+                                placeholder="Type your message"></textarea>
+                            <div class="reply-emojis">
+                                <button ng-if="disputeDetail.dispute_status==1" class="btn btn-pic" type="file"
+                                    ngf-select="sentGeneralChatUploadFile($file)">
+                                    <!-- ngf-max-height="1000" ngf-max-size="1MB" -->
+                                    <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+                                </button>
+                                <button ng-if="disputeDetail.dispute_status!=1" class="btn btn-pic" type="file"
+                                    ngf-select="sentGeneralChatUploadFile($file)">
+                                    <!-- ngf-max-height="1000" ngf-max-size="1MB" -->
+                                    <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-xs-12 reply-send">
+                            <button ng-if="disputeDetail.dispute_status==1" id="sendMsg"
+                                ng-click="sentGeneralChatMessage(chat.generalMsg,disputeDetail);" type="submit"
+                                class="sendMsg submit btn btn-property">Send</button>
+                            <button ng-if="disputeDetail.dispute_status!=1" id="sendMsg" type="submit"
+                                class="sendMsg submit btn btn-property">Send</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- agent and owner chat section -->
+                <div class="conversation" ng-if="!groupChat">
+                    <div class="row heading" ng-if="userRoleId==owner">
+                        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                            <div class="heading-avatar-icon inspection">
+                                <img src="assets/images/no_image.png"
+                                    ng-src="{{userImageUrl}}{{disputeDetail.agent_id.image}}">
+                                <span ng-if="disputeDetail.agent_id.is_online" class="colorGreen"></span>
+                                <span ng-if="disputeDetail.agent_id.is_online==false" class="colorRed"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-3 heading-name">
+                            <a class="heading-name-meta">{{disputeDetail.agent_id.firstname}}
+                                {{disputeDetail.agent_id.lastname}}</a>
+                        </div>
+                    </div>
+                    <div class="row heading" ng-if="userRoleId==agent">
+                        <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                            <div class="heading-avatar-icon inspection">
+                                <img src="assets/images/no_image.png"
+                                    ng-src="{{userImageUrl}}{{disputeDetail.owner_id.image}}">
+                                <span ng-if="disputeDetail.owner_id.is_online" class="colorGreen"></span>
+                                <span ng-if="disputeDetail.owner_id.is_online==false" class="colorRed"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xs-3 heading-name">
+                            <a class="heading-name-meta">{{disputeDetail.owner_id.firstname}}
+                                {{disputeDetail.owner_id.lastname}} </a>
+                        </div>
+                    </div>
+
+                    <div class="row message scrollBar" id="conversation" ng-if="userRoleId==owner||userRoleId==agent">
+                        <div class="row message-body">
+                            <div ng-repeat="message in privateChatMessage">
+                                <div class="row message-body" ng-if="message.from._id!=loggedInUserId">
+                                    <div class="col-sm-2 col-xs-2 text-center">
+                                        <div class="">
+                                            <img height="50px" width="50px" class="img-circle"
+                                                ng-src="{{userImageUrl}}{{message.from.image}}"
+                                                src="assets/images/no_image.png">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10 col-xs-10 message-main-receiver">
+                                        <div class="receiver" ng-if="!message.is_file">
+                                            <div class="message-text">
+                                                {{message.msg}}
+                                            </div>
+                                            <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                                                <a href="{{baseUrl}}{{message.document_path}}"
+                                                    target="_blank">{{message.msg}}</a>
+                                                <p>{{message.size}} kb</p>
+                                                <p>
+                                                    <i class="fa fa-file"></i> File</p>
+                                                <div class="horiLine"></div>
+                                                <div class="text-center">
+                                                    <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                                                        <span>Open</span>
+                                                    </a>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div ng-if="message.is_file" class="chat_img">
+                                            <a href="{{baseUrl}}{{message.document_path}}" target="_blank"><img
+                                                    src="{{baseUrl}}{{message.document_path}}"></a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <span class="message-time pull-left"> {{message.time|date}} </span>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body" ng-if="message.from._id==loggedInUserId">
+                                    <div class="col-sm-2 col-xs-2 pull-right  text-center">
+                                        <div class="">
+                                            <img height="50px" width="50px" src="assets/images/no_image.png"
+                                                class="img-circle" ng-src="{{userImageUrl}}{{message.from.image}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10 col-xs-10 message-main-sender">
+                                        <div class="sender" ng-if="!message.is_file">
+                                            <div class="message-text">
+                                                {{message.msg}}
+                                            </div>
+                                            <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                                                <a target="_blank"> {{message.msg}}</a>
+                                                <p>{{message.size}} kb</p>
+                                                <p>
+                                                    <i class="fa fa-file"></i> File </p>
+                                                <div class="horiLine"></div>
+                                                <div class="text-center">
+                                                    <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                                                        <span>Open</span>
+                                                    </a>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div ng-if="message.is_file" class="chat_img">
+                                            <a target="_blank" href="{{baseUrl}}{{message.document_path}}"><img
+                                                    src="{{baseUrl}}{{message.document_path}}"></a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <span class="message-time"> {{message.time|date}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row message-body">
+                                <div ng-if="privateChatMessage.length==0"
+                                    style="margin-top:25%;text-align:center;margin-right:1%;margin-left:1%"
+                                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                    <strong>No Chat initaited Yet!</strong>
+                                </div>
+                                <div class="row message-body">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div ng-if="disputeDetail.dispute_status!=1"
+                                            class="counter-Proposal text-center">
+                                            <p>Dispute Closed</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row reply">
+                        <div class="col-sm-10 col-xs-12 reply-main">
+                            <!-- id="example2" -->
+                            <textarea ng-model="private.private_chat" class="form-control" rows="1"
+                                placeholder="Type your message"></textarea>
+                            <div class="reply-emojis">
+                                <button ng-if="disputeDetail.dispute_status==1" class="btn btn-pic" type="file"
+                                    ngf-select="uploadFile($file)">
+                                    <!-- ngf-max-height="1000" ngf-max-size="1MB" -->
+                                    <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+                                </button>
+                                <button ng-if="disputeDetail.dispute_status!=1" class="btn btn-pic" type="file">
+                                    <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-xs-12 reply-send">
+                            <button ng-if="disputeDetail.dispute_status==1"
+                                ng-click="send_message(private.private_chat,disputeDetail);" type="submit"
+                                class="btn btn-property Private_send_message">Send</button>
+                            <button ng-if="disputeDetail.dispute_status!=1" type="submit"
+                                class="btn btn-property Private_send_message">Send</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <script type="text/javascript">
+            // $.noConflict();
+                // $(document).ready(function () {
+                //     $("#example1").emojioneArea();
+                //     $("#example2").emojioneArea();
+                //     $(".sendMsg").bind("click", function () {
+                //         $('.emojionearea-editor').empty();
+                //     });
+                //     $("#groupChat").bind("click", function () {
+                //         $("#example1").emojioneArea();
+                //     });
+                //     $("#privateChat").bind("click", function () {
+                //         $("#example2").emojioneArea();
+                //         $(".Private_send_message").bind("click", function () {
+                //             $('.emojionearea-editor').empty();
+                //         });
+                //     });
+                // });
+
+            </script>
+
+        </div>
+    </div>
+</div>

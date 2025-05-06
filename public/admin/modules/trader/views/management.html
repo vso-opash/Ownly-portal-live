@@ -1,0 +1,216 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Trader Management
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">
+                    <i class="fa fa-dashboard"></i> Dashboard</a>
+            </li>
+            <li>
+                <a ui-sref="traderManagement">
+                    <i class="fa fa-user-secret"></i>Trader Management</a>
+            </li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Search Filters </h3>
+                    </div>
+                    <div class="box-body BoxSearch" ng-init="load_category_list()">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input name="table_search" ng-model="searchUser"
+                                    class="form-control ng-pristine ng-untouched  ng-empty ng-invalid ng-invalid-required"
+                                    placeholder="Search" autocomplete="false" required="" type="text">
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" name="search_category" id="search_category"
+                                    ng-model="searchBycategory"
+                                    ng-options="category._id as category.name for category in category_list"></select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select id="searchUserStatus" ng-model="serachByUserStatus" name="search_user_status"
+                                    class="form-control">
+                                    <option value="" disabled>Filter By </option>
+                                    <option value="active_traders"> Active Users</option>
+                                    <option value="opened_email"> Email Opened</option>
+                                    <option value="unopened_email"> Email Unopened</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-1 BoxSearchBTN">
+                                <button class="btn btn-primary btn-sm mt10"
+                                    ng-click="filterTraders(1,searchUser,searchBycategory,serachByUserStatus)">
+                                    <!-- getUserList(1,searchUser,searchBycategory,serachByUserStatus) -->
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm mt10" ng-click="resetList()"
+                                    title="Refresh user list" style="margin-left:6px;">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <!-- <button class="btn btn-import ng-scope" type="file" ngf-select="uploadCategoriesCsv($file)"
+                                    ngf-pattern="'.csv'" accept=".csv" ngf-max-height="1000" ngf-max-size="1MB">Bulk
+                                    Import Categories</button> -->
+                                <button class="btn btn-import ng-scope" type="file" ngf-select="uploadCsv($file)"
+                                    ngf-pattern="'.csv'" accept=".csv" ngf-max-height="1000" ngf-max-size="1MB">
+                                    Bulk Import Traders</button>
+                                <a class="btn btn-import ng-scope" title="Sample File"
+                                    href="{{baseUrl_path}}/samples/trader_add_format.csv" target="_blank"><i
+                                        class="fa fa-download" aria-hidden="true"> Sample File</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body box box-warning table-responsive" ng-init="getUserList(pageNumber)">
+                    <table class="table table-bordered  ng-table">
+                        <thead class="">
+                            <tr>
+                                <th title="" class="header" style="cursor:default">
+                                    <div class="ng-table-header ">
+                                        <span>Image</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("business_name")'
+                                        ng-class='sortClass("business_name")'>
+                                        <span>Business Name</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("lastname")'
+                                        ng-class='sortClass("lastname")'>
+                                        <span>Category</span>
+                                    </div>
+
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("suburb_postcode")'
+                                        ng-class='sortClass("suburb_postcode")'>
+                                        <span>Suburb</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("state")'
+                                        ng-class='sortClass("state")'>
+                                        <span>State</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("zipCode")'
+                                        ng-class='sortClass("zipCode")'>
+                                        <span>Postcode</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("mobile_no")'
+                                        ng-class='sortClass("mobile_no")'>
+                                        <span>Mobile</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header "
+                                        ng-click='sortRecentUserColumn("reveal_contact_number")'
+                                        ng-class='sortClass("reveal_contact_number")'>
+                                        <span>MobileView</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable ">
+                                    <div class="ng-table-header changeCursorType">
+                                        <span>Email</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable ">
+                                    <div class="ng-table-header changeCursorType">
+                                        <span>Action</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- :columnUser:reverseUser | itemsPerPage:10| filter:searchUser -->
+                            <tr dir-paginate="userData in userList|orderBy:columnUser:reverseUser| itemsPerPage:10"
+                                current-page="currentPage" total-items="totalRecord" class="">
+                                <td>
+                                    <span class="chat-img pull-left">
+                                        <img class="pointerCursor adminprofileimg" err-src="./images/no_image.png"
+                                            ng-src="{{imageUrl}}{{userData.data.image?userData.data.image:' '}}"
+                                            width="100px" alt="User Image">
+                                    </span>
+                                    <span ng-if="userData.data.is_active == false" class="inactive colororange"></span>
+                                </td>
+                                <td sortable="'business_name'" class="text-capitalize">
+                                    <!-- {{userData.business_name}} -->
+                                    {{userData.data.business_name ? userData.data.business_name :
+                                    userData.data.firstname + ' ' + userData.data.lastname}}
+                                </td>
+                                <td class="text-capitalize service_trader">
+                                    <ul class="ser_cate" ng-if="userData.data.categories_id">
+                                        <li ng-repeat="(key,cat) in userData.data.categories_id">
+                                            {{cat.name}}</li>
+                                    </ul>
+                                </td>
+                                <td sortable="'suburb_postcode'" class="text-capitalize">
+                                    {{userData.data.suburb_postcode}}
+                                </td>
+                                <td sortable="'state'" class="text-capitalize">{{userData.data.state}}</td>
+                                <td sortable="'zipCode'" class="text-capitalize">{{userData.data.zipCode}}</td>
+                                <td sortable="'mobile_no'" class="text-capitalize">{{userData.data.mobile_no}}</td>
+                                <td sortable="'reveal_contact_number'" class="text-capitalize">
+                                    {{userData.data.reveal_contact_number}}</td>
+                                <td data-title="'Actions'" class="actions actions-icons" data-title-text="Actions"
+                                    align="center">
+                                    <a ui-sref='emailTemplateUser({id:userData.data._id})'>
+                                        <i class="fa fa-envelope" aria-hidden="true" title="Send email to user"></i>
+                                    </a>
+                                    <img ng-if="!(userData.data.is_opened_trade_email)"
+                                        src="/assets/images/email-pending-open.png" alt="email-pending-open">
+                                    <img ng-if="userData.data.is_opened_trade_email"
+                                        src="/assets/images/email-opened.png" alt="email-opened">
+                                    <img ng-if="userData.data.is_active" src="/assets/images/email-link-clicked.png"
+                                        alt="email-link-clicked">
+
+                                </td>
+                                <td data-title="'Actions'" class="actions" data-title-text="Actions" align="center">
+                                    <a ui-sref="userDetail({id:userData.data._id})">
+                                        <i class="fa fa-eye" aria-hidden="true" title="View user"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="userList.length==0" style='color:#605ca8;font-size: 15px;'>
+                        <center>No records found</center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-2" style="margin: 8px 0;">
+                <input class="form-control" ng-model="pageNumber" placeholder="Page Number" type="number">
+            </div>
+            <div class="col-xs-1 BoxSearchBTN" style="margin: 8px 0;">
+                <button class="btn btn-primary btn-sm mt10"
+                    ng-click="traderListPagination(pageNumber,searchUser,searchBycategory,serachByUserStatus)">
+                    <!-- ng-click="getUserList(pageNumber,searchUser,searchBycategory,serachByUserStatus)" -->
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+            <div class="col-xs-9">
+                <div class="pull-right" style="font-size:14px;margin-bottom:25px;margin-top:-11px;margin-right: 13px;">
+                    <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"
+                        on-page-change="paginationClick(newPageNumber,searchUser,searchBycategory,serachByUserStatus)">
+                    </dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#search_category option:eq(0)').text('Select Category');
+    });
+</script>

@@ -1,0 +1,8 @@
+/UI/node_modules
+/Services/node_modules
+/Services/config/db.js
+/Services/config/config.js
+node_modules/*
+# dependencies
+/node_modules
+*-lock.json

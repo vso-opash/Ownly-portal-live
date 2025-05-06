@@ -1,0 +1,156 @@
+<!-- <div id="newRequest" class="modal newRequest"> -->
+<!-- Modal content -->
+<div class="modal-content main_newReq" style="width: 100%"
+  ng-init="maintenanceInitialize();watcherInfo();maintenanceDetailForForward()">
+  <div class="modal-header">
+    <span class="close" ng-click="cancel()">&times;</span>
+    <h3>New request</h3>
+  </div>
+  <div class="modal-body clearfix" ng-init="maintenanceInit()">
+    <form enctype="multipart/form-data" name="createMaintenanceForm" id="createMaintenanceForm" role="form" novalidate
+      autocomplete="off">
+      <div class="row  marT20">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="form-group text-leftp inspection">
+            <label class="control-label" for="product_categorie">Search trader<font color="Red">*</font></label>
+
+            <input type="text" name="tradersearch" ng-model="maintenance.name" ng-model-options="modelOptions"
+              uib-typeahead="trader.name for trader in traderData | filter:$viewValue | limitTo:8"
+              typeahead-on-select="onSelect($item, $model, $label)" class="form-control"
+              typeahead-no-results="noResults" required>
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <span class="error-span inner-error ng-binding "
+              ng-show="createMaintenanceForm.tradersearch.$error.required && createMaintenanceForm.tradersearch.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Search trader is Required</font>
+            </span>
+            <span ng-if="noResults && !createMaintenanceForm.tradersearch.$error.required">
+              <font color="Red">No trader exists with this name</font>
+            </span>
+            <span class="error-span inner-error ng-binding "
+              ng-show="createMaintenanceForm.tradersearch.$error.pattern " class="error-span inner-error ng-binding ">
+              <font color="Red ">Search trader Must Contain Alphabet</font>
+            </span>
+          </div>
+          <span ng-show="createMaintenanceForm.tradersearch.$error.maxlength" class="error-span inner-error ng-binding">
+            <font color="Red">Max 50 characters allowed</font>
+          </span>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingFName">Request overview<font color="Red">*</font></label>
+            <input name="requestOverview" ng-model="maintenance.request_overview" ng-maxlength="250"
+              class="form-control" type="text" required>
+            <span class="error-span inner-error ng-binding "
+              ng-show="createMaintenanceForm.requestOverview.$error.required && createMaintenanceForm.requestOverview.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Request overview is required</font>
+            </span>
+            <span ng-show="createMaintenanceForm.requestOverview.$error.maxlength"
+              class="error-span inner-error ng-binding">
+              <font color="Red">Max 250 characters allowed</font>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingFName">Request detail<font color="Red">*</font></label>
+            <textarea name="requestDetail" ng-maxlength="700" ng-model="maintenance.request_detail" class="form-control"
+              type="text" required></textarea>
+            <span class="error-span inner-error ng-binding "
+              ng-show="createMaintenanceForm.requestDetail.$error.required && createMaintenanceForm.requestDetail.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Request detail is required</font>
+            </span>
+            <span ng-show="createMaintenanceForm.requestDetail.$error.maxlength"
+              class="error-span inner-error ng-binding">
+              <font color="Red">Max 700 characters allowed</font>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingFName">Budget($)<font color="Red">*</font></label>
+            <!-- /^0|[1-9]\d*$/ -->
+            <input name="budget" ng-maxlength="10" ng-model="maintenance.budget" ng-pattern="/^[0-9]*$/" min="0"
+              class="form-control" type="text" required>
+            <span class="error-span inner-error ng-binding "
+              ng-show="createMaintenanceForm.budget.$error.required && createMaintenanceForm.budget.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Budget is Required</font>
+            </span>
+            <span class="text-danger" ng-show="createMaintenanceForm.budget.$error.pattern">
+              <font color="Red">Only positive numbers are allowed.</font>
+            </span>
+            <span ng-show="createMaintenanceForm.budget.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 10 digits are allowed</font>
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingFName">Due Date<font color="Red">*</font></label>
+            <!-- <input name="dueDate" valid-date ng-blur="checkDueDate(maintenance.due_date)" ng-model="maintenance.due_date" class="form-control" type="date" required>
+              <i class="fa fa-calendar-o" aria-hidden="true"></i> -->
+            <div type="text" class="form-control" name="dueDate" uib-datepicker-popup="{{format}}"
+              ng-model="maintenance.due_date" is-open="popup1.opened" datepicker-options="dateOptions" required
+              close-text="Close" alt-input-formats="altInputFormats">{{maintenance.due_date|date}}</div>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default maint_calender" ng-click="open1()"><i
+                  class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+
+            <span class="error-span inner-error ng-binding "
+              ng-show="createMaintenanceForm.dueDate.$error.required && createMaintenanceForm.dueDate.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Due Date is Required</font>
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <label class="control-label" for="product_categorie">Watchers List</label>
+            <div class="form-group text-left text-capitalize" isteven-multi-select input-model="watcher"
+              output-model="newArray2" button-label="icon fullName" item-label="icon fullName maker"
+              tick-property="ticked">
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 tags">
+            <div class="row">
+              <span ng-show="maintenance.watchers_list.length">Existing</span>
+              <ul>
+                <li ng-repeat="(key,value) in maintenance.watchers_list">
+                  <img ng-src="{{userImageUrl}}{{value.users_id.image}}" src="assets/images/no_image.png" alt="img">
+                  <span class="text-capitalize">{{value.users_id.firstname}} {{value.users_id.lastname}}</span>
+                  <!-- <button ng-click="removeWatcher(key)" class="fa fa-times" aria-hidden="true"></button> -->
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <span ng-show="newArray2.length">Replaced by</span>
+              <ul>
+                <li ng-repeat="(key,value) in newArray2">
+                  <img ng-src="{{userImageUrl}}{{value.image}}" src="assets/images/no_image.png" alt="img">
+                  <span class="text-capitalize">{{value.fullName}}</span>
+                  <button ng-click="removeWatcher(key)" class="fa fa-times" aria-hidden="true"></button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="upload-btn-wrapper">
+          <div class="modal-footer">
+            <button class="btn foward_req_btn" ladda="loginLoading" data-style="slide-right"
+              ng-click="agentForwardRequest(maintenance)">Forward request</button>
+          </div>
+    </form>
+  </div>
+</div>
+<!-- </div> -->

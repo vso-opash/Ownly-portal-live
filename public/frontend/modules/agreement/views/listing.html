@@ -1,0 +1,252 @@
+<div class="ContentWrap" ng-init="agreementListing();">
+  <div class="ContentHead d-flex">
+    <h2>Tenancies</h2>
+    <div class="ml-auto TenanciesButtons">
+      <button ng-if="userCurrentRold==roles.ownAgency||userCurrentRold==roles.agent" class="btn btn-import" type="file"
+        ngf-select="uploadCsv($file)" ngf-pattern="'.csv'" accept=".csv" ngf-max-height="1000" ngf-max-size="1MB">Bulk
+        upload</button>
+      <button ng-show={{isAgentAgencyOwner}} class="btn btn-property" ng-click="addAgreement()"><i
+          class="fa fa-plus-circle" aria-hidden="true"></i> New agreement</button>
+      <a ng-if="userCurrentRold==roles.ownAgency||userCurrentRold==roles.agent" class="btn btn-import"
+        title="Sample File" href="{{baseUrl}}/samples/agreement.csv" target="_blank"><i class="fa fa-download"
+          aria-hidden="true"></i> <span>Sample File</span></a>
+    </div>
+  </div>
+  <div class="RefineResults d-flex">
+    <!-- <div class="dropdown default-oder">
+          <button class="btn btn-secondary dropdown-toggle togle-default refine" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Refine results
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+            <button class="dropdown-item" type="button" ng-click="setOrderProperty('rent_price')">Rent Price</button>
+            <button class="dropdown-item" type="button" ng-click="setOrderProperty('tenancy_start_date')">Tenancy start Date</button>
+            <button class="dropdown-item" type="button" ng-click="setOrderProperty('agreement_id')">Agreement Id</button>
+          </div>
+        </div> -->
+    <div class="advanceSearchClass" ng-class="advanceSearchClass" ng-init="listingInitialize()">
+      <button class="btn btn-secondary dropdown-toggle togle-default refine" ng-click="openRefineSearch();showPopup()"
+        type="button" aria-haspopup="true" aria-expanded="false">
+        Refine results
+        <i class="fa fa-caret-down" aria-hidden="true"></i>
+      </button>
+      <div class="dropdown-menu" id="agrementSearchPopUp">
+        <div class="row">
+          <button style="margin-left: 243px;margin-top: 0px;" ng-click="hideSearchFilter()">
+            <i class="fa fa-close"></i>
+          </button>
+          <div class="col-sm-12">
+            <div class="refine_dropdown">
+              <form enctype="multipart/form-data" name="createPropertyStepTwo" ng-init="user_submit = false" role="form"
+                novalidate autocomplete="off">
+                <div class="refinehead horiLine">
+                  <input ng-model="searchAgree.agreement_id" type="text" name="search" placeholder="Agreement Id"
+                    class="search1">
+                  <!-- <span class="searchico">
+                                      <i class="fa fa-search" aria-hidden="true"></i>
+                                  </span> -->
+                </div>
+                <div class="clearfix"></div>
+                <div class="filters">
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                      <label class="control-label">Rent Price</label>
+                      <input id="administrative_area_level_1" type="text" ng-model="searchAgree.rent_price" name="state"
+                        class="form-control">
+                      <!-- <span class="error-span inner-error ng-binding" ng-show="createPropertyStepTwo.state.$error.required && createPropertyStepTwo.state.$touched"
+                                              class="error-span inner-error ng-binding">
+                                              <font color="Red">Property state is Required</font>
+                                          </span>
+                                          <span class="text-danger" ng-show="createPropertyStepTwo.state.$error.pattern">
+                                              <font color="Red">No special characters are allowed.</font>
+                                          </span> -->
+
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                      <label class="control-label">Terms</label>
+                      <select id="product_categorie1" placeholder="Select" name="product_categorie"
+                        ng-model="searchAgree.terms" class="form-control">
+                        <option value="" disabled>Select terms</option>
+                        <option value="1" selected>6 Months</option>
+                        <option value="2">Yearly</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- <div class="col-xs-12 col-sm-12 col-md-12">
+                                      <div class="form-group text-left">
+                                          <label class="control-label" for="settingFName">Date</label>
+
+                                          <div type="text" class="form-control" name="dueDate" uib-datepicker-popup="{{format}}" ng-model="property.created" is-open="popup1.opened"
+                                              datepicker-options="dateOptions" required close-text="Close"
+                                              alt-input-formats="altInputFormats">{{property.created|date}}</div>
+                                          <span class="input-group-btn">
+                                              <button style="margin-left: 221px;" type="button" class="btn btn-default maint_calender" ng-click="open1()">
+                                                  <i class="glyphicon glyphicon-calendar"></i>
+                                              </button>
+                                          </span>
+                                      </div>
+                                  </div> -->
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="text-left">
+                      <a ng-click="clearSearch()" href="javascript:void(0)">Clear filters</a>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button type="submit" ng-click="agreementSearch(searchAgree)"
+                      class="btn btn-property pull-right">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filtering-recent">
+      <ul>
+        <li class="active">
+          <a href="javascript:void(0);">All</a>
+        </li>
+        <li ng-if="userCurrentRold==roles.ownAgency||userCurrentRold==roles.agent">
+          <a ng-click="showBulkUploadList()" href="javascript:void(0);">Bulk agreement</a>
+        </li>
+        <!-- <li>
+                    <a href="javascript:void(0);">Management</a>
+                  </li> -->
+      </ul>
+    </div>
+    <div class="default-oder ml-auto">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle togle-default" type="button" id="dropdownMenu2"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{filterMatch}}
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </button>
+        <!-- <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" ng-click="filterBy('name')" type="button">Name</button>
+                    <button class="dropdown-item" type="button" ng-click="filterBy('city')">City</button>
+                    <button class="dropdown-item" ng-click="filterBy('address')" type="button">Address</button>
+                    
+                </div> -->
+        <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button" ng-click="setOrderProperty('rent_price')">Rent Price</button>
+          <button class="dropdown-item" type="button" ng-click="setOrderProperty('tenancy_start_date')">Tenancy
+            start Date</button>
+          <button class="dropdown-item" type="button" ng-click="setOrderProperty('agreement_id')">Agreement
+            Id</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ContentBody">
+    <div class="AgentListBox">
+      <!-- | orderBy:orderProperty -->
+      <div class="agnt_list clearfix" dir-paginate="agreement in agreementList| itemsPerPage:8"
+        current-page="pagination.current">
+        <div class="col-sm-2 col-xs-12 agnt_mainImg clearfix">
+          <a class="pointer" ng-click="goToDetail(agreement._id);">
+            <img
+              ng-if="agreement.property_id.image[0].path && agreement.property_id.image[0].is_from_my_file==false && agreement.property_id.image[0].is_from_csv_file==false"
+              ng-src="{{propertyImageUrl}}{{agreement.property_id.image[0].path}}" />
+            <img
+              ng-if="agreement.property_id.image[0].path && agreement.property_id.image[0].is_from_my_file==true  && agreement.property_id.image[0].is_from_csv_file==false"
+              src="{{fileImageUrl}}{{agreement.property_id.image[0].path}}" />
+            <img
+              ng-if="agreement.property_id.image[0].path && agreement.property_id.image[0].is_from_csv_file==true && agreement.property_id.image[0].is_from_my_file==false"
+              src="{{agreement.property_id.image[0].path}}" alt="propimg" />
+            <img ng-if="!agreement.property_id.image[0].path" src="assets/images/placeholder.jpg" />
+          </a>
+        </div>
+        <div class="col-sm-10  col-xs-12 detail apt-list clearfix">
+          <div class="d-flex">
+            <h5 class="text-capitalize"><span class="agree_list_color"><a class="pointer"
+                  ng-click="goToDetail(agreement._id);" style="color:#273349">{{agreement.property_address}}</a></span>
+            </h5>
+            <div class="cat_id ">
+              <span>
+                <img src="assets/images/property-id.svg" alt="id">Agreement #{{agreement.agreement_id}} </span>
+              <span><img src="assets/images/property-id.svg" alt="id">Property Id #
+                {{agreement.property_id.property_id}} </span>
+
+            </div>
+            <!-- {{loggedUser}}
+            {{agreement.created_by._id}} -->
+            <div class="d-flex detail agreement ml-auto"
+              ng-show="loggedUser== agreement.created_by._id || userData.agency_id == agreement.agency_id">
+              <!-- <div class="d-flex detail agreement ml-auto" ng-show="loggedUser== agreement.created_by._id"> -->
+              <a class="pointer" ng-click="goToeditAgreement(agreement._id)">
+                <i class="fa fa-pencil" title="Edit" aria-hidden="true"></i>
+              </a>
+              <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
+              <a class="pointer" ng-click="deleteAgreement(agreement.created_by._id,agreement._id);"><img title="Delete"
+                  src="assets/images/ios-trash.svg"></a>
+            </div>
+          </div>
+
+          <div class="d-flex agree_applist">
+            <div class="apt-list-details">
+              <ul>
+                <li class="apt-firstuser">
+                  <a class="pointer" ng-click="goToOwnerProfile(agreement.owner_id._id)"><img
+                      ng-src="{{userImageUrl}}{{agreement.owner_id.image}}" src="assets/images/no_image.png"></a>
+                </li>
+                <ul ng-repeat="tenant in agreement.tenants">
+                  <li class="apt-list-img">
+                    <a class="pointer" ng-click="goToTenantProfile(tenant.users_id._id)">
+                      <img ng-src="{{userImageUrl}}{{tenant.users_id.image}}" src="assets/images/no_image.png">
+                    </a>
+                  </li>
+                </ul>
+                <li class="agreeList_tenant" ng-show={{agreement.tenants.length==0}}>No tenants added</li>
+                <li class="apt-list-icon">
+                  <img src="/assets/images/dollar.png">
+                  <span>{{agreement.rent_price>0?agreement.rent_price:'-'}}</span>
+                </li>
+                <li class="apt-list-icon">
+                  <img src="/assets/images/calendar.png">
+                  <span>{{agreement.tenancy_start_date?agreement.tenancy_start_date:'-'|date}}</span>
+                </li>
+                <li class="apt-list-icon">
+                  <img src="/assets/images/search.png">
+                  <span ng-if="agreement.terms==1">Monthly</span>
+                  <span ng-if="agreement.terms==2">Yearly</span>
+                </li>
+                <li class="apt-list-icon">
+                  <img ng-show="agreement.case_valid" src="/assets/images/calendar-serch.png">
+                  <img ng-show="!agreement.case_valid && agreement.case_validity"
+                    src="/assets/images/calendar-serch-red.png">
+                  <span ng-show="agreement.case_validity">{{agreement.case_validity|date}}</span>
+                  <img ng-show="{{!agreement.case_validity}}" src="/assets/images/calendar-serch.png">
+                  <span ng-show="{{!agreement.case_validity}}">-</span>
+                </li>
+                <div ng-show="{{agreement.save_as_draft && loggedUser== agreement.created_by._id}}">
+                  <span class="right">
+                    <font color="Black">Saved as draft</font>
+                  </span>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="agreementList.length==0 && isSearchedAgreement == false "
+        class="alert alert-info fade in alert-dismissable">
+        <strong>No record to display</strong>
+      </div>
+      <div ng-if="agreementList.length==0 && isSearchedAgreement == true"
+        class="alert alert-info fade in alert-dismissable">
+        <strong>No searched results were found</strong>
+      </div>
+    </div>
+    <nav class="pagination-container marT20">
+      <div class="pagination">
+        <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true" boundary-links="true"
+          on-page-change="pageChanged(newPageNumber)">
+        </dir-pagination-controls>
+      </div>
+    </nav>
+  </div>
+</div>

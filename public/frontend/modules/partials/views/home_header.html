@@ -1,0 +1,507 @@
+<!-- <div ng-init="loggedInCheck()">
+    <nav ng-if="isLoggedIn==false" class="navbar navbar-default navbar-fixed-top inNavBar" role="navigation"> -->
+<div class="container">
+  <a href="javascript:void(0)" ui-sref="dashboard" ng-click="navSelect('Home')" id="logo" class="navbar-brand">
+    <img src="/assets/images/ownly-logo-white.svg" alt="" class="normal-logo logo-white" />
+    <!-- <img src="/assets/images/logo.png" alt="" class="normal-logo logo-white" /> -->
+    <img src="/assets/images/logo-black.png" alt="" class="normal-logo logo-black" />
+    <img src="/assets/images/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden" /> </a>
+  <div class="clearfix back">
+    <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="fa fa-bars"></span>
+    </button>
+    <div class="mobile-nav">
+      <div id="nav-icon2">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="mobile-nav-inr" ng-init="changeProfile()">
+        <div class="mobile-user">
+          <span>
+            <img ng-show="image.length>0" ng-src="{{imageUrl}}{{image}}">
+            <div ng-show="!image.length>0" class="default_70 col-sm-3">
+              {{firstName.charAt(0).toUpperCase()}}{{lastName.charAt(0).toUpperCase()}} </div>
+          </span>
+          <strong>{{firstName}} {{lastName}}</strong>
+        </div>
+        <!-- Staging -->
+        <ul ng-if="!isProd">
+          <li ng-if="((permission.indexOf('dashboard') != -1))" ng-click="navSelect('Home')"
+            ng-class="navBarOptionSelected=='Home'? 'active' : ''">
+            <a ng-click="goToDashboardFromNav()" class="sidebar icon-home pointer">
+              <img src="assets/images/home.png" /><img src="assets/images/home-mo.png" /> Home
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('property_listing') != -1))" ng-click="navSelect('Properties')"
+            ng-class="navBarOptionSelected=='Properties'? 'active' : ''">
+            <a ng-click="goToPropertyListingFromNav()" class="sidebar icon-prop pointer">
+              <img src="assets/images/property.png" /><img src="assets/images/property-mo.png" />Properties
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('agreement')!= -1))" ng-click="navSelect('Agreements')"
+            ng-class="navBarOptionSelected=='Agreements'? 'active' : ''">
+            <a ng-click="goToAgreementListing()" class="sidebar dropdown-toggle icon-agree pointer">
+              <img src="assets/images/agreement.png" /><img src="assets/images/agreement-mo.png" />Tenancies
+            </a>
+          </li>
+          <li
+            ng-if="((permission.indexOf('agency_profile')!= -1)) && isAssociatedWithAgency && current_role_id == roles_exist.agent"
+            ng-click="navSelect('agency_profile')" ng-class="navBarOptionSelected=='agency_profile'? 'active' : ''">
+            <a ng-click="goToMyAgencyFromNav()" class="sidebar icon-agency pointer">
+              <img src="assets/images/agency.png" /><img src="assets/images/agency-mo.png" />My agency
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('agents_listing')!=-1))" ng-click="navSelect('agents_listing')"
+            ng-class="navBarOptionSelected=='agents_listing'? 'active' : ''">
+            <a ng-click="goToAgentListingFromNav()" class="sidebar dropdown-toggle pointer">
+              <img src="assets/images/user.png" /><img src="assets/images/user-mo.png" />Agents
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('agencyhub')!=-1))" ng-click="navSelect('agencyhub')"
+            ng-class="navBarOptionSelected=='agencyhub'? 'active' : ''">
+            <a ng-click="goToAgencyHubFromNav()" class="sidebar dropdown-toggle pointer">
+              <img src="assets/images/calendar-search-grey.png" /><img
+                src="assets/images/calendar-search-mo.png" />AgencyHub
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('strata_users')!=-1))" ng-click="navSelect('strata_users')"
+            ng-class="navBarOptionSelected=='strata_users'? 'active' : ''">
+            <a ng-click="goToStrataUserListingFromNav()" class="sidebar dropdown-toggle pointer">
+              <img src="assets/images/user.png" /><img src="assets/images/user-mo.png" />Starta Users
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('tenants_listing')!=-1))" ng-click="navSelect('tenants_listing')"
+            ng-class="navBarOptionSelected=='tenants_listing'? 'active' : ''">
+            <a ng-click="goToTenantListingFromNav()" class="sidebar icon-tenants pointer">
+              <img src="assets/images/tenant.png" /><img src="assets/images/tenant-mo.png" />Tenants
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('trader_listing')!= -1))" ng-click="navSelect('trader_listing')"
+            ng-class="navBarOptionSelected=='trader_listing'? 'active' : ''">
+            <a ng-click="goToTraderListing()" class="sidebar icon-traders pointer">
+              <img src="assets/images/trader.png" /><img src="assets/images/trader-mo.png" />Traders
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('messages')!= -1))" ng-click="navSelect('TradMessagesers')"
+            ng-class="navBarOptionSelected=='TradMessagesers'? 'active' : ''">
+            <a ng-click="goToChatScreen()" class="sidebar icon-msg pointer">
+              <img src="assets/images/msg.png" /><img src="assets/images/msg-mo.png" />Messages
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('maintenance')!= -1))" ng-click="navSelect('Maintenance')"
+            ng-class="navBarOptionSelected=='Maintenance'? 'active' : ''">
+            <a ng-click="goToMaintenanceListing()" class="sidebar icon-maint pointer">
+              <img src="assets/images/maintenance.png" /><img src="assets/images/maintenance-mo.png" />Maintenance
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('noticeboard')!= -1))" ng-click="navSelect('noticeboard')"
+            ng-class="navBarOptionSelected=='noticeboard'? 'active' : ''">
+            <a href="/#!/notice_board_listing" class="sidebar dropdown-toggle icon-notice">
+              <img src="assets/images/notice.png" /><img src="assets/images/notice-mo.png" />Notice boards
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('myFile')!= -1))" ng-click="navSelect('My_files')"
+            ng-class="navBarOptionSelected=='My_files'? 'active' : ''">
+            <a ng-click="goToFileListing()" class="sidebar dropdown-toggle icon-files pointer">
+              <img src="assets/images/files.png" /><img src="assets/images/files-mo.png" />My Files
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('disputes')!= -1))" ng-click="navSelect('Disputes')"
+            ng-class="navBarOptionSelected=='Disputes'? 'active' : ''">
+            <a ng-click="goToDisputeListing()" class="sidebar dropdown-toggle icon-disputes pointer">
+              <img src="assets/images/disputes.png" /><img src="assets/images/disputes-mo.png" />Disputes
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('setting')!= -1))" ng-click="navSelect('Settings')"
+            ng-class="navBarOptionSelected=='Settings'? 'active' : ''">
+            <a ng-click="goToSettingPage()" class="sidebar dropdown-toggle icon-settings pointer">
+              <img src="assets/images/settings.png" /><img src="assets/images/settings-mo.png" />Edit Profile
+            </a>
+          </li>
+        </ul>
+        <!-- Production -->
+        <ul ng-if="isProd">
+          <li ng-if="((permission.indexOf('dashboard') != -1))" ng-click="navSelect('Home')"
+            ng-class="navBarOptionSelected=='Home'? 'active' : ''">
+            <a ng-click="goToDashboardFromNav()" class="sidebar icon-home pointer">
+              <img src="assets/images/home.png" /><img src="assets/images/home-mo.png" /> Home
+            </a>
+          </li>
+
+          <li
+            ng-if="((permission.indexOf('agency_profile')!= -1)) && isAssociatedWithAgency && current_role_id == roles_exist.agent"
+            ng-click="navSelect('agency_profile')" ng-class="navBarOptionSelected=='agency_profile'? 'active' : ''">
+            <a ng-click="goToMyAgencyFromNav()" class="sidebar icon-agency pointer">
+              <img src="assets/images/agency.png" /><img src="assets/images/agency-mo.png" />My agency
+            </a>
+          </li>
+
+          <li ng-if="((permission.indexOf('strata_users')!=-1))" ng-click="navSelect('strata_users')"
+            ng-class="navBarOptionSelected=='strata_users'? 'active' : ''">
+            <a ng-click="goToStrataUserListingFromNav()" class="sidebar dropdown-toggle pointer">
+              <img src="assets/images/user.png" /><img src="assets/images/user-mo.png" />Starta Users
+            </a>
+          </li>
+
+          <li ng-if="((permission.indexOf('trader_listing')!= -1))" ng-click="navSelect('trader_listing')"
+            ng-class="navBarOptionSelected=='trader_listing'? 'active' : ''">
+            <a ng-click="goToTraderListing()" class="sidebar icon-traders pointer">
+              <img src="assets/images/trader.png" /><img src="assets/images/trader-mo.png" />Traders
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('messages')!= -1))" ng-click="navSelect('TradMessagesers')"
+            ng-class="navBarOptionSelected=='TradMessagesers'? 'active' : ''">
+            <a ng-click="goToChatScreen()" class="sidebar icon-msg pointer">
+              <img src="assets/images/msg.png" /><img src="assets/images/msg-mo.png" />Messages
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('maintenance')!= -1))" ng-click="navSelect('Maintenance')"
+            ng-class="navBarOptionSelected=='Maintenance'? 'active' : ''">
+            <a ng-click="goToMaintenanceListing()" class="sidebar icon-maint pointer">
+              <img src="assets/images/maintenance.png" /><img src="assets/images/maintenance-mo.png" />Maintenance
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('myFile')!= -1))" ng-click="navSelect('My_files')"
+            ng-class="navBarOptionSelected=='My_files'? 'active' : ''">
+            <a ng-click="goToFileListing()" class="sidebar dropdown-toggle icon-files pointer">
+              <img src="assets/images/files.png" /><img src="assets/images/files-mo.png" />My Files
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('disputes')!= -1))" ng-click="navSelect('Disputes')"
+            ng-class="navBarOptionSelected=='Disputes'? 'active' : ''">
+            <a ng-click="goToDisputeListing()" class="sidebar dropdown-toggle icon-disputes pointer">
+              <img src="assets/images/disputes.png" /><img src="assets/images/disputes-mo.png" />Disputes
+            </a>
+          </li>
+          <li ng-if="((permission.indexOf('setting')!= -1))" ng-click="navSelect('Settings')"
+            ng-class="navBarOptionSelected=='Settings'? 'active' : ''">
+            <a ng-click="goToSettingPage()" class="sidebar dropdown-toggle icon-settings pointer">
+              <img src="assets/images/settings.png" /><img src="assets/images/settings-mo.png" />Edit Profile
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+      <ul class="nav navbar-nav pull-left">
+        <!-- <li> <a class="btn" id="make-small-nav"> <i class="fa fa-bars"></i> </a> </li> -->
+        <!-- search-box -->
+        <div class="search-box-head ">
+          <input ng-enter="goToGlobalSearch(search.Keyword)" ng-model="search.Keyword" type="text" name="search"
+            placeholder="search anything..." class="search">
+          <span class="time1">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <!-- /sb -->
+      </ul>
+    </div>
+    <div class="nav-no-collapse pull-right" id="header-nav">
+      <ul class="nav navbar-nav pull-right">
+        <!-- <li class="mobile-search"> <a class="btn"> <i class="fa fa-search"></i> </a>
+              <div class="drowdown-search">
+                <form role="search">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <i class="fa fa-search nav-search-icon"></i> </div>
+                </form>
+              </div>
+            </li> -->
+        <!-- ada{{messageData.length}} -->
+        <!-- ng-init="getUserMessages()" -->
+        <li>
+          <a class="btn pointer" ng-click="moveToPublicSite()">
+            <img src="/assets/images/home-top.png" height="25px" width="25px" />
+          </a>
+        </li>
+        <li class="dropdown" ng-init="getUserMessages()">
+          <a class="btn dropdown-toggle pointer" data-toggle="dropdown" ng-click="getUserMessages()">
+            <!-- ng-click="goToMsgChatScreen()" -->
+            <i class="fa fa-envelope-o"></i>
+            <span ng-show="messageData.length>0" class="count">{{messageData.length}}</span>
+          </a>
+          <ul class="dropdown-menu notifications-list msg">
+            <li class="pointer">
+              <div class="pointer-inner">
+                <div class="arrow"></div>
+              </div>
+            </li>
+            <li class="item-header-notif">Messages</li>
+            <li class="item first-item msgMargin" ng-repeat="message in messageData">
+              <a href="javascript:void(0)" ng-click="goToMsgChatScreen(message.from_user._id)">
+                <img ng-show="message.from_user.image.length>0 || message.from_user.image" class="msgImg"
+                  src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'"
+                  ng-src="{{imageUrl}}{{message.from_user.image}}" alt="" />
+                <div ng-show="!message.from_user.image.length>0 || !message.from_user.image" class="default_45 col-sm-1"
+                  alt="" style="font-size: 18px; position: absolute;">
+                  {{message.from_user.firstname.charAt(0).toUpperCase()}}{{message.from_user.lastname.charAt(0).toUpperCase()}}
+                </div>
+
+                <span class="msgHeading text-capitalize">{{message.message | limitTo: 200}}{{message.message.length >
+                  200 ? "..." : ""}}</span>
+                <span class="msgContent text-capitalize">{{message.subject| limitTo: 50}}{{message.subject.length > 50
+                  ? "..." : ""}}</span>
+              </a>
+              <span class="msgSpan">
+                <i class="fa fa-clock-o"></i> {{message.createdAt|date}}</span>
+            </li>
+            <div class="noMsg" ng-if="messageData.length==0">No new Message(s).</div>
+
+          </ul>
+
+        </li>
+        <li class="dropdown" ng-init="getUserNotification()">
+          <a class="btn dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-bell-o"></i>
+            <!-- <span ng-show="notificationData.length>0" class="count">{{notificationData.length}}</span> -->
+            <span ng-if="newNotificationCount>0" class="count">{{newNotificationCount}}</span>
+          </a>
+          <!-- <ul class="dropdown-menu  messages-list notifications-list" ng-scrollable="{ scrollX: 'none', scrollY: 'right'}"  > -->
+          <ul class="dropdown-menu  messages-list notifications-list">
+            <li class="pointer">
+              <div class="pointer-inner">
+                <div class="arrow"></div>
+              </div>
+            </li>
+
+            <!-- ************************ -->
+            <div class="scrollbar" id="style-2">
+              <div class="force-overflow">
+                <li class="item-header-notif">Notifications </li>
+                <div class="noMsg" ng-if="newNotificationCount==0">No new Notifications.</div>
+                <li class="item first-item" ng-repeat="notify in unreadNotificationList| limitTo: 5"
+                  ng-if="newNotificationCount > 0">
+                  <a ng-if="(notify.to_users && notify.to_users.length > 0 && notify.to_users[0].is_read === false ) && (!notify.from_user.image.length>0 || !notify.from_user.image)"
+                    href="javascript:void(0)" ng-click="goToNotificationRelatedPage(notify)">
+
+                    <span ng-show="!notify.from_user.image.length>0 || !notify.from_user.image"
+                      class="cricle-txt default_45 col-sm-2" alt="">
+                      {{notify.from_user.firstname.charAt(0).toUpperCase()}}{{notify.from_user.lastname.charAt(0).toUpperCase()}}
+                    </span>
+                    <span style="margin-top:-10px;" class="content ">
+                      <span class="content-headline"> {{notify.subject}}
+                        <!-- margin-left: 65px; -->
+                      </span>
+                      <span class="content-text">{{notify.message | limitTo :
+                        80}}{{notify.message.length > 80
+                        ? "..." : ""}}
+                      </span>
+                    </span>
+                    <span class="time">
+                      <i class="fa fa-clock-o"></i>{{notify.createdAt|date}}</span>
+                  </a>
+                  <a ng-if="notify.from_user.image.length>0" href="javascript:void(0)"
+                    ng-click="goToNotificationRelatedPage(notify)">
+                    <!-- ng-click="goToNotificationRelatedPage(notify)" -->
+                    <!-- <div> -->
+                    <img style="margin-left: -19px;" ng-show="notify.from_user.image.length>0"
+                      ng-src="{{imageUrl}}{{notify.from_user.image}}" class="msgs-sqr-img" alt="" />
+
+                    <span style="margin-top:-10px;" class="content ">
+                      <span class="content-headline" ng-if="notify.unbold == 'yes'" style="font-weight: 400;">
+                        {{notify.subject}} </span>
+                      <span class="content-headline" ng-if="notify.unbold == 'no'"> {{notify.subject}} </span>
+                      <span class="content-text">{{notify.message | limitTo : 80}}{{notify.message.length > 80
+                        ? "..." : ""}}
+                      </span>
+                    </span>
+                    <span class="time">
+                      <i class="fa fa-clock-o"></i>{{notify.createdAt|date}}</span>
+                  </a>
+                </li>
+                <a ng-if="newNotificationCount>5" style="cursor:pointer" ng-click="goToNotificationSeparatePage()">
+                  <div
+                    style="text-align:center;background-color:#0b6dc4;color:white;height:50px;padding-top: 15px;font-weight: 500;">
+                    <span>View
+                      all</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- ************************ -->
+          </ul>
+        </li>
+        <li class="profile-dropdown" ng-init="getUserEmail();" id="open_user_menu_li">
+          <a href="javascript:void(0);" id="skipIntroBTN">
+            <img ng-show="image.length>0" ng-src="{{imageUrl}}{{image}}" alt="" />
+            <div ng-show="!image.length>0" class="default_35 col-sm-3">
+              {{firstName.charAt(0).toUpperCase()}}{{lastName.charAt(0).toUpperCase()}} </div>
+            <b class="caret"></b>
+          </a>
+
+        </li>
+        <!-- <li class="hidden-xs"> <a class="btn"> <i class="fa fa-cog"></i> </a> </li> -->
+        <!-- <li class="dropdown profile-dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"> <img src="/assets/images/scarlet-159.png" alt="" /><b class="caret"></b> </a> -->
+        <!-- <ul class="dropdown-menu left-adj">
+                        <li><a href="/#!/user_profile"><i class="fa fa-user"></i>Profile</a></li>
+                        <li><a href="javascript:void(0);"><i class="fa fa-cog"></i>Settings</a></li>
+                        <li><a href="javascript:void(0);"><i class="fa fa-envelope-o"></i>Messages</a></li>
+                        <li><a ng-click="logOut();" href="javascript:void(0);"><i class="fa fa-power-off"></i>Logout</a></li>
+                    </ul> -->
+        <!-- </li> -->
+        <!--  <li class="hidden-xxs"> <a class="btn"> <i class="fa fa-power-off"></i> </a> </li> -->
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+<div id="thepopupdiv" style="display: none" ng-init="changeProfile()">
+  <div class="profile-menu" id="profile_left_menu">
+    <a id="fadeOut" class="close-profile pointer">
+      <img src="/assets/images/close-profile.png">
+    </a>
+    <div class="profile-header">
+      <img ng-show="image.length>0" ng-src="{{imageUrl}}{{image}}">
+      <div ng-show="!image.length>0" class="default_70 col-sm-3">
+        {{firstName.charAt(0).toUpperCase()}}{{lastName.charAt(0).toUpperCase()}} </div>
+      <h4>{{firstName}} {{lastName}}
+        <span>{{userEmail}}</span>
+      </h4>
+      <!-- <button ng-show="false" class="btn btn-switch" id="myBtn">Switch Profile</button> -->
+      <!-- ng-show="masterRoleId==roleRecord.trader||masterRoleId==agent||masterRoleId==ownAgency||masterRoleId==roleRecord.runStrataManagementCompany||masterRoleId==roleRecord.workForStrataManagementCompany" -->
+      <button ng-show="!superLoginUser" class="btn btn-switch" id="myBtn">Switch Profile</button>
+      <!-- <button class="btn btn-switch" id="myBtn">Switch Profile</button> -->
+      <!-- tenant role : {{roleRecord.tenant}}
+      agent role : {{roleRecord.agent}}
+      {{roleId}} -->
+      <h4 ng-if="roleRecord.agent==roleId">Property manager</h4>
+      <h4 ng-if="roleRecord.ownAgency==roleId">Agency principle</h4>
+      <h4 ng-if="roleRecord.tenant==roleId">Tenant</h4>
+      <h4 ng-if="roleRecord.owner==roleId">Property owner</h4>
+      <h4 ng-if="roleRecord.trader==roleId">Trader</h4>
+      <h4 ng-if="roleRecord.runStrataManagementCompany==roleId">Strata Principal</h4>
+      <h4 ng-if="roleRecord.workForStrataManagementCompany==roleId">Strata Manager</h4>
+      <!-- <button ng-show="masterRoleId==agent||masterRoleId==ownAgency" class="btn btn-switch" id="myBtn">Switch Profile</button> -->
+      <!-- <button class="btn btn-switch" id="myBtn">Switch Profile</button> -->
+      <!-- <p ng-if="roleRecord.agent==roleId"> Agent</p>
+      <p ng-if="roleRecord.ownAgency==roleId"> Agency</p>
+      <p ng-if="roleRecord.tenant==roleId"> Tenant</p>
+      <p ng-if="roleRecord.owner==roleId"> Owner</p>
+      <p ng-if="roleRecord.trader==roleId"> Trader</p> -->
+    </div>
+    <div class="profile-links">
+      <ul>
+        <li>
+          <a class="pointer" href="{{profile}}">Profile</a>
+        </li>
+        <li>
+          <a class="pointer" href="javascript:void(0);" ng-click="goToChatScreen()">Messages
+            <!-- <span>2</span> -->
+          </a>
+        </li>
+        <li ng-if="roleRecord.trader==roleId">
+          <a class="pointer" href="{{signup_link}}">Invite customer
+          </a>
+        </li>
+        <!-- removed for now -->
+        <!-- <li>
+          <a class="pointer" href="javascript:void(0);">Help & Support</a>
+        </li> -->
+        <!-- removed for now -->
+        <li>
+          <a class="pointer" href="javascript:void(0);">Contact Us</a>
+        </li>
+        <!-- removed for now -->
+        <!-- <li ng-show={{isAgency}}>
+          <a class="pointer" href="javascript:void(0);">Billing Information</a>
+        </li> -->
+        <!-- removed for now -->
+        <li>
+          <a class="pointer" ng-click="goToSettings()">Edit Profile</a>
+        </li>
+        <li>
+          <a class="pointer" ng-click="logOut();">Sign Out</a>
+        </li>
+      </ul>
+    </div>
+    <!-- <p class="cpyrt">Copyright <i class="fa fa-copyright" aria-hidden="true"></i> 2018 <i class="fa fa-circle size" aria-hidden="true"></i> Syncitt</p> -->
+  </div>
+</div>
+<div id="myModal" class="modal switch_profile" ng-init="userRoleInfo()">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h3>Switch profile</h3>
+    </div>
+    <div class="modal-body clearfix" ng-repeat="role in roleInfo">
+      <div class="switchmodal_profile">
+        <img class="img-circle" ng-show="image.length>0" ng-src="{{imageUrl}}{{userImage}}" style="float:left">
+      </div>
+      <div ng-show="!image.length>0" class="default_70 col-sm-3">
+        {{fName.charAt(0).toUpperCase()}}{{lName.charAt(0).toUpperCase()}}
+      </div>
+      <div class="switchmodalcontent" ng-class="{{role.role_id._id == userActiveRoleId}}?'myActiveRole':''">
+        <h3>{{fName}} {{lName}} - {{role.role_id.description}} </h3>
+        <p ng-show="!role.LastLoginRoles.length">Not Logged in yet</p>
+        <p ng-show="role.LastLoginRoles.length">Last signed in,{{role.LastLoginRoles[0].updatedAt | date:'medium'}}</p>
+      </div>
+      <button type="button" class="btn btn-switch" ng-click="switchRolePermission(role.role_id._id)">Switch</button>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    var fade = function () {
+      $('#thepopupdiv').fadeIn(700);
+    }
+    $("#skipIntroBTN").click(function () {
+      fade();
+      //clearTimeout(timer);
+    });
+    $("#fadeOut").click(function () {
+      $('#thepopupdiv').fadeOut(700);
+
+    });
+    window.addEventListener('click', function (e) {
+      if (e && e.target) {
+        if (document.getElementById('open_user_menu_li').contains(e.target) || document.getElementById('profile_left_menu').contains(e.target)) {
+        } else {
+          $('#thepopupdiv').fadeOut(700);
+        }
+      } else {
+        $('#thepopupdiv').fadeOut(700);
+      }
+    });
+  });
+
+
+  // Get the modal
+  var modal = document.getElementById('myModal');
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn")
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+  // When the user clicks the button, open the modal
+  btn.onclick = function () {
+    console.log('button on click function :: switch profile => ');
+    modal.style.display = "block";
+    thepopupdiv.style.display = "none";
+  }
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  $(document).ready(function () {
+    $('#nav-icon2').click(function () {
+      $('#nav-icon2').parent().toggleClass('open');
+    });
+  });
+
+
+</script>

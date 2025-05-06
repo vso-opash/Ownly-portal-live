@@ -1,0 +1,95 @@
+<div class="modal-content" style="width: 100%;" id="modal" ng-init="postNoticeDetail();">
+        <div class="modal-header">
+            <button class="close" type="button" ng-click="cancel()">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 id="myModalLabel" class="modal-title">
+                <h3>Add new post</h3>
+            </h3>
+        </div>
+        <div class="modal-body clearfix">
+    
+            <form novalidate="" name="addPostForm">
+                <div class="row  marT20">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group text-left">
+                            <label class="control-label" for="product_categorie">Post title</label>
+                            <input type="text" class="form-control" name="postTitle" ng-model="notice.title" maxlength="400">
+                            <span ng-show="notice.title.length>399" class="error-span inner-error ng-binding">
+                                    <font color="Red">Max 400 characters allowed</font>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2 col-sm-2 col-md-8 marB10">
+                        <div class="add_members">
+                            <label class="control-label" for="product_categorie">Add Members</label>
+                            <label class="check_container">
+                                <input type="checkbox" ng-change="onClickFn(allOption)" ng-model="checkboxModel[allOption]" checked="checked"> {{allOption}} ({{totalCount}})
+                                    <span class="checkmark"></span>
+                                </label>
+                            <div ng-repeat="(key,item) in data">
+                                <label class="check_container">{{item.name}}
+                                    <input type="checkbox" ng-change="onClickFn(item)" ng-model="checkboxModel[item]" checked="checked"> {{Items[key].name}}
+                                    <div class="count" ng-if="Items[key].name=='Agent'">({{agentCount}})</div>
+                                    <div class="count" ng-if="Items[key].name=='Tenant'">({{tenantCount}})</div>
+                                    <div class="count" ng-if="Items[key].name=='Owner'">({{ownerCount}})</div>
+                                    <div class="count" ng-if="Items[key].name=='Agency Owner'">({{agencyCount}})</div>
+                                    <span class="checkmark">                          
+                                </label>
+                            </div>
+                          
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <!-- <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group text-left">
+                            <label class="control-label" for="product_categorie">Agenda and resolutions</label>
+                            <textarea class="form-control" rows="4" name="agenda" ng-model="notice.agenda_resolution" maxlength="1000"> </textarea>
+                            <span ng-show="notice.agenda_resolution.length>999" class="error-span inner-error ng-binding">
+                                <font color="Red">Max 1000 characters allowed</font>
+                        </span>
+                        </div>
+                    </div>
+                </div> -->
+    
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group text-left">
+                            <label class="control-label" for="product_categorie">Post details / descriptions</label>
+                            <textarea class="form-control" name="description" ng-model="notice.description" maxlength="1000"> </textarea>
+                            <span ng-show="notice.description.length>999" class="error-span inner-error ng-binding">
+                                    <font color="Red">Max 1000 characters allowed</font>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group text-left">
+                            <label class="control-label marB10" for="product_categorie">Do you want to enable thread for this post?</label>
+                            <div class="toggleSwitch">
+                                <label class="switch">
+                                    <input checked="" type="checkbox" ng-model="notice.enable_thread_post">
+                                    <span class="slider round"></span>
+                                </label>
+                                <p ng-show="notice.enable_thread_post==true">Yes, allow thread</p>
+                                <p ng-show="notice.enable_thread_post==false">No, not allow thread</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+    
+                <div class="modal-footer">
+                    <button class="btn btn-savechanges" ng-click="editNoticePost(notice)">Submit request</button>
+                </div>
+            </form>
+        </div>
+    
+    </div>

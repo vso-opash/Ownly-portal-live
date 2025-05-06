@@ -1,0 +1,696 @@
+<!-- tabs -->
+<div class="ContentWrap" ng-init="getTraderList(1);">
+  <div class="ContentHead d-flex">
+    <h2>Service Traders</h2>
+    <div class="ml-auto TenanciesButtons"></div>
+  </div>
+  <div class="RefineResults d-flex">
+    <div ng-class="advanceSearchClass">
+      <button class="btn btn-secondary dropdown-toggle togle-default refine" type="button" ng-click="showPopup()"
+        id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Refine results
+        <i class="fa fa-caret-down" aria-hidden="true"></i>
+      </button>
+      <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2" id="traderSearchPopUp">
+        <div class="row">
+          <button style="margin-left: 243px;margin-top: 0px;" ng-click="hideSearchFilter()"><i
+              class="fa fa-close"></i></button>
+          <div class="col-sm-12 agentList">
+            <div class="refine_dropdown">
+              <form enctype="multipart/form-data" name="searchTraderForm" ng-init="user_submit = false" role="form"
+                novalidate autocomplete="off">
+                <div class="refinehead horiLine">
+                  <input ng-model="trader.name" type="text" name="search" placeholder="Name" class="search1">
+                  <span class="searchico">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="filters">
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                      <label class="control-label">Services / Skills</label>
+                      <select class="form-control" name="service_selection" ng-model="trader.service_selection">
+                        <option value="{{list._id}}" ng-repeat="list in serviceList">{{list.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                      <label class="control-label">City</label>
+                      <input id="locality" type="text" ng-model="trader.city" name="city" class="form-control"
+                        ng-maxlength="25">
+                      <!-- <span class="error-span inner-error ng-binding" ng-show="searchTraderForm.city.$error.required && searchTraderForm.city.$touched"
+                                        class="error-span inner-error ng-binding">
+                                        <font color="Red">Trader city is Required</font>
+                                      </span> -->
+                      <span class="error-span inner-error ng-binding" ng-show="searchTraderForm.city.$error.pattern"
+                        class="error-span inner-error ng-binding">
+                        <font color="Red">Trader city must contain alphabet</font>
+                      </span>
+                      <span ng-show="searchTraderForm.city.$error.maxlength" class="error-span inner-error ng-binding">
+                        <font color="Red">Max 25 characters allowed</font>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                      <label class="control-label">State</label>
+                      <input id="administrative_area_level_1" type="text" ng-model="trader.state" name="state"
+                        class="form-control" ng-maxlength="35">
+                      <!-- <span class="error-span inner-error ng-binding" ng-show="searchTraderForm.state.$error.required && searchTraderForm.state.$touched"
+                                        class="error-span inner-error ng-binding">
+                                        <font color="Red">Trader state is Required</font>
+                                      </span> -->
+                      <span class="error-span inner-error ng-binding" ng-show="searchTraderForm.state.$error.pattern"
+                        class="error-span inner-error ng-binding">
+                        <font color="Red">Trader state must contain alphabet</font>
+                      </span>
+                      <span ng-show="searchTraderForm.state.$error.maxlength" class="error-span inner-error ng-binding">
+                        <font color="Red">Max 35 characters allowed</font>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                      <label class="control-label" for="settingLName">Postal Code</label>
+                      <input class="form-control frmInput margin_in text-capitalize" name="zipcode"
+                        ng-model="trader.zipCode" placeholder="Postal Code" type="text" ng-pattern="/^[0-9]{1,4}$/"
+                        ng-maxlength="4">
+                      <!-- <span ng-show="searchTraderForm.zipcode.$touched && searchTraderForm.zipcode.$error.required" class="redb">
+                                        <font color="Red">Postal Code is required.</font>
+                                      </span> -->
+                      <span class="error-span inner-error ng-binding" ng-show="searchTraderForm.zipcode.$error.pattern"
+                        class="error-span inner-error ng-binding">
+                        <font color="Red">Postal Code must be number</font>
+                      </span>
+                      <span ng-show="searchTraderForm.zipcode.$error.maxlength"
+                        class="error-span inner-error ng-binding">
+                        <font color="Red">Max 4 digits allowed</font>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="text-left">
+                      <a ng-click="clearSearch()" href="javascript:void(0)">Clear filters</a>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button type="submit" ng-click="traderSearch(trader)"
+                      class="btn btn-property pull-right">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filtering-recent">
+      <ul>
+        <li ng-click="selected=1" ng-class="selected==1?'active':''">
+          <a ng-click="getTraderList(1)" href="javascript:void(0);">All</a>
+        </li>
+        <li ng-click="selected=2" ng-class="selected==2?'active':''">
+          <a ng-click="getSavedTraders();" href="javascript:void(0);">Saved</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sort-grid ml-auto">
+      <div class="dropdown default-oder">
+        <button class="btn btn-secondary dropdown-toggle togle-default" type="button" id="dropdownMenu2"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{filterMatch}}
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button" ng-click="setOrderTrader('firstname')">Name</button>
+          <button class="dropdown-item" type="button" ng-click="setOrderTrader('city')">City</button>
+          <button class="dropdown-item" type="button" ng-click="setOrderTrader('address')">Address</button>
+          <!-- <button class="dropdown-item" type="button">Something else here</button> -->
+        </div>
+      </div>
+      <span class="view-as">
+        <!-- <a href="javascript:void(0)" ng-click="showListView();">
+                      <i class="fa fa-bars"></i>
+                    </a>
+                    <a href="javascript:void(0);" ng-click="showGrideView();" id="">
+                      <i class="fa fa-th" aria-hidden="true"></i>
+                    </a> -->
+        <a href="javascript:void(0);" ng-click="showMapLocation()" id="">
+          <i class="fa fa-map-marker" aria-hidden="true"></i>
+        </a>
+      </span>
+    </div>
+  </div>
+  <div class="ContentBody" ng-if="!savedTradersList">
+    <div class="row" ng-if="listView">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12"
+        dir-paginate="trader in traderList| itemsPerPage:8| orderBy:orderTenant" current-page="pagination.current"
+        total-items="totalRecord">
+        <!-- total-items="totalRecord" -->
+        <div class="service_trader marT20 clearfix inspection">
+          <div class="contact_info contact_info-height">
+            <div class="img-width inspection">
+              <a class="pointer" href="/#!/trader_profile/{{trader.data._id}}">
+                <img class="img-circle" ng-src="{{imageUrl}}{{trader.data.image}}" alt=""
+                  ng-show="trader.data.image.length>0">
+              </a>
+              <span ng-class="trader.data.is_online == true ? 'colorGreen_tenant' : 'colorRed'"></span>
+              <a ng-show="!trader.data.image.length>0 || !trader.data.image" class="pointer"
+                href="/#!/trader_profile/{{trader.data._id}}">
+                <div class="default_121">
+                  {{trader.data.firstname.charAt(0).toUpperCase()}}{{trader.data.lastname.charAt(0).toUpperCase()}}
+                </div>
+              </a>
+            </div>
+            <a class="pointer" href="/#!/trader_profile/{{trader.data._id}}">
+              <!-- <h5 class="text-capitalize">{{trader.data.business_name}}</h5> -->
+              <h5 class="text-capitalize">
+                {{trader.data.business_name ? trader.data.business_name : trader.data.firstname + ' ' + trader.data.lastname}}
+              </h5>
+              <!-- <h5 class="text-capitalize">{{trader.data.firstname}} {{trader.data.lastname}}</h5> -->
+            </a>
+            <div class="rating">
+              <span uib-rating ng-model="trader.data.averageRate" max="max" read-only="true"
+                on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']"
+                aria-labelledby="default-rating"></span>
+            </div>
+            <div class="clearfix"></div>
+            <p>{{trader.data.averageRate?trader.data.averageRate:0}} from
+              {{trader.data.totalReviewLength?trader.data.totalReviewLength:0}} reviews</p>
+            <div class="clearfix"></div>
+            <!-- <p>{{trader.data.about_user}}</p> -->
+            <p ng-if="trader.data.about_user" class="text-capitalize">{{trader.data.about_user| limitTo
+                    :25}}{{trader.data.about_user.length > 25 ? "..." : ""}}</p>
+            <ul class="ser_cate"
+              ng-show="trader.data.categories_id.length && trader.data.hasOwnProperty('categories_id')">
+              <li>
+                <span class="margin-between ng-binding ng-scope"
+                  ng-repeat="(key,cat) in trader.data.categories_id | limitTo : 2 : 0">
+                  <a ng-if="cat && cat.name" href="javascript:void(0);">
+                    {{cat.name.length > 25 ? (cat.name | limitTo:25) + "..." : cat.name}}
+                  </a>
+                </span>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="margin-between ng-binding ng-scope"
+                  ng-repeat="(key,cat) in trader.data.categories_id | limitTo : 2 : 2">{{
+                        cat.name.length > 25 ? (cat.name | limitTo:25) + "..." : cat.name}}</a>
+              </li>
+              <!-- <li>
+                      <a href="javascript:void(0);" class="margin-between" ng-repeat="(key,cat) in trader.data.categories_id | limitTo:3">{{cat.name}} -->
+              <!-- <p ng-if="key==2 && trader.data.categories_id.length>3" href="javascript:void(0);" >+{{trader.data.categories_id.length-3}}</p> -->
+              <!--</a>
+                    </li> -->
+            </ul>
+            <div class="send-message-division">
+              <button class="btn btn-property" ng-click="openSendMessage(trader.data._id,trader.data.firstname)">Send
+                message</button>
+            </div>
+          </div>
+          <div class="fav-heart_blue">
+            <a href="javascript:void(0)" ng-class="{{trader.data.is_fav==1||selected==2}}?'active':''"
+              ng-click="addToFav(trader.data._id,trader.data.is_fav,selected)">
+              <!-- <img src="assets/images/Heart-outline.svg" alt="Heart"> -->
+            </a>
+          </div>
+        </div>
+      </div>
+      <div ng-if="traderList.length==0 && isSearchedTrader==false" class="alert alert-info fade in alert-dismissable"
+        style="margin-top:18px;">
+        <strong>No {{traderMsg}} Traders found to display</strong>
+      </div>
+      <div ng-if="traderList.length==0 && isSearchedTrader==true" class="alert alert-info fade in alert-dismissable"
+        style="margin-top:18px;">
+        <strong>No searched results were found</strong>
+        <!-- <div class="msgIndentation" ng-if="traderList.length==0">No Trader(s) are available in the system & if you want to see,you can see them by associating yourself with one
+              of the agency.
+              <a ui-sref='setting'>click here</a>
+              <span> to associate yourself with one of the agency.</span>
+            </div> -->
+      </div>
+      <div ng-if="grideView">
+        <div class="row" dir-paginate="trader in traderList| itemsPerPage:8| orderBy:orderTenant"
+          current-page="pagination.current">
+          <div class="col-lg-12 agentlist marT20 marB20 inspection clearfix ">
+            <div class="agent_cmpnylogolist">
+              <img src="{{userImageUrl}}{{trader.data.agency_id.logoImage}}" alt="">
+            </div>
+            <div class="col-lg-1 col-sm-2 agentpro">
+              <div class="agentimg_width inspection">
+                <img ng-src="{{imageUrl}}{{trader.data.image}}" alt="" ng-show="trader.data.image.length>0">
+                <div ng-show="!trader.data.image.length>0 || !trader.data.image" class="default_121">
+                  {{trader.data.firstname.charAt(0).toUpperCase()}}{{trader.data.lastname.charAt(0).toUpperCase()}}
+                </div>
+                <div class="colorGreen"></div>
+              </div>
+            </div>
+            <div class="col-lg-11 col-sm-10">
+              <div class="row">
+                <ul>
+                  <li class="">
+                    <h5> {{trader.data.firstname}} {{trader.data.lastname}} </h5>
+                    <p> {{trader.data.agency_id.name}}
+                    </p>
+                  </li>
+                  <li class="width23">
+                    <span>
+                      <h5>{{trader.data.totalPropertyCount}}</h5>
+                    </span>
+                    <p> No. of properties managed</p>
+                  </li>
+                  <!-- <li>
+                        <span>
+                          <h5>7 </h5>
+                        </span>
+                        <p> team member</p>
+                      </li> -->
+                  <!-- <li>
+                        <span>
+                          <h5>6 Monthly </h5>
+                        </span>
+                        <p> Ispection frequency</p>
+                      </li> -->
+                  <li>
+                    <div class="rating">
+                      <ul>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                      </ul>
+                    </div>
+                    <p>5 from 268 reviews</p>
+                  </li>
+                  <li>
+                    <button class="btn btn-start" ng-click="openSendMessage(trader.data._id,trader.data.firstname)">Send
+                      message</button>
+                  </li>
+                </ul>
+
+              </div>
+              <div class="thumblist">
+                <ul>
+                  <li class="thumb" ng-repeat="(key,image) in trader.data.images  | limitTo:4">
+                    <img src="{{userImageUrl}}{{image.url}}" alt="">
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div ng-if="traderList.length==0" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+            <strong>No Trader(s) are available in the system & if you want to see,you can see them by associating
+              yourself with one
+              of the agency.</strong>
+            <a ui-sref='setting'>click here</a>
+            <span> to associate yourself with one of the agency.</span>
+          </div>
+        </div>
+      </div>
+      <nav class="pagination-container marT20">
+        <div class="pagination">
+          <!--<a class="pagination-newer" href="javascript:void(0);">PREV</a>-->
+          <!-- <span class="pagination-inner">
+                              <a href="javascript:void(0);">1</a>
+                              <a class="pagination-active" href="javascript:void(0);">2</a>
+                              <a href="javascript:void(0);">3</a>
+                              <a href="javascript:void(0);">4</a>
+                              <a href="javascript:void(0);">5</a>
+                              <a href="javascript:void(0);">6</a>
+                          </span>
+                       <a class="pagination-older" href="javascript:void(0);"><i class="fa fa-angle-right" aria-hidden="true"></i></a> -->
+          <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true" boundary-links="true"
+            on-page-change="pageChanged(newPageNumber)">
+          </dir-pagination-controls>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <!-- <div class="ContentBody" ng-if="savedTradersList">
+    <div class="row" ng-if="listView">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12"
+        dir-paginate="trader in traderList| itemsPerPage:8| orderBy:orderTenant" current-page="pagination.current">
+        <div class="service_trader marT20 clearfix inspection">
+          <div class="contact_info contact_info-height">
+            <div class="img-width inspection">
+              <a class="pointer" href="/#!/trader_profile/{{trader._id}}">
+                <img class="img-circle" ng-src="{{imageUrl}}{{trader.image}}" alt="" ng-show="trader.image.length>0">
+              </a>
+              <span ng-class="trader.is_online == true ? 'colorGreen_tenant' : 'colorRed'"></span>
+              <a ng-show="!trader.image.length>0 || !trader.image" class="pointer"
+                href="/#!/trader_profile/{{trader._id}}">
+                <div class="default_121">
+                  {{trader.firstname.charAt(0).toUpperCase()}}{{trader.lastname.charAt(0).toUpperCase()}}
+                </div>
+              </a>
+            </div>
+            <a class="pointer" href="/#!/trader_profile/{{trader._id}}">
+              <h5 class="text-capitalize">
+                {{trader.business_name ? trader.business_name : trader.firstname + ' ' + trader.lastname}}
+              </h5>
+            </a>
+            <div class="rating">
+              <span uib-rating ng-model="trader.averageRate" max="max" read-only="true" on-hover="hoveringOver(value)"
+                on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+            </div>
+            <div class="clearfix"></div>
+            <p>{{trader.averageRate?trader.averageRate:0}} from
+              {{trader.totalReviewLength?trader.totalReviewLength:0}} reviews</p>
+            <div class="clearfix"></div>
+            <p ng-if="trader.about_user" class="text-capitalize">{{trader.about_user| limitTo
+                    :25}}{{trader.about_user.length > 25 ? "..." : ""}}</p>
+            <ul class="ser_cate" ng-show="trader.categories_id.length && trader.hasOwnProperty('categories_id')">
+              <li>
+                <span class="margin-between ng-binding ng-scope"
+                  ng-repeat="(key,cat) in trader.categories_id | limitTo : 2 : 0">
+                  <a ng-if="cat && cat.name" href="javascript:void(0);">
+                    {{cat.name.length > 25 ? (cat.name | limitTo:25) + "..." : cat.name}}
+                  </a>
+                </span>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="margin-between ng-binding ng-scope"
+                  ng-repeat="(key,cat) in trader.categories_id | limitTo : 2 : 2">{{
+                        cat.name.length > 25 ? (cat.name | limitTo:25) + "..." : cat.name}}</a>
+              </li>
+            </ul>
+            <div class="send-message-division">
+              <button class="btn btn-property" ng-click="openSendMessage(trader._id,trader.firstname)">Send
+                message</button>
+            </div>
+          </div>
+          <div class="fav-heart_blue">
+            <a href="javascript:void(0)" ng-class="{{trader.is_fav==1||selected==2}}?'active':''"
+              ng-click="addToFav(trader._id,trader.is_fav,selected)">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div ng-if="traderList.length==0 && isSearchedTrader==false" class="alert alert-info fade in alert-dismissable"
+        style="margin-top:18px;">
+        <strong>No {{traderMsg}} Traders found to display</strong>
+      </div>
+      <div ng-if="traderList.length==0 && isSearchedTrader==true" class="alert alert-info fade in alert-dismissable"
+        style="margin-top:18px;">
+        <strong>No searched results were found</strong>
+      </div>
+      <div ng-if="grideView">
+        <div class="row" dir-paginate="trader in traderList| itemsPerPage:8| orderBy:orderTenant"
+          current-page="pagination.current">
+          <div class="col-lg-12 agentlist marT20 marB20 inspection clearfix ">
+            <div class="agent_cmpnylogolist">
+              <img src="{{userImageUrl}}{{trader.agency_id.logoImage}}" alt="">
+            </div>
+            <div class="col-lg-1 col-sm-2 agentpro">
+              <div class="agentimg_width inspection">
+                <img ng-src="{{imageUrl}}{{trader.image}}" alt="" ng-show="trader.image.length>0">
+                <div ng-show="!trader.image.length>0 || !trader.image" class="default_121">
+                  {{trader.firstname.charAt(0).toUpperCase()}}{{trader.lastname.charAt(0).toUpperCase()}}
+                </div>
+                <div class="colorGreen"></div>
+              </div>
+            </div>
+            <div class="col-lg-11 col-sm-10">
+              <div class="row">
+                <ul>
+                  <li class="">
+                    <h5> {{trader.firstname}} {{trader.lastname}} </h5>
+                    <p> {{trader.agency_id.name}}
+                    </p>
+                  </li>
+                  <li class="width23">
+                    <span>
+                      <h5>{{trader.totalPropertyCount}}</h5>
+                    </span>
+                    <p> No. of properties managed</p>
+                  </li>
+                  <li>
+                    <div class="rating">
+                      <ul>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                      </ul>
+                    </div>
+                    <p>5 from 268 reviews</p>
+                  </li>
+                  <li>
+                    <button class="btn btn-start" ng-click="openSendMessage(trader._id,trader.firstname)">Send
+                      message</button>
+                  </li>
+                </ul>
+
+              </div>
+              <div class="thumblist">
+                <ul>
+                  <li class="thumb" ng-repeat="(key,image) in trader.images  | limitTo:4">
+                    <img src="{{userImageUrl}}{{image.url}}" alt="">
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div ng-if="traderList.length==0" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+            <strong>No Trader(s) are available in the system & if you want to see,you can see them by associating
+              yourself with one
+              of the agency.</strong>
+            <a ui-sref='setting'>click here</a>
+            <span> to associate yourself with one of the agency.</span>
+          </div>
+        </div>
+      </div>
+      <nav class="pagination-container marT20">
+        <div class="pagination">
+          <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true" boundary-links="true">
+          </dir-pagination-controls>
+        </div>
+      </nav>
+    </div>
+  </div> -->
+
+  <div class="ContentBody" ng-if="savedTradersList">
+    <div class="row" ng-if="listView">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12"
+        dir-paginate="trader in traderList| itemsPerPage:8| orderBy:orderTenant" current-page="pagination.current" x>
+        <!-- total-items="totalRecord" -->
+        <div class="service_trader marT20 clearfix inspection">
+          <div class="contact_info contact_info-height">
+            <div class="img-width inspection">
+              <a class="pointer" href="/#!/trader_profile/{{trader.data._id}}">
+                <img class="img-circle" ng-src="{{imageUrl}}{{trader.data.image}}" alt=""
+                  ng-show="trader.data.image.length>0">
+              </a>
+              <span ng-class="trader.data.is_online == true ? 'colorGreen_tenant' : 'colorRed'"></span>
+              <a ng-show="!trader.data.image.length>0 || !trader.data.image" class="pointer"
+                href="/#!/trader_profile/{{trader.data._id}}">
+                <div class="default_121">
+                  {{trader.data.firstname.charAt(0).toUpperCase()}}{{trader.data.lastname.charAt(0).toUpperCase()}}
+                </div>
+              </a>
+            </div>
+            <a class="pointer" href="/#!/trader_profile/{{trader.data._id}}">
+              <!-- <h5 class="text-capitalize">{{trader.data.business_name}}</h5> -->
+              <h5 class="text-capitalize">
+                {{trader.data.business_name ? trader.data.business_name : trader.data.firstname + ' ' + trader.data.lastname}}
+              </h5>
+              <!-- <h5 class="text-capitalize">{{trader.data.firstname}} {{trader.data.lastname}}</h5> -->
+            </a>
+            <div class="rating">
+              <span uib-rating ng-model="trader.averageRate" max="max" read-only="true" on-hover="hoveringOver(value)"
+                on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+            </div>
+            <div class="clearfix"></div>
+            <p>{{trader.averageRate?trader.averageRate:0}} from
+              {{trader.totalReviewLength?trader.totalReviewLength:0}} reviews</p>
+            <div class="clearfix"></div>
+            <!-- <p>{{trader.data.about_user}}</p> -->
+            <p ng-if="trader.data.about_user" class="text-capitalize">{{trader.data.about_user| limitTo
+                        :25}}{{trader.data.about_user.length > 25 ? "..." : ""}}</p>
+            <ul class="ser_cate"
+              ng-show="trader.data.categories_id.length && trader.data.hasOwnProperty('categories_id')">
+              <li>
+                <span class="margin-between ng-binding ng-scope"
+                  ng-repeat="(key,cat) in trader.data.categories_id | limitTo : 2 : 0">
+                  <a ng-if="cat && cat.name" href="javascript:void(0);">
+                    {{cat.name.length > 25 ? (cat.name | limitTo:25) + "..." : cat.name}}
+                  </a>
+                </span>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="margin-between ng-binding ng-scope"
+                  ng-repeat="(key,cat) in trader.data.categories_id | limitTo : 2 : 2">{{
+                            cat.name.length > 25 ? (cat.name | limitTo:25) + "..." : cat.name}}</a>
+              </li>
+              <!-- <li>
+                          <a href="javascript:void(0);" class="margin-between" ng-repeat="(key,cat) in trader.data.categories_id | limitTo:3">{{cat.name}} -->
+              <!-- <p ng-if="key==2 && trader.data.categories_id.length>3" href="javascript:void(0);" >+{{trader.data.categories_id.length-3}}</p> -->
+              <!--</a>
+                        </li> -->
+            </ul>
+            <div class="send-message-division">
+              <button class="btn btn-property" ng-click="openSendMessage(trader.data._id,trader.data.firstname)">Send
+                message</button>
+            </div>
+          </div>
+          <div class="fav-heart_blue">
+            <a href="javascript:void(0)" ng-class="{{trader.data.is_fav==1||selected==2}}?'active':''"
+              ng-click="addToFav(trader.data._id,trader.data.is_fav,selected)">
+              <!-- <img src="assets/images/Heart-outline.svg" alt="Heart"> -->
+            </a>
+          </div>
+        </div>
+      </div>
+      <div ng-if="traderList.length==0 && isSearchedTrader==false" class="alert alert-info fade in alert-dismissable"
+        style="margin-top:18px;">
+        <strong>No {{traderMsg}} Traders found to display</strong>
+      </div>
+      <div ng-if="traderList.length==0 && isSearchedTrader==true" class="alert alert-info fade in alert-dismissable"
+        style="margin-top:18px;">
+        <strong>No searched results were found</strong>
+        <!-- <div class="msgIndentation" ng-if="traderList.length==0">No Trader(s) are available in the system & if you want to see,you can see them by associating yourself with one
+                  of the agency.
+                  <a ui-sref='setting'>click here</a>
+                  <span> to associate yourself with one of the agency.</span>
+                </div> -->
+      </div>
+      <div ng-if="grideView">
+        <div class="row" dir-paginate="trader in traderList| itemsPerPage:8| orderBy:orderTenant"
+          current-page="pagination.current">
+          <div class="col-lg-12 agentlist marT20 marB20 inspection clearfix ">
+            <div class="agent_cmpnylogolist">
+              <img src="{{userImageUrl}}{{trader.data.agency_id.logoImage}}" alt="">
+            </div>
+            <div class="col-lg-1 col-sm-2 agentpro">
+              <div class="agentimg_width inspection">
+                <img ng-src="{{imageUrl}}{{trader.data.image}}" alt="" ng-show="trader.data.image.length>0">
+                <div ng-show="!trader.data.image.length>0 || !trader.data.image" class="default_121">
+                  {{trader.data.firstname.charAt(0).toUpperCase()}}{{trader.data.lastname.charAt(0).toUpperCase()}}
+                </div>
+                <div class="colorGreen"></div>
+              </div>
+            </div>
+            <div class="col-lg-11 col-sm-10">
+              <div class="row">
+                <ul>
+                  <li class="">
+                    <h5> {{trader.data.firstname}} {{trader.data.lastname}} </h5>
+                    <p> {{trader.data.agency_id.name}}
+                    </p>
+                  </li>
+                  <li class="width23">
+                    <span>
+                      <h5>{{trader.data.totalPropertyCount}}</h5>
+                    </span>
+                    <p> No. of properties managed</p>
+                  </li>
+                  <!-- <li>
+                            <span>
+                              <h5>7 </h5>
+                            </span>
+                            <p> team member</p>
+                          </li> -->
+                  <!-- <li>
+                            <span>
+                              <h5>6 Monthly </h5>
+                            </span>
+                            <p> Ispection frequency</p>
+                          </li> -->
+                  <li>
+                    <div class="rating">
+                      <ul>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                        <li>
+                          <i class="fa fa-star"></i>
+                        </li>
+                      </ul>
+                    </div>
+                    <p>5 from 268 reviews</p>
+                  </li>
+                  <li>
+                    <button class="btn btn-start" ng-click="openSendMessage(trader.data._id,trader.data.firstname)">Send
+                      message</button>
+                  </li>
+                </ul>
+
+              </div>
+              <div class="thumblist">
+                <ul>
+                  <li class="thumb" ng-repeat="(key,image) in trader.data.images  | limitTo:4">
+                    <img src="{{userImageUrl}}{{image.url}}" alt="">
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div ng-if="traderList.length==0" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+            <strong>No Trader(s) are available in the system & if you want to see,you can see them by associating
+              yourself with one
+              of the agency.</strong>
+            <a ui-sref='setting'>click here</a>
+            <span> to associate yourself with one of the agency.</span>
+          </div>
+        </div>
+      </div>
+      <nav class="pagination-container marT20">
+        <div class="pagination">
+          <!--<a class="pagination-newer" href="javascript:void(0);">PREV</a>-->
+          <!-- <span class="pagination-inner">
+                                  <a href="javascript:void(0);">1</a>
+                                  <a class="pagination-active" href="javascript:void(0);">2</a>
+                                  <a href="javascript:void(0);">3</a>
+                                  <a href="javascript:void(0);">4</a>
+                                  <a href="javascript:void(0);">5</a>
+                                  <a href="javascript:void(0);">6</a>
+                              </span>
+                           <a class="pagination-older" href="javascript:void(0);"><i class="fa fa-angle-right" aria-hidden="true"></i></a> -->
+          <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true" boundary-links="true">
+          </dir-pagination-controls>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+
+</div>

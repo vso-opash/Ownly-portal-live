@@ -1,0 +1,36 @@
+<div class="crop-image modal-dialog modal-lg">
+    <div class="modal-content" style="width: 100%;" id="modal">
+        <div class="modal-header">
+            <button class="close" type="button" ng-click="$dismiss('cancel')">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 id="myModalLabel" class="modal-title">
+                <strong> Crop Your Image </strong>
+            </h3>
+        </div>
+        <form enctype="multipart/form-data" name="createUserForm" role="form" novalidate autocomplete="off"></form>
+        <div class="modal-body">
+            <div class="cropArea">
+                <ui-cropper image="myImage" area-type="circle" aspect-ratio="1" result-image="myCroppedImage"
+                    result-image-size='{w: 400,h: 400}' init-max-area="true" area-init-size="{ w: 400, h: 400 }"
+                    result-image-size="{ w: 400, h: 400 }, { w: 400, h: 400 }" result-image-format="image/jpeg"></ui-cropper>
+            </div>
+            <!-- area-min-size="selMinSize" -->
+            <!-- <div class="cropArea">
+                <img-crop image="myImage" result-image="myCroppedImage" area-type="square" area-min-size="400" area-min-size="600" ></img-crop>
+            </div> -->
+            <!-- area-min-size="2000" area-max-size="2000" -->
+            <div style="display: none;"><img ng-src="{{myCroppedImage}}" /></div>
+            <div ng-show="!myCroppedImage">Invalid file.</div>
+        </div>
+        <div class="modal-footer" ng-show="myCroppedImage">
+            <button class="btn" ng-click="$dismiss('cancel')">Cancel</button>
+            <button class="btn btn-info" ng-click="upload_crop_image(myCroppedImage)">Crop</button>
+        </div>
+
+        </form>
+    </div>
+    <script>
+        $("#modal .close ").click()
+    </script>
+</div>

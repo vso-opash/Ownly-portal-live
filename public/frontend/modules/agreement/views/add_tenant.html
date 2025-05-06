@@ -1,0 +1,134 @@
+<div class="modal-content" style="width: 100%" id="modal">
+    <div class="modal-header">
+      <button class="close" type="button" ng-click="cancel()">
+        <span aria-hidden="true">×</span>
+      </button>
+      <h3 id="myModalLabel" class="modal-title">
+        <strong>Add new tenant</strong>
+      </h3>
+    </div>
+    <div class="modal-body" ng-init="getAgencyPropertyForTenant();">
+      <form enctype="multipart/form-data" name="createTenantForm" ng-init="user_submit = false" role="form" novalidate autocomplete="off">
+        <div class="row  marT20">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group text-left">
+              <label class="control-label" for="product_categorie">Select property<font color="Red">*</font></label>
+              <select ng-model="tenant.property_id" name="created_by" class="form-control cursorSt" 
+                required>
+                <option  value="" disabled>Select Property </option>
+                <option  disabled ng-repeat="property in propertyList" value="{{property._id}}">#{{property.property_id}},{{property.address}}</option>
+              </select>
+              <span class="error-span inner-error ng-binding " ng-show="createTenantForm.selectProperty.$error.required && createTenantForm.selectProperty.$touched "
+                class="error-span inner-error ng-binding ">
+                <font color="Red">Select property is required</font>
+              </span>
+            </div>
+          </div>
+          <!-- <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group text-left">
+              <label class="control-label" for="product_categorie">Tenant agreement details</label>
+              <select name="selectAgreement" ng-model="tenant.agreement_id" class="form-control cursorSt">
+                <option value="" disabled>Select Agreement </option>
+                <option disabled ng-repeat="agreement in agreementList" value="{{agreement._id}}">#{{agreement.agreement_id}},{{agreement.address_service_notice1}}</option>
+              </select>
+            </div>
+          </div> -->
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group text-left">
+              <label class="control-label" for="settingFName">First Name<font color="Red">*</font></label>
+              <input type=" text " name="firstname" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" ng-model="tenant.firstname " class="form-control text-capitalize"
+                placeholder="First Name " required>
+            </div>
+            <span class="error-span inner-error ng-binding " ng-show="createTenantForm.firstname.$error.required && createTenantForm.firstname.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">First name is Required</font>
+            </span>
+            <span class="error-span inner-error ng-binding" ng-show="createTenantForm.firstname.$error.pattern" class="error-span inner-error ng-binding">
+              <font color="Red">First Name Must Contain Alphabet</font>
+            </span>
+            <span ng-show="createTenantForm.firstname.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 25 characters allowed</font>
+            </span>
+          </div>
+  
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group text-left">
+              <label class="control-label" for="settingLName">Last Name<font color="Red">*</font></label>
+              <input type="text " name="lastname" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" ng-model="tenant.lastname " class="form-control text-capitalize"
+                placeholder="Last Name " required>
+            </div>
+            <span class="error-span inner-error ng-binding " ng-show="createTenantForm.lastname.$error.required && createTenantForm.lastname.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Last name is Required</font>
+            </span>
+            <span class="error-span inner-error ng-binding" ng-show="createTenantForm.lastname.$error.pattern" class="error-span inner-error ng-binding">
+              <font color="Red">Last Name Must Contain Alphabet</font>
+            </span>
+            <span ng-show="createTenantForm.lastname.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 25 characters allowed</font>
+            </span>
+          </div>
+  
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group text-left">
+              <label class="control-label" for="product_categorie">Email<font color="Red">*</font></label>
+              <input type="text" ng-maxlength="254" name="email " ng-model="tenant.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+                class="form-control " placeholder="example@syncitt.com " required>
+            </div>
+            <span ng-show="createTenantForm.email.$error.maxlength" class="redb">
+              <font color="Red">Max 254 length is allowed.</font>
+            </span>
+            <span ng-show="createTenantForm.email.$error.pattern" class="redb">
+              <font color="Red">Please Enter valid Email.</font>
+            </span>
+            <span ng-show="createTenantForm.email.$touched && createTenantForm.email.$error.required" class="redb">
+              <font color="Red">This field is required.</font>
+            </span>
+          </div>
+  
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group text-left">
+              <label class="control-label" for="product_categorie">Phone number<font color="Red">*</font></label>
+              <input type="text" name="mobile_no " ng-model="tenant.mobile_no " class="form-control " ng-maxlength="14" placeholder="mobile"
+                ng-pattern="/^[0-9]*$/" required>
+            </div>
+  
+            <span class="error-span inner-error ng-binding " ng-show="createTenantForm.phone_number.$error.required && createTenantForm.phone_number.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Phone number is Required</font>
+            </span>
+            <!-- <span ng-show="createTenantForm.mobile_no.$error.min">
+                          The value must be in range 0 to 10!</span> -->
+            <span class="text-danger" ng-show="createTenantForm.mobile_no.$error.pattern">
+              <font color="Red">Only positive numbers are allowed.</font>
+            </span>
+            <span ng-show="createTenantForm.mobile_no.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 14 digits are allowed</font>
+            </span>
+          </div>
+        </div>
+        <div>
+        <label class="check_container">Let the tenant create his/her password
+          <input type="checkbox" name="passwordStatus" ng-model="tenantpasswordStatus" checked="checked">
+          <span class="checkmark"></span>
+        </label>
+  
+        <label class="check_container">Yes, I understand and agree to the
+          <span>Property Insync terms,</span> including the
+          <span>User Agreement</span> and
+          <span>Privacy Policy.</span>
+          <input type="checkbox" ng-model="check">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+        <div class="modal-footer">
+          <button class="btn btn-savechanges" type="button" ladda="loginLoading" data-style="slide-right" ng-disabled="createTenantForm.$invalid" ng-click="addTenant(tenant,check,tenantpasswordStatus)">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- <script>
+      $("#modal .close ").click()
+  </script> -->

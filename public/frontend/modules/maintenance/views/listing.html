@@ -1,0 +1,642 @@
+<div class="ContentWrap">
+  <div class="ContentHead d-flex">
+    <h2>Maintenance requests</h2>
+    <div class="ml-auto TenanciesButtons" ng-if="tenantView || agentView || ownerView">
+      <button class="btn btn-property" ng-click="openAddMaintenance()">
+        <i class="fa fa-plus make-circle" aria-hidden="true"></i>New request</button>
+    </div>
+  </div>
+  <div class="RefineResults d-flex">
+    <div class="advanceSearchClass">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle togle-default refine" type="button" id="dropdownMenu2"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{refineResult}}
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button" ng-click="setOrderProperty('request_overview')">Request
+            Overview</button>
+          <button class="dropdown-item" type="button" ng-click="setOrderProperty('due_date')">Due Dates</button>
+          <button class="dropdown-item" type="button" ng-click="setOrderProperty('budget')">Budget</button>
+        </div>
+      </div>
+    </div>
+    <div class="filtering-recent mr-listing">
+      <!-- tenant -->
+      <ul ng-show="tenantView">
+        <li ng-click="acceptedMaintenance('all', 'All')" ng-class="maintNavList=='All'? 'active' : ''">
+          <a>All</a>
+        </li>
+        <li ng-click="acceptedMaintenance('new request', 'New request')"
+          ng-class="maintNavList=='New request'? 'active' : ''">
+          <a>New request</a>
+        </li>
+        <li ng-click="acceptedMaintenance('on progress', 'On progress')"
+          ng-class="maintNavList=='In progress'? 'active' : ''">
+          <a>On progress</a>
+        </li>
+        <li ng-click="acceptedMaintenance('completed', 'Completed')"
+          ng-class="maintNavList=='Completed'? 'active' : ''">
+          <a>Completed</a>
+        </li>
+        <li ng-click="navSelectMaintListing('Archives')" ng-class="maintNavList=='Archives'? 'active' : ''">
+          <a>Archives</a>
+        </li>
+        <li ng-click="acceptedMaintenance('public', 'Public')" ng-class="maintNavList=='Public'? 'active' : ''">
+          <a>Browse Jobs</a>
+        </li>
+      </ul>
+      <!-- Agent -->
+      <ul ng-show="agentView">
+        <li ng-click="acceptedMaintenance('all', 'All')" ng-class="maintNavList=='All'? 'active' : ''">
+          <a>All</a>
+        </li>
+        <li ng-click="acceptedMaintenance('in progress', 'Active')" ng-class="maintNavList=='Active'? 'active' : ''">
+          <a>Active</a>
+        </li>
+        <li ng-click="acceptedMaintenance('public', 'Public')" ng-class="maintNavList=='Public'? 'active' : ''">
+          <a>Browse Jobs</a>
+        </li>
+        <!-- <li ng-click="navSelectMaintListing('Requested by tenant');requestByTenantList()"
+                      ng-class="maintNavList=='Requested by tenant'? 'active' : ''">
+                      <a>Requested by tenant</a>
+                    </li> -->
+      </ul>
+      <!-- Trader -->
+      <ul ng-show="traderView">
+        <li ng-click="acceptedMaintenance('all', 'All')" ng-class="maintNavList=='All'? 'active' : ''">
+          <a>All</a>
+        </li>
+        <li ng-click="acceptedMaintenance('new request', 'New request')"
+          ng-class="maintNavList=='New request'? 'active' : ''">
+          <a>New request</a>
+        </li>
+        <li ng-click="acceptedMaintenance('in progress', 'In progress')"
+          ng-class="maintNavList=='In progress'? 'active' : ''">
+          <a>In progress</a>
+        </li>
+        <li ng-click="acceptedMaintenance('completed', 'Completed')"
+          ng-class="maintNavList=='Completed'? 'active' : ''">
+          <a>Completed</a>
+        </li>
+        <li ng-click="navSelectMaintListing('Archives')" ng-class="maintNavList=='Archives'? 'active' : ''">
+          <a>Archives</a>
+        </li>
+        <li ng-click="acceptedMaintenance('public', 'Public')" ng-class="maintNavList=='Public'? 'active' : ''">
+          <a>Browse Jobs <span ng-if="public_mr_count && public_mr_count > 0">{{public_mr_count}}</span></a>
+        </li>
+        <li ng-click="acceptedMaintenance('quotes', 'Quotes')" ng-class="maintNavList=='Quotes'? 'active' : ''">
+          <a>Quotes</a>
+        </li>
+      </ul>
+      <ul ng-show="!tenantView && !agentView && !traderView">
+        <li ng-click="acceptedMaintenance('all', 'All')" ng-class="maintNavList=='All'? 'active' : ''">
+          <a>All</a>
+        </li>
+        <li ng-click="acceptedMaintenance('public', 'Public')" ng-class="maintNavList=='Public'? 'active' : ''">
+          <a>Browse Jobs <span ng-if="public_mr_count && public_mr_count > 0">{{public_mr_count}}</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="ContentBody">
+    <div class="maintenance-requests-div">
+      <div class="row" ng-init="maintenanceListing()">
+        <div class="col-lg-8 col-md-8 mainreq_list board listing-padding-zero"
+          ng-if="maintNavList!='Public' && maintNavList!='Quotes'">
+          <div class="board-inner"
+            ng-hide="(tenantView || traderView || agentView) && maintNavList=='Requested by tenant'">
+            <ul class={{maintenanceClass}} id="myTab">
+              <li ng-click="navSelect('Sent')" ng-class="maintNavBarOptionSelected=='Sent'? 'active' : ''">
+                <a href="javascript: void(0)" ng-click="acceptedMaintenance('sent')" aria-controls="home" role="tab"
+                  data-toggle="tab">
+                  <span class="round-tabs one">
+                    <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                  </span>
+                </a>
+                Sent
+              </li>
+              <li ng-click="navSelect('Accepted')" ng-class="maintNavBarOptionSelected=='Accepted'? 'active' : ''">
+                <a href="javascript: void(0)" ng-click="acceptedMaintenance('accepted')" aria-controls="profile"
+                  role="tab" data-toggle="tab">
+                  <span class="round-tabs two">
+                    <!-- <img src="assets/images/Tag accepted.svg"> -->
+                    <i class="fa fa-ticket" aria-hidden="true"></i>
+                  </span>
+                </a>
+                Accepted
+              </li>
+              <li ng-click="navSelect('Booked')" ng-class="maintNavBarOptionSelected=='Booked'? 'active' : ''">
+                <a href="javascript: void(0)" ng-click="acceptedMaintenance('booked')" aria-controls="prototyping"
+                  role="tab" data-toggle="tab">
+                  <span class="round-tabs three">
+                    <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                  </span>
+                </a>
+                Booked
+              </li>
+              <li ng-click="navSelect('Completed')" ng-class="maintNavBarOptionSelected=='Completed'? 'active' : ''">
+                <a href="javascript: void(0)" ng-click="acceptedMaintenance('completed')" aria-controls="uidesign"
+                  role="tab" data-toggle="tab">
+                  <span class="round-tabs four">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </span>
+                </a>
+                Completed
+              </li>
+              <li ng-click="navSelect('Closed')" ng-class="maintNavBarOptionSelected=='Closed'? 'active' : ''">
+                <a href="javascript: void(0)" ng-click="acceptedMaintenance('closed')" aria-controls="doner" role="tab"
+                  data-toggle="tab">
+                  <span class="round-tabs five">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                  </span>
+                </a>
+                Closed
+              </li>
+            </ul>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="home">
+            </div>
+            <div class="tab-pane fade" id="profile">
+
+            </div>
+            <div class="tab-pane fade" id="prototyping">
+
+            </div>
+            <div class="tab-pane fade" id="uidesign">
+
+            </div>
+            <div class="tab-pane fade" id="doner">
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 mainreq_list board listing-padding-zero"
+          ng-if="(maintNavList=='Public' || maintNavList=='Quotes')">
+          <div class="search-keyword-wrap">
+            <form>
+              <div class="search-keyword-input">
+                <i><img class="pointer" src="assets/images/magnifying-glass.png"></i>
+                <input text="text" ng-model="search_text" placeholder="Search by keyword"
+                  ng-change="getMRList(search_text)" />
+              </div>
+              <div class="select-option-wrap">
+                <select ng-change="setOrderProperty(search_option)" ng-model="search_option"
+                  ng-init="search_option='due_date'">
+                  <option value="due_date" ng-selected="true">Select</option>
+                  <option value="budget">Budget</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- <div class="col-lg-4 text-right" ng-hide="traderView || agentView && maintNavList=='Requested by tenant'">
+              <ul class="rt-round-actions">
+                <li>
+                  <a href="javascript: void(0)">
+                    <i class="fa fa-file" aria-hidden="true"></i>
+                  </a>
+                  Archive
+                </li>
+                <li ng-click="navSelect('Show')">
+                  <a ng-click="acceptedMaintenance('showAll')">
+                    <i class="fa fa-list-ul" ng-class="maintNavBarOptionSelected=='Show'? 'maintenanceClass' : ''" aria-hidden="true"></i>
+                  </a>
+                  Show all
+                </li>
+              </ul>
+            </div> -->
+      </div>
+      <div
+        ng-hide="(tenantView || agentView || traderView || ownerView) && (maintNavList=='Requested by tenant' || maintNavList == 'Public' || maintNavList == 'Quotes')"
+        class="row marT10" dir-paginate="maintain in maintainList| itemsPerPage:8 | orderBy:orderProperty"
+        current-page="pagination.current">
+        <div class="agnt_list clearfix">
+          <div class="col-sm-2 col-xs-12 agnt_mainImg clearfix">
+            <a ng-if="maintain.request_type == 0 || (maintain.request_type == 1 && maintain.trader_id)" class="pointer"
+              ng-click="goToMaintDetail(maintain._id)">
+              <img class="pointer" ng-if="!maintain.images[0].document_type"
+                ng-src="{{maintenanceImageUrl}}{{maintain.images[0].path}}" src="assets/images/placeholder.jpg"
+                onerror="this.src='assets/images/placeholder.jpg'">
+              <img ng-if="maintain.images[0].document_type=='excel'" src="assets/images/xls.png"
+                class="img-responsive pointer agreeAttch" alt="atch1" onerror="this.src='assets/images/xls.png'">
+              <img ng-if="maintain.images[0].document_type=='doc'" src="assets/images/word.png"
+                onerror="this.src='assets/images/word.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='pdf'" src="assets/images/pdf.png"
+                onerror="this.src='assets/images/pdf.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='ppt'" src="assets/images/ppt.png"
+                onerror="this.src='assets/images/ppt.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+            </a>
+            <a ng-if="maintain.request_type == 1 && !maintain.trader_id" class="pointer"
+              ng-click="goToJobDetail(maintain._id)">
+              <img class="pointer" ng-if="!maintain.images[0].document_type"
+                ng-src="{{maintenanceImageUrl}}{{maintain.images[0].path}}" src="assets/images/placeholder.jpg"
+                onerror="this.src='assets/images/placeholder.jpg'">
+              <img ng-if="maintain.images[0].document_type=='excel'" src="assets/images/xls.png"
+                onerror="this.src='assets/images/xls.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='doc'" src="assets/images/word.png"
+                onerror="this.src='assets/images/word.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='pdf'" src="assets/images/pdf.png"
+                onerror="this.src='assets/images/pdf.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='ppt'" src="assets/images/ppt.png"
+                onerror="this.src='assets/images/ppt.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+            </a>
+          </div>
+          <div class="col-sm-1 col-xs-12 text-center agntprofile detail clearfix">
+            <a ng-if="maintain.created_by && maintain.created_by.image" class="pointer"
+              ng-click="goToCreatorProfile(maintain.created_by._id,maintain.created_by_role._id)"><img
+                class="createdByImage" ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'"></a>
+            <a ng-if="maintain.created_by && !(maintain.created_by.image)" class="pointer"
+              ng-click="goToCreatorProfile(maintain.created_by._id,maintain.created_by_role._id)"><img
+                class="createdByImage" src="assets/images/no_image.png"
+                onerror="this.src='/assets/images/no_image.png'"></a>
+          </div>
+          <div class="col-sm-9  col-xs-12 detail apt-list clearfix">
+            <div class="row">
+              <div class="col-sm-9 clearfix">
+                <a ng-if="maintain.request_type == 0 || (maintain.request_type == 1 && maintain.trader_id)"
+                  class="pointer" ng-click="goToMaintDetail(maintain._id)">
+                  <h5>{{maintain.request_overview |titlecase | limitTo :100}} {{maintain.request_overview.length > 100
+                    ? "..." : ""}}
+                  </h5>
+                </a>
+                <a ng-if="maintain.request_type == 1 && !maintain.trader_id" class="pointer"
+                  ng-click="goToJobDetail(maintain._id)">
+                  <h5>{{maintain.request_overview |titlecase | limitTo :100}} {{maintain.request_overview.length > 100
+                    ? "..." : ""}}</h5>
+                </a>
+                <div class="cat_id">
+                  <span>
+                    <!-- <img src="assets/images/property-id.svg" alt="id">Requested ID : {{maintain.request_id}} </span> -->
+                    <img src="assets/images/property-id.svg" class="img-town-maintenance" alt="id">{{maintain.address}}
+                  </span>
+                  <!-- <span ng-repeat="category in maintain.categories_id">
+                        <img src="assets/images/hashtag.svg" alt="id">{{categories_id}}{{category.name}}
+                      </span> -->
+                </div>
+              </div>
+              <!-- <div class="col-sm-1 col-xs-2 detail">
+                    <i class="fa fa-bell notibck" aria-hidden="true"></i>
+                  </div> -->
+              <div class="col-sm-3 price-sec">
+                <div class="price">
+                  <h4>${{maintain.budget}}</h4>
+                </div>
+                <!-- <div class="days">in {{maintain.difference | positive}} days </div> -->
+                <div class="days"> {{maintain.due_date | date}} </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5">
+                <div ng-if="maintain.req_status == 8 && traderView == false" class="confirm1">
+                  <!-- removed for now -->
+                  <!-- Confirmed -->
+                  <!-- removed for now -->
+                  Closed
+                </div>
+                <div class="apt-list-details">
+                  <ul>
+                    <li ng-repeat="watch in maintain.watchers_list" class="apt-firstuser">
+                      <!-- <a href="/#!/profile/{{watch.users_id._id}}"> -->
+                      <img ng-if="watch.users_id && watch.users_id.image"
+                        ng-src="{{userImageUrl}}{{watch.users_id.image}}" src="assets/images/no_image.png"
+                        onerror="this.src='/assets/images/no_image.png'">
+                      <img ng-if="!watch.users_id || (watch.users_id && !watch.users_id.image)"
+                        src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'">
+                      <!-- </a> -->
+                    </li>
+                    <!-- <p class="maintListWatcher" ng-if="maintain.watchers_list.length==0">No watchers</p> -->
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-7" ng-if="maintain.request_type  == 0">
+                <!-- {{maintain}} -->
+                <!-- && maintain.difference>0  -->
+                <!-- ng-if="maintain.req_status == 1 && traderView == false && agentView == false"  -->
+                <!-- ng-show="maintain.req_status == 1 && maintain.trader_id && (((agentView == true || ownerView == true) && (maintain.lastCounterProposalCreatedBy_listing == '' || maintain.lastCounterProposalCreatedBy_listing == null || (maintain.lastCounterProposalCreatedBy_listing != '' && maintain.lastCounterProposalCreatedBy_listing != null && maintain.lastCounterProposalCreatedBy_listing == loggedInUserId))) || (traderView == true &&  maintain.lastCounterProposalCreatedBy_listing != '' && maintain.lastCounterProposalCreatedBy_listing != null && maintain.lastCounterProposalCreatedBy_listing == loggedInUserId))" -->
+                <div class="sent1" ng-if="maintain.req_status == 1">Sent</div>
+                <div ng-if="maintain.req_status == 2 " class="main_accepted1">Accepted</div>
+                <!-- <div ng-if="maintain.req_status == 1 && maintain.is_forward == false" class="main_overdue1">Declined</div> -->
+                <div ng-if="maintain.req_status == 3 " class="main_booked1">Booked</div>
+                <div ng-if="maintain.req_status == 5 " class="main_completed1">Completed</div>
+                <!-- <div ng-if="maintain.difference < 0" class="main_overdue1">Over Due</div> -->
+                <div ng-if="maintain.req_status == 4 " class="main_overdue1">Closed</div>
+                <!-- <div ng-if="(maintain.req_status == 7) || !maintain.trader_id"
+                      class="main_overdue1">Denied</div> -->
+                <div ng-if="(maintain.req_status == 7)" class="main_overdue1">Denied</div>
+                <!-- <div
+                      ng-show="(traderView || (maintain.property_id.owned_by == maintain.created_by._id && maintain.property_id.owned_by == loggedInUserId) || agentView ) && maintain.trader_id"
+                      class="comp-right"> -->
+                <div ng-show="maintain.trader_id && traderView == true && maintain.req_status == 1" class="comp-right">
+                  <button class="overdue1" ng-click="acceptRejectMaintReq(maintain._id,7)">Decline</button>
+                  <button class="completed1" ng-click="acceptRejectMaintReq(maintain._id,2)">Accept</button>
+                </div>
+                <!-- <button
+                      ng-show="maintain.trader_id && maintain.req_status == 1 && (agentView == true || ownerView == true || traderView == true)"
+                      class="completed1 mainTCounter" ng-click="sendProposal(maintain._id)">Counter proposal</button> -->
+                <!-- {{ "hello "+maintain.req_status + "  == " + agentView  + "  == " + ownerView   + "  == " +  lastCounterProposalCreatedBy_listing   + "  == " +  loggedInUserId }} -->
+                <!-- maintain.req_status == 1 && maintain.trader_id && (((agentView == true || ownerView == true) && maintain.lastCounterProposalCreatedBy_listing != '' && maintain.lastCounterProposalCreatedBy_listing != loggedInUserId) || (traderView == true && ( maintain.lastCounterProposalCreatedBy_listing == '' ||  (maintain.lastCounterProposalCreatedBy_listing != '' && maintain.lastCounterProposalCreatedBy_listing != loggedInUserId))))"
+                      class="completed1 mainTCounter" ng-click="sendProposal(maintain._id) -->
+                <!-- ng-show="maintain.req_status == 1 && maintain.trader_id && (((agentView == true || ownerView == true) && maintain.lastCounterProposalCreatedBy_listing != '' && maintain.lastCounterProposalCreatedBy_listing != loggedInUserId) || (traderView == true && ( maintain.lastCounterProposalCreatedBy_listing == '' ||  (maintain.lastCounterProposalCreatedBy_listing != '' && maintain.lastCounterProposalCreatedBy_listing != loggedInUserId))))" -->
+                <button
+                  ng-show="maintain.req_status == 1 && maintain.trader_id && (((agentView == true || ownerView == true) && maintain.lastCounterProposalCreatedBy_listing != '' && maintain.lastCounterProposalCreatedBy_listing != null && maintain.lastCounterProposalCreatedBy_listing != loggedInUserId) || (traderView == true && ( maintain.lastCounterProposalCreatedBy_listing == '' || maintain.lastCounterProposalCreatedBy_listing == null ||  (maintain.lastCounterProposalCreatedBy_listing != '' && maintain.lastCounterProposalCreatedBy_listing != null && maintain.lastCounterProposalCreatedBy_listing != loggedInUserId))))"
+                  class="completed1 mainTCounter" ng-click="sendProposal(maintain._id)">Counter proposal</button>
+                <!-- <div ng-if="maintain.req_status == 1 && maintain.difference>0 && traderView == false && agentView == false" class="sent1">Sent</div>
+                    <div ng-if="maintain.req_status == 2 && maintain.difference>0 && traderView == false" class="main_accepted1">Accepted</div>
+                    <div ng-if="maintain.req_status == 3 && maintain.difference>0 && traderView == false" class="main_booked1">Booked</div>
+                    <div ng-if="maintain.req_status == 5 && maintain.difference>0 && traderView == false" class="main_completed1">Completed</div>
+                    <div ng-if="maintain.difference < 0 && traderView == false" class="main_overdue1">Over Due</div>
+                    <div ng-if="maintain.req_status == 4 && maintain.difference>0 && traderView == false" class="main_overdue1">Closed</div>
+                    <div ng-if="maintain.req_status == 7 && maintain.difference>0 && traderView == false" class="main_overdue1">Denied</div>
+                    <div ng-show="traderView || (maintain.property_id.owned_by == maintain.created_by._id && maintain.property_id.owned_by == loggedInUserId) || agentView"> 
+                      <button ng-show="maintain.req_status == 1" class="completed1" ng-click="acceptRejectMaintReq(maintain._id,2)">Accept</button>                  
+                      <button ng-show="maintain.req_status == 1" class="overdue1" ng-click="acceptRejectMaintReq(maintain._id,7)">Decline</button>
+                    </div> -->
+                <!-- <button ng-show="maintain.req_status == 5" class="mainTCounter" ng-click="sendProposal(maintain._id)">Counter proposal</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-show="tenantView && maintNavList!='Public' && maintNavList!='Quotes'" class="row marT10"
+        dir-paginate="maintain in maintainList| itemsPerPage:8 | orderBy:orderProperty"
+        current-page="pagination.current">
+        <div class="agnt_list clearfix">
+          <div class="col-md-1 col-md-2 text-center agntprofile detail clearfix">
+            <a class="pointer" ng-click="goToCreatorProfile(maintain.created_by._id, maintain.created_by_role._id)">
+              <img class="createdByImage" ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'"></a>
+          </div>
+          <div class="col-md-11  col-md-10 detail apt-list clearfix">
+            <div class="row">
+              <div class="col-md-8 clearfix">
+                <a ng-if="maintain.request_type == 0 || (maintain.request_type == 1 && maintain.trader_id)"
+                  class="pointer" ng-click="goToMaintDetail(maintain._id)">
+                  <h5>{{maintain.request_overview |titlecase | limitTo :100}} {{maintain.request_overview.length > 100
+                    ? "..." : ""}}
+                  </h5>
+                </a>
+                <a ng-if="maintain.request_type == 1 && !maintain.trader_id" class="pointer"
+                  ng-click="goToJobDetail(maintain._id)">
+                  <h5>{{maintain.request_overview |titlecase | limitTo :100}} {{maintain.request_overview.length > 100
+                    ? "..." : ""}}</h5>
+                </a>
+                <p class="mr_desc">{{maintain.request_detail | limitTo :200}}
+                  {{maintain.request_detail.length > 200 ? "..." : ""}}</p>
+                <div class="cat_id">
+                  <span>
+                    <img src="assets/images/property-id.svg" alt="id">{{maintain.address}} </span>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div ng-if="maintain.req_status == 1 && traderView == false" class="sent1">SENT
+                </div>
+                <div ng-if="maintain.req_status == 2 && traderView == false && maintain.request_type == 0"
+                  class="main_accepted1">ACCEPTED</div>
+                <div ng-if="maintain.req_status == 3 && traderView == false && maintain.request_type == 0"
+                  class="main_booked1">BOOKED</div>
+                <div ng-if="maintain.req_status == 5 && traderView == false && maintain.request_type == 0"
+                  class="main_completed1">COMPLETED</div>
+                <!-- <div ng-if="maintain.difference < 0 && traderView == false" class="main_overdue1">OVER DUE</div> -->
+                <div ng-if="maintain.req_status == 4 && traderView == false && maintain.request_type == 0"
+                  class="main_overdue1">CLOSED</div>
+                <div ng-if="maintain.req_status == 7 && traderView == false && maintain.request_type == 0"
+                  class="main_overdue1">DENIED</div>
+              </div>
+              <div class="col-md-1 price-sec">
+                <div class="price maint_margin100">
+                  <h4>${{maintain.budget}}</h4>
+                </div>
+                <div class="days maint_margin_day">in {{maintain.difference | positive}} days </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="mainNoRecord" ng-if="maintainList.length==0">No record to display</p>
+      <div ng-show="agentView && maintNavList=='Requested by tenant'" class="row marT10"
+        dir-paginate="maintain in maintainList| itemsPerPage:8 | orderBy:orderProperty"
+        current-page="pagination.current">
+        <div class="agnt_list clearfix">
+          <div class="col-sm-1 col-xs-2 text-center agntprofile detail clearfix">
+            <a class="pointer" ng-click="goToTenantProfile(maintain.created_by._id)"><img class="createdByImage"
+                ng-src="{{userImageUrl}}{{maintain.created_by.image}}" src="assets/images/no_image.png"
+                onerror="this.src='/assets/images/no_image.png'"></a>
+          </div>
+          <div class="col-lg-12 col-lg-11 detail apt-list clearfix">
+            <div class="row">
+              <div class="col-sm-9 clearfix">
+                <a class="pointer" ng-click="goToMaintDetail(maintain._id)">
+                  <h5 class="text-capitalize">{{maintain.request_overview | limitTo :100}}
+                    {{maintain.request_overview.length > 100 ? "..." : ""}}</h5>
+                </a>
+                <a class="pointer" ng-click="goToJobDetail(maintain._id)">
+                  <h5 class="text-capitalize">{{maintain.request_overview | limitTo :100}}
+                    {{maintain.request_overview.length > 100 ? "..." : ""}}</h5>
+                </a>
+                <p class="mr_desc">{{maintain.request_detail | limitTo :200}}
+                  {{maintain.request_detail.length > 200 ? "..." : ""}}</p>
+                <div class="cat_id">
+                  <span>
+                    <img src="assets/images/property-id.svg" alt="id">{{maintain.address}} </span>
+                  <div ng-if="maintain.req_status == 1 && traderView == false" class="maint_sent_status"><i
+                      class="fa fa-check" aria-hidden="true"></i><span class="sent_font_color">Sent</span></div>
+                  <div ng-if="maintain.req_status == 2 && traderView == false && maintain.request_type == 0"
+                    class="main_accepted1">Accepted</div>
+                  <div ng-if="maintain.req_status == 3 && traderView == false && maintain.request_type == 0"
+                    class="main_booked1">Booked</div>
+                  <div ng-if="maintain.req_status == 5 && traderView == false && maintain.request_type == 0"
+                    class="main_completed1">Completed</div>
+                  <!-- <div ng-if="maintain.difference < 0 && maintain.req_status == 1 && traderView == false"
+                        class="main_overdue1">Over
+                        Due</div> -->
+                  <div ng-if="maintain.req_status == 4 && traderView == false && maintain.request_type == 0"
+                    class="main_overdue1">Closed</div>
+                  <div ng-if="maintain.req_status == 7 && traderView == false && maintain.request_type == 0"
+                    class="main_overdue1">Denied</div>
+                </div>
+              </div>
+              <!-- ng-hide="userRoleId==agencyRoleId" -->
+              <!-- forwardReq -->
+              <div class="col-sm-2">
+                <button ng-show="maintain.is_forward==false" class="forwardReq pull-right"
+                  ng-click="openForwardMaintenance(maintain._id)">Forward</button>
+              </div>
+              <div class="col-sm-2">
+                <button ng-show="maintain.is_forward==true" class="forwardReq pull-right"
+                  ng-click="goToMaintDetail(maintain._id)">Forwarded</button>
+              </div>
+              <!-- <div ng-show="userRoleId==agencyRoleId" class="col-sm-2">
+                    <button class="forwardReq pull-right" ng-click="goToMaintDetail(maintain._id)" >View</button>
+                  </div> -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div ng-show="maintNavList=='Public'" class="row marT10"
+        dir-paginate="maintain in maintainList| itemsPerPage:8 | orderBy:orderProperty"
+        current-page="pagination.current">
+        <div class="agnt_list clearfix public-list-dtl-01 ">
+          <div class="col-sm-4 col-md-3 agnt_mainImg clearfix">
+            <a class="pointer" ng-click="goToMaintDetail(maintain._id)">
+              <img class="pointer" ng-if="!maintain.images[0].document_type"
+                ng-src="{{maintenanceImageUrl}}{{maintain.images[0].path}}" src="assets/images/placeholder.jpg"
+                onerror="this.src='/assets/images/placeholder.jpg'">
+              <img ng-if="maintain.images[0].document_type=='excel'" src="assets/images/xls.png"
+                onerror="this.src='/assets/images/xls.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='doc'" src="assets/images/word.png"
+                onerror="this.src='/assets/images/word.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='pdf'" src="assets/images/pdf.png"
+                onerror="this.src='/assets/images/pdf.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='ppt'" src="assets/images/ppt.png"
+                onerror="this.src='/assets/images/ppt.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+            </a>
+          </div>
+          <div class="col-sm-8 col-md-9 detail apt-list clearfix">
+            <div class="row public-list-traders public-list-traders-01 " ng-if="traderView">
+              <div class="agntprofile">
+                <a class="pointer"
+                  ng-click="goToCreatorProfile(maintain.created_by._id,maintain.created_by_role._id)"><img
+                    class="createdByImage" ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                    src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'">
+                </a>
+              </div>
+              <div class="agntprofile-info">
+                <h3>
+                  <a class="pointer" ng-click="goToMaintDetail(maintain._id)">
+                    {{maintain.request_overview |titlecase | limitTo :100}}
+                    {{maintain.request_overview.length > 100 ? "..." : ""}}
+                  </a>
+                </h3>
+                <ul class="cat_id">
+                  <li>
+                    <img src="assets/images/map-marker.svg" alt="id">
+                    <h4>{{maintain.suburb}} {{maintain.postcode != '' ? '- ' + maintain.postcode: '' }}</h4>
+                  </li>
+                  <li>
+                    <img src="assets/images/icon-001.png" alt="id">
+                    <h4>{{maintain.categories_id[0].name}}</h4>
+                  </li>
+                  <li>
+                    <img src="assets/images/property-id.svg" alt="id">
+                    <h4>Post Date: {{maintain.due_date| date:'dd MMM yyyy'}}</h4>
+                  </li>
+                </ul>
+              </div>
+              <div class="agntprofile-info-btn">
+                <a class="pointer" ng-click="goToMaintDetail(maintain._id)">View Details</a>
+                <h4>DUE IN {{maintain.difference | positive}} DAYS</h4>
+              </div>
+            </div>
+            <div class="row public-list-traders public-list-traders-02" ng-if="!traderView">
+              <div class="agntprofile">
+                <a ng-if="maintain.created_by && maintain.created_by.image" class="pointer"
+                  ng-click="goToCreatorProfile(maintain.created_by._id,maintain.created_by_role._id)"><img
+                    class="createdByImage" ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                    src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'">
+                </a>
+                <a ng-if="maintain.created_by && !(maintain.created_by.image)" class="pointer"
+                  ng-click="goToCreatorProfile(maintain.created_by._id,maintain.created_by_role._id)"><img
+                    class="createdByImage" src="assets/images/no_image.png"
+                    onerror="this.src='/assets/images/no_image.png'">
+                </a>
+              </div>
+              <div class="col-md-8 clearfix agntprofile-info">
+                <h3>
+                  <a class="pointer" ng-click="goToJobDetail(maintain._id)">
+                    <h5>{{maintain.request_overview |titlecase | limitTo :100}}
+                      {{maintain.request_overview.length > 100 ? "..." : ""}}</h5>
+                  </a>
+                </h3>
+                <ul class="cat_id">
+                  <li>
+                    <h4>{{maintain.address}}</h4>
+                  </li>
+                </ul>
+              </div>
+              <div class="agntprofile-info-btn price-sec">
+                <h3>
+                  {{maintain.apply_count > 0 ? maintain.apply_count : 0}} <span class="quotes_lbl">Quotes</span>
+                </h3>
+                <a class="pointer" ng-click="goToJobDetail(maintain._id)">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-show="maintNavList=='Quotes' && traderView" class="row marT10"
+        dir-paginate="maintain in maintainList| itemsPerPage:8 | orderBy:orderProperty"
+        current-page="pagination.current">
+        <div class="agnt_list clearfix">
+          <div class="col-sm-3 col-xs-12 agnt_mainImg clearfix">
+            <a class="pointer" ng-click="goToMaintDetail(maintain._id)">
+              <img class="pointer" ng-if="!maintain.images[0].document_type"
+                ng-src="{{maintenanceImageUrl}}{{maintain.images[0].path}}" src="assets/images/placeholder.jpg"
+                onerror="this.src='/assets/images/placeholder.jpg'">
+              <img ng-if="maintain.images[0].document_type=='excel'" src="assets/images/xls.png"
+                onerror="this.src='/assets/images/xls.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='doc'" src="assets/images/word.png"
+                onerror="this.src='/assets/images/word.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='pdf'" src="assets/images/pdf.png"
+                onerror="this.src='/assets/images/pdf.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+              <img ng-if="maintain.images[0].document_type=='ppt'" src="assets/images/ppt.png"
+                onerror="this.src='/assets/images/ppt.png'" class="img-responsive pointer agreeAttch" alt="atch1">
+            </a>
+          </div>
+          <div class="col-md-9  col-md-10 detail apt-list clearfix">
+            <div class="row public-list-traders public-list-traders-03">
+              <div class="agntprofile">
+                <a class="pointer"
+                  ng-click="goToCreatorProfile(maintain.created_by._id,maintain.created_by_role._id)"><img
+                    class="createdByImage" ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                    src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'"></a>
+              </div>
+              <div class="agntprofile-info">
+                <h4>
+                  <a class="pointer" ng-click="goToMaintDetailwithJob(maintain._id, loggedInUserId)">
+                    {{maintain.request_overview |titlecase | limitTo :100}}
+                    {{maintain.request_overview.length > 100 ? "..." : ""}}
+                  </a>
+                </h4>
+                <p>{{maintain.request_detail |titlecase | limitTo :200}}
+                  {{maintain.request_detail.length > 200 ? "..." : ""}}</p>
+                <ul class="cat_id">
+                  <li>
+                    <img src="assets/images/property-id.svg" alt="id">
+                    <h4>Request Id: {{maintain.request_id}}</h4>
+                  </li>
+                  <li>
+                    <img src="assets/images/calendar.svg" alt="id">
+                    <h4>
+                      {{maintain.trader_date ? (maintain.trader_date | date:'dd.M.yyyy') : ''}}
+                    </h4>
+                  </li>
+                </ul>
+              </div>
+              <div class="agntprofile-info-btn price-sec">
+                <h3>
+                  {{maintain.trader_price ? '$' + maintain.trader_price: '$0.00'}}
+                </h3>
+                <a class="pointer" ng-click="goToMaintDetailwithJob(maintain._id, loggedInUserId)">View
+                  Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="pagination-container marT20">
+      <div class="pagination">
+        <dir-pagination-controls max-size="10" auto-hide="true" class="pagination-newer" direction-links="true"
+          boundary-links="true" on-page-change="pageChanged(newPageNumber)" total-items="maintainList.length">
+        </dir-pagination-controls>
+      </div>
+    </nav>
+  </div>
+</div>

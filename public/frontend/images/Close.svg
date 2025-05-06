@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>Close</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="General---Show-menu" transform="translate(-338.000000, -20.000000)" fill="#FFFFFF">
+            <g id="Menu" transform="translate(-4.000000, 0.000000)">
+                <g id="Options" transform="translate(88.000000, 12.000000)">
+                    <g id="Close" transform="translate(245.000000, 0.000000)">
+                        <path d="M17.25,16.25 L6.75,16.25 L6.75,16.25 C6.33578644,16.25 6,16.5857864 6,17 C6,17.4142136 6.33578644,17.75 6.75,17.75 L17.25,17.75 L17.25,28.25 C17.25,28.6642136 17.5857864,29 18,29 C18.4142136,29 18.75,28.6642136 18.75,28.25 L18.75,17.75 L29.25,17.75 C29.6642136,17.75 30,17.4142136 30,17 C30,16.5857864 29.6642136,16.25 29.25,16.25 L18.75,16.25 L18.75,5.75 L18.75,5.75 C18.75,5.33578644 18.4142136,5 18,5 C17.5857864,5 17.25,5.33578644 17.25,5.75 L17.25,16.25 Z" id="Combined-Shape" transform="translate(18.000000, 17.000000) rotate(45.000000) translate(-18.000000, -17.000000) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

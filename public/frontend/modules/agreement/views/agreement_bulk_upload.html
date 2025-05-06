@@ -1,0 +1,65 @@
+<div class="container" ng-init="agreementBulkAgreementListing()">
+    <div class="row">
+
+        <div class="setting-section">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 horiLine bulk-upload-heading">
+                <div class="col-sm-6 col-xs-12 project-listing-latest ">
+                    <h5>Agrements Bulk Upload</h5>
+                </div>
+                <div class="col-sm-6 col-xs-12 marT10 text-right">
+                    <button ng-click="uploadAgreement(agreementList)" class="btn btn-property" id="btn_tenant">Done and upload</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="col-sm-12 horiLine select-delete text-left">
+                <div class="col-sm-1 col-xs-2">
+                    <label class="check_container">
+                        <input type="checkbox" ng-change="onClickFn(allOption)" ng-model="checkboxModel[allOption]" checked="checked">
+                        <span class="checkmark select-all" title="Select All"></span>
+                    </label>
+                </div>
+                <a href="javascript:void(0)" ng-click="bulkDelete(agreementList)" id="bulk-delete-btn">
+                    <i class="fa fa-trash-o" aria-hidden="true" title="Delete"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="setting-section">
+        <div class="row">
+            <div class="col-sm-12 bulk-message" dir-paginate="(key,agreement) in data| itemsPerPage:8" current-page="pagination.current">
+                <div ng-if="agreementList[key]">
+                    <div class="col-sm-1">
+                        <label class="check_container">
+                            <input type="checkbox" ng-change="onClickFn(agreement)" ng-model="checkboxModel[agreement]" checked="checked">
+                            <span class="checkmark select-all"></span>
+                        </label>
+                    </div>
+                    <div class="col-sm-10 bulk-message-text">
+                        <p>{{agreementList[key].property_id.address}}</p>
+                        <p class="bulk-message-sub-text">Agreement #{{agreementList[key].agreement_id}}</p>
+                    </div>
+                    <div class="col-sm-1 text-right edit-delete-icon">
+                        <a class="pointer" ng-click="goToBulkEditAgreement(agreementList[key]._id)">
+                            <i class="fa fa-pencil" aria-hidden="true" title="Edit"></i>
+                        </a>
+                        <a class="pointer" ng-click="deleteBulkAgreement(agreementList[key].created_by._id,agreementList[key]._id);">
+                            <i class="fa fa-trash-o" aria-hidden="true" title="Delete"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="agreementList.length==0" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                <strong>No Agreements Data Found!</strong>
+            </div>
+        </div>
+        <nav class="col-sm-12 bulk-message text-center">
+                <div class="pagination">
+                    <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true" boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+                    </dir-pagination-controls>
+                </div>
+            </nav>
+    </div>
+</div>

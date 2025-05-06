@@ -1,0 +1,1735 @@
+<!-- tabs -->
+<div class="container">
+    <div class="row mar-Tzero" ng-init="initialize();">
+        <div class="wizard creat_property mar-Tzero">
+            <div class="wizard-inner">
+                <div class="wizard-container wizard-application-property app-property-detials">
+                    <div class="card wizard-card pad-Tzero" data-color="azure" id="wizard">
+                        <div class="app-property-header">
+                            <div class="app-pr-top-header">
+                                <span>You are applying for the property</span>
+                                <span class="app-pr-address">{{property.address}}</span>
+                            </div>
+                            <div class="wizard-header"> </div>
+                            <div class="wizard-navigation">
+                                <div class="progress-with-circle">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1"
+                                        aria-valuemax="3" ng-style="AppprogressBarWidthStyle"></div>
+                                </div>
+                                <ul class="nav nav-tabs nav-pills" role="tablist">
+                                    <li ng-class="AppnavPillsLiFirstClass">
+                                        <a href="javascript:void(0)" class="inactive" data-toggle="tab">
+                                            <div class="details">Property Details</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                    <li ng-class="AppnavPillsLiSecondClass">
+                                        <a href="javascript:void(0)" class="inactive" data-toggle="tab">
+                                            <div class="details">Occupancy</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                    <li ng-class="AppnavPillsLiThirdClass">
+                                        <a href="javascript:void(0)" class="inactive" data-toggle="tab">
+                                            <div class="details">Agent Specific</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                    <li ng-class="AppnavPillsLiFourthClass">
+                                        <a href="javascript:void(0)" class="inactive" data-toggle="tab">
+                                            <div class="details">Moving Service</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                    <li ng-class="AppnavPillsLiFifthClass">
+                                        <a href="javascript:void(0)" class="inactive" data-toggle="tab">
+                                            <div class="details">Identification</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                    <li ng-class="AppnavPillsLiSixthClass">
+                                        <a href="javascript:void(0)" class="inactive" data-toggle="tab">
+                                            <div class="details">Declaration</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                    <li ng-class="AppnavPillsLiSeventhClass">
+                                        <a href="javascript:void(0)" class="inactive" data-toggle="tab">
+                                            <div class="details">Review & Send</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane  " ng-class="AppfirstTabContent" role="tabpanel" id="step1">
+                                <div class="form-heading">
+                                    <div class="">
+                                        <h1>Property Details</h1>
+                                    </div>
+                                    <div class="">
+                                        <div class="prop_detail">
+                                            <div>
+                                                <form enctype="multipart/form-data" name="appPropertyStepOne"
+                                                    ng-init="user_submit = false" role="form" novalidate
+                                                    autocomplete="off">
+
+                                                    <div class="panel-body app-proper-one">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                <div class="app-firsttab-address">
+                                                                    <h3>Application Address</h3>
+                                                                    <span>{{property.address}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                <div class="form-group text-left">
+                                                                    <input type="hidden"
+                                                                        ng-model="applicationData.property_id" value="">
+                                                                    <label class="control-label"
+                                                                        for="property_type">Type
+                                                                        of Property</label>
+                                                                    <label class="control-label text-capitalize"
+                                                                        for="property_type">{{property.property_type}}</label>
+                                                                    <!-- <select ng-model="applicationData.property_type"
+                                                                        name="property_type" class="form-control app-select-wrap"
+                                                                        required style="display:none;">
+                                                                        <option value="">Select Property Type</option>
+                                                                        <option ng-repeat="property_type in propertyType"
+                                                                            value="{{property_type.code}}" ng-checked="property_type.code == applicationData.property_type">{{property_type.name}}</option>
+                                                                    </select>
+                                                                    <span class="error-span inner-error ng-binding"
+                                                                        ng-show="appPropertyStepOne.property_type.$error.required && appPropertyStepOne.property_type.$touched"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <font color="Red">Type of Property is
+                                                                            Required</font>
+                                                                    </span> -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                <div class="form-group text-left">
+                                                                    <label class="control-label"
+                                                                        for="number_bedroom">No.
+                                                                        of Bedrooms</label>
+                                                                    <label class="control-label"
+                                                                        for="number_bedroom">{{property.number_bedroom}}</label>
+                                                                    <!-- <select ng-model="applicationData.number_bedroom"
+                                                                        name="number_bedroom" class="form-control app-select-wrap"
+                                                                        required>
+                                                                        <option value="">Select Bedroom</option>
+                                                                        <option ng-repeat="n in [] | range:11 | limitTo : 10:1"
+                                                                            value="{{n}}" ng-checked="n == applicationData.number_bedroom">
+                                                                            {{n}}
+                                                                        </option>
+                                                                    </select>
+                                                                    <span class="error-span inner-error ng-binding"
+                                                                        ng-show="appPropertyStepOne.number_bedroom.$error.required && appPropertyStepOne.number_bedroom.$touched"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <font color="Red">No. of Bedrooms is
+                                                                            Required</font>
+                                                                    </span> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-6 col-sm-6 col-md-6 ">
+                                                                <div class="form-group text-left pref_date">
+                                                                    <label class="control-label"
+                                                                        for="preferred_comm_date">Preferred
+                                                                        Commencement Date<font color="Red">*</font>
+                                                                    </label>
+                                                                    <div type="text" class="form-control"
+                                                                        name="preferred_comm_date"
+                                                                        uib-datepicker-popup="{{pre_comm_format}}"
+                                                                        ng-model="applicationData.preferred_comm_date"
+                                                                        is-open="popup1.opened"
+                                                                        datepicker-options="CommencedateOptions"
+                                                                        required close-text="Close"
+                                                                        alt-input-formats="altInputFormats">{{applicationData.preferred_comm_date|date
+                                                                        : 'dd/MM/yy'}}
+                                                                    </div>
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button"
+                                                                            class="btn btn-default maint_calender"
+                                                                            ng-click="open1()"><i
+                                                                                class="glyphicon glyphicon-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                <div class="form-group text-left">
+                                                                    <label>Preferred Length of Lease<font color="Red">*
+                                                                        </font></label>
+                                                                    <div class="input-group full-width">
+                                                                        <select
+                                                                            ng-model="applicationData.preferred_length_of_lease_years"
+                                                                            name="preferred_length_of_lease_years"
+                                                                            class="form-control app-select-wrap"
+                                                                            required>
+                                                                            <option value="">Select Years</option>
+                                                                            <option
+                                                                                ng-repeat="n in [] | range:11 | limitTo : 10:1"
+                                                                                value="{{n}}"
+                                                                                ng-checked="n == applicationData.preferred_length_of_lease_years">
+                                                                                {{n}}
+                                                                            </option>
+                                                                        </select>
+                                                                        <!-- <span class="error-span inner-error ng-binding"
+                                                                                ng-show="appPropertyStepOne.preferred_length_of_lease_years.$error.required && appPropertyStepOne.preferred_length_of_lease_years.$touched"
+                                                                                class="error-span inner-error ng-binding">
+                                                                                <font color="Red">Year Selection is
+                                                                                    required</font>
+                                                                            </span> -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                <div class="form-group text-left">
+                                                                    <div id="imaginary_container " class="label-off">
+                                                                        <label>Preferred Length of Lease<font
+                                                                                color="Red">*</font></label>
+                                                                        <div class="input-group full-width">
+                                                                            <select
+                                                                                ng-model="applicationData.preferred_length_of_lease_months"
+                                                                                name="preferred_length_of_lease_months"
+                                                                                class="app-select-wrap form-control">
+                                                                                <option value="">Month</option>
+                                                                                <option
+                                                                                    ng-repeat="n in [] | range:13 | limitTo : 12:0"
+                                                                                    value="{{n}}"
+                                                                                    ng-checked="n == applicationData.preferred_length_of_lease_months">
+                                                                                    {{n}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <!-- <span class="error-span inner-error ng-binding"
+                                                                                ng-show="appPropertyStepOne.preferred_length_of_lease_months.$error.required && appPropertyStepOne.preferred_length_of_lease_months.$touched"
+                                                                                class="error-span inner-error ng-binding">
+                                                                                <font color="Red">Month Selection
+                                                                                    is required</font>
+                                                                            </span> -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                <div class="form-group text-left">
+                                                                    <label>Weekly Rent<font color="Red">*</font></label>
+                                                                    <div class="input-group full-width">
+                                                                        <span class="input-group-addon">$</span>
+                                                                        <input type="text" name="weekly_rent"
+                                                                            ng-model="applicationData.weekly_rent"
+                                                                            class="form-control" required
+                                                                            value="{{applicationData.weekly_rent}}"
+                                                                            ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" min="0"
+                                                                            ng-maxlength="10"
+                                                                            ng-change="update_rent_bond()">
+                                                                    </div>
+                                                                    <span class="error-span inner-error ng-binding"
+                                                                        ng-show="appPropertyStepOne.weekly_rent.$error.required && appPropertyStepOne.weekly_rent.$touched"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <font color="Red">Weekly Rent is
+                                                                            required</font>
+                                                                    </span>
+                                                                    <span
+                                                                        ng-show="appPropertyStepOne.weekly_rent.$error.maxlength"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <br />
+                                                                        <font color="Red">Max 10 digits are
+                                                                            allowed in Weekly Rent Amount field</font>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                <div class="form-group text-left">
+                                                                    <label>Monthly Rent<font color="Red">*</font>
+                                                                    </label>
+                                                                    <div class="input-group full-width">
+                                                                        <span class="input-group-addon">$</span>
+                                                                        <input type="text" name="monthly_rent"
+                                                                            ng-model="applicationData.monthly_rent"
+                                                                            class="form-control" required
+                                                                            value="{{applicationData.monthly_rent}}"
+                                                                            ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" min="0"
+                                                                            ng-maxlength="10">
+                                                                    </div>
+                                                                    <span class="error-span inner-error ng-binding"
+                                                                        ng-show="appPropertyStepOne.monthly_rent.$error.required && appPropertyStepOne.monthly_rent.$touched"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <font color="Red">Monthly Rent is
+                                                                            required</font>
+                                                                    </span>
+                                                                    <span
+                                                                        ng-show="appPropertyStepOne.monthly_rent.$error.maxlength"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <br />
+                                                                        <font color="Red">Max 10 digits are
+                                                                            allowed in Monthly Rent Amount
+                                                                            field</font>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                <div class="form-group text-left">
+                                                                    <label class="control-label" for="bond">Bond</label>
+                                                                    <div class="input-group full-width">
+                                                                        <span class="input-group-addon">$</span>
+                                                                        <input type="text" name="bond"
+                                                                            ng-model="applicationData.bond"
+                                                                            class="form-control" required
+                                                                            value="{{applicationData.bond}}"
+                                                                            ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" min="0"
+                                                                            ng-maxlength="10">
+                                                                    </div>
+                                                                    <span class="error-span inner-error ng-binding"
+                                                                        ng-show="appPropertyStepOne.bond.$error.required && appPropertyStepOne.bond.$touched"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <font color="Red">Bond Amount is
+                                                                            required</font>
+                                                                    </span>
+                                                                    <span
+                                                                        ng-show="appPropertyStepOne.bond.$error.maxlength"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <br />
+                                                                        <font color="Red">Max 10 digits are
+                                                                            allowed in Bond Amount field</font>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                <div class="form-group text-left">
+                                                                    <label class="control-label"
+                                                                        for="why_propery_is_right_for_u">Why
+                                                                        this property is right for you?</label>
+                                                                    <textarea
+                                                                        ng-model="applicationData.why_propery_is_right_for_u"
+                                                                        class="form-control"
+                                                                        name="why_propery_is_right_for_u"
+                                                                        placeholder="Why this property is right for you?">{{applicationData.why_propery_is_right_for_u}}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                <div class="app-firsttab-address">
+                                                                    <h3>Property Manager Details</h3>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                <div class="form-group text-left">
+                                                                    <label class="control-label"
+                                                                        for="agency_name">Agency
+                                                                        Name</label>
+                                                                    <label class="control-label"
+                                                                        for="agency_name">{{property.created_by_agency_id.name}}</label>
+                                                                    <!-- <span class="error-span inner-error ng-binding"
+                                                                        ng-show="appPropertyStepOne.agency_name.$error.required && appPropertyStepOne.agency_name.$touched"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <font color="Red">Agency Name is
+                                                                            Required</font>
+                                                                    </span> -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                <div class="form-group text-left">
+                                                                    <label class="control-label"
+                                                                        for="property_manager_name">Property
+                                                                        Manager Name</label>
+                                                                    <label class="control-label"
+                                                                        for="property_manager_name">{{property.created_by.firstname
+                                                                        + ' ' + property.created_by.lastname}}</label>
+                                                                    <!-- <span class="error-span inner-error ng-binding"
+                                                                        ng-show="appPropertyStepOne.property_manager_name.$error.required && appPropertyStepOne.property_manager_name.$touched"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <font color="Red">Property Manager Name is
+                                                                            Required</font>
+                                                                    </span> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-6 col-sm-6 col-md-6 owner-mT">
+                                                                <div class="form-group text-left ">
+                                                                    <label class="control-label"
+                                                                        for="property_manager_email">Property
+                                                                        Manager
+                                                                        Email Address</label>
+                                                                    <label class="control-label"
+                                                                        for="property_manager_email">{{property.created_by.email}}</label>
+
+                                                                    <!-- <input ng-maxlength="254" type="email" name="property_manager_email"
+                                                                        ng-model="applicationData.property_manager_email"
+                                                                        class="form-control" required value="{{applicationData.property_manager_email}}"
+                                                                        placeholder="Property Manager Email Address"
+                                                                        ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/">
+                                                                    <span class="error-span inner-error ng-binding"
+                                                                        ng-show="appPropertyStepOne.property_manager_email.$error.required && appPropertyStepOne.property_manager_email.$touched"
+                                                                        class="error-span inner-error ng-binding">
+                                                                        <font color="Red">Property Manager Email
+                                                                            Address is
+                                                                            Required</font>
+                                                                    </span> -->
+                                                                    <span
+                                                                        ng-show="appPropertyStepOne.property_manager_email.$error.pattern"
+                                                                        class="redb">
+                                                                        <font color="Red">Please enter valid email.
+                                                                        </font>
+                                                                    </span>
+                                                                    <span
+                                                                        ng-show="appPropertyStepOne.property_manager_email.$error.maxlength"
+                                                                        class="redb">
+                                                                        <font color="Red">Max 254 characters
+                                                                            allowed.</font>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-cont">
+                                    <hr>
+                                    <div class="border-lower">
+                                        <button ng-click="redirectPropertyDetailsPage()"
+                                            class="btn btn-cancel">Cancel</button>
+                                        <button ng-click="moveToAppSecondStep()"
+                                            ng-disabled="appPropertyStepOne.$invalid"
+                                            class="btn btn-upload btn-proceed">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-class="AppsecondTabContent" role="tabpanel" id="step2"
+                                class="tab-pane occupancy-tab-content">
+                                <div class="form-heading">
+                                    <div class="row">
+                                        <h1 class="app-main-head">Occupancy</h1>
+                                    </div>
+                                </div>
+                                <div class="info app-oc-wrap">
+                                    <div class="complete">
+                                        <form enctype="multipart/form-data" name="createAppStepTwo"
+                                            ng-init="user_submit = false" role="form" novalidate autocomplete="off">
+                                            <div class="app-oc-wrapper">
+                                                <div class="app-confirm-txt">
+                                                    You confirm that you have the <a
+                                                        ng-click="collapsed=!collapsed">person's consent</a> to provide
+                                                    their
+                                                    personal information
+                                                </div>
+                                                <div ng-show="collapsed">
+                                                    By providing personal information for other people throughout this
+                                                    form, you confirm that those other people have consented to their
+                                                    personal information being provided to PropertyCom and used and
+                                                    disclosed in accordance with PropertyCom's Privacy Policy,
+                                                    including, the information being passed on to a property manager or
+                                                    real estate agent for the purpose of processing your rental
+                                                    application.
+                                                </div>
+                                                <h2 class="app-sub-head">Occupancy</h2>
+                                                <div class="applicant-wrap">
+                                                    <p>Primary Applicant</p>
+                                                    <span>{{userModel.firstname}} {{userModel.lastname}}</span>
+
+                                                </div>
+                                                <!-- Users Section -->
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <div class="form-group text-left form-content">
+                                                            <span>Apart from the above, how many other people will
+                                                                be
+                                                                occupying
+                                                                the
+                                                                property</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group text-left form-content">
+                                                            <select ng-model="display_occupants_section"
+                                                                name="no_of_occupants" class="form-control"
+                                                                ng-change="displayAddOccupantSection()">
+                                                                <option value="">Select No. of People</option>
+                                                                <option ng-repeat="n in [] | range:11 | limitTo : 10:1"
+                                                                    value="{{n}}"
+                                                                    ng-selected="display_occupants_section1 == n">
+                                                                    {{n}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="load_occupants_section"
+                                                    ng-repeat="n in [] | range : display_occupants_section1">
+                                                    <span>Person {{n + 1}}</span>
+                                                    <div class="row">
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left form-content">
+                                                                <label>Name<font color="Red">*</font></label>
+                                                                <input type="text" name="name{{$index}}"
+                                                                    class="form-control"
+                                                                    ng-model="applicationData.members[n].name" required
+                                                                    placeholder="Name" ng-pattern="/^[a-zA-Z ]*$/"
+                                                                    ng-maxlength="70">
+
+                                                                <span
+                                                                    ng-show="createAppStepTwo.name{{$index}}.$touched && createAppStepTwo.name{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">First Name is required.</font>
+                                                                </span>
+                                                                <span class="error-span inner-error ng-binding"
+                                                                    ng-show="createAppStepTwo.name{{$index}}.$error.pattern"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">First Name must contain
+                                                                        alphabet</font>
+                                                                </span>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.name{{$index}}.$error.maxlength"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Max 70 characters allowed</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left form-content">
+                                                                <label>Age<font color="Red">*</font></label>                                                                
+                                                                <select name="age{{$index}}" class="form-control"
+                                                                    ng-model="applicationData.members[n].age"
+                                                                    ng-options="item.value as item.label for item in age_number_list"
+                                                                    required>
+                                                                    <option value="">Select Age</option>
+                                                                </select>
+
+                                                                <!-- ng-options="item.value as item.label for item in age_groups_list " -->
+                                                                <!-- <select name="age{{$index}}" class="form-control"
+                                                                    ng-model="applicationData.members[n].age" required>
+                                                                    <option value="101" ng-checked="applicationData.members[n].age == 0">Less than 1</option>
+                                                                    <option
+                                                                        ng-repeat="n in [] | range:11 | limitTo : 10:1"
+                                                                        value="{{n}}"
+                                                                        ng-checked="n == applicationData.members[n].age">
+                                                                        {{n}}
+                                                                    </option> -->
+                                                                <!-- <option value="">Select Age</option>
+                                                                    <option value="0" ng-checked="applicationData.members[n].age == 0">Less than 1</option>
+                                                                    <option
+                                                                        ng-repeat="n in [] | range:101 | limitTo : 101:1"
+                                                                        value="{{n}}"
+                                                                        ng-checked="n == applicationData.members[n].age">
+                                                                        {{n}}
+                                                                    </option> -->
+                                                                <!-- </select> -->
+                                                                <span
+                                                                    ng-show="createAppStepTwo.age{{$index}}.$touched && createAppStepTwo.age{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Age is required.</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left form-content">
+                                                                <label>Relationship<font color="Red">*</font></label>
+                                                                <select name="relationship{{$index}}"
+                                                                    ng-model="applicationData.members[n].relationship"
+                                                                    class="form-control" required
+                                                                    ng-options="item.value as item.label for item in relationships_list "
+                                                                    id="relationship[{{n}}]">
+                                                                    <option value="">Select Relationship</option>
+                                                                </select>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.relationship{{$index}}.$touched && createAppStepTwo.relationship{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Relationship is required.</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left radio-list form-content">
+                                                                <label>Will this occupant be on this lease?</label>
+                                                                <div class="radio-flex">
+                                                                    <label class="radio-lb">
+                                                                        Yes
+                                                                        <input type="radio" name="option[{{n}}]"
+                                                                            value="1"
+                                                                            ng-model="applicationData.members[n].be_on_lease"
+                                                                            required
+                                                                            ng-checked="applicationData.members[n].be_on_lease == true">
+                                                                        <div class="radio-chk"></div>
+                                                                    </label>
+                                                                    <label class="radio-lb">
+                                                                        No
+                                                                        <input type="radio" name="option[{{n}}]"
+                                                                            value="0"
+                                                                            ng-model="applicationData.members[n].be_on_lease"
+                                                                            ng-checked="applicationData.members[n].be_on_lease == false">
+                                                                        <div class="radio-chk"></div>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left form-content">
+                                                                <label>Email<font color="Red">*</font></label>
+                                                                <input type="email" name="email{{$index}}"
+                                                                    class="form-control"
+                                                                    ng-model="applicationData.members[n].email" required
+                                                                    ng-maxlength="254">
+                                                                <span
+                                                                    ng-show="createAppStepTwo.email{{$index}}.$error.pattern"
+                                                                    class="redb">
+                                                                    <font color="Red">Please enter valid email.</font>
+                                                                </span>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.email{{$index}}.$error.maxlength"
+                                                                    class="redb">
+                                                                    <font color="Red">Max 254 characters allowed.</font>
+                                                                </span>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.email{{$index}}.$touched && createAppStepTwo.email{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Email is required.</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left form-content">
+                                                                <label>Mobile / All Day Contact<font color="Red">*
+                                                                    </font></label>
+                                                                <input type="text" name="mobile{{$index}}"
+                                                                    class="form-control"
+                                                                    ng-model="applicationData.members[n].mobile_number"
+                                                                    required placeholder="Mobile / All Day Contact"
+                                                                    ng-maxlength="14" ng-pattern="/^[0-9]*$/">
+                                                                <span
+                                                                    ng-show="createAppStepTwo.mobile{{$index}}.$touched && createAppStepTwo.mobile{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Mobile / All Day Contact
+                                                                        number is required.</font>
+                                                                </span>
+                                                                <span class="text-danger redb"
+                                                                    ng-show="createAppStepTwo.mobile{{$index}}.$error.pattern">
+                                                                    <font color="Red">Only numbers are allowed.</font>
+                                                                </span>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.mobile{{$index}}.$error.maxlength"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Max 14 digits are allowed</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <div class="app-note">
+                                                                This occupant has not applied yet, if they have
+                                                                please
+                                                                check
+                                                                the information provided is correct as they will be
+                                                                emailed
+                                                                their part of the application to comeplete.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Vehicle Section -->
+                                            <div class="app-oc-wrapper">
+                                                <div class="form-content sett-content-head">Vehicles </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <div class="form-group text-left form-content">
+                                                            <span>How many vehicles will be parked at the
+                                                                property</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group text-left form-content">
+                                                            <select ng-model="display_vehicles_section"
+                                                                name="no_of_vehicles" class="form-control"
+                                                                ng-change="displayAddVehicleSection()">
+                                                                <option value="">Select No. of Vehicles</option>
+                                                                <option ng-repeat="n in []  | range:11 | limitTo : 10:1"
+                                                                    value="{{n}}"
+                                                                    ng-selected="display_vehicles_section1 == n">
+                                                                    {{n}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="load_occupants_section"
+                                                    ng-repeat="n in [] | range : display_vehicles_section1">
+                                                    <span>Vehicle {{n + 1}}</span>
+                                                    <div class="row">
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left form-content">
+                                                                <label>Vehicle Type<font color="Red">*</font></label>
+                                                                <select name="vehicle_type{{$index}}"
+                                                                    class="form-control"
+                                                                    ng-model="applicationData.vehicles[n].type" required
+                                                                    ng-options="item.value as item.label for item in vehicle_types_list ">
+                                                                    <option value="">Select Vehicle Type</option>
+                                                                </select>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.vehicle_type{{$index}}.$touched && createAppStepTwo.vehicle_type{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Vehicle Type is required.</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left form-content">
+                                                                <label>Registration<font color="Red">*</font></label>
+                                                                <input
+                                                                    ng-model="applicationData.vehicles[n].registration"
+                                                                    type="text" name="registration{{$index}}"
+                                                                    class="form-control" required
+                                                                    placeholder="Registration" ng-maxlength="30">
+                                                                <span
+                                                                    ng-show="createAppStepTwo.registration{{$index}}.$touched && createAppStepTwo.registration{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Registration is required.</font>
+                                                                </span>
+                                                                <span class="error-span inner-error ng-binding"
+                                                                    ng-show="createAppStepTwo.registration{{$index}}.$error.pattern"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Registration must contain
+                                                                        alphabet</font>
+                                                                </span>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.registration{{$index}}.$error.maxlength"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Max 30 characters allowed</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left form-content">
+                                                                <label>Make / Model<font color="Red">*</font></label>
+                                                                <input ng-model="applicationData.vehicles[n].make_model"
+                                                                    type="text" name="make_model{{$index}}"
+                                                                    class="form-control" required
+                                                                    placeholder="Make / Model" ng-maxlength="15">
+                                                                <span
+                                                                    ng-show="createAppStepTwo.make_model{{$index}}.$touched && createAppStepTwo.make_model{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Make / Model is required.</font>
+                                                                </span>
+                                                                <span class="error-span inner-error ng-binding"
+                                                                    ng-show="createAppStepTwo.make_model{{$index}}.$error.pattern"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Make / Model must contain
+                                                                        alphabet</font>
+                                                                </span>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.make_model{{$index}}.$error.maxlength"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Max 15 characters allowed</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Pets Section -->
+                                            <div class="app-oc-wrapper">
+                                                <div class="form-content sett-content-head">Pets</div>
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group text-left form-content">
+                                                            <span>No. of Pets</span>
+                                                            <select ng-model="display_pets_section" name="no_of_pets"
+                                                                class="form-control"
+                                                                ng-change="displayAddPetsSection()">
+                                                                <option value="">Select No. of Pets</option>
+                                                                <option ng-repeat="n in []  | range:11 | limitTo : 10:1"
+                                                                    value="{{n}}"
+                                                                    ng-selected="display_pets_section1 == n">
+                                                                    {{n}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="load_occupants_section"
+                                                    ng-repeat="n in [] | range : display_pets_section1">
+                                                    <span>Pet {{n + 1}}</span>
+                                                    <div class="row">
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left">
+                                                                <label>Type<font color="Red">*</font></label>
+                                                                <select name="pet_type{{$index}}" class="form-control"
+                                                                    ng-model="applicationData.pets[n].type" required
+                                                                    ng-options="item.value as item.label for item in pet_types_list ">
+                                                                    <option value="">Select Type</option>
+                                                                </select>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.pet_type{{$index}}.$touched && createAppStepTwo.pet_type{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Type is required.</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left">
+                                                                <label>Type / Breed<font color="Red">*</font></label>
+                                                                <input ng-model="applicationData.pets[n].breed"
+                                                                    type="text" name="breed{{$index}}"
+                                                                    class="form-control" placeholder="Type / Breed"
+                                                                    required ng-maxlength="15">
+                                                                <span
+                                                                    ng-show="createAppStepTwo.breed{{$index}}.$touched && createAppStepTwo.breed{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Type / Breed is required.</font>
+                                                                </span>
+                                                                <span class="error-span inner-error ng-binding"
+                                                                    ng-show="createAppStepTwo.breed{{$index}}.$error.pattern"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Type / Breed must contain
+                                                                        alphabet</font>
+                                                                </span>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.breed{{$index}}.$error.maxlength"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Max 15 characters allowed</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="form-group text-left">
+                                                                <label>Council Registration No.<font color="Red">*
+                                                                    </font></label>
+                                                                <input
+                                                                    ng-model="applicationData.pets[n].registration_number"
+                                                                    type="text" name="registration_number{{$index}}"
+                                                                    id="registration_number[{{n}}]" class="form-control"
+                                                                    placeholder="Council Registration No." required
+                                                                    ng-pattern="/^[a-zA-Z0-9 ]*$/" ng-maxlength="30">
+                                                                <span
+                                                                    ng-show="createAppStepTwo.registration_number{{$index}}.$touched && createAppStepTwo.registration_number{{$index}}.$error.required"
+                                                                    class="redb">
+                                                                    <font color="Red">Council Registration No. is
+                                                                        required.</font>
+                                                                </span>
+                                                                <span class="error-span inner-error ng-binding"
+                                                                    ng-show="createAppStepTwo.registration_number{{$index}}.$error.pattern"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Council Registration No. must
+                                                                        contain
+                                                                        alphabet numeric</font>
+                                                                </span>
+                                                                <span
+                                                                    ng-show="createAppStepTwo.registration_number{{$index}}.$error.maxlength"
+                                                                    class="error-span inner-error ng-binding redb">
+                                                                    <font color="Red">Max 30 characters allowed</font>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="btn-cont">
+                                    <hr>
+                                    <div class="border-lower">
+                                        <button ng-click="redirectPropertyDetailsPage()"
+                                            class="btn btn-cancel">Cancel</button>
+                                        <button ng-click="moveToAppFirstStep()" class="btn btn-back">Back</button>
+                                        <button ng-disabled="createAppStepTwo.$invalid" ng-click="moveToAppThirdStep()"
+                                            class="btn btn-upload btn-proceed">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-class="AppthirdTabContent" role="tabpanel" id="step3"
+                                class="tab-pane agent-tab-content">
+                                <div class="form-heading">
+                                    <div class="">
+                                        <h1 class="app-main-head">Agent Specific</h1>
+                                    </div>
+                                    <div class="">
+                                        <div class="prop_detail">
+                                            <div class="">
+                                                <div class="panel-body">
+                                                    <form role="form " name="createAppStepThree"
+                                                        ng-init="user_submit = false" role="form" novalidate
+                                                        autocomplete="off">
+                                                        <div class="row">
+                                                            <h3 class="app-sub-head">Further Question</h3>
+                                                            <div class="agent-content-wrap">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                    <div class="form-group"
+                                                                        ng-repeat="question in agent_specific_questions_list">
+                                                                        <div class="control-group radio-list">
+                                                                            <label>{{question.name}}</label>
+                                                                            <div class="radio-flex"
+                                                                                ng-init="applicationData.agent_specific[question.value] = 0">
+                                                                                <label class="radio-lb">
+                                                                                    Yes
+                                                                                    <input type="radio"
+                                                                                        name="agent_question_[{{question.value}}]"
+                                                                                        value="1"
+                                                                                        ng-model="applicationData.agent_specific[question.value]" />
+                                                                                    <div class="radio-chk"></div>
+                                                                                </label>
+                                                                                <label class="radio-lb">
+                                                                                    No
+                                                                                    <input type="radio"
+                                                                                        name="agent_question_[{{question.value}}]"
+                                                                                        value="0"
+                                                                                        ng-model="applicationData.agent_specific[question.value]"
+                                                                                        ng-checked="true" />
+                                                                                    <div class="radio-chk"></div>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-cont">
+                                    <hr>
+                                    <div class="border-lower">
+                                        <button ng-click="redirectPropertyDetailsPage()"
+                                            class="btn btn-cancel">Cancel</button>
+                                        <button ng-click="moveToAppSecondStep()" class="btn btn-back">Back</button>
+                                        <button ng-disabled="createAppStepThree.$invalid" data-style="slide-right"
+                                            ng-click="moveToAppFourthStep()"
+                                            class="btn btn-upload btn-proceed">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-class="AppfourthTabContent" role="tabpanel" id="step4"
+                                class="tab-pane moving-tab-content">
+                                <div class="form-heading">
+                                    <div class="">
+                                        <h1 class="app-main-head">Moving Services</h1>
+                                    </div>
+                                    <div class="">
+                                        <div class="prop_detail">
+                                            <div class="">
+                                                <div class="panel-body">
+                                                    <form role="form " name="createAppStepFour"
+                                                        ng-init="user_submit = false" role="form" novalidate
+                                                        autocomplete="off">
+                                                        <div class="row">
+                                                            <h3 class="app-sub-head">Need help moving house or
+                                                                connecting utilities?</h3>
+                                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="control-group radio-list"
+                                                                        ng-init="need_help_moving_service = '1'">
+                                                                        <label>{{question.name}}</label>
+                                                                        <div class="radio-flex">
+                                                                            <label class="radio-lb">
+                                                                                <p>Yes I want
+                                                                                    {{property.created_by.firstname
+                                                                                    + " " +
+                                                                                    property.created_by.lastname}}
+                                                                                    to
+                                                                                    contact me and I agree with
+                                                                                    their <a href="javascript:void(0);"
+                                                                                        ng-click="display_application_termsandcond()">Terms
+                                                                                        & Conditions</a></p>
+                                                                                <input type="radio"
+                                                                                    name="need_help_moving_service[{{question.value}}]"
+                                                                                    ng-model="applicationData.need_help_moving_service"
+                                                                                    value="1" ng-checked="true" />
+                                                                                <div class="radio-chk"></div>
+                                                                            </label>
+                                                                            <label class="radio-lb">
+                                                                                <p>No, I don't need help with
+                                                                                    moving
+                                                                                    house or connecting utilities</p>
+                                                                                <input type="radio"
+                                                                                    name="need_help_moving_service[{{question.value}}]"
+                                                                                    ng-model="applicationData.need_help_moving_service"
+                                                                                    value="0" />
+                                                                                <div class="radio-chk"></div>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-cont">
+                                    <hr>
+                                    <div class="border-lower">
+                                        <button ng-click="redirectPropertyDetailsPage()"
+                                            class="btn btn-cancel">Cancel</button>
+                                        <button ng-click="moveToAppThirdStep()" class="btn btn-back">Back</button>
+                                        <button ng-disabled="createAppStepFour.$invalid" ng-click="moveToAppFifthStep()"
+                                            class="btn btn-upload btn-proceed">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-class="AppfifthTabContent" role="tabpanel" id="step5"
+                                class="tab-pane identification-tab-content">
+                                <div class="form-heading">
+                                    <div class="">
+                                        <h1 class="app-main-head">Identification</h1>
+                                    </div>
+                                    <div class="">
+                                        <div class="prop_detail">
+                                            <div class="">
+                                                <div class="panel-body">
+                                                    <form name="createAppStepFive" ng-init="user_submit = false"
+                                                        role="form" novalidate autocomplete="off">
+                                                        <label class="app-sub-head">Identification
+                                                            & Supporting Documentation</label>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="app-note">
+                                                                    To assess your application, this property
+                                                                    manager requires the
+                                                                    following copies of your identification and
+                                                                    supporting
+                                                                    documentation.
+                                                                </div>
+                                                                <br>
+                                                                <div class="app-note">
+                                                                    100 points of Identification - You must upload
+                                                                    at least one
+                                                                    form of photo identification*
+                                                                </div>
+                                                                <br>
+                                                                <div class="app-note">
+                                                                    <b>50 points*</b> - Primary/Photo ID <i>(Eg.
+                                                                        Drivers License,
+                                                                        Passport,
+                                                                        Keypass, Proof of Age)</i>
+                                                                </div>
+                                                                <div class="app-note">
+                                                                    <b>30 points*</b> - Secondary ID <i>(Eg. Birth
+                                                                        Cirtificate,
+                                                                        Student Card,
+                                                                        Medicare Card, Vehicle Registration)</i>
+                                                                </div>
+                                                                <div class="app-note">
+                                                                    <b>30 points*</b> - Rental History / Proof of
+                                                                    Address <i>(Eg.
+                                                                        Rental
+                                                                        Receipts, Signed Lease, Utility Bill, Bank
+                                                                        Statements, Rental
+                                                                        Reference)</i>
+                                                                </div>
+                                                                <div class="app-note">
+                                                                    <b>20 points*</b> - Employment/Proof of Income
+                                                                    <i>(Eg. Payslips,
+                                                                        Letter
+                                                                        of Employment, Employeement Reference)</i>
+                                                                </div>
+                                                                <h2 class="sett-head-upload">Upload Documentation</h2>
+                                                            </div>
+                                                            <div class="col-xs-12">
+                                                                <div ng-show="uploader.isHTML5" class="drag_box"
+                                                                    ng-if="!applicationData.documentation_status">
+                                                                    <div class="file_msg" nv-file-drop=""
+                                                                        uploader="uploader">
+                                                                        <div nv-file-over="" uploader="uploader"
+                                                                            over-class="another-file-over-class"
+                                                                            class="well my-drop-zone">
+                                                                            <p class="inspection">
+                                                                                <img src="assets/images/upload.svg"
+                                                                                    alt="upload">
+                                                                                <p>Drag and drop your files here or
+
+                                                                                    <a href="javascript:void(0)"
+                                                                                        class="pointer file_hyper_link">
+                                                                                        browse <input type="file"
+                                                                                            nv-file-select=""
+                                                                                            uploader="uploader"
+                                                                                            multiple /></a>
+                                                                                    your computer.</p>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="uploaded_docs">
+                                                                <div class="col-xs-12" ng-show="documentList.length > 0"
+                                                                    ng-if="!applicationData.documentation_status">
+                                                                    <div class="col-xs-12">
+                                                                        <p class="head-title">Uploaded Documents</p>
+                                                                    </div>
+                                                                    <div class="setting-section">
+                                                                        <div class="row file_list"
+                                                                            dir-paginate="document_listing in documentList| itemsPerPage:100 |orderBy:sortText track by $index"
+                                                                            current-page="pagination.current">
+                                                                            <div
+                                                                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                                                <div class="atch_img">
+                                                                                    <div class="over">
+                                                                                        <img ng-if="!document_listing.document_type"
+                                                                                            ng-click="openImages(document_listing)"
+                                                                                            src="/assets/images/doc.jpg"
+                                                                                            ng-src="{{fileImageUrl}}{{document_listing.document_path}}"
+                                                                                            class="img-responsive"
+                                                                                            alt="">
+                                                                                        <img ng-if="document_listing.document_type=='excel'"
+                                                                                            src="assets/images/xls.png"
+                                                                                            class="img-responsive disable agreeAttch"
+                                                                                            alt="atch1">
+                                                                                        <img ng-if="document_listing.document_type=='doc'"
+                                                                                            src="assets/images/word.png"
+                                                                                            class="img-responsive disable agreeAttch"
+                                                                                            alt="atch1">
+                                                                                        <img ng-if="document_listing.document_type=='pdf'"
+                                                                                            src="assets/images/pdf.png"
+                                                                                            class="img-responsive disable agreeAttch"
+                                                                                            alt="atch1">
+                                                                                        <img ng-if="document_listing.document_type=='ppt'"
+                                                                                            src="assets/images/ppt.png"
+                                                                                            class="img-responsive disable agreeAttch"
+                                                                                            alt="atch1">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-7 col-md-7 col-sm-7 col-xs-6">
+                                                                                <div class="attchment-name">
+                                                                                    <a
+                                                                                        ng-click="openImages(document_listing)">{{document_listing.document_name}}</a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-7 col-md-7 col-sm-7 col-xs-6 dele-btn">
+                                                                                <a href="javascript:void(0)"
+                                                                                    ng-click="deleteDocument(document_listing._id,$index)">
+                                                                                    <i class="fa fa-trash"
+                                                                                        aria-hidden="true"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="chk-content">
+                                                                <label class="check_container">
+                                                                    <input type="checkbox" name="check" id="check"
+                                                                        ng-model="applicationData.documentation_status">
+                                                                    I've
+                                                                    changed my
+                                                                    mind, I'd prefer to deliver my documentation in
+                                                                    person.
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                            </div>
+                                                            <!-- <div class="chk-content"> {{applicationData.documentation_status}}
+                                                                <label class="check_container"> 
+                                                                    <input type="checkbox" name="check" id="check"
+                                                                        value="1" ng-model="applicationData.documentation_status">
+                                                                    I've
+                                                                    changed my
+                                                                    mind, I'd prefer to deliver my documentation in
+                                                                    person.
+                                                                    <span class="checkmark"></span>
+                                                                </label>
+                                                            </div> -->
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-cont">
+                                    <hr>
+                                    <div class="border-lower">
+                                        <button ng-click="redirectPropertyDetailsPage()"
+                                            class="btn btn-cancel">Cancel</button>
+                                        <button ng-click="moveToAppFourthStep()" class="btn btn-back">Back</button>
+                                        <button ng-disabled="createAppStepFive.$invalid" ng-click="moveToAppSixthStep()"
+                                            class="btn btn-upload btn-proceed">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-class="AppsixthTabContent" role="tabpanel" id="step6"
+                                class="tab-pane declaration-tab-content">
+                                <div class="form-heading">
+                                    <div class="">
+                                        <h1 class="app-main-head">Declaration</h1>
+                                    </div>
+                                    <div class="">
+                                        <div class="prop_detail">
+                                            <div class="">
+                                                <div class="panel-body">
+                                                    <form name="createAppStepSix" ng-init="user_submit = false"
+                                                        role="form" novalidate autocomplete="off">
+                                                        <div class="declare-wrapper">
+                                                            <div class="row">
+                                                                <div class="app-sub-head">Property Inspection</div>
+                                                                <div class="col-xs-6 col-sm-6 col-md-6 pd-0">
+                                                                    <div class="form-group text-left"
+                                                                        ng-init="applicationData.inspection_status = '0'">
+                                                                        <label class="control-label"
+                                                                            for="inspection_status">Have
+                                                                            you inspected this property?<font
+                                                                                color="Red">*</font></label>
+                                                                        <select
+                                                                            ng-model="applicationData.inspection_status"
+                                                                            name="inspection_status"
+                                                                            class="form-control" required>
+                                                                            <option value="0" ng-selected="true">
+                                                                                I have not yet
+                                                                                inspected this property</option>
+                                                                            <option value="1"> Yes, I have
+                                                                                inspected this property</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row"
+                                                                ng-if="applicationData.inspection_status == 0 || applicationData.inspection_status == '0'">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12 dec-txt pd-0">
+                                                                    {{property.created_by.firstname
+                                                                    + " " +
+                                                                    property.created_by.lastname}} requires you to
+                                                                    inspect
+                                                                    the
+                                                                    property before applying. If you have not
+                                                                    already
+                                                                    inspected the property click here to book an
+                                                                    inspection.
+                                                                </div>
+                                                            </div>
+                                                            <div class="row"
+                                                                ng-if="applicationData.inspection_status == 0 || applicationData.inspection_status == '0'">
+                                                                <div class="col-xs-6 col-sm-6 col-md-6 pd-0">
+                                                                    <div class="form-group text-left app-intend-date">
+                                                                        <label class="control-label"
+                                                                            for="intend_date">When
+                                                                            do you intend to inspect the property<font
+                                                                                color="Red">*</font></label>
+                                                                        <div type="text" class="form-control"
+                                                                            name="intend_date"
+                                                                            uib-datepicker-popup="{{format}}"
+                                                                            ng-model="applicationData.inspection_date"
+                                                                            is-open="popup1.opened"
+                                                                            datepicker-options="intend_dateOptions"
+                                                                            required close-text="Close"
+                                                                            alt-input-formats="altInputFormats"
+                                                                            required>{{applicationData.inspection_date|date:
+                                                                            'dd/MM/yy'}}
+                                                                        </div>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button"
+                                                                                class="btn btn-default maint_calender"
+                                                                                ng-click="open1()"><i
+                                                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                                                        </span>
+                                                                        <span class="error-span inner-error ng-binding"
+                                                                            ng-show="createAppStepSix.intend_date.$error.required && createAppStepSix.intend_date.$touched"
+                                                                            class="error-span inner-error ng-binding">
+                                                                            <font color="Red">Date is Required</font>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="declare-wrapper">
+                                                            <span class="app-sub-head">Terms and Conditions</span>
+                                                            <div class="terms-wrap">
+                                                                <span class="app-sub-heading">Privacy & Tenant
+                                                                    Declaration</span>
+                                                                <br>
+                                                                <div class="head-global">1. Privacy - PropertyComm</div>
+                                                                <br>
+                                                                <br>
+                                                                <div class="wrap">
+                                                                    <span class="head-global">Current application:
+                                                                    </span>
+                                                                    <span>PropertyComm collects the information you have
+                                                                        entered into our system and discloses it to the
+                                                                        real estate agent/manager (or their inspection
+                                                                        scheduling service provider) for the current
+                                                                        application (and may so the same for future
+                                                                        applications).
+                                                                    </span>
+                                                                </div>
+                                                                <br>
+                                                                <div class="wrap">
+                                                                    <span class="head-global">Future applications:
+                                                                    </span>
+                                                                    <span>PropertyComm's Collection Statement
+                                                                        and Privacy Policy further explains how
+                                                                        PropertyComm collects, uses and discloses
+                                                                        personal information and how to access, correct
+                                                                        or complain about the handling of personal
+                                                                        information.
+                                                                    </span>
+                                                                </div>
+                                                                <br>
+                                                                <div class="wrap">
+                                                                    <span class="head-global">Other use(s) and
+                                                                        disclosure(s):
+                                                                    </span>
+                                                                    <span>PropertyComm's Collection Statement
+                                                                        and Privacy Policy further explains how
+                                                                        PropertyComm collects, uses and discloses
+                                                                        personal information and how to access, correct
+                                                                        or complain about the handling of personal
+                                                                        information.
+                                                                    </span>
+                                                                </div>
+
+                                                                <br>
+                                                                <div class="head-global">2. Privacy - agent/manager
+                                                                </div>
+                                                                <br>
+                                                                <br>
+                                                                <div class="wrap">
+                                                                    <span class="head-global">Assessing your
+                                                                        application: </span>
+                                                                    <span>The personal information received by the
+                                                                        agent/manager may be used for the purposes of
+                                                                        identifying you and assessing your application.
+                                                                    </span>
+                                                                </div>
+                                                                <br>
+                                                                <div class="wrap">
+                                                                    <span class="head-global">Other use(s) and
+                                                                        disclosure(s): </span>
+                                                                    <span>The agent/ manager may also use or disclose
+                                                                        your personal information to:
+                                                                    </span>
+                                                                    <br>
+                                                                    <span>(a) assess your application information (e.g.
+                                                                        contacting the landlord, your referees,
+                                                                        etc.);</span>
+                                                                    <span>(b) assess your tenancy history (e.g.
+                                                                        contacting bond authorities, financial
+                                                                        institutions, tenancy databases, etc.);</span>
+                                                                    <span>(c) schedule your inspections (e.g. contacting
+                                                                        scheduling providers);</span>
+                                                                    <span>(d) document and register your lease (e.g.
+                                                                        contacting lawyers, tenancy databases, real
+                                                                        estate institutes, etc.);</span>
+                                                                    <span>(e) help you move in and get connected (e.g.
+                                                                        contacting tradespeople, connections services,
+                                                                        utilities providers, etc.); and</span>
+                                                                    <span>(f) perform other services or
+                                                                        activities.</span>
+
+                                                                </div>
+                                                                <br>
+                                                                <div class="wrap">
+                                                                    <span class="head-global">Agent/manager privacy
+                                                                        policy: </span>
+                                                                    <span>The agent/manager may have its own privacy
+                                                                        policy. You may request this from the
+                                                                        agent/manager directly.</span>
+                                                                </div>
+
+                                                                <div class="wrap">
+                                                                    <span class="head-global">PropertyComm does not
+                                                                        control the agent/manager or third parties:
+                                                                    </span>
+                                                                    <span>The agent/manager is separate from
+                                                                        PropertyComm, so PropertyComm cannot and does
+                                                                        not control the agent's/manager's processes or
+                                                                        actions. Likewise, PropertyComm and the
+                                                                        agent/manager do not control third parties who
+                                                                        may receive information.</span>
+                                                                </div>
+
+                                                                <div class="wrap">
+                                                                    <span class="head-global">Contacting the
+                                                                        agent/manager: </span>
+                                                                    <span>If you have any query, concern or special
+                                                                        requirements about how the agent/manager will
+                                                                        use or disclose your personal information (or
+                                                                        how it has used or disclosed your personal
+                                                                        information), you should contact the
+                                                                        agent/manager directly. You should also contact
+                                                                        the agent/manager directly if you wish to
+                                                                        access, correct or delete the information held
+                                                                        by them.</span>
+                                                                </div>
+
+                                                                <div class="wrap">
+                                                                    <span class="head-global">Limiting use of your
+                                                                        personal information: </span>
+                                                                    <span>You can ask to limit how your information is
+                                                                        used and/or disclosed. If your personal
+                                                                        information is not provided to the agent/manager
+                                                                        and/or you do not consent to the use of your
+                                                                        personal information as specified above, the
+                                                                        agent/manager may not be able to assist you with
+                                                                        your application.</span>
+                                                                </div>
+                                                                <br>
+                                                                <div class="head-global">3. Your declaration</div>
+                                                                <br>
+                                                                <br>
+                                                                <div class="wrap">
+                                                                    <span>By submitting your application, you
+                                                                        acknowledge and agree that:</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>(a) (<span class="head-global">you are
+                                                                            applying for the Property</span>) you are
+                                                                        applying to lease the property listed on the
+                                                                        application (Property) and you offer to rent the
+                                                                        Property under a lease or rental agreement
+                                                                        prepared on behalf of the Property owner;</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (b) (<span class="head-global">you've told the
+                                                                            truth</span>) everything you have said and
+                                                                        submitted in the application is true and up to
+                                                                        date and you have not omitted any detail that
+                                                                        might be relevant to assessing the
+                                                                        application;</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (c) (<span class="head-global">the truth is
+                                                                            important</span>) the agent/manager and
+                                                                        Property owner rely on you telling the
+                                                                        truth;</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (d) (<span class="head-global">it's the Property
+                                                                            owner's call</span>) your application is
+                                                                        subject to the Property owner's approval and the
+                                                                        availability of the Property;</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (e) (<span class="head-global">others named in
+                                                                            the application have consented</span>) where
+                                                                        you have provided information identifying
+                                                                        another person in this application, that person
+                                                                        consents to the information being
+                                                                        submitted;</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (f) (<span class="head-global">the application
+                                                                            may take time</span>) it may take time to
+                                                                        process your application (two business days or
+                                                                        more);</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (g) (<span class="head-global">you understand
+                                                                            the rental agreement</span>) you have been
+                                                                        given an opportunity to review the lease or
+                                                                        rental agreement and get advice or ask a
+                                                                        question about any issue or aspect that you do
+                                                                        not understand;</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (h) (<span class="head-global">you will pay the
+                                                                            rent and bond</span>) you are able to pay
+                                                                        the advertised rent and bond for the Property
+                                                                        and will be able to do so for the life of the
+                                                                        rental agreement;</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (i) (<span class="head-global">defaults will
+                                                                            have consequences</span>) if you default
+                                                                        under a rental agreement, the agent/manager may
+                                                                        (subject to the law) terminate the lease and may
+                                                                        disclose details of any such default to any
+                                                                        person whom the agent/manager reasonably
+                                                                        considers has an interest in receiving such
+                                                                        information;</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (j) (<span class="head-global">PropertyComm is
+                                                                            not the agent/manager</span>) you
+                                                                        acknowledge that PropertyComm does not and
+                                                                        cannot control the agent or property manager and
+                                                                        you will not hold PropertyComm responsible for
+                                                                        actions or omissions outside PropertyComm's
+                                                                        control; and</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (k) (<span class="head-global">you've double
+                                                                            checked key details</span>) you have
+                                                                        reviewed, checked and approved the email address
+                                                                        of the agent/manager;</span>
+                                                                </div>
+                                                                <div class="wrap">
+                                                                    <span>
+                                                                        (l) (<span class="head-global">you authorise
+                                                                            PropertyComm to send the application</span>)
+                                                                        you authorise PropertyComm to send the
+                                                                        application and its contents as described by
+                                                                        PropertyComm.
+                                                                    </span>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="declare-wrapper">
+                                                            <div>
+                                                                <span class="app-sub-head">Tenancy Database</span>
+                                                                <br>
+                                                                <br>
+                                                                <span>The agent/manager may utilise any of the following
+                                                                    residential tenancy database companies to check the
+                                                                    tenancy history of applicants. If you wish to
+                                                                    contact these organisations, their details are
+                                                                    below:</span>
+                                                                <div class="table-responsive">
+                                                                    <table style="width:100%;">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Equifax's National Tenancy Database
+                                                                                </th>
+                                                                                <th>1300 563 826</th>
+                                                                                <th><a href="//www.tenancydatabase.com.au"
+                                                                                        target="_blank">www.tenancydatabase.com.au</a>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>TICA</td>
+                                                                                <td>1902 220 346</td>
+                                                                                <th><a href="//www.tica.com.au"
+                                                                                        target="_blank">www.tica.com.au
+                                                                                    </a></th>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>RP DATA</td>
+                                                                                <td>1300 734 318</td>
+                                                                                <th><a href="//www.rpdata.com"
+                                                                                        target="_blank">www.rpdata.com</a>
+                                                                                </th>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>BARCLAY MIS</td>
+                                                                                <td>1300 883 916</td>
+                                                                                <th><a href="//www.barclaymis.com.au"
+                                                                                        target="_blank">www.barclaymis.com.au</a>
+                                                                                </th>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>TRA</td>
+                                                                                <td>02 9363 9244</td>
+                                                                                <th><a href="//www.tradingreference.com"
+                                                                                        target="_blank">www.tradingreference.com</a>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div class="chk-content">
+                                                                    <label class="check_container ">
+                                                                        <input type="checkbox" value="1"
+                                                                            ng-model="applicationData.access_tenancy_db"
+                                                                            required>
+                                                                        I acknowledge that I have chosen of my own free
+                                                                        will to send my application to the
+                                                                        agent/landlord/property manager listed in this
+                                                                        application and their associated principals,
+                                                                        agents and employees. I also acknowledge that I
+                                                                        have reviewed, checked and approved the email
+                                                                        address of the intended recipient being the
+                                                                        agent/landlord/property manager and their
+                                                                        associated principals, agents and employees and
+                                                                        authorise PropertyComm.com to send all of the
+                                                                        details contained in this application, including
+                                                                        any documents that I attach, to this email
+                                                                        address for the purposes of making an
+                                                                        application for tenancy. I acknowledge that once
+                                                                        the information contained in this application
+                                                                        has been sent to this email address, that
+                                                                        PropertyComm.com in no circumstance shall be
+                                                                        liable for any damages arising out of or in any
+                                                                        way connected with the manner in which this
+                                                                        information is used. I also acknowledge that in
+                                                                        no circumstance shall PropertyComm.com be liable
+                                                                        for any damages arising out of or in any way
+                                                                        connected with my use of PropertyComm.com and
+                                                                        its associated websites.
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-cont">
+                                    <hr>
+                                    <div class="border-lower">
+                                        <button ng-click="redirectPropertyDetailsPage()"
+                                            class="btn btn-cancel">Cancel</button>
+                                        <button ng-click="moveToAppFifthStep()" class="btn btn-back">Back</button>
+                                        <button ng-disabled="createAppStepSix.$invalid" ng-click="moveToAppSevenStep()"
+                                            class="btn btn-upload btn-proceed">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-class="AppseventhTabContent" role="tabpanel" id="step7"
+                                class="tab-pane review-tab-content">
+                                <div class="form-heading">
+                                    <div class="">
+                                        <h1 class="app-main-head">Review & Send</h1>
+                                    </div>
+                                    <div class="">
+                                        <div class="prop_detail">
+                                            <div class="">
+                                                <div class="panel-body">
+                                                    <form role="form ">
+                                                        <div class="declare-wrapper">
+                                                            <div class="app-sub-head">Review or Edit Application</div>
+                                                            <span>
+                                                                Not quite ready yet? You can use the review and
+                                                                edit options below before you send.
+                                                            </span>
+                                                            <span>
+                                                                Review Application before sending
+                                                            </span>
+                                                            <span>
+                                                                <a href="javascript:void(0);"
+                                                                    ng-click="moveToAppFirstStep()">View
+                                                                    My Application</a>
+                                                            </span>
+                                                            <span>Edit Application before sending</span>
+                                                            <span>
+                                                                <a href="javascript:void(0);"
+                                                                    ng-click="moveToAppSecondStep()">Edit
+                                                                    Personal Details</a>
+                                                            </span>
+                                                            <span>
+                                                                <a href="javascript:void(0);"
+                                                                    ng-click="moveToAppFirstStep()">Edit
+                                                                    Property Details</a>
+                                                            </span>
+                                                        </div>
+                                                        <div class="declare-wrapper">
+                                                            <div class="app-sub-head">Send Application</div>
+                                                            <span>You're nearly there! Just click the Proceed button and
+                                                                you're done!!!</span>
+                                                            <span>Your application will be sent to
+                                                                {{property.created_by.email}}<br>Please
+                                                                note : You will have a chance to print the
+                                                                application after you have sent it.</span>
+                                                            <span>
+                                                                <a href="javascript:void(0);"
+                                                                    ng-click="display_transafer_content()">View
+                                                                    our Personal Information Transfer Statement</a>
+                                                            </span>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-cont">
+                                    <hr>
+                                    <div class="border-lower">
+                                        <button ng-click="redirectPropertyDetailsPage()"
+                                            class="btn btn-cancel">Cancel</button>
+                                        <button ng-click="moveToAppSixthStep()" class="btn btn-back">Back</button>
+                                        <button ng-click="submitApplication(applicationData)"
+                                            class="btn btn-upload btn-proceed">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-class="AppeightTabContent" role="tabpanel" id="complete" class="tab-pane">
+                                <div class="form-heading">
+                                    <div class="row">
+                                        <div class="heading1">
+                                            <div class="complete-circle"><i class="fa fa-check"></i></div>
+                                            <h2><b>Your Application Was Successfully Submitted</b></h2>
+                                            <!-- <button ng-click="redirectApplicationPropertyFormPage();" class="btn btn-upload btn-proceed btn-add ">New
+                                                Application</button> -->
+                                            <button ng-click="redirectApplicationPropertyDetailsPage();"
+                                                class="btn btn-upload btn-proceed btn-add ">New Application</button>
+                                            <h6> <a href="/#!/view_application/{{applicationId}}">Listing Details</a>
+                                                <!-- ng-click="redirectPropertyDetailsPage();" -->
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+    </div>
+</div>
+<style>
+    .ui-select-search {
+        margin-top: 20px;
+    }
+
+    .carousel-indicators li {
+        text-indent: 0px !important;
+    }
+</style>
+<script>
+    $(document).find('.firstsection').hide();
+</script>

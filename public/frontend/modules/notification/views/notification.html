@@ -1,0 +1,46 @@
+<div class="container" ng-init="getUserNotificationsList()">
+    <div class="row marT20">
+        <div class="setting-section">
+            <div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 horiLine ">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 project-listing-latest ">
+                        <h5>Notifications</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="setting-section">
+            <div class=" NotificationlistBox" dir-paginate="details in notificationsData|itemsPerPage:9">
+                <div class="NotificationImg">
+                    <a ng-click="goToNotificationDetailRelatedPage(details)">
+                        <img ng-show="details.from_user.image.length>0" ng-src="{{imageUrl}}{{details.from_user.image}}"
+                            class="msgs-sqr-img" alt="" />
+                        <div ng-show="!details.from_user.image.length>0 || !details.from_user.image"
+                            class="default_50 col-sm-2" alt="">
+                            {{details.from_user.firstname.charAt(0).toUpperCase()}}{{details.from_user.lastname.charAt(0).toUpperCase()}}
+                        </div>
+                    </a>
+                </div>
+                <div class="content-text">
+                    <a class="pointer" ng-click="goToNotificationDetailRelatedPage(details)">
+                        <span class="content-headline" ng-if="details.unbold == 'yes'">
+                            {{details.subject}}
+                        </span>
+                        <span class="content-headline" ng-if="details.unbold == 'no'"> {{details.subject}} </span>
+                    </a>
+                    <div class="time"><span>{{details.createdAt|date}}</span></div>
+                    <p>{{details.message}}</p>
+                </div>
+
+            </div>
+        </div>
+        <nav class="pagination-container">
+            <div class="pagination">
+                <dir-pagination-controls max-size="10" class="pagination-newer clearfix" direction-links="true"
+                    boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+                </dir-pagination-controls>
+            </div>
+        </nav>
+    </div>
+</div>

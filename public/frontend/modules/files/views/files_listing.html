@@ -1,0 +1,249 @@
+<div class="ContentWrap" ng-init="filesInitialize()">
+    <div class="ContentHead d-flex">
+        <h2>My Files</h2>
+        <div class="ml-auto TenanciesButtons">
+            <button class="btn btn-property" ng-click="openDilogue()">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>Add New File</button>
+        </div>
+    </div>
+    <div class="RefineResults d-flex">
+        <div class="advanceSearchClass" ng-class="advanceSearchClass">
+            <button class="btn btn-secondary dropdown-toggle togle-default refine"
+                ng-click="openRefineSearch();showPopup();" type="button" aria-haspopup="true" aria-expanded="false">
+                Refine results
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </button>
+            <!-- ng-click="openRefineSearch()" -->
+            <div class="dropdown-menu" id="FileSearchPopUp">
+                <div class="row">
+                    <button style="margin-left: 243px;margin-top: 0px;" ng-click="hideSearchFilter()">
+                        <i class="fa fa-close"></i>
+                    </button>
+                    <div class="col-sm-12">
+                        <div class="refine_dropdown">
+                            <div class="refinehead horiLine">
+                                <input ng-model="fileSearch.document_name" type="text" name="search" placeholder="Name"
+                                    class="search1">
+                            </div>
+                            <div class="filters">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group text-left">
+                                        <label class="control-label" for="settingFName">Date</label>
+
+                                        <div type="text" class="form-control" name="dueDate"
+                                            uib-datepicker-popup="{{format}}" ng-model="fileSearch.createdDate"
+                                            is-open="popup1.opened" datepicker-options="dateOptions" required
+                                            close-text="Close" alt-input-formats="altInputFormats">
+                                            {{fileSearch.createdDate|date}}</div>
+                                        <span class="input-group-btn">
+                                            <button style="margin-left: 221px;" type="button"
+                                                class="btn btn-default maint_calender" ng-click="open1()">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="text-left">
+                                        <a ng-click="clearSearch()" href="javascript:void(0)">Clear
+                                            filters</a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <button type="submit" ng-click="fileSearching(fileSearch)"
+                                        class="btn btn-property pull-right">Submit</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="filtering-recent">
+            <ul>
+                <li ng-click="selected=1" ng-class="selected==1?'active':''">
+                    <a href="javascript:void(0)" ng-click="getDocumentList()">All</a>
+                </li>
+                <li ng-click="selected=2" ng-class="selected==2?'active':''">
+                    <a href="javascript:void(0)" ng-click="getFavDocumentList()">Favorites</a>
+                </li>
+            </ul>
+        </div>
+        <div class="sort-grid ml-auto">
+            <div class="dropdown default-oder">
+                <button class="btn btn-secondary dropdown-toggle togle-default" type="button" id="dropdownMenu2"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    By document name
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" ng-click="filterBy('document_name')" type="button">Name</button>
+                    <button class="dropdown-item" ng-click="filterBy('created_by')" type="button">Date</button>
+                    <!-- <button class="dropdown-item" type="button">Something else here</button> -->
+                </div>
+            </div>
+            <span class="view-as">
+                <a href="javascript:void(0)" ng-click="showListView();">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <a href="javascript:void(0)" ng-click="showGrideView();">
+                    <i class="fa fa-th"></i>
+                </a>
+            </span>
+        </div>
+    </div>
+    <div class="ContentBody">
+        <!-- list view section start from here-->
+        <div class="row file_grid" ng-if="grideView">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4"
+                dir-paginate="document_listing in documentList| itemsPerPage:6 |orderBy:sortText"
+                current-page="pagination.current">
+                <div class="atch_img Inspections">
+                    <div class="over">
+                        <img ng-click="openImages(document_listing)" src="assets/images/doc.jpg"
+                            ng-src="{{imageUrl}}{{document_listing.document_path}}" class="img-responsive" alt="atch1">
+                    </div>
+                    <div class="fav-heart_blue">
+                        <a class="pointer"
+                            ng-click="addToFav(document_listing._id,document_listing.is_favorite,selected)"
+                            ng-class="document_listing.is_favorite==true?'active':''"></a>
+                    </div>
+                </div>
+                <div class="attchment-name">
+                    <a ng-click="openImages(document_listing)">{{document_listing.document_name}}</a>
+                </div>
+                <div class="text-right action_popup">
+                    <a ng-click="showFilePopup($index)" href="javascript:void(0)">
+                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div ng-class="filePopup[$index]==true?'file_popup active':'file_popup'"
+                    class="file_popup file_section">
+                    <ul>
+                        <li>
+                            <a download="{{imageUrl}}{{document_listing.document_path}}"
+                                href="{{imageUrl}}{{document_listing.document_path}}" title="Download Now">
+                                <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="Delete"
+                                ng-click="deleteDocument(document_listing._id,$index,selected)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="Tag Users"
+                                ng-click="openAddTag(document_listing._id,$index)">
+                                <i class="fa fa-tag" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- gride view section start from here-->
+        <div ng-if="listView">
+            <div class="row file_list"
+                dir-paginate="document_listing in documentList| itemsPerPage:6 |orderBy:sortText track by $index"
+                current-page="pagination.current">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                    <div class="atch_img">
+                        <div class="over">
+                            <img ng-if="!document_listing.document_type" ng-click="openImages(document_listing)"
+                                src="/assets/images/doc.jpg" ng-src="{{imageUrl}}{{document_listing.document_path}}"
+                                class="img-responsive" alt="">
+                            <img ng-if="document_listing.document_type=='excel'" src="assets/images/xls.png"
+                                class="img-responsive disable agreeAttch" alt="atch1">
+                            <img ng-if="document_listing.document_type=='doc'" src="assets/images/word.png"
+                                class="img-responsive disable agreeAttch" alt="atch1">
+                            <img ng-if="document_listing.document_type=='pdf'" src="assets/images/pdf.png"
+                                class="img-responsive disable agreeAttch" alt="atch1">
+                            <img ng-if="document_listing.document_type=='ppt'" src="assets/images/ppt.png"
+                                class="img-responsive disable agreeAttch" alt="atch1">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-6">
+                    <div class="attchment-name">
+                        <a ng-click="openImages(document_listing)">{{document_listing.document_name}}</a>
+                    </div>
+                    <!-- <div ng-if="!is_clicked[$index]">
+                                <a href="javascript:void(0)" ng-click="showTags($index)">Add tags</a>
+                            </div> -->
+                    <!-- <div ng-if="is_clicked[$index]">
+                                <select multiple ng-model="files.is_tagged_by_id" name="files.is_tagged_by_id" class="selectpicker" required>
+                                    <option value="" disabled>Select user to tag</option>
+                                    <option ng-repeat="(key,user) in userList" value="{{user._id}}">{{user.firstname}} {{user.lastname}}</option>
+                                </select>
+                                <a href="javascript:void(0)" ng-click="addTags(files.is_tagged_by_id,document_listing._id,$index)">Add</a>
+                            </div> -->
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    {{document_listing.updatedAt |date}}
+                    <!-- Yesterday -->
+                </div>
+
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-8">
+                    {{document_listing.size}} KB
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-4">
+                    <div class="fav-heart_blue">
+                        <a class="pointer"
+                            ng-click="addToFav(document_listing._id,document_listing.is_favorite,selected)"
+                            ng-class="document_listing.is_favorite==true?'active':''"></a>
+                    </div>
+                    <div class="text-right action_popup">
+                        <a ng-click="showFilePopup($index)" href="javascript:void(0)">
+                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div ng-class="filePopup[$index]==true?'file_popup active':'file_popup'" class="file_popup">
+                        <ul>
+                            <li>
+                                <a download="{{imageUrl}}{{document_listing.document_path}}"
+                                    href="{{imageUrl}}{{document_listing.document_path}}">
+                                    <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"
+                                    ng-click="deleteDocument(document_listing._id,$index,selected)">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" ng-click="openAddTag(document_listing._id,$index)">
+                                    <i class="fa fa-tag" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="file_popup">
+                                <ul>
+                                   <li><a href="">Download</a></li>
+                                  <li><a href="">Delete</a></li>
+                                </ul>
+                            </div> -->
+            </div>
+            <div ng-if="documentList.length==0 && isSearchedFile==false"
+                class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                <strong>No record to display</strong>
+            </div>
+            <div ng-if="documentList.length==0 && isSearchedFile==true"
+                class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                <strong>No searched results were found</strong>
+            </div>
+        </div>
+        <nav class="pagination-container">
+            <div class="pagination">
+                <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true"
+                    boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+                </dir-pagination-controls>
+            </div>
+        </nav>
+    </div>
+</div>

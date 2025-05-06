@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="39px" height="39px" viewBox="0 0 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>Calendar - Booked</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Agent---Maintenance---Tracker" transform="translate(-65.000000, -325.000000)" stroke="#FFFFFF" stroke-width="2">
+            <g id="Progress-bar" transform="translate(25.000000, 285.000000)">
+                <g id="Booked">
+                    <g transform="translate(16.000000, 16.000000)" id="Calendar---Booked">
+                        <g transform="translate(25.000000, 25.000000)">
+                            <path d="M0,9.25 L37,9.25" id="Stroke-85"></path>
+                            <polyline id="Stroke-86" points="19.3043478 28.9565217 19.3043478 17.6956522 17.6956522 19.3043478"></polyline>
+                            <path d="M2.41304348,37 L27.3478261,37 L37,27.3478261 L37,2.41304348 C37,1.08104348 35.9189565,0 34.5869565,0 L2.41304348,0 C1.08104348,0 0,1.08104348 0,2.41304348 L0,34.5869565 C0,35.9189565 1.08104348,37 2.41304348,37 L2.41304348,37 Z" id="Stroke-87"></path>
+                            <path d="M37,27.3478261 L37,34.5869565 C37,35.9189565 35.9189565,37 34.5869565,37 L27.3478261,37" id="Stroke-88"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

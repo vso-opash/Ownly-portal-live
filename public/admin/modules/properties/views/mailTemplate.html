@@ -1,0 +1,54 @@
+<div class="view-animate content-wrapper" ng-init="getSinglePropertyDetail();" >
+    <!-- <section class="content-header" >
+        <h1>
+            Dashboard
+            <small>Control panel</small>
+        </h1>
+    </section> -->
+    <section class="content-header">
+        <h1>
+            Property Management
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">
+                    <i class="fa fa-dashboard"></i> Dashboard</a>
+            </li>
+            <li><a ui-sref="propertyManagement"><i class="fa fa-home"></i>Property Management</a></li>
+            <li><a class="active"><i class="fa fa-send-o "></i>Send Email</a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Send Email To Seller </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="col-sm-12 marB30">
+                        <label class="lableEmailTemplate">Email Template</label>
+                        <textarea id='my_editor' ui-tinymce="tinymceOptions" ng-model="emailTemplate">                                       
+                      </textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1 pull-right">
+                <button type="button" class="btn btn-primary btn-block btn-flat emailTemplate" ng-click="sendEmailToSeller(singleProperty[0]._id,singleProperty[0].owner_id.email)"
+                   >Send</button>
+            </div>
+    </section>
+    </div>

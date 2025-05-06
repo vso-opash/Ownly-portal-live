@@ -1,0 +1,77 @@
+<div class="modal-content" style="width: 100%;" id="modal">
+    <div class="modal-header">
+        <button class="close" type="button" ng-click="$dismiss('cancel')">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h3 id="myModalLabel" class="modal-title">
+            <strong> Add New Owner </strong>
+        </h3>
+    </div>
+    <div class="modal-body">
+        <form enctype="multipart/form-data" name="createUserForm" ng-init="user_submit = false" role="form" novalidate autocomplete="off">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group text-left">
+                        <label class="control-label" for="product_categorie">First Name<font color="Red">*</font></label>
+                        <input ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" type=" text " name="firstname " ng-model="owner.firstname " class="form-control" placeholder="First Name " required>
+                        <span class="error-span inner-error ng-binding " ng-show="createUserForm.firstname.$error.required && createUserForm.firstname.$touched " class="error-span inner-error ng-binding "><font color="Red">First name is Required</font></span>
+                        <span class="error-span inner-error ng-binding " ng-show="createUserForm.firstname.$error.pattern " class="error-span inner-error ng-binding ">
+                            <font color="Red ">First Name Must Contain Alphabet</font>
+                        </span>
+                        <span ng-show="createUserForm.firstname.$error.maxlength" class="error-span inner-error ng-binding">
+                            <font color="Red">Max 25 characters allowed</font>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 ">
+                    <div class="form-group text-left marg-t ">
+                        <label class="col-md-4 control-label lbl_LeftPadding" for="product_categorie ">Last Name<font color="Red">*</font></label>
+                        <input type="text " name="lastname" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" ng-model="owner.lastname " class="form-control" placeholder="Last Name " required>
+                        <span class="error-span inner-error ng-binding " ng-show="createUserForm.lastname.$error.required && createUserForm.lastname.$touched " class="error-span inner-error ng-binding "><font color="Red">Last name is Required</font></span>
+                        <span class="error-span inner-error ng-binding" ng-show="createUserForm.lastname.$error.pattern" class="error-span inner-error ng-binding">
+                            <font color="Red">Last Name Must Contain Alphabet</font>
+                        </span>
+                        <span ng-show="createUserForm.lastname.$error.maxlength" class="error-span inner-error ng-binding">
+                            <font color="Red">Max 25 characters allowed</font>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-xs-6 col-sm-6 col-md-6 ">
+                    <div class="form-group text-left ">
+                        <label class="control-label " for="product_categorie ">Email<font color="Red">*</font></label>
+                        <input type="text" ng-maxlength="254" name="email " ng-model="owner.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" class="form-control " placeholder="example@syncitt.com " required>
+                        <span class="error-span inner-error ng-binding " ng-show="createUserForm.email.$error.pattern && createUserForm.email.$touched " class="error-span inner-error ng-binding "><font color="Red">Please enter proper email address</font></span>
+                        <span ng-show="createUserForm.email.$error.maxlength" class="redb">
+                            <font color="Red">Max 254 characters allowed.</font>
+                        </span>
+                        <span ng-show="createUserForm.email.$touched && createUserForm.email.$error.required" class="redb">
+                            <font color="Red">Email is required.</font>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 ">
+                    <div class="form-group text-left marg-t ">
+                        <label class="col-md-4 control-label lbl_LeftPadding" for="product_categorie ">Phone Number<font color="Red">*</font></label>
+                        <input type="text " name="mobile_no " ng-model="owner.mobile_no " class="form-control " ng-maxlength="14" placeholder="mobile" ng-pattern="/^[0-9]/" required>
+                        <span class="error-span inner-error ng-binding " ng-show="createUserForm.phone_number.$error.required && createUserForm.phone_number.$touched " class="error-span inner-error ng-binding "><font color="Red">Phone number is Required</font></span>
+                        <span class="text-danger" ng-show="createUserForm.mobile_no.$error.pattern">
+                            <font color="Red">Only numbers are allowed.</font>
+                        </span>
+                        <span ng-show="createUserForm.mobile_no.$error.maxlength" class="error-span inner-error ng-binding">
+                            <font color="Red">Max 14 digits are allowed</font>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <button ng-click="createOwner(owner)" ng-disabled="createUserForm.$invalid" class="btn btn-upload float-right">Invite</button>
+        </form>
+    </div>
+
+</div>
+<script>
+    $("#modal .close ").click()
+</script>
+
+</html>

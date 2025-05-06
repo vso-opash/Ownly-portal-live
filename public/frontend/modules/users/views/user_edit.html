@@ -1,0 +1,1698 @@
+<!-- tabs -->
+<div class="ContentWrap" ng-init="agreementListing();">
+    <div class="ContentHead d-flex">
+        <h2 class="header-left-mr">Settings</h2>
+        <div class="ml-auto TenanciesButtons"></div>
+    </div>
+    <div class="ContentBody" ng-init="getUserDetails(); load_subscription_plans(); initializeStripe();">
+        <div class="col-sm-2 settingPage">
+            <ul class="nav nav-pills nav-stacked nav-editprofile">
+                <li role="presentation" class="{{editAcive}}">
+                    <a class="pointer" ng-click="editProfile()" aria-controls="myprofile" role="tab" data-toggle="tab">
+                        <!-- aria-expanded="true" -->
+                        Profile
+                        <span class="clearfix"></span>
+                    </a>
+                </li>
+                <li role="presentation" class="{{userImageActive}}">
+                    <a class="pointer" ng-click="userImageSetting();" aria-controls="rolesetting" role="tab"
+                        data-toggle="tab" aria-expanded="false">
+                        User Images
+                        <span class="clearfix"></span>
+                    </a>
+                </li>
+                <li class="{{roleSettingActive}}">
+                    <a class="pointer" ng-click="roleSetting();" aria-controls="rolesetting" role="tab"
+                        data-toggle="tab" aria-expanded="false">
+                        User Roles
+                        <span class="clearfix"></span>
+                    </a>
+                </li>
+                <li role="presentation" class="{{notificationAcive}}">
+                    <a class="pointer" ng-click="notificationActiveStatus();" aria-controls="notsettings" role="tab"
+                        data-toggle="tab" aria-expanded="false">
+                        Notifications
+                        <span class="clearfix"></span>
+                    </a>
+                </li>
+                <li role="presentation" class="{{passwordAcive}}">
+                    <a class="pointer" ng-click="changePassword()" aria-controls="changepass" role="tab"
+                        data-toggle="tab" aria-expanded="false">
+                        Account Security
+                        <span class="clearfix"></span>
+                    </a>
+                </li>
+                <li ng-show="userActiveRoleId == trader" role="presentation" class="{{traderAvailability}}">
+                    <a class="pointer" ng-click="showtraderAvailability();" aria-controls="availability" role="tab"
+                        data-toggle="tab" aria-expanded="false">
+                        Availability
+                        <span class="clearfix"></span>
+                    </a>
+                </li>
+                <li ng-show="userActiveRoleId == tenant" role="presentation" class="{{occupacy_section}}">
+                    <a class="pointer" ng-click="showOccupacySection();" aria-controls="occupacy" role="tab"
+                        data-toggle="tab" aria-expanded="true">
+                        Occupancy
+                        <span class="clearfix"></span>
+                    </a>
+                </li>
+                <li ng-show="userActiveRoleId == tenant" role="presentation" class="{{identification_section}}">
+                    <a class="pointer" ng-click="showIdentificationSection();" aria-controls="identification" role="tab"
+                        data-toggle="tab" aria-expanded="false">
+                        Identification
+                        <span class="clearfix"></span>
+                    </a>
+                </li>
+                <li ng-show="userActiveRoleId == trader" role="presentation" class="{{subscriptionActive}}">
+                    <a class="pointer" ng-click="subscriptionSection();" aria-controls="subscription" role="tab"
+                        data-toggle="tab" aria-expanded="false">
+                        Subscription
+                        <span class="clearfix"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-10">
+            <div class="tab-content">
+                <div id="myprofile" class="col-sm-12 tab-pane fade tabbedContent {{editAcive}} in">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <form id="user_edit_form" name="user_edit_form" novalidate="novalidate">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12 col-sm-12 ">
+                                                <div class="profile_img">
+                                                    <!-- <div class="profile_img" name="file" ngf-max-size="5MB" ngf-drop ngf-select ng-model="userModel.files" ngf-change="upload(userModel.files)"
+                                                            class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="true"
+                                                            ngf-allow-dir="true" accept="image/*,application/pdf">
+                                                            <img err-src="/assets/images/no_image.png" ng-src="{{imageUrl}}{{userModel.image}}" alt="profile">
+                                                        </div> -->
+                                                    <!-- ngf-change="uploadUserSingleImage(userModel.files)"" -->
+                                                    <!-- ngf-change="openCropImage($event)" -->
+                                                    <!-- accept="image/*,application/pdf" -->
+                                                    <!-- <div class="profile_img" name="file" ngf-max-size="5MB" ngf-drop
+                                                        ngf-select ng-model="userModel.files" class="drop-box"
+                                                        ngf-drag-over-class="'dragover'" ngf-multiple="true"
+                                                        ngf-allow-dir="true"> -->
+                                                    <div>
+                                                        <img ng-show="userModel.image"
+                                                            ng-src="{{imageUrl}}{{userModel.image}}" alt="profile">
+                                                        <img ng-show="!userModel.image|| userModel.image==''"
+                                                            src="/assets/images/no_image.png" alt="profile">
+                                                    </div>
+                                                </div>
+                                                <div class="profile_btn">
+                                                    <button class="btn btn-updateavtar" aria-hidden="true" name="file"
+                                                        ngf-max-size="5MB" ngf-drop ngf-select
+                                                        ng-model="userModel.files" class="drop-box"
+                                                        ngf-drag-over-class="'dragover'" ngf-multiple="true"
+                                                        ngf-allow-dir="true" accept="image/jpg, image/jpeg, image/png"
+                                                        id="fileInput" ngf-change="openCropImage($event)">Update
+                                                        avatar </button>
+                                                    <!-- ngf-change="openCropImage($event)" -->
+                                                    <!-- ngf-change="file_upload_change($event)" -->
+                                                    <p>Image must be atleast 400px x 400px with an extention of
+                                                        .jpg and
+                                                        .png only.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row marT30 tab-pane fade tabbedContent {{editAcive}} in"
+                                            ng-if="traderView">
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label" for="suburb_postcode">Suburb or
+                                                        PostCode</label>
+                                                    <input class="form-control" ng-model="userModel.suburb_postcode"
+                                                        placeholder="Suburb or PostCode" type="text"
+                                                        name="suburb_postcode" googleplace ng-maxlength="250"
+                                                        ng-change="addressInitialize()">
+
+                                                    <input id="latitude" type="hidden" name="latitude"
+                                                        ng-model="userModel.location_latitude" class="form-control"
+                                                        value="{{userModel.location_latitude}}">
+
+                                                    <input id="longitude" type="hidden" name="longitude"
+                                                        ng-model="userModel.location_longitude" class="form-control"
+                                                        value="{{userModel.location_longitude}}">
+
+                                                    <input id="administrative_area_level_1" type="hidden"
+                                                        name="administrative_area_level_1"
+                                                        ng-model="userModel.location_administrative_area_level_1"
+                                                        class="form-control"
+                                                        value="{{userModel.location_administrative_area_level_1}}">
+
+                                                    <input id="country" type="hidden" name="country"
+                                                        ng-model="userModel.location_country" class="form-control"
+                                                        value="{{userModel.location_country}}">
+
+                                                    <input id="postal_code" type="hidden" name="postal_code"
+                                                        ng-model="userModel.location_postal_code" class="form-control"
+                                                        value="{{userModel.location_postal_code}}">
+
+                                                    <input id="locality" type="hidden" name="locality"
+                                                        ng-model="userModel.location_locality" class="form-control"
+                                                        value="{{userModel.location_locality}}">
+
+                                                    <input id="street_number" type="hidden" name="street_number"
+                                                        ng-model="userModel.location_street_number" class="form-control"
+                                                        value="{{userModel.location_street_number}}">
+
+                                                    <span class="error-span inner-error ng-binding"
+                                                        ng-show="user_edit_form.suburb_postcode.$error.pattern"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Suburb or PostCode must contain alphabet
+                                                        </font>
+                                                    </span>
+                                                    <span ng-show="user_edit_form.suburb_postcode.$error.maxlength"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Max 30 characters allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row marT30 tab-pane fade tabbedContent {{editAcive}} in">
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-if="traderView">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label" for="settingBName">Business
+                                                        Name</label>
+                                                    <input class="form-control" ng-model="userModel.business_name"
+                                                        placeholder="Business Name" type="text" ng-maxlength="50"
+                                                        name="settingBName">
+                                                    <span ng-show="user_edit_form.settingBName.$error.maxlength"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Max 50 characters allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-if="traderView">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label" for="abn_number">ABN</label>
+                                                    <input class="form-control frmInput margin_in text-capitalize"
+                                                        name="abn_number" ng-model="userModel.abn_number"
+                                                        placeholder="ABN" type="text" ng-maxlength="25">
+                                                    <span ng-show="user_edit_form.abn_number.$error.maxlength"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Max 25 characters allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label" for="settingFName">First Name
+                                                        <font color="Red">*</font>
+                                                    </label>
+                                                    <input class="form-control" ng-model="userModel.firstname"
+                                                        placeholder="First Name" type="text" ng-pattern="/^[a-zA-Z ]*$/"
+                                                        ng-maxlength="25" name="firstname" required>
+                                                    <span
+                                                        ng-show="user_edit_form.firstname.$touched && user_edit_form.firstname.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">First Name is required.</font>
+                                                    </span>
+                                                    <span class="error-span inner-error ng-binding"
+                                                        ng-show="user_edit_form.firstname.$error.pattern"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">First Name must contain alphabet</font>
+                                                    </span>
+                                                    <span ng-show="user_edit_form.firstname.$error.maxlength"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Max 25 characters allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label" for="settingLName">Last Name
+                                                        <font color="Red">*</font>
+                                                    </label>
+                                                    <input class="form-control frmInput margin_in text-capitalize"
+                                                        name="lastname" ng-model="userModel.lastname"
+                                                        placeholder="Last Name" type="text" ng-pattern="/^[a-zA-Z ]*$/"
+                                                        ng-maxlength="25" required>
+                                                    <span
+                                                        ng-show="user_edit_form.lastname.$touched && user_edit_form.lastname.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">Last Name is required.</font>
+                                                    </span>
+                                                    <span class="error-span inner-error ng-binding"
+                                                        ng-show="user_edit_form.lastname.$error.pattern"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Last Name must contain alphabet</font>
+                                                    </span>
+                                                    <span ng-show="user_edit_form.lastname.$error.maxlength"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Max 25 characters allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">Email
+                                                        <font color="Red">*</font>
+                                                    </label>
+                                                    <input ng-maxlength="254" class="form-control frmInput margin_in"
+                                                        ng-model="userModel.email" placeholder="Email" type="email"
+                                                        ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,50})$/"
+                                                        name="email" required>
+                                                    <span ng-show="user_edit_form.email.$error.pattern" class="redb">
+                                                        <font color="Red">Please enter valid email.</font>
+                                                    </span>
+                                                    <span ng-show="user_edit_form.email.$error.maxlength" class="redb">
+                                                        <font color="Red">Max 254 characters allowed.</font>
+                                                    </span>
+                                                    <span
+                                                        ng-show="user_edit_form.email.$touched && user_edit_form.email.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">Email is required.</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">Phone number
+                                                        <font color="Red">*</font>
+                                                    </label>
+                                                    <input class="form-control frmInput margin_in" name="mobile_no"
+                                                        ng-model="userModel.mobile_no" placeholder="Mobile Number"
+                                                        type="text" ng-maxlength="14" ng-pattern="/^[0-9]*$/" required>
+                                                    <span
+                                                        ng-show="user_edit_form.mobile_no.$touched && user_edit_form.mobile_no.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">Phone number is required.</font>
+                                                    </span>
+                                                    <span class="text-danger redb"
+                                                        ng-show="user_edit_form.mobile_no.$error.pattern">
+                                                        <font color="Red">Only numbers are allowed.</font>
+                                                    </span>
+                                                    <span ng-show="user_edit_form.mobile_no.$error.maxlength"
+                                                        class="error-span inner-error ng-binding redb">
+                                                        <font color="Red">Max 14 digits are allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-if="userActiveRoleId === ownAgency">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">Agency Name
+                                                        <font color="Red">*</font>
+                                                    </label>
+                                                    <input class="form-control frmInput margin_in" name="agency_name"
+                                                        ng-model="userModel.agency_id.name" placeholder="Agency name"
+                                                        type="text" required>
+                                                    <span
+                                                        ng-show="user_edit_form.agency_name.$touched && user_edit_form.agency_name.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">Agency name is required.</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-if="userActiveRoleId === ownAgency">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">ABN/ACN
+                                                    </label>
+                                                    <input class="form-control frmInput margin_in" name="abn_number"
+                                                        ng-model="userModel.agency_id.abn_number" placeholder="ABN/ACN"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-if="userActiveRoleId === ownAgency">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">Agency licence number
+                                                    </label>
+                                                    <input class="form-control frmInput margin_in" name="licence_number"
+                                                        ng-model="userModel.agency_id.licence_number" placeholder="Agency licence number"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-if="userActiveRoleId === ownAgency">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">Agency email address
+                                                    </label>
+                                                    <input class="form-control frmInput margin_in" name="agency_email"
+                                                        ng-model="userModel.agency_id.email" placeholder="Agency email address"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-if="userActiveRoleId === ownAgency">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">Agency phone number
+                                                    </label>
+                                                    <input class="form-control frmInput margin_in" name="agency_mobile_number"
+                                                        ng-model="userModel.agency_id.phone_number" placeholder="Agency phone number"
+                                                        type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">Country
+                                                        <font color="Red">*</font>
+                                                    </label>
+                                                    <select class="form-control">
+                                                        <option selected>{{country}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">State</label>
+                                                    <select ng-model="userModel.state" name="state"
+                                                        class="form-control">
+                                                        <option value="" disabled>Select State </option>
+                                                        <option ng-repeat="state in stateList" value="{{state}}">
+                                                            {{state}}</option>
+                                                    </select>
+                                                    <span class="error-span inner-error ng-binding "
+                                                        ng-show="user_edit_form.state.$error.required && user_edit_form.state.$touched "
+                                                        class="error-span inner-error ng-binding ">
+                                                        <font color="Red">Select State is required</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label" for="settingLName">City</label>
+                                                    <input class="form-control frmInput margin_in text-capitalize"
+                                                        name="city" ng-model="userModel.city" placeholder="City"
+                                                        type="text" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25">
+                                                    <span
+                                                        ng-show="user_edit_form.city.$touched && user_edit_form.city.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">City is required.</font>
+                                                    </span>
+                                                    <span class="error-span inner-error ng-binding"
+                                                        ng-show="user_edit_form.city.$error.pattern"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">City must contain alphabet</font>
+                                                    </span>
+                                                    <span ng-show="user_edit_form.city.$error.maxlength"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Max 25 characters allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label" for="settingLName">Postal
+                                                        Code</label>
+                                                    <input class="form-control frmInput margin_in text-capitalize"
+                                                        name="zipcode" ng-model="userModel.zipCode"
+                                                        placeholder="Postal Code" type="text"
+                                                        ng-pattern="/^[0-9]{1,4}$/" ng-maxlength="4">
+                                                    <span
+                                                        ng-show="user_edit_form.zipcode.$touched && user_edit_form.zipcode.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">Postal Code is required.</font>
+                                                    </span>
+                                                    <span class="error-span inner-error ng-binding"
+                                                        ng-show="user_edit_form.zipcode.$error.pattern"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Postal Code must be number</font>
+                                                    </span>
+                                                    <span ng-show="user_edit_form.zipcode.$error.maxlength"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Max 4 digits allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-if="traderView">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label" for="rate">Rate (hr)</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">$</span>
+                                                        <input class="form-control frmInput margin_in text-capitalize"
+                                                            name="rate" ng-model="userModel.rate" placeholder="Rate"
+                                                            type="number" ng-pattern="/^[0-9]{1,5}$/" ng-maxlength="5"
+                                                            value="{{userModel.rate && userModel.rate > 0 ? userModel.rate : '' }}" />
+                                                    </div>
+                                                    <span class="error-span inner-error ng-binding"
+                                                        ng-show="user_edit_form.rate.$error.pattern"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Rate must contain positive numeric value
+                                                        </font>
+                                                    </span>
+                                                    <span ng-show="user_edit_form.rate.$error.maxlength"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Max 5 digits allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-show="isAgentTenant">
+                                                <div class="form-group text-left">
+                                                    <label class="control-label">Associate with agency</label>
+                                                    <select ng-show='userModel.agency_id._id.length>0'
+                                                        class="form-control" disabled>
+                                                        <option>{{userModel.agency_id.name}}
+                                                            ({{userModel.agency_id.principle_id.email}})</option>
+                                                    </select>
+                                                    <!-- <select ng-change="showLogo(agencyData)" ng-model="agencyData" name="created_by" class="form-control" ng-show='!(userModel.agency_id._id.length>0)'>
+                                                            <option value="" disabled>Select Agency </option>
+                                                            <option ng-repeat="(key,agency) in agencyList" value="{{key}}">{{agency.name}} {{agency.principle_id.email}}</option>
+                                                        </select> -->
+
+                                                    <!-- *********************** -->
+                                                    <ui-select ng-model="agencyData.id"
+                                                        ng-change="showLogo(agencyData.id)"
+                                                        ng-show='!(userModel.agency_id._id.length>0)'>
+                                                        <ui-select-match placeholder="Select Agency">
+                                                            {{$select.selected.name}}
+                                                        </ui-select-match>
+                                                        <ui-select-choices
+                                                            repeat="item as item in agencyList | filter:  $select.search">
+                                                            <div class="row">
+                                                                <div class="col-sm-1">
+                                                                    <img class="img-circle drop_down_img_pro"
+                                                                        ng-if="item.logoImage"
+                                                                        src="{{imageUrl}}{{item.logoImage}}"
+                                                                        alt="User img">
+                                                                    <img ng-if="!item.logoImage"
+                                                                        class="img-circle drop_down_img_pro"
+                                                                        alt="User img" src="assets/images/no_image.png">
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div ng-bind-html="item.name | highlight: $select.search"
+                                                                        class="select_user_drop"></div>
+                                                                    <small>email Id:
+                                                                        {{item.principle_id.email}}</small>
+                                                                </div>
+                                                            </div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <!-- ********************************* -->
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6" ng-show="isAgentTenant">
+                                                <img ng-show='!(userModel.agency_id._id.length>0)'
+                                                    style="height:35px;width:35px;margin-top: 25px;"
+                                                    src="{{imageUrl}}{{agencyImage}}" alt="no image">
+                                                <img ng-show='userModel.agency_id._id.length>0'
+                                                    style="height:35px;width:35px;margin-top: 25px;"
+                                                    src="{{imageUrl}}{{userModel.agency_id.logoImage}}" alt="no image">
+                                                <div class="form-group text-left pull-right">
+                                                    <button type="button" ng-show='!(userModel.agency_id._id.length>0)'
+                                                        class="btn btn-savechanges sendReq"
+                                                        ng-click="associateAgency(agencyData.id)" type="button">Send
+                                                        Request</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <div ng-show="traderView" class="Setting_traderView">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Service Category</label>
+                                                            <div isteven-multi-select input-model="serviceList"
+                                                                output-model="newArray2" button-label="icon name"
+                                                                item-label="icon name maker" tick-property="ticked">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-12 padding_5"
+                                                            ng-show="view">
+                                                            <div class="form-group text-left cat-sec">
+
+                                            <ul class="ser_cate" ng-show="newArray2">
+                                                <li ng-repeat="cat in newArray2">
+                                                    <a href="javascript:void(0);">{{cat.name}}</a>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="product_description">About /
+                                                        Overview
+                                                        <!-- <font color="Red">*</font> -->
+                                                    </label>
+                                                    <textarea class="form-control" ng-maxlength="700"
+                                                        id="product_description" name="about"
+                                                        ng-model="userModel.groups.about_user"></textarea>
+                                                    <!-- <span
+                                                        ng-show="user_edit_form.about.$touched && user_edit_form.about.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">About is required.</font>
+                                                    </span> -->
+                                                    <span ng-show="user_edit_form.about.$error.maxlength"
+                                                        class="error-span inner-error ng-binding">
+                                                        <font color="Red">Max 700 characters allowed</font>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div ng-show="traderView" class="Setting_traderView">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Service Category</label>
+                                                        <br>
+                                                        <br>
+                                                        <label class="control-label">Select Your Skills</label>
+                                                        <div isteven-multi-select input-model="serviceList"
+                                                            output-model="newArray2" button-label="icon name"
+                                                            item-label="icon name maker" tick-property="ticked">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 padding_5" ng-show="view">
+                                                        <div class="form-group text-left cat-sec">
+                                                            <!-- <ul class="ser_cate" ng-show="userModel.categories_id.length && userModel.hasOwnProperty('categories_id')">
+                                                                        <li ng-repeat="cat in userModel.categories_id">
+                                                                            <a href="javascript:void(0);">{{cat.name}}</a>
+                                                                        </li>
+                                                                    </ul> -->
+                                                            <ul class="ser_cate" ng-show="newArray2">
+                                                                <li ng-repeat="cat in newArray2">
+                                                                    <a href="javascript:void(0);">{{cat.name}}
+                                                                        <!-- <span> -->
+                                                                        <!-- <svg version="1.1" id="Capa_1"
+                                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                                    x="0px" y="0px"
+                                                                                    viewBox="0 0 51.976 51.976"
+                                                                                    style="fill:#fff"
+                                                                                    xml:space="preserve">
+                                                                                    <path
+                                                                                        d="M44.373,7.603c-10.137-10.137-26.632-10.138-36.77,0c-10.138,10.138-10.137,26.632,0,36.77s26.632,10.138,36.77,0
+                                                                               C54.51,34.235,54.51,17.74,44.373,7.603z M36.241,36.241c-0.781,0.781-2.047,0.781-2.828,0l-7.425-7.425l-7.778,7.778
+                                                                               c-0.781,0.781-2.047,0.781-2.828,0c-0.781-0.781-0.781-2.047,0-2.828l7.778-7.778l-7.425-7.425c-0.781-0.781-0.781-2.048,0-2.828
+                                                                               c0.781-0.781,2.047-0.781,2.828,0l7.425,7.425l7.071-7.071c0.781-0.781,2.047-0.781,2.828,0c0.781,0.781,0.781,2.047,0,2.828
+                                                                               l-7.071,7.071l7.425,7.425C37.022,34.194,37.022,35.46,36.241,36.241z" />
+                                                                                </svg> -->
+                                                                        <!-- </span> -->
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button class="btn btn-savechanges" ladda="loginLoading"
+                                            data-style="slide-right" ng-click="updateUserProfile(userModel)"
+                                            type="button">Save changes</button>
+                                        <!-- ng-disabled="user_edit_form.$invalid" -->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="changepass" class="col-sm-12 tab-pane fade tabbedContent {{passwordAcive}} in">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel  tabProfile">
+                                <div class="panel-body">
+                                    <form novalidate name="account_setting">
+                                        <h2>Account Security</h2>
+                                        <div class="row marT30">
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <h3>Email Address</h3>
+                                                <div class="col-md-7">
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label" for="settingEmail">Email
+                                                            Address</label>
+                                                        <input type="text" ng-model="userModel.email"
+                                                            name="settingEmail" readonly class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top:10px;">
+                                                <h3>Change Password</h3>
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label" for="settingCpass">Current
+                                                            Password
+                                                            <font color="Red">*</font>
+                                                        </label>
+                                                        <input class="form-control frmInput margin_in" ng-maxlength="15"
+                                                            ng-model="userData.oldPassword"
+                                                            placeholder="Current Password"
+                                                            ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                                                            name="oldpassword" placeholder="Enter password here"
+                                                            type="password" required>
+                                                    </div>
+                                                    <span
+                                                        ng-show="account_setting.oldpassword.$touched && account_setting.oldpassword.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">Current password is required.</font>
+                                                    </span>
+                                                    <span class="text-danger"
+                                                        ng-show="account_setting.oldpassword.$error.pattern">
+                                                        <font color="Red">It has to be a combination of lowercase,
+                                                            uppercase, numeric,
+                                                            and special character.</font>
+                                                    </span>
+                                                    <span class="text-danger"
+                                                        ng-show="account_setting.oldpassword.$error.maxlength">
+                                                        <font color="Red">Max allowed length is 15.</font>
+                                                    </span>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label" for="settingNpass">New
+                                                            Password
+                                                            <font color="Red">*</font>
+                                                        </label>
+                                                        <input class="form-control frmInput margin_in" ng-maxlength="15"
+                                                            ng-model="userData.newPassword" placeholder="New Password"
+                                                            type="password"
+                                                            ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                                                            name="password" required>
+                                                    </div>
+                                                    <font color: "Red">
+                                                        <span
+                                                            ng-show="account_setting.password.$touched && account_setting.password.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">New password is required.</font>
+                                                        </span>
+                                                    </font>
+                                                    <span class="text-danger"
+                                                        ng-show="account_setting.password.$error.pattern">
+                                                        <font color="Red">It has to be a combination of lowercase,
+                                                            uppercase, numeric,
+                                                            and special character.</font>
+                                                    </span>
+                                                    <span class="text-danger"
+                                                        ng-show="account_setting.password.$error.maxlength">
+                                                        <font color="Red">Max allowed length is 15.</font>
+                                                    </span>
+                                                </div>
+
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label" for="settingNpass">Confirm New
+                                                            Password
+                                                            <font color="Red">*</font>
+                                                        </label>
+                                                        <input class="form-control frmInput margin_in" ng-maxlength="15"
+                                                            ng-model="userData.confirmPassword"
+                                                            placeholder="Confirm Password" type="password"
+                                                            ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                                                            name="confirmPassword" required>
+                                                    </div>
+                                                    <font color: "Red">
+                                                        <span
+                                                            ng-show="account_setting.confirmPassword.$touched && account_setting.confirmPassword.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Confirm new password is required.</font>
+                                                        </span>
+                                                    </font>
+                                                    <span class="text-danger"
+                                                        ng-show="account_setting.confirmPassword.$error.pattern">
+                                                        <font color="Red">It has to be a combination of lowercase,
+                                                            uppercase, numeric,
+                                                            and special character.</font>
+                                                    </span>
+                                                    <span class="text-danger"
+                                                        ng-show="account_setting.confirmPassword.$error.maxlength">
+                                                        <font color="Red">Max allowed length is 15.</font>
+                                                    </span>
+                                                    <!-- <span class="text-danger" ng-show="!account_setting.confirmPassword.$error.required && account_setting.password && account_setting.confirmPassword.$invalid">Confirm password not matched</span> -->
+                                                </div>
+                                                <div class="col-md-12 d-flex align-items-center">
+                                                    <label class="control-label" for="settingNpass" style="min-width: fit-content;margin: 0; margin-right: 5px;">Forgot Password?
+                                                    </label>
+                                                    <a ng-click="sendForgotPasswordInstruction(userModel.email)" href="javascript:void(0)" style="font-size: 13px; color: #000; text-decoration: underline;">Click here to receive password reset instructions</a>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right divAlign">
+                                                <button class="btn btn-savechanges" type="button"
+                                                    ng-click="cancelAccountSetting()">Cancel</button>
+                                                <button class="btn btn-savechanges" ladda="loginLoading"
+                                                    data-style="slide-right" ng-click="updatePassword(userData)"
+                                                    ng-disabled="account_setting.$invalid" type="button">Update</button>
+                                            </div>
+
+                                            <!-- <button class="btn removeAccBtn">Remove Account</button> -->
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="rolesetting" class="col-sm-12  tab-pane fade tabbedContent {{roleSettingActive}} in"
+                    ng-init="getRoleList()">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-default tabProfile">
+                                <div class="panel-body">
+                                    <form novalidate>
+                                        <h2>Modify your user roles</h2>
+                                        <div class="row marT30" ng-init="setRoles()">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 role">
+                                                    <div ng-repeat="role in roleList">
+                                                        <div class="rolelist"
+                                                            ng-if="((rolesList.indexOf(role.description)!=-1))">
+                                                            <label class="check_container">{{role.description}}
+                                                                <input type="checkbox" checked="checked"
+                                                                    checklist-model="user.roles"
+                                                                    checklist-value="role._id">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="rolelist" ng-repeat="info in userRole"
+                                                        ng-class="{{info._id == userActiveRoleId}}?'aciveRole':''">
+                                                        <label class="check_container">{{info.description}}
+                                                            <input type="checkbox" ng-checked="true" checked="checked"
+                                                                ng-disabled="true" checklist-value="info._id">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <!-- <button  class="btn btn-savechanges" ng-disabled=true type="button" >Submitvbvc</button> -->
+                                                    <button class="btn btn-savechanges"
+                                                        ng-click="saveUserRoles(user.roles)"
+                                                        type="button">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="notsettings" class="col-sm-12 tab-pane fade tabbedContent {{notificationAcive}} in">
+                    <div class="row" ng-init="notificationStatus()">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel tabProfile">
+                                <div class="panel-body">
+                                    <form novalidate>
+                                        <h2>Notification</h2>
+                                        <div class="row marT30">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left">
+                                                        <label class="control-label" for="settingEmail">Notification
+                                                            Alerts</label>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="col-xs-6 col-sm-6 col-md-6 toggleSwitch text-right {{class}}">
+                                                    <label class="switch">
+                                                        <input ng-disabled="notifiStatus" type="checkbox"
+                                                            ng-change="changeNotification(notification)"
+                                                            ng-model="notification" checked>
+                                                        <span class="slider round {{class}}"></span>
+                                                        <!-- <span ng-if="notification==true">Turn on</span><span ng-if="notification==false">Turn off</span> -->
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="notsettings" class="col-sm-12 tab-pane fade tabbedContent {{userImageActive}} in">
+                    <div class="row" ng-init="notificationStatus()">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel tabProfile">
+                                <div class="panel-body">
+                                    <form novalidate>
+                                        <h2>Upload Images</h2>
+                                        <button class="upload-instruction-btn" ng-click="showLightBox = true">
+                                            How to upload images
+                                            <img width="25px"
+                                                ng-src="http://portal.syncitt.world/assets/images/video-icon.png"
+                                                alt="" /></button>
+                                        <lightbox-directive class="angular-lightbox"
+                                            ng-class="{ hidden : !showLightBox }">
+                                            <article>
+                                                <header>
+                                                    <a class="close-btn" ng-click="$parent.showLightBox = false"><i
+                                                            class="fa fa-times-circle"></i></a>
+                                                </header>
+                                                <content>
+                                                    <!-- <iframe width="100%" height="100%"
+                                                        src="http://portal.syncitt.world/assets/video/UploadInstruction.mp4"
+                                                        frameborder="0" allowfullscreen></iframe> -->
+                                                    <video width="650" height="100%" controls>
+                                                        <source
+                                                            src="http://portal.syncitt.world/assets/video/how_to_upload_images.mp4"
+                                                            type="video/mp4">
+                                                    </video>
+                                                </content>
+                                            </article>
+                                        </lightbox-directive>
+                                        <div class="row marT30">
+                                            <p>1. Click “Browse” and select all the images you would like to upload.</p>
+                                            <p>2. Once images are selected click on “Upload Images”.</p>
+                                            <div class="prop-upload">
+                                                <div class="carousel slide article-slide" id="article-photo-carousel">
+                                                    <!-- Wrapper for slides -->
+                                                    <div class="carousel-inner cont-slider"
+                                                        style="width:500px;height:350px">
+                                                        <div ng-class="key==0 ? 'item active':'item'"
+                                                            ng-repeat="(key,files) in property.files">
+                                                            <img alt="" title=""
+                                                                ngf-src="!property.files[key].$error && property.files[key]"
+                                                                src="http://placehold.it/600x400" onerror="this.src='http://placehold.it/600x400'">
+                                                        </div>
+                                                        <div ng-if="property.images.length>0"
+                                                            ng-class="key==0 ? 'item active':'item'"
+                                                            ng-repeat="(key,image) in property.images">
+                                                            <img alt="" title="" src="{{userImageUrl}}{{image.url}}"
+                                                                src="http://placehold.it/600x400" onerror="this.src='http://placehold.it/600x400'" >
+                                                        </div>
+                                                        <div ng-if="!property.files && property.images.length==0"
+                                                            class="item active">
+                                                            <img alt="" src="http://placehold.it/600x400" onerror="this.src='http://placehold.it/600x400'" >
+                                                        </div>
+                                                    </div>
+                                                    <!-- Indicators -->
+                                                    <ol class="carousel-indicators display-block">
+                                                        <!-- <li ng-class="key==0 ? 'active': ''" ng-repeat="(key,files) in property.files" data-slide-to="{{key}}" data-target="#article-photo-carousel">
+                                                                        <button  class="maint_image pull-right" type="button" ng-click="RemovePhoto($index)"><i class="fa fa-close"></i></button>
+                                                                        <img alt="" ngf-src="!property.files[key].$error && property.files[key]" src="http://placehold.it/250x180">
+                                                            </li> -->
+                                                        <li ng-class="key==0 ? 'active': ''"
+                                                            ng-repeat="(key,files) in property.files"
+                                                            data-slide-to="{{key}}"
+                                                            data-target="#article-photo-carousel">
+                                                            <button class="maint_image pull-right" type="button"
+                                                                ng-click="RemovePhoto($index)">
+                                                                <i class="fa fa-close"></i>
+                                                            </button>
+                                                            <img alt=""
+                                                                ngf-src="!property.files[key].$error && property.files[key]"
+                                                                src="http://placehold.it/250x180" onerror="this.src='http://placehold.it/250x180'" >
+                                                        </li>
+                                                        <li ng-if="property.images.length>0"
+                                                            ng-class="key==0 ? 'active': ''"
+                                                            ng-repeat="(key,image) in property.images"
+                                                            data-slide-to="{{key}}"
+                                                            data-target="#article-photo-carousel">
+                                                            <button class="propertyImg pull-right" type="button"
+                                                                ng-click="RemovePhotoFromMyFiles(key)">
+                                                                <i class="fa fa-close"></i>
+                                                            </button>
+                                                            <img alt="" ng-src="{{userImageUrl}}{{image.url}}" src="http://placehold.it/250x180" onerror="this.src='http://placehold.it/250x180'">
+                                                        </li>
+                                                        <li ng-if="!property.files && property.images.length==0"
+                                                            class="active" data-slide-to="0"
+                                                            data-target="#article-photo-carousel">
+                                                            <img style="height:100px;width:100px;" alt=""
+                                                                src="http://placehold.it/250x180" onerror="this.src='http://placehold.it/250x180'" >
+                                                        </li>
+                                                    </ol>
+                                                    <div class="btn-container">
+                                                        <div>
+                                                            <button type="button" class="btn btn-labeled btn-upload"
+                                                                name="file" ngf-drop ngf-select
+                                                                ng-model="property.files" class="drop-box"
+                                                                ngf-drag-over-class="'dragover'" ngf-multiple="true"
+                                                                ngf-resize="{width: 1306, height: 400}"
+                                                                ngf-max-size="5MB" ngf-allow-dir="true"
+                                                                accept="image/*,application/pdf">
+                                                                <span class="btn-label"> </span>Browse</button>
+                                                            <!-- <uib-progressbar animate="false" value="fileProgress" type="success"><b>{{fileProgress}}%</b></uib-progressbar> -->
+                                                        </div>
+                                                        <div class="flt-rt">
+                                                            <button type="button" class="btn btn-labeled btn-upload"
+                                                                ladda="loginLoading" data-style="slide-right"
+                                                                ng-click="uploadUserImages(property)">
+                                                                <span class="btn-label"> </span>Upload images</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="availability" class="col-sm-12 tab-pane fade tabbedContent {{traderAvailability}} in">
+                    <div class="row" ng-init="userModel.availability.option = 7">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-default tabProfile settings-wrapper">
+                                <div class="panel-body p-body">
+                                    <form id="availability_form" name="availability_form" novalidate="novalidate">
+                                        <h2 class="sett-head">Availability</h2>
+                                        <label class="control-label sett-content" for="settingEmail">Are you
+                                            available to take
+                                            on new work? Knowing when you are available helps Ownly find the
+                                            right jobs for you.</label>
+
+                                        <label class="control-label sett-content" for="settingEmail">I'm
+                                            currently</label>
+                                        <div class="row marT30 tab-pane fade tabbedContent in">
+                                            <div class="custom-switch">
+                                                <label class="switch">
+                                                    <span class="a available_label">Available</span>
+                                                    <input type="checkbox" id="available"
+                                                        ng-model="userModel.availability.status" value="1">
+                                                    <span class="slider round"></span>
+                                                    <span class="u not_available_label">Not Available</span>
+                                                </label>
+                                            </div>
+                                            <!-- <label class="switch">
+                                                    <input type="checkbox" ng-model="userModel.availability.status"
+                                                        checked class="switch-input" value="1">
+                                                </label> -->
+                                            <!-- ng-model="userModel.availability.status" -->
+                                            <!-- checked="" -->
+                                            <!-- <div class="switch">
+                                                    <input type="radio" class="switch-input" name="view" value="1"
+                                                        id="Available"
+                                                        ng-checked="userModel.availability.status == '1'"
+                                                        ng-model="userModel.availability.status">
+                                                    <label for="Available"
+                                                        class="switch-label switch-label-available">Available</label>
+
+                                                    <input type="radio" class="switch-input" name="view" value="2"
+                                                        id="notAvailable" ng-model="userModel.availability.status"
+                                                        ng-checked="!userModel.availability || !userModel.availability.status || userModel.availability.status == '2'">
+                                                    <label for="Not Available"
+                                                        class="switch-label switch-label-not-available">Not
+                                                        Available</label>
+                                                    <span class="switch-selection"></span>
+                                                </div> -->
+                                            <!-- <label class="switch">
+                                                    <input type="checkbox" value="1" ng-checked="userModel.availability.status == 0">
+                                                    <span class="slider round"></span>
+                                                    <span class="before-label">Available</span>
+                                                    <span class="after-label">Not Available</span>
+                                                </label> -->
+                                            <!-- <input type="radio" name="available_status" id="available_status"
+                                                    value="0" ng-model="userModel.availability.status" ng-checked="userModel.availability.status == 0">Available
+                                                <input type="checkbox" name="available_status" id="available_status"
+                                                    value="1" ng-model="userModel.availability.status" ng-checked="userModel.availability.status == 1">Not
+                                                Available -->
+                                        </div>
+
+                                        <div ng-if="userModel.availability.status == '1'"
+                                            class="row marT30 tab-pane fade tabbedContent in radio-list">
+                                            <div ng-repeat="(key, value)  in day_options_list"
+                                                ng-model="userModel.availability.option">
+                                                <label class="radio-lb">
+                                                    {{value}}
+                                                    <input type="radio" name="option" id="option" value="{{key}}"
+                                                        ng-checked="userModel.availability.option == key || key==0"
+                                                        ng-model="userModel.availability.option"
+                                                        ng-change="getAvailOption(key)"
+                                                        ng-required="!userModel.availability.option">
+                                                    <div class="radio-chk"></div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div ng-if="userModel.availability.status == 1" class="row"
+                                            ng-show="displayDaysOffOptions">
+                                            <!-- ng-show="userModel.availability.option && (userModel.availability.option == 3)" -->
+                                            <div class="form-group">
+                                                <label class="control-label">Choose your day off</label>
+                                                <div isteven-multi-select input-model="weekdays_list"
+                                                    output-model="userModel.availability.days" button-label="icon name"
+                                                    item-label="icon name maker" tick-property="ticked">
+                                                </div>
+                                            </div>
+                                            <div class="form-group text-left">
+                                                <ul class="ser_cate">
+                                                    <li ng-repeat="list in original_weekdays_list">
+                                                        <a href="javascript:void(0);"
+                                                            ng-show="userModel.availability.days.indexOf(list.value) !== -1">{{list.name}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <br><br>
+                                        <button class="btn btn-savechanges" ladda="loginLoading"
+                                            data-style="slide-right"
+                                            ng-click="updateAvailability(userModel.availability)" type="button">Save
+                                            changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="occupacy"
+                    class="col-sm-12 tab-pane fade tabbedContent {{occupacy_section}} in occupacy-wrapper">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-default tabProfile settings-wrapper">
+                                <div class="panel-body p-body">
+                                    <form id="occupacy_form" name="occupacy_form" novalidate="novalidate">
+                                        <h2 class="sett-head">Occupancy</h2>
+                                        <label class="control-label sett-content">Are you
+                                            You confirm that you have the person's content to provide their
+                                            personal information.</label>
+                                        <label class="control-label sett-content-head">Occupants</label>
+                                        <div class="applicant-wrap">
+                                            <p>Primary Applicant</p>
+                                            <span>{{userModel.firstname}} {{userModel.lastname}}</span>
+                                        </div>
+                                        <!-- Users Section -->
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group text-left form-content">
+                                                    <span>Apart from the above, how many other people will be
+                                                        occupying
+                                                        the
+                                                        property</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group text-left form-content">
+                                                    <select ng-model="display_occupants_section" name="no_of_occupants"
+                                                        class="form-control" ng-change="displayAddOccupantSection()">
+                                                        <option value="">Select No. of People</option>
+                                                        <option ng-repeat="n in [] | range:11 | limitTo : 10:1"
+                                                            value="{{n}}" ng-selected="display_occupants_section1 == n">
+                                                            {{n}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="load_occupants_section"
+                                            ng-repeat="n in [] | range : display_occupants_section1">
+                                            <span>Person #{{n + 1}}</span>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left form-content">
+                                                        <label>Name<font color="Red">*</font></label>
+                                                        <input type="text" name="name{{$index}}" class="form-control"
+                                                            ng-model="userModel.members[n].name" required
+                                                            placeholder="Name" ng-pattern="/^[a-zA-Z ]*$/"
+                                                            ng-maxlength="70">
+
+                                                        <span
+                                                            ng-show="occupacy_form.name{{$index}}.$touched && occupacy_form.name{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Name is required.</font>
+                                                        </span>
+                                                        <span class="error-span inner-error ng-binding"
+                                                            ng-show="occupacy_form.name{{$index}}.$error.pattern"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Name must contain alphabet</font>
+                                                        </span>
+                                                        <span ng-show="occupacy_form.name{{$index}}.$error.maxlength"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Max 70 characters allowed</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left form-content">
+                                                        <label>Age<font color="Red">*</font></label>
+                                                        <select name="age{{$index}}" class="form-control"
+                                                            ng-model="userModel.members[n].age"
+                                                            ng-options="item.value as item.label for item in age_number_list"
+                                                            required>
+                                                            <option value="">Select Age</option>
+                                                        </select>
+                                                        <span
+                                                            ng-show="occupacy_form.age{{$index}}.$touched && occupacy_form.age{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Age is required.</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left form-content">
+                                                        <label>Relationship<font color="Red">*</font></label>
+                                                        <select name="relationship{{$index}}" class="form-control"
+                                                            ng-model="userModel.members[n].relationship" required
+                                                            ng-options="item.value as item.label for item in relationships_list ">
+                                                            <option value="">Select Relationship</option>
+                                                        </select>
+                                                        <span
+                                                            ng-show="occupacy_form.relationship{{$index}}.$touched && occupacy_form.relationship{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Relationship is required.</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left radio-list form-content">
+                                                        <label>Will this occupant be on this lease?</label>
+                                                        <div class="radio-flex">
+                                                            <label class="radio-lb">
+                                                                Yes
+                                                                <input type="radio" name="option{{$index}}" value="1"
+                                                                    ng-model="userModel.members[n].be_on_lease" required
+                                                                    ng-checked="userModel.members[n].be_on_lease == true">
+                                                                <div class="radio-chk"></div>
+                                                            </label>
+                                                            <label class="radio-lb">
+                                                                No
+                                                                <input type="radio" name="option{{$index}}" value="0"
+                                                                    ng-model="userModel.members[n].be_on_lease"
+                                                                    ng-checked="userModel.members[n].be_on_lease == false">
+                                                                <div class="radio-chk"></div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left form-content">
+                                                        <label>Email<font color="Red">*</font></label>
+                                                        <input type="email" name="email{{$index}}" class="form-control"
+                                                            ng-model="userModel.members[n].email" required
+                                                            ng-maxlength="254">
+                                                        <span ng-show="occupacy_form.email{{$index}}.$error.pattern"
+                                                            class="redb">
+                                                            <font color="Red">Please enter valid email.</font>
+                                                        </span>
+                                                        <span ng-show="occupacy_form.email{{$index}}.$error.maxlength"
+                                                            class="redb">
+                                                            <font color="Red">Max 254 characters allowed.</font>
+                                                        </span>
+                                                        <span
+                                                            ng-show="occupacy_form.email{{$index}}.$touched && occupacy_form.email{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Email is required.</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left form-content">
+                                                        <label>Mobile / All Day Contact<font color="Red">*</font>
+                                                        </label>
+                                                        <input type="text" name="mobile{{$index}}" class="form-control"
+                                                            ng-model="userModel.members[n].mobile_number" required
+                                                            placeholder="Mobile / All Day Contact" ng-maxlength="14"
+                                                            ng-pattern="/^[0-9]*$/">
+                                                        <span
+                                                            ng-show="occupacy_form.mobile{{$index}}.$touched && occupacy_form.mobile{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Mobile / All Day Contact number is
+                                                                required.</font>
+                                                        </span>
+                                                        <span class="text-danger redb"
+                                                            ng-show="occupacy_form.mobile{{$index}}.$error.pattern">
+                                                            <font color="Red">Only numbers are allowed.</font>
+                                                        </span>
+                                                        <span ng-show="occupacy_form.mobile{{$index}}.$error.maxlength"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Max 14 digits are allowed</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="app-note">
+                                                        This occupant has not applied yet, if they have please
+                                                        check
+                                                        the information provided is correct as they will be emailed
+                                                        their part of the application to comeplete.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Vehicle Section -->
+                                        <div class="form-content sett-content-head">Vehicles </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group text-left form-content">
+                                                    <span>How many vehicles will be parked at the property</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group text-left form-content">
+                                                    <select ng-model="display_vehicles_section" name="no_of_vehicles"
+                                                        class="form-control" ng-change="displayAddVehicleSection()">
+                                                        <option value="">Select No. of Vehicles</option>
+                                                        <option ng-repeat="n in []  | range:11 | limitTo : 10:1"
+                                                            value="{{n}}" ng-selected="display_vehicles_section1 == n">
+                                                            {{n}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="load_occupants_section"
+                                            ng-repeat="n in [] | range : display_vehicles_section1">
+                                            <span>Vehicle #{{n + 1}}</span>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left form-content">
+                                                        <label>Vehicle Type<font color="Red">*</font></label>
+                                                        <select name="vehicle_type{{$index}}" class="form-control"
+                                                            ng-model="userModel.vehicles[n].type" required
+                                                            ng-options="item.value as item.label for item in vehicle_types_list ">
+                                                            <option value="">Select Vehicle Type</option>
+                                                        </select>
+                                                        <span
+                                                            ng-show="occupacy_form.vehicle_type{{$index}}.$touched && occupacy_form.vehicle_type{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Vehicle Type is required.</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left form-content">
+                                                        <label>Registration<font color="Red">*</font></label>
+                                                        <input ng-model="userModel.vehicles[n].registration" type="text"
+                                                            name="registration{{$index}}" class="form-control" required
+                                                            placeholder="Registration" ng-maxlength="30">
+                                                        <span
+                                                            ng-show="occupacy_form.registration{{$index}}.$touched && occupacy_form.registration{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Registration is required.</font>
+                                                        </span>
+                                                        <span class="error-span inner-error ng-binding"
+                                                            ng-show="occupacy_form.registration{{$index}}.$error.pattern"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Registration must contain alphabet
+                                                            </font>
+                                                        </span>
+                                                        <span
+                                                            ng-show="occupacy_form.registration{{$index}}.$error.maxlength"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Max 30 characters allowed</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left form-content">
+                                                        <label>Make / Model<font color="Red">*</font></label>
+                                                        <input ng-model="userModel.vehicles[n].make_model" type="text"
+                                                            name="make_model{{$index}}" class="form-control" required
+                                                            placeholder="Make / Model" ng-maxlength="15">
+                                                        <span
+                                                            ng-show="occupacy_form.make_model{{$index}}.$touched && occupacy_form.make_model{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Make / Model is required.</font>
+                                                        </span>
+                                                        <span class="error-span inner-error ng-binding"
+                                                            ng-show="occupacy_form.make_model{{$index}}.$error.pattern"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Make / Model must contain alphabet
+                                                            </font>
+                                                        </span>
+                                                        <span
+                                                            ng-show="occupacy_form.make_model{{$index}}.$error.maxlength"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Max 15 characters allowed</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Pets Section -->
+                                        <div class="form-content sett-content-head">Pets</div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group text-left form-content">
+                                                    <span>No. of Pets</span>
+                                                    <select ng-model="display_pets_section" name="no_of_pets"
+                                                        class="form-control" ng-change="displayAddPetsSection()">
+                                                        <option value="">Select No. of Pets</option>
+                                                        <option ng-repeat="n in []  | range:11 | limitTo : 10:1"
+                                                            value="{{n}}" ng-selected="display_pets_section1 == n">
+                                                            {{n}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="load_occupants_section"
+                                            ng-repeat="n in [] | range : display_pets_section1">
+                                            <span>Pet #{{n + 1}}</span>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left">
+                                                        <label>Type<font color="Red">*</font></label>
+                                                        <select name="pet_type{{$index}}" class="form-control"
+                                                            ng-model="userModel.pets[n].type" required
+                                                            ng-options="item.value as item.label for item in pet_types_list ">
+                                                            <option value="">Select Type</option>
+                                                        </select>
+                                                        <span
+                                                            ng-show="occupacy_form.pet_type{{$index}}.$touched && occupacy_form.pet_type{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Type is required.</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left">
+                                                        <label>Type / Breed<font color="Red">*</font></label>
+                                                        <input ng-model="userModel.pets[n].breed" type="text"
+                                                            name="breed{{$index}}" class="form-control"
+                                                            placeholder="Type / Breed" required ng-maxlength="15">
+                                                        <span
+                                                            ng-show="occupacy_form.breed{{$index}}.$touched && occupacy_form.breed{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Type / Breed is required.</font>
+                                                        </span>
+                                                        <span class="error-span inner-error ng-binding"
+                                                            ng-show="occupacy_form.breed{{$index}}.$error.pattern"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Type / Breed must contain alphabet
+                                                            </font>
+                                                        </span>
+                                                        <span ng-show="occupacy_form.breed{{$index}}.$error.maxlength"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Max 15 characters allowed</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group text-left">
+                                                        <label>Council Registration No.<font color="Red">*</font>
+                                                        </label>
+                                                        <input ng-model="userModel.pets[n].registration_number"
+                                                            type="text" name="registration_number{{$index}}"
+                                                            class="form-control" placeholder="Council Registration No."
+                                                            required ng-pattern="/^[a-zA-Z0-9 ]*$/" ng-maxlength="30">
+                                                        <span
+                                                            ng-show="occupacy_form.registration_number{{$index}}.$touched && occupacy_form.registration_number{{$index}}.$error.required"
+                                                            class="redb">
+                                                            <font color="Red">Council Registration No. is required.
+                                                            </font>
+                                                        </span>
+                                                        <span class="error-span inner-error ng-binding"
+                                                            ng-show="occupacy_form.registration_number{{$index}}.$error.pattern"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Council Registration No. must contain
+                                                                alphabet numeric</font>
+                                                        </span>
+                                                        <span
+                                                            ng-show="occupacy_form.registration_number{{$index}}.$error.maxlength"
+                                                            class="error-span inner-error ng-binding redb">
+                                                            <font color="Red">Max 30 characters allowed</font>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-savechanges" ladda="loginLoading"
+                                            data-style="slide-right" ng-click="updateMembers(userModel)"
+                                            ng-disabled="occupacy_form.$invalid" type="button">Save
+                                            changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="identification"
+                    class="col-sm-12 tab-pane fade tabbedContent {{identification_section}} in identification-wrapper"
+                    ng-init="getDocumentList()">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-default tabProfile settings-wrapper identification-wrap">
+                                <div class="panel-body p-body">
+                                    <form id="identification_form" name="identification_form" novalidate="novalidate">
+                                        <h2 class="sett-head">Identification</h2>
+                                        <label class="control-label sett-content-head">Identification
+                                            & Supporting Documentation</label>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="app-note">
+                                                    To assess your application, this property manager requires the
+                                                    following copies of your identification and supporting
+                                                    documentation.
+                                                </div>
+                                                <br>
+                                                <div class="app-note">
+                                                    100 points of Identification - You must upload at least one
+                                                    form of photo identification*
+                                                </div>
+                                                <br>
+                                                <div class="app-note">
+                                                    <b>50 points*</b> - Primary/Photo ID (Eg. Drivers License,
+                                                    Passport,
+                                                    Keypass, Proof of Age)
+                                                </div>
+                                                <div class="app-note">
+                                                    <b>30 points*</b> - Secondary ID (Eg. Birth Cirtificate,
+                                                    Student Card,
+                                                    Medicare Card, Vehicle Registration)
+                                                </div>
+                                                <div class="app-note">
+                                                    <b>30 points*</b> - Rental History / Proof of Address (Eg.
+                                                    Rental
+                                                    Receipts, Signed Lease, Utility Bill, Bank Statements, Rental
+                                                    Reference)
+                                                </div>
+                                                <div class="app-note">
+                                                    <b>20 points*</b> - Employment/Proof of Income (Eg. Payslips,
+                                                    Letter
+                                                    of Employment, Employeement Reference)
+                                                </div>
+                                                <h2 class="sett-head-upload">Upload Documentation</h2>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <div ng-show="uploader.isHTML5" class="drag_box"
+                                                    ng-if="!userModel.documentation_status">
+                                                    <div class="file_msg" nv-file-drop="" uploader="uploader">
+                                                        <div nv-file-over="" uploader="uploader"
+                                                            over-class="another-file-over-class"
+                                                            class="well my-drop-zone">
+                                                            <p class="inspection">
+                                                                <img src="assets/images/upload.svg" alt="upload">
+                                                            <p>Drag and drop your files here or
+
+                                                                <a href="javascript:void(0)"
+                                                                    class="pointer file_hyper_link">
+                                                                    browse <input type="file" nv-file-select=""
+                                                                        uploader="uploader" multiple /></a>
+                                                                your computer.</p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12" ng-show="documentList.length > 0"
+                                                ng-if="!userModel.documentation_status">
+                                                <div class="col-xs-12">
+                                                    <p class="head-title">Uploaded Documents</p>
+                                                </div>
+                                                <div class="setting-section">
+                                                    <div class="row file_list"
+                                                        dir-paginate="document_listing in documentList| itemsPerPage:100 |orderBy:sortText track by $index"
+                                                        current-page="pagination.current">
+                                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                            <div class="atch_img">
+                                                                <div class="over">
+                                                                    <img ng-if="!document_listing.document_type"
+                                                                        ng-click="openImages(document_listing)"
+                                                                        src="/assets/images/doc.jpg"
+                                                                        ng-src="{{fileImageUrl}}{{document_listing.document_path}}"
+                                                                        class="img-responsive" alt="">
+                                                                    <img ng-if="document_listing.document_type=='excel'"
+                                                                        src="assets/images/xls.png"
+                                                                        class="img-responsive disable agreeAttch"
+                                                                        alt="atch1">
+                                                                    <img ng-if="document_listing.document_type=='doc'"
+                                                                        src="assets/images/word.png"
+                                                                        class="img-responsive disable agreeAttch"
+                                                                        alt="atch1">
+                                                                    <img ng-if="document_listing.document_type=='pdf'"
+                                                                        src="assets/images/pdf.png"
+                                                                        class="img-responsive disable agreeAttch"
+                                                                        alt="atch1">
+                                                                    <img ng-if="document_listing.document_type=='ppt'"
+                                                                        src="assets/images/ppt.png"
+                                                                        class="img-responsive disable agreeAttch"
+                                                                        alt="atch1">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-6">
+                                                            <div class="attchment-name">
+                                                                <a
+                                                                    ng-click="openImages(document_listing)">{{document_listing.document_name}}</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-6 dele-btn">
+                                                            <a href="javascript:void(0)"
+                                                                ng-click="deleteDocument(document_listing._id,$index)">
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="chk-content">
+                                                <label class="check_container ">
+                                                    <input type="checkbox" name="check" id="check" value="1"
+                                                        ng-model="userModel.documentation_status">
+                                                    I've
+                                                    changed my
+                                                    mind, I'd prefer to deliver my documentation in person.
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-savechanges" ladda="loginLoading"
+                                            data-style="slide-right"
+                                            ng-click="updateDocumentationStatus(userModel.documentation_status)"
+                                            type="button">Save
+                                            changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="subscription"
+                    class="col-sm-12 tab-pane fade tabbedContent {{subscriptionActive}} in subscription-wrapper"
+                    ng-init="">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-default tabProfile settings-wrapper subscription-wrap">
+                                <div class="panel-body p-body">
+                                    <div class="subscription-inr-box"
+                                        ng-repeat="plan in subscription_plan_list | limitTo : 1">
+                                        <ul class="subscription-list">
+                                            <li data-toggle="modal" ng-repeat="points in plan.description_points">
+                                                <div class="subscription-list-div">
+                                                    <h3>{{points.point}}</h3>
+                                                    <h4>{{points.sub_point}}</h4>
+                                                </div>
+                                            </li>
+                                            <li class="subscription-price-li">
+                                                <div class="subscription-price">
+                                                    <h5>FREE</h5>
+                                                    <!--  Removed required Subscription -->
+                                                    <!-- <h5>${{plan.amount_per_month}} p/m</h5> -->
+                                                    <!--  Removed required Subscription -->
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <!-- data-target="#subscription-popup" -->
+                                        <!-- ng-if="allowaccessforSubscribe && allowaccessforSubscribe == true"    -->
+
+                                        <!--  Removed required Subscription -->
+                                        <!-- <div class="subscribe-btn-wrap" data-toggle="modal">
+                                                <a href="javascript:void(0);"
+                                                    ng-if="allowaccessforSubscribe && allowaccessforSubscribe == true"
+                                                    class="subscribe-btn subscribe_me"
+                                                    data-price="{{plan.amount_per_month}}"
+                                                    data-plan_id="{{plan.stripe_plan_id}}"
+                                                    ng-click="subscribePlan();">SUBSCRIBE</a>
+                                                <a href="javascript:void(0);" ng-if="allowaccessforSubscribe == false"
+                                                    class="current-plan">Current Plan</a>
+                                            </div> -->
+                                        <!--  Removed required Subscription -->
+                                    </div>
+                                    <!--  Removed required Subscription -->
+                                    <!-- <div class="subscription-update-cancel">
+                                            <a href="javascript:void(0);" id="update_credit_card"
+                                                ng-if="userModel.stripe_customer_id" class="update-card"
+                                                ng-click="updateCreditCard();">Update Credit
+                                                Card</a>
+                                            <br>
+                                            <a href="javascript:void(0);" class="cancel-subscribe"
+                                                ng-if="allowaccessforSubscribe == false && isSubscriptionCanceled == false"
+                                                ng-click="cancelSubscription(userModel.subscription_id, userModel._id)">Cancel
+                                                Subscription</a>
+                                        </div> -->
+                                    <!--  Removed required Subscription -->
+                                    <input type="hidden" id="selected_plan" name="selected_plan" value="">
+                                    <input type="hidden" id="stripe_customer_id" name="stripe_customer_id"
+                                        value="{{userModel.stripe_customer_id}}">
+                                    <input type="text" ng-model="subscription_create" id="subscription_create"
+                                        name="subscription_create" value="" ng-change="createSubscription()"
+                                        style="display:none;">
+                                    <input type="text" ng-model="subscription_update" id="subscription_update"
+                                        name="subscription_update" value="" ng-change="updateSubscription()"
+                                        style="display:none;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- <div class="form-group has-feedback">
+    <label for="">New Password</label>
+    <input type="password" class="form-control password" name="password" placeholder="Password" ng-model="formData.password" ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@#$!%*?.&])[A-Za-z\d$@#$!%*?.&]{6,}/" required>
+    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+    <span ng-show="form.$submitted || form.password.$touched">
+    <span class="text-danger" ng-show="form.password.$error.required">Password is required</span>
+    <span class="text-danger" ng-show="form.password.$error.pattern">Password must contain at least one CAPITAL letter, one small letter, one number and one special character. Eg: Password@123</span>
+    </span>
+    </div>
+    <div class="form-group has-feedback">
+    <label for="">Confirm New Password</label>
+    <input type="password" class="form-control" name="verify" valid-password-c="formData.password" ng-model="formData.confirmPassword" maxlength="20" placeholder="Confirm Password" required>
+    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+    <div ng-show="form.$submitted || form.verify.$touched">
+    <span class="text-danger" ng-show="form.verify.$error.required" class="text-danger">Confirm password is required</span>
+    <span class="text-danger" ng-show="!form.verify.$error.required && formData.password && form.verify.$invalid">Confirm password not matched</span>
+    </div>
+    </div> -->
+<style>
+    .carousel-indicators li {
+        text-indent: 0px !important;
+    }
+</style>
+<div ng-if="userModel.availability && userModel.availability.status == true">
+    <script>
+        $(document).find('.available_label').css('color', '#FFF');
+        $(document).find('.not_available_label').css('color', '#000');
+    </script>
+</div>
+<div ng-if="userModel.availability && userModel.availability.status == false">
+    <script>
+        $(document).find('.available_label').css('color', '#000');
+        $(document).find('.not_available_label').css('color', '#FFF');
+    </script>
+</div>
+<script>
+    $(document).find(".modal-dialog").css("width", "920px");
+    $(document).find('#available').change(function () {
+        var ischecked = $(this).is(':checked');
+        if (ischecked) {
+            $(document).find('.available_label').css('color', '#FFF');
+            $(document).find('.not_available_label').css('color', '#000');
+        }
+        else {
+            $(document).find('.available_label').css('color', '#000');
+            $(document).find('.not_available_label').css('color', '#FFF');
+        }
+    });
+</script>

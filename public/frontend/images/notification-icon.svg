@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="20px" viewBox="0 0 18 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" opacity="0.5" stroke-linejoin="round">
+        <g id="General---Show-menu" transform="translate(-89.000000, -18.000000)" stroke="#FFFFFF" stroke-width="1.5">
+            <g id="Menu" transform="translate(-4.000000, 0.000000)">
+                <g id="Options" transform="translate(88.000000, 12.000000)">
+                    <g id="notification">
+                        <g id="icon" transform="translate(6.000000, 4.000000)">
+                            <g id="gen-alarm" transform="translate(0.000000, 3.000000)">
+                                <path d="M13.7939789,9 L14.1476632,13.68 C14.1476632,14.8727143 14.8280842,15.4285714 15.9998737,15.4285714 L-0.000126315789,15.4285714 C1.17208421,15.4285714 2.12197895,14.8727143 2.12197895,13.68 L2.47566316,9 C2.82976842,3.96 5.17082105,1.71428571 7.99987368,1.71428571 C10.8293474,1.71428571 13.4398737,3.96 13.7939789,9 L13.7939789,9 Z" id="Stroke-81"></path>
+                                <path d="M5.91570526,17.1215143 C6.44917895,17.6645143 7.18602105,18.0000857 7.99991579,18.0000857 C8.80244211,18.0000857 9.53044211,17.6735143 10.0622316,17.1433714" id="Stroke-82"></path>
+                                <polygon id="Stroke-83" points="7.57894737 1.73142857 8.42105263 1.73142857 8.42105263 0 7.57894737 0"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

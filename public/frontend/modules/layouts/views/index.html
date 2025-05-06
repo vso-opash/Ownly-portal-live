@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BR9CM0WHN"></script> -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // gtag('config', 'G-1BR9CM0WHN');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1e">
+    <title>Ownly</title>
+    <base href="/">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/assets/css/ng-scroll.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/nanoscroller.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/morris.css" rel="stylesheet" type="text/css">
+    <!-- slick carousel -->
+    <link rel="stylesheet" href="/bower_components/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="/bower_components/slick-carousel/slick/slick-theme.css">
+    <!-- end slick carousel -->
+
+    <!-- ladda -->
+    <link rel="stylesheet" href="bower_components/ladda/dist/ladda-themeless.min.css">
+    <!-- select2 -->
+    <link href="/assets/css/select-ui.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/select.css" rel="stylesheet" type="text/css">
+
+    <!-- <script src="http://nervgh.github.io/js/es5-shim.min.js"></script>
+    <script src="http://nervgh.github.io/js/es5-sham.min.js"></script> -->
+    <script src="/assets/javascripts/es5-shim.min.js"></script>
+    <script src="/assets/javascripts/es5-sham.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/jquery-jvectormap-1.2.2.css" type="text/css" />
+    <link href="/assets/css/demo.css" rel="stylesheet" type="text/css">
+    <link href="css/themify-icons.css" rel="stylesheet">
+    <!--css shared by designer on 20-nov-2017 -->
+    <link href="/assets/css/sweetalert.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png" />
+    <!-- <link href="/assets/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"> -->
+</head>
+<!-- ng-cloak -->
+
+<body ng-app="SYNC" ng-controller="SuperCntrl" class="bg ng-cloak before-login" ng-cloak>
+    <!-- Angulajs files-->
+    <link href="/assets/css/multiselect.css" rel="stylesheet" type="text/css">
+    <link ng-if="isLoggedIn==true" href="/assets/css/theme_styles.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/custom_style.css" rel="stylesheet" type="text/css">
+    <script src="/assets/javascripts/demo-skin-changer.js"></script>
+    <!-- <script src="/assets/javascripts/jquery-3.2.0.min.js"></script> -->
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- slick start -->
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script> -->
+
+    <!-- <script type="text/javascript" src="https://rawgit.com/CrackerakiUA/ui-cropper/master/compile/unminified/ui-cropper.js"></script> -->
+    <!-- <script type="text/javascript" src="https://rawgit.com/CrackerakiUA/ui-cropper/master/compile/unminified/ui-cropper.js"></script> -->
+    <!-- <script src="/bower_components/angular/angular.js"></script> -->
+    <script src="/assets/javascripts/angular1.4.6.js"></script>
+    <script src="/bower_components/slick-carousel/slick/slick.js"></script>
+    <script src="/bower_components/angular-slick/dist/slick.js"></script>
+    <!-- slick end -->
+    <script src="/assets/javascripts/bootstrap.js"></script>
+    <script src="/assets/javascripts/jquery.slimscroll.min.js"></script>
+    <script src="/assets/javascripts/jquery.bootstrap.wizard.js"></script>
+    <script src="/assets/javascripts/paper-bootstrap-wizard.js"></script>
+    <script src="/assets/javascripts/jquery.validate.min.js"></script>
+    <!-- <script src="/assets/javascripts/angular1.4.6.js"></script> -->
+    <script src="/assets/javascripts/angular-strap.min.js"></script>
+    <script src="/assets/javascripts/angular-strap.tpl.min.js"></script>
+    <!-- <script src="/assets/javascripts/libs/angular.js/angular-animate.min.js"></script> -->
+    <script src="/assets/javascripts/libs/angular.js/moment.min.js"></script>
+    <script src="/assets/javascripts/angular-file-upload/angular-file-upload.min.js"></script>
+    <script type="text/javascript" src="/bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+    <!--Angular file upload-->
+    <!-- <script src="/assets/javascripts/ng-file-upload-shim.js"></script>
+    <script src="/assets/javascripts/ng-file-upload.js"></script> -->
+    <script src="/assets/javascripts/libs/angular.js/ng-file-upload-shim.js"></script>
+    <script src="/assets/javascripts/libs/angular.js/ng-file-upload.js"></script>
+
+    <script type="text/javascript" src="/bower_components/angular-messages/angular-messages.js"></script>
+    <script type="text/javascript" src="bower_components/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+    <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+
+    <script src="/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+    <script src="/assets/javascripts/angular-resource.min.js"></script>
+
+    <script src="/assets/javascripts/angular-route.js"></script>
+    <script src="/assets/javascripts/libs/angular.js/angular-touch.min.js"></script>
+
+    <script src="/assets/javascripts/angular-tooltips.min.js"></script>
+    <script src="/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- <script src="https://checkout.stripe.com/checkout.js"></script> -->
+
+    <script type="text/javascript" src="/bower_components/angular-payments/lib/angular-payments.js"></script>
+
+    <link rel="stylesheet" href="/bower_components/angular-block-ui/dist/angular-block-ui.min.css" />
+
+
+    <script src="/bower_components/angular-block-ui/dist/angular-block-ui.min.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/assets/javascripts/angular-local-storage.js"></script>
+    <script src="/assets/javascripts/dirpagination.js"></script>
+    <script src="/assets/javascripts/libs/angular.js/angular-animate.min.js"></script>
+    <script src="/assets/javascripts/libs/angular.js/angular-sanitize.js"></script>
+    <script src="/assets/javascripts/libs/angular.js/tmhDynamicLocale.js"></script>
+    <script src="/assets/javascripts/libs/angular.js/angular-ui-switch.js"></script>
+    <script src="/assets/javascripts/libs/angular.js/angular-flash.js"></script>
+    <script src="/assets/javascripts/libs/angular-ui-bootstrap/ui-bootstrap-tpls-1.2.4.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/ui-bootstrap-tpls.js" charset="UTF-8"></script>
+    <link href="/assets/css/developer.css" rel="stylesheet" type="text/css">
+    <script src="/assets/javascripts/ngStorage.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/assets/javascripts/socket.js"></script>
+    <!-- <script src="/assets/javascripts/SweetAlert.min.js"></script>
+    <script src="/assets/javascripts/sweetalert.min.js"></script> -->
+    <script src="/assets/javascripts/SweetAlert.min.js"></script>
+    <link rel="stylesheet" href="/bower_components/ngSweetAlert/SweetAlert.js">
+    <script type="text/javascript" src="/bower_components/ngSweetAlert/SweetAlert.min.js"></script>
+    <!-- Satellizer CDN -->
+    <script src="https://cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script>
+    <script src="/assets/javascripts/angular-http-loader.min.js"></script>
+    <script src="/assets/javascripts/ui-bootstrap-tpls.min.js"></script>
+    <script src="/assets/javascripts/lodash.min.js"></script>
+    <script src="/assets/javascripts/libs/angular.js/ng-tags-input.js"></script>
+    <script src="/assets/javascripts/bootbox.min.js"></script>
+    <script src="/assets/javascripts/sanitizer.min.js" type="text/javascript"></script>
+    <script src="/assets/javascripts/cookies.js" type="text/javascript"></script>
+    <!-- <script async="" type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7PD7klmQbC57ksiGc0PyyViuqCf52_HI&libraries=places"></script> -->
+    <script async="" type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGWZqTcVNj2IeuAud3EsdL3ewktb0yCFo&libraries=places"></script>
+    <script src="/assets/javascripts/ng-table.min.js"></script>
+
+    <script src="/assets/javascripts/select.js"></script>
+    <script src="/assets/javascripts/infinite-scroll.js"></script>
+    <script src="/assets/javascripts/multiselect.js"></script>
+    <script src="/assets/javascripts/autocomplete.js"></script>
+    <link href="/assets/css/autocomplete.css" rel="stylesheet" type="text/css">
+    <script src="/assets/ng_app.js"></script>
+    <script src="/assets/javascripts/ngTableParamsService.js"></script>
+    <script src="/assets/javascripts/directives.js"></script>
+    <script src="/assets/javascripts/services.js"></script>
+    <!-- <script src="/assets/javascripts/image-crop.js"></script> -->
+    <script src="/assets/modules/controllers/controllers.js"></script>
+    <script src="/assets/modules/agreement/agreement_ng_controller.js"></script>
+    <script src="/assets/javascripts/communication.js"></script>
+    <script src="/assets/javascripts/constants.js"></script>
+
+    <!-- <link rel="stylesheet" href="/assets/css/jquery.mCustomScrollbar.css">
+	<script src="/assets/javascripts/jquery.mCustomScrollbar.concat.min.js"></script> -->
+
+    <!-- emoji master-->
+    <link rel="stylesheet" href="/bower_components/emojionearea-master/dist/emojionearea.min.css">
+    <script type="text/javascript" src="/bower_components/emojionearea-master/dist/emojionearea.min.js"></script>
+    <!-- tinymice -->
+    <script type="text/javascript" src="/bower_components/tinymce/tinymce.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-ui-tinymce/src/tinymce.js"></script>
+
+    <script src="/assets/javascripts/ng-scroll.min.js"></script>
+    <script src="/assets/javascripts/ng-text-truncate.min.js"></script>
+    <!-- <script src="/assets/javascripts/slimScroll.js"></script>
+    <script src="/assets/javascripts/scroll.js"></script> -->
+    <script src="/assets/modules/users/services/userService.js"></script>
+    <script src="/assets/modules/traders/services/traderService.js"></script>
+    <script src="/assets/modules/owners/services/ownerService.js"></script>
+    <script src="/assets/modules/agencies/services/agencyService.js"></script>
+    <script src="/assets/modules/agreement/services/agreementService.js"></script>
+    <script src="/assets/modules/agents/services/agentService.js"></script>
+    <script src="/assets/modules/agencyhub/services/agencyhubService.js"></script>
+
+    <script src="/assets/javascripts/frontend_constant.js"></script>
+    <script src="/assets/modules/tenants/services/tenantService.js"></script>
+    <script src="/assets/modules/startaUsers/services/strataUserService.js"></script>
+    <script src="/assets/modules/properties/services/propertyServices.js"></script>
+    <script src="/assets/modules/maintenance/services/maintenanceService.js"></script>
+    <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+    <!-- ui-calendar -->
+    <script src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="/bower_components/fullcalendar/dist/gcal.js"></script>
+
+    <!-- ladda -->
+
+    <script src="bower_components/ladda/dist/spin.min.js"></script>
+    <script src="bower_components/ladda/dist/ladda.min.js"></script>
+    <script src="bower_components/angular-ladda/dist/angular-ladda.min.js"></script>
+
+    <script type="text/javascript" src="assets/javascripts/ui-cropper.js?1"></script>
+
+    <script src="/assets/javascripts/select-ui.js"></script>
+    <script src="/assets/modules/chat/services/chatService.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/ng-img-crop.css">
+    <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/CrackerakiUA/ui-cropper/master/compile/minified/ui-cropper.css"> -->
+
+    <script type="text/javascript" src="/assets/javascripts/ng-img-crop/ng-img-crop.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/image-crop.js"></script>
+
+    <!-- Input tag -->
+    <script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
+    <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
+
+    <!-- <script type="text/javascript"
+        src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script> -->
+
+
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script> -->
+    <!-- <script type="text/javascript" src="https://rawgit.com/CrackerakiUA/ui-cropper/master/compile/unminified/ui-cropper.js"></script> -->
+
+    <!-- <script type="text/javascript" src="/assets/javascripts/ng-img-crop/classes/crop-host.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/ng-img-crop/classes/crop-area.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/ng-img-crop/classes/crop-area-circle.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/ng-img-crop/classes/crop-area-square.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/ng-img-crop/classes/crop-canvas.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/ng-img-crop/classes/crop-exif.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/ng-img-crop/classes/crop-pubsub.js"></script> -->
+
+
+    <!-- <script src="/assets/javascripts/bootstrap-select.min.js"></script> -->
+    <!-- <link ng-if="isLoggedIn==false" href="/assets/css/style.css" rel="stylesheet" type="text/css"> -->
+
+    <input type="hidden" name="logged_in_token" id="logged_in_token" value="{{logged_in_token ? logged_in_token : ''}}">
+    <input type="hidden" name="baseUrl" id="baseUrl" value="{{baseUrl ? baseUrl : ''}}">
+    <input type="hidden" name="stripe_key" id="stripe_key" value="{{stripe_key ? stripe_key : ''}}">
+    <!-- for no html5 browsers support -->
+    <script>
+        $(document).ready(function () {
+
+            // var handler = '';
+            // /* Stripe Integration Start */
+            // var script = document.createElement('script');
+            // script.src = 'https://checkout.stripe.com/checkout.js';
+            // document.body.appendChild(script);
+            // var logged_in_token = $(document).find('#logged_in_token').val() ? $(document).find('#logged_in_token').val() : localStorage.getItem('ngStorage-token');
+            // console.log('logged_in_token :: 1st=> ', logged_in_token);
+            // var baseURL__ = $(document).find('#baseUrl').val();
+            // var stripe_key__ = $(document).find('#stripe_key').val();
+
+            // script.onload = function () {
+            //     console.log("StripeCheckout loaded");
+            //     var stripe = Stripe(stripe_key__);
+            // };
+
+            // setTimeout(function () {
+
+            //     var plan_price = '';
+            //     var plan_id = '';
+
+            //     handler = StripeCheckout.configure(
+            //         {
+            //             key: stripe_key__,
+            //             image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+            //             locale: 'auto',
+            //             zipCode: false,
+            //             allowRememberMe: true,
+            //             token: function (token) {
+            //                 var url = baseURL__ + '/api/stripe_subscription';
+            //                 console.log("token    ", token);
+            //                 if (token && token.id && token.email && token.card && token.card.id) {
+            //                     var selected_plan_id = $(document).find('#selected_plan').val();
+            //                     console.log('selected_plan_id => ', selected_plan_id);
+            //                     console.log("i m inside....");
+
+            //                     $.ajax({
+            //                         type: 'GET',
+            //                         url: url,
+            //                         data: ({
+            //                             stripe_token: token.id,
+            //                             card_id: token.card.id,
+            //                             email: token.email,
+            //                             selected_plan_id: selected_plan_id,
+            //                             exp_month: token.card.exp_month,
+            //                             exp_year: token.card.exp_year,
+            //                             last4: token.card.last4,
+            //                             brand: token.card.brand
+            //                         }),
+            //                         beforeSend: function (request) {
+            //                             console.log('logged_in_token :: token  => ', logged_in_token);
+            //                             request.setRequestHeader("Authorization", logged_in_token);
+            //                         },
+            //                         success: function (response) {
+            //                             console.log("Response   ", response);
+            //                             if (response.message && response.message == 'success') {
+            //                                 $(document).find('subscribe_me').hide();
+            //                                 $(document).find('#subscription_create').val("OK");
+            //                                 angular.element(document.getElementById('subscription_create')).triggerHandler('change');
+            //                             } else {
+            //                                 $(document).find('#subscription_create').val("NOT_OK");
+            //                             }
+            //                         }
+            //                     });
+            //                 }
+            //             }
+            //         }
+            //     );
+
+            //     handler1 = StripeCheckout.configure(
+            //         {
+            //             key: stripe_key__,
+            //             image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+            //             locale: 'auto',
+            //             zipCode: false,
+            //             allowRememberMe: false,
+            //             panelLabel: "Update Card Details",
+            //             token: function (token) {
+            //                 var url = baseURL__ + '/api/update_stripe_card_details';
+            //                 console.log("token    ", token);
+            //                 if (token && token.card && token.card.id) {
+            //                     console.log("i m inside....");
+            //                     var stripe_customer_id = $(document).find('#stripe_customer_id').val();
+            //                     $.ajax({
+            //                         type: 'GET',
+            //                         url: url,
+            //                         data: ({
+            //                             stripe_token: token.id,
+            //                             card_id: token.card.id,
+            //                             stripe_customer_id: stripe_customer_id,
+            //                             exp_month: token.card.exp_month,
+            //                             exp_year: token.card.exp_year,
+            //                             last4: token.card.last4,
+            //                             brand: token.card.brand
+            //                         }),
+            //                         beforeSend: function (request) {
+            //                             console.log('logged_in_token :: check for token => ', logged_in_token);
+            //                             request.setRequestHeader("Authorization", logged_in_token);
+            //                         },
+            //                         success: function (response) {
+            //                             console.log("Response   ", response);
+            //                             if (response.message && response.message == 'success') {
+            //                                 $(document).find('#subscription_update').val("OK");
+            //                                 console.log("change event called");
+            //                                 angular.element(document.getElementById('subscription_update')).triggerHandler('change');
+            //                             } else {
+            //                                 $(document).find('#subscription_update').val("NOT_OK");
+            //                             }
+            //                         }
+            //                     });
+            //                 }
+            //             }
+            //         }
+            //     );
+
+            //     $(document).on('click', '.subscribe_me', function (e) {
+            //         $(document).find('#subscription_create').val("");
+            //         angular.element(document.getElementById('subscription_create')).triggerHandler('change');
+
+            //         plan_price = $(this).attr('data-price');
+            //         plan_id = $(this).attr('data-plan_id');
+            //         $(document).find('#selected_plan').val(plan_id);
+
+            //         handler.open({
+            //             name: 'Stripe',
+            //             description: 'Standard Subscription',
+            //             amount: Math.round(plan_price * 100),
+            //             currency: 'usd',
+            //             image: '/assets/images/subscription/symbol.svg'
+            //         });
+            //         e.preventDefault();
+            //     });
+
+            //     $(document).on('click', '#update_credit_card', function (e) {
+            //         $(document).find('#subscription_update').val("");
+            //         angular.element(document.getElementById('subscription_update')).triggerHandler('change');
+            //         handler1.open({
+            //             name: 'Stripe',
+            //             description: 'Update Card Details',
+            //             image: '/assets/images/subscription/symbol.svg'
+            //         });
+            //         e.preventDefault();
+            //     });
+            // }, 2000);
+
+
+            $(window).on('popstate', function () {
+                // handler.close();
+            });
+
+            /* Stripe Integration End */
+
+            $(document).find(".helperButton.reset").hide();
+
+            //Initialize tooltips
+            $('.nav-tabs > li a[title]').tooltip();
+
+            //Wizard
+            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+                var $target = $(e.target);
+
+                if ($target.parent().hasClass('disabled')) {
+                    return false;
+                }
+            });
+
+            $(".next-step").click(function (e) {
+
+                var $active = $('.wizard .nav-tabs li.active');
+                $active.next().removeClass('disabled');
+                nextTab($active);
+
+            });
+            $(".prev-step").click(function (e) {
+
+                var $active = $('.wizard .nav-tabs li.active');
+                prevTab($active);
+
+            });
+        });
+
+        function nextTab(elem) {
+            $(elem).next().find('a[data-toggle="tab"]').click();
+        }
+
+        function prevTab(elem) {
+            $(elem).prev().find('a[data-toggle="tab"]').click();
+        }
+        // Stop carousel
+        $('.carousel').carousel({
+            interval: false
+        });
+    </script>
+    <div ng-if="internal_panel == false">
+        <div id="theme-wrapper">
+            <div id="page-wrapper" class="container">
+                <div class="row">
+                    <div ui-view="content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="internal_panel && internal_panel == true">
+        <div ui-view="content" ng-if="isLoggedIn==false">
+
+        </div>
+        <div id="theme-wrapper" ng-if="isLoggedIn==true">
+            <div class="navbar" id="header-navbar" ui-view="header"></div>
+            <div id="page-wrapper" class="container">
+                <div class="row">
+                    <div ui-view="left_navigation" id="nav-col"></div>
+                    <div id="content-wrapper" ui-view="content"></div>
+                </div>
+            </div>
+            <!-- <footer>
+                    <div ui-view="footer"></div>
+                </footer> -->
+            <!-- js files shared by designers ends here-->
+        </div>
+    </div>
+</body>
+
+</html>

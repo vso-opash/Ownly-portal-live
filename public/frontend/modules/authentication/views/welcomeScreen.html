@@ -1,0 +1,28 @@
+<div class="container" ng-init="getWelcomeScreen()">
+  <div class="row">
+
+    <div class="setting-section">
+
+      <div class="welcome">
+        <h5>Hi {{name}}! Welcome to Ownly.</h5>
+        <!-- <p>Your account had be -->
+        <p>
+          Your account had been activated successfully. You can now manage your trade requests easily. Please go to Edit Profile page to complete your profile.</p>
+        <!-- <p class>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+           labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p class="marB30">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.velit esse cillum dolore eu fugiat nulla pariatur.</p>  -->
+
+        <div ng-if="isTrader">
+          <iframe width="560" height="315" ng-src="https://portal.ownly.com.au/assets/video/Consumer_Profile_Set_up.mp4"
+            frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- <div><button ng-show="canCreateProperty" class="btn btn-start" ng-click="propertyListing()">Start adding your
+            property</button></div> -->
+      </div>
+
+    </div>
+
+  </div>
+</div>

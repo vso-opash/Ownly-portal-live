@@ -1,0 +1,212 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            User Management
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">
+                    <i class="fa fa-dashboard"></i> Dashboard</a>
+            </li>
+            <li>
+                <a ui-sref="userManagement">
+                    <i class="fa fa-user-secret"></i>User Management</a>
+            </li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Search Filters </h3>
+                    </div>
+                    <!-- <div class="row">
+                            <div class="col-xs-12 col-sm-7">
+                                <div class="input-group input-group col-sm-6">
+                                    <input name="table_search" ng-model="searchUser" class="form-control pull-right ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"
+                                        placeholder="Search by Name, Email, Mobile" id="datepicker" autocomplete="false" required=""
+                                        type="text">
+                                 </div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group-btn">
+                                                <select class="form-control" ng-model="searchByUserType">
+                                                    <option value="All">All</option>
+                                                    <option value="Agent" >Agent</option>
+                                                    <option value="Tenant">Tenant</option>
+                                                    <option value="Owner">Owner</option>
+                                                </select>
+                                            </div>
+                                         </div>
+                                         <div class="input-group input-group-sm pull-right">
+                                                <a class="btn btn-primary btn-flat btn-sm" ui-sref="addUser" title="Add user">Add New User</a>
+                                            </div>                     <div class="col-sm-3">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" ng-click="getUserList(searchUser,searchByUserType)">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                        <button class="btn btn-default" ng-click="getUserList()" title="Refresh user list" style="margin-left:6px;">
+                                            <i class="fa fa-refresh"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-5 text-right ng-scope">
+                                <div class="input-group input-group-sm pull-right">
+                                    <a class="btn btn-primary btn-flat btn-sm" ui-sref="addUser" title="Add user">Add New User</a>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input name="table_search" ng-model="searchUser"
+                                    class="form-control pull-right ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"
+                                    placeholder="Search by Name" id="datepicker" autocomplete="false" required=""
+                                    type="text">
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" ng-model="searchByUserType">
+                                    <option value="All">All</option>
+                                    <option value="Agent">Agent</option>
+                                    <option value="Tenant">Tenant</option>
+                                    <option value="Owner">Owner</option>
+                                </select>
+                            </div>
+
+
+                            <div class="col-sm-3 ">
+                                <button class="btn btn-primary btn-sm mt10"
+                                    ng-click="getUserList(1,searchUser,searchByUserType)">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm mt10" ng-click="getUserList(1)"
+                                    title="Refresh user list" style="margin-left:6px;">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="box-body box box-warning table-responsive" ng-init="getUserList(currentPage)">
+                    <table class="table table-bordered  ng-table">
+                        <thead class="">
+                            <tr>
+                                <th title="" class="header" style="cursor:default">
+                                    <div class="ng-table-header ">
+                                        <span>Image</span>
+                                    </div>
+
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("firstname")'
+                                        ng-class='sortClass("firstname")'>
+                                        <span>First Name</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("lastname")'
+                                        ng-class='sortClass("lastname")'>
+                                        <span>Last Name</span>
+                                    </div>
+
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("agency_id.name")'
+                                        ng-class='sortClass("agency_id.name")'>
+                                        <span>Associated Agency</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("groups.role_id")'
+                                        ng-class='sortClass("groups.role_id")'>
+                                        <span>Affective Roles</span>
+                                    </div>
+                                </th>
+                                <!-- <th title="" class="header  sortable ">
+                                        <div class="ng-table-header changeCursorType">
+                                            <span>Status</span>
+                                        </div>
+                                    </th> -->
+                                <!-- <th title="" class="header  sortable addCursor" width="110px">
+                                        <div class="ng-table-header " ng-click='sortRecentUserColumn("totalPropertyCount")' ng-class='sortClass("totalPropertyCount")'><span>Properties</span> </div>
+                                    </th> -->
+                                <th title="" class="header  sortable ">
+                                    <div class="ng-table-header changeCursorType">
+                                        <span>Action</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="userData in userList|orderBy:columnUser:reverseUser| itemsPerPage:10| filter:searchUser" current-page="currentPage" total-items="total_users"
+                                class="">
+                                <td>
+                                    <span class="chat-img pull-left">
+                                        <img class="pointerCursor adminprofileimg" err-src="./images/no_image.png"
+                                            ng-src="{{imageUrl}}{{userData.image?userData.image:' '}}" width="100px"
+                                            alt="User Image">
+                                    </span>
+                                </td>
+                                <td sortable="'firstname'" class="text-capitalize">{{userData.firstname}}</td>
+                                <td class="text-capitalize">{{userData.lastname}}</td>
+                                <td>{{userData.agency_id.name}}</td>
+                                <td>
+                                    <div ng-if="roleId.agent==userData.groups[0].role_id">Agent</div>
+                                    <div ng-if="roleId.ownAgency==userData.groups[0].role_id">Agency</div>
+                                    <div ng-if="roleId.tenant==userData.groups[0].role_id">Tenant</div>
+                                    <div ng-if="roleId.owner==userData.groups[0].role_id">Owner</div>
+                                    <div ng-if="roleId.runStrataManagementCompany==userData.groups[0].role_id">Starta
+                                        Management Company</div>
+                                    <div ng-if="roleId.workForStrataManagementCompany==userData.groups[0].role_id">Work
+                                        in Starta Management Company</div>
+                                    <div ng-if="roleId.agent==roleId.trader==userData.groups[0].role_id">Trader</div>
+                                </td>
+                                <!-- <td data-title="'Status'" data-title-text="Status" align="center">
+                                        <a ng-if="userData.groups[0].status == true" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Active User">
+                                                <i class="fa fa-toggle-on "></i>
+                                        </a>
+                                        <a ng-if="userData.groups[0].status == false" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Click to Activate User" ng-click="enableDisableUser(user._id, 'Activate')">
+                                            <i class="fa fa-toggle-off"></i>                                            
+                                        </a>
+                                    </td> -->
+                                <!-- <td><center>{{userData.totalPropertyCount}}</center></td> -->
+                                <td data-title="'Actions'" class="actions" data-title-text="Actions" align="center">
+                                    <a ui-sref="userDetail({id:userData._id})">
+                                        <i class="fa fa-eye" aria-hidden="true" title="View user"></i>
+                                    </a>
+                                    <a href="/admin/fileListing/{{userData._id}}">
+                                        <i class="fa fa-file" aria-hidden="true" title="File Listing"></i>
+                                    </a>
+                                    <!-- <a ui-sref="userEdit({id:userData._id})">
+                                         <i class="fa fa-pencil" aria-hidden="true" title="Edit user"></i>
+                                        </a>
+                                            <a ng-click="deleteUser(userData._id)">
+                                            <i class="fa fa-trash-o" aria-hidden="true" title="Delete user"></i>
+                                        </a> -->
+                                    <a ui-sref='emailTemplateUser({id:userData._id})'>
+                                        <i class="fa fa-send-o" aria-hidden="true" title="Send email to user"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="userList.length==0" style='color:#605ca8;font-size: 15px;'>
+                        <center>No records found</center>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right" style="font-size:14px;margin-bottom:25px;margin-top:-11px;margin-right: 13px;">
+                <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" on-page-change="
+                paginationClick(newPageNumber,searchUser,searchByUserType)">
+                </dir-pagination-controls>
+            </div>
+        </div>
+</div>
+</section>
+</div>

@@ -1,0 +1,251 @@
+<div class="view-animate content-wrapper">
+    <section class="content-header">
+        <h1>
+            User Management
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a ui-sref="userManagement"><i class="fa fa-user-secret"></i>User Management</a></li>
+            <li class="active"><a><i class="fa fa-plus"></i></a>Add</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- ng-init="findOne(); staffView();" -->
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-user-plus" aria-hidden="true">&nbsp;&nbsp;</i> Add User
+                        </h3>
+                        <div class="pull-right"><a ui-sref="userManagement"><i class="fa fa-angle-left margin-r-5"
+                                    aria-hidden="true"></i> Back</a></div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form role="form" name="addUser" novalidate=""
+                            class="ng-invalid ng-invalid-required ng-valid-maxlength ng-valid-minlength ng-dirty ng-valid-parse ng-invalid-pattern">
+                            <div class="add-service-form clearfix">
+                                <div class="col-sm-12 col-md-3 col-lg-2">
+                                    <div class="profile-box">
+                                        <label class="edit-icon btn-bs-file "><i class="fa fa-pencil addCursor"
+                                                aria-hidden="true" name="file" ngf-max-size="5MB" ngf-drop ngf-select
+                                                ng-model="user.files" ngf-change="upload(user.files)" class="drop-box"
+                                                ngf-drag-over-class="'dragover'" ngf-multiple="true"
+                                                ngf-allow-dir="true" accept="image/*,application/pdf"></i>
+
+                                        </label>
+                                        <div class="profile-picture">
+                                            <!-- ngIf: !contractor.profile_pic -->
+                                            <!-- <img   ngf-src="!files[0]" src="./images/no_image.png"  alt="profile"  id="imgTag" height="100%" width="100%" class="ng-scope">   -->
+                                            <img ngf-src="!files[0].$error && files[0]" alt="profile" id="imgTag"
+                                                height="100%" width="100%" class="ng-scope">
+
+                                        </div>
+                                    </div>
+                                    <center><span>
+                                            <font color="red">*User image is optional</font>
+                                        </span></center>
+                                    <br>
+
+                                    <!-- ngIf: imageError -->
+                                </div>
+                                <div class="col-sm-12 col-md-9 col-lg-10">
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="sub-service-title">
+                                                    <h3><span>Personal Details</span></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="">First Name*</label>
+                                                    <input id="firstname"
+                                                        class="form-control text-capitalize ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength"
+                                                        type="text" name="firstname" ng-model="user.firstname"
+                                                        ng-maxlength="25" placeholder="Enter First Name"
+                                                        ng-pattern="/^[a-zA-Z\s]*$/" required>
+                                                    <!-- ngIf: form.firstname.$touched || form.$submitted -->
+                                                </div>
+                                                <span
+                                                    ng-show="addUser.firstname.$touched && addUser.firstname.$error.required"
+                                                    class="redb">
+                                                    <font color="Red">First Name is required.</font>
+                                                </span>
+                                                <span class="error-span inner-error ng-binding"
+                                                    ng-show="addUser.firstname.$error.pattern"
+                                                    class="error-span inner-error ng-binding">
+                                                    <font color="Red">First Name Must Contain Alphabet</font>
+                                                </span>
+                                                <span ng-show="addUser.firstname.$error.maxlength"
+                                                    class="error-span inner-error ng-binding">
+                                                    <font color="Red">Max 25 characters allowed</font>
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="">Last Name*</label>
+                                                    <input id="lastname" ng-model="user.lastname"
+                                                        class="form-control text-capitalize ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength"
+                                                        type="text" name="lastname" ng-model="contractor.lastname"
+                                                        placeholder="Enter Last Name" ng-pattern="/^[a-zA-Z\s]*$/"
+                                                        ng-maxlength="25" required>
+                                                    <!-- ngIf: form.lastname.$touched || form.$submitted -->
+                                                </div>
+                                                <span
+                                                    ng-show="addUser.lastname.$touched && addUser.lastname.$error.required"
+                                                    class="redb">
+                                                    <font color="Red">Last Name is required.</font>
+                                                </span>
+                                                <span class="error-span inner-error ng-binding"
+                                                    ng-show="addUser.lastname.$error.pattern"
+                                                    class="error-span inner-error ng-binding">
+                                                    <font color="Red">Last Name Must Contain Alphabet</font>
+                                                </span>
+                                                <span ng-show="addUser.lastname.$error.maxlength"
+                                                    class="error-span inner-error ng-binding">
+                                                    <font color="Red">Max 25 characters allowed</font>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="clearfix"></div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="">Email*</label>
+                                                    <input id="email"
+                                                        class="form-control ng-untouched ng-valid-pattern ng-dirty ng-valid-parse ng-valid ng-valid-required"
+                                                        type="text" name="email" ng-model="user.email"
+                                                        ng-pattern="/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9]+$)/"
+                                                        placeholder="Enter Email" required>
+                                                    <!-- ngIf: form.email.$touched || form.$submitted -->
+                                                </div>
+                                                <span ng-show="addUser.email.$error.pattern" class="redb">
+                                                    <font color="Red">Please Enter valid Email.</font>
+                                                </span>
+                                                <span ng-show="addUser.email.$touched && addUser.email.$error.required"
+                                                    class="redb">
+                                                    <font color="Red">Email is required.</font>
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="">Mobile Number*</label>
+                                                    <input type="text" name="mobile_no" placeholder="Mobile Number"
+                                                        ng-model="mobile_no" ui-mask="+65 8000 0000"
+                                                        class="form-control frmInput" type="text"
+                                                        placeholder="Enter Phone Number">
+                                                </div>
+                                                <span
+                                                    ng-show="addUser.mobile_no.$touched &amp;&amp; addUser.mobile_no.$error.required"
+                                                    class="redb">
+                                                    <font color="Red">This field is required.</font>
+                                                </span>
+                                                <span
+                                                    ng-show=" !addUser.mobile_no.$error.required &amp;&amp; addUser.mobile_no.$error.pattern"
+                                                    class="redb ng-hide">
+                                                    <font color="Red">Mobile number should be 8 digits and it starts
+                                                        with either 8 or 9.</font>
+                                                </span>
+                                            </div>
+                                            <!-- <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="">Password*</label>
+                                                <input id="password" class="form-control ng-untouched ng-invalid ng-valid-minlength ng-valid-maxlength ng-dirty ng-valid-parse ng-valid-required ng-invalid-pattern" type="password" name="password"  placeholder="Enter Password" required="">
+                                            </div>
+                                        </div>  -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="">Gender*</label>
+                                                <div class="form-group">
+                                                    <input ng-model="user.gender" type="radio" name="gender" value=1
+                                                        ng-required="!addUser.gender"> Male
+                                                    <input ng-model="user.gender" type="radio" name="gender" value=2
+                                                        ng-required="!addUser.gender"> Female
+                                                    <input ng-model="user.gender" type="radio" name="gender" value=3
+                                                        ng-required="!addUser.gender"> Other
+                                                </div>
+                                                <span
+                                                    ng-show="addUser.gender.$touched && addUser.gender.$error.required"
+                                                    class="redb">
+                                                    <font color="Red">This field is required.</font>
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-6"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="sub-service-title">
+                                                    <h3><span>Password Setting</span></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="clearfix"></div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="">Password*</label>
+                                                    <input
+                                                        class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                                                        name="password"
+                                                        ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                                                        placeholder="Enter Password" type="password"
+                                                        ng-model="user.password" required placeholder="Enter Password">
+                                                </div>
+                                                <span
+                                                    ng-show="addUser.password.$touched && addUser.password.$error.required"
+                                                    class="redb">
+                                                    <font color="Red">This field is required.</font>
+                                                </span>
+                                                <span class="text-danger" ng-show="addUser.password.$error.pattern">
+                                                    <font color="Red">The password must be a combination of lowercase,
+                                                        uppercase, numeric, and special character with a maximum length
+                                                        of 15</font>
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="">Confirm Password</label>
+                                                    <input class="form-control ng-pristine ng-untouched ng-valid"
+                                                        ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                                                        name="confPassword" placeholder="Enter Confirm Password"
+                                                        type="password" ng-model="confirm" required>
+                                                    <!-- ngIf: form.address_line_2.$touched || form.$submitted -->
+                                                </div>
+                                                <font color: "Red"><span
+                                                        ng-show="addUser.confPassword.$touched && addUser.confPassword.$error.required"
+                                                        class="redb">
+                                                        <font color="Red">This field is required.</font>
+                                                    </span></font>
+                                                <span class="text-danger" ng-show="addUser.confPassword.$error.pattern">
+                                                    <font color="Red">The password must be a combination of lowercase,
+                                                        uppercase, numeric, and special character with a maximum length
+                                                        of 15</font>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 text-right margin-top-60">
+                                    <!-- <button type="submit" class="btn btn-primary"> Update <i class="fa fa-spinner fa-spin" ng-if="loader"></i></button> -->
+                                    <button type="button" class="btn btn-primary " ng-disabled="addUser.$invalid"
+                                        ng-click="userRegistration(user,confirm,mobile_no);">ADD</button>
+                                    <a class="btn btn-danger" ng-click="cancelUserRegistration()">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<style>
+    input[type="email"] {
+        text-transform: lowercase;
+    }
+</style>

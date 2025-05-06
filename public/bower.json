@@ -1,0 +1,37 @@
+{
+  "name": "open housing",
+  "authors": [
+    "minakshi kumar"
+  ],
+  "description": "open housing bower component",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": ">1.2.8",
+    "angular-block-ui": "^0.2.2",
+    "angular-bootstrap-lightbox": "^0.12.0",
+    "angular-fcsa-number": "^1.5.3",
+    "angular-file-upload": "^2.5.0",
+    "angular-messages": "^1.5.9",
+    "angular-resource": "^1.6.5",
+    "angular-toastr": "^2.1.1",
+    "angular-ui-router": "^0.4.2",
+    "angular-ui-tinymce": "^0.0.19",
+    "jquery": "~2",
+    "ng-ckeditor": "^0.2.1",
+    "ng-file-upload-shim": "^12.2.13",
+    "oclazyload": "^1.0.9",
+    "angular-payments": "9643191f23"
+  },
+  "resolutions": {
+    "angular": "~1.4.x"
+  }
+}

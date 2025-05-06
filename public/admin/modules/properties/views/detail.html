@@ -1,0 +1,186 @@
+<div class="content-wrapper" ng-init="getSinglePropertyDetail();getAmenities();">
+    <section class="content-header">
+        <h1>
+            Property Management
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">
+                    <i class="fa fa-dashboard"></i>Dashboard</a>
+            </li>
+            <li>
+                <a ui-sref="propertyManagement">
+                    <i class="fa fa-home"></i>Property Management</a>
+            </li>
+            <li>
+                <a class="active">
+                    <i class="fa fa-eye fa-eye-breadcrumb"></i>View</a>
+            </li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <i class="fa fa-building-o " aria-hidden="true">&nbsp;&nbsp;</i> View Property</h3>
+                        <div class="box-tools">
+                            <div class="input-group">
+                                &nbsp;&nbsp;
+                                <div class="pull-right">
+                                    <a ui-sref="propertyManagement">
+                                        <i class="fa fa-angle-left margin-r-5" aria-hidden="true"></i> Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row docs-premium-template view_propDetail">
+                            <div class="col-sm-8 col-md-8">
+                                <div class="box box-solid">
+                                    <div class="box-body">
+                                        <h4>
+                                            {{singleProperty.bedroom_count}} Bedroom Apartment / Flat for
+                                            {{singleProperty.type}} in {{singleProperty.address}}
+                                        </h4>
+                                        <div class="media">
+                                            <div class="row">
+                                                <!-- <div class="col-lg-12">
+                                                            <img class="img-responsive" err-src="./images/placeholder.jpg" ng-src="{{imageUrl}}/{{singleProperty.image[0].path}}" alt="Photo">
+                                                        </div> -->
+                                                <div id="carousel-bounding-box">
+                                                    <div style="height: 305px">
+                                                        <div uib-carousel active="active" interval="myInterval"
+                                                            no-wrap="noWrapSlides">
+                                                            <div uib-slide
+                                                                ng-repeat="(key,image) in singleProperty.image"
+                                                                index="key">
+                                                                <img class='p-details'
+                                                                    ng-src="{{imageUrl}}/{{image.path}}?dim=682x350"
+                                                                    err-src="//assets/images/placeholder.jpg"
+                                                                    style="margin:auto;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="prop_detail">
+                                                <div class="row hidden-phone " id="slider-thumbs">
+                                                    <ul class="thumbnails imageUl clearfix">
+                                                        <!-- <li ng-repeat='(key,image) in singleProperty.image'>
+                                                            <a class="thumbnail propertySmallImage" id="carousel-selector-{{key}}">
+                                                                <img ng-click="openImages(image.path)" class="p-details img"
+                                                                    ng-src="{{imageUrl}}/{{image.path}}?dim=80x80" err-src="//assets/images/placeholder.jpg">
+                                                            </a>
+                                                        </li> -->
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="prop_des horiLine ng-scope">
+                                                <h5>About this property</h5>
+                                                <!-- ngIf: oneLineDescription -->
+                                                <p class="ng-binding ng-scope">
+                                                    {{singleProperty.description}}
+                                                </p>
+                                                <!-- end ngIf: oneLineDescription -->
+                                                <!-- ngIf: fullDescription -->
+
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="amenities property_amenities horiLine clearfix"
+                                                ng-init="getAmenities()">
+                                                <h5>Amenities</h5>
+                                                <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                    <i class="fa fa-check-circle" aria-hidden="true"></i> <span>Wireless internet</span>
+                                                </div> -->
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"
+                                                    ng-repeat="(key, amenities_list) in amenitiesList">
+                                                    <div class="form-group" ng-disabled="true">
+                                                        <div class="control-group">
+                                                            <label class="control control-checkbox"
+                                                                style="color: gray;">
+                                                                {{amenities_list.name}}
+                                                                <input type="checkbox"
+                                                                    ng-model="singleProperty.amenities[key].is_checked"
+                                                                    class="fa fa-check-circle" ng-disabled="true">
+                                                                <div ng-class="singleProperty.amenities[key].is_checked ?  ' control_indicator fa fa-check-circle' :'control_indicator'"
+                                                                    ng-disabled="true"></div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="agent_profile marT20 clearfix">
+                                    <div class="contact_info">
+                                        <img alt="" style="height:118px;width:119px"
+                                            src="{{agentImageUrl}}/no_image.png"
+                                            ng-src="{{agentImageUrl}}/{{singleProperty.created_by.image}}">
+                                        <h5 class="ng-binding">{{singleProperty.created_by.firstname}}
+                                            {{singleProperty.created_by.lastname}}</h5>
+                                        <div class="rating">
+                                            <!-- rating -->
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <!-- <p>4.5 from 238 reviews</p>
+                                        <button ng-click="goToAgent(propertyDetails.created_by._id)" class="btn btn-property">Contact Agent</button> -->
+                                    </div>
+                                    <ul>
+                                        <li>Location
+                                            <span class="ng-binding">{{singleProperty.created_by.city}},
+                                                {{singleProperty.created_by.state}}</span>
+                                        </li>
+                                        <li>Phone number
+                                            <span class="ng-binding">{{singleProperty.created_by.mobile_no}}</span>
+                                        </li>
+                                        <li>Joined
+                                            <span>{{singleProperty.created_by.createdDate|date}}</span>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <div class="features marT20">
+                                    <ul>
+                                        <li><i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            <span>{{propertyDetails.address}}</span></li>
+                                        <li><img src="/assets/images/Bedroom-new.png"
+                                                alt="bed"><span>{{propertyDetails.number_bedroom}} Bedrooms</span></li>
+                                        <li><img src="/assets/images/Bathroom-new.png"
+                                                alt="bath"><span>{{propertyDetails.number_of_bathroom}} Bathrooms</span>
+                                        </li>
+                                        <li> <img src="/assets/images/Garage.svg"
+                                                alt="garage"><span>{{propertyDetails.number_of_parking}} Carports</span>
+                                        </li>
+                                        <li ng-show="propertyDetails.isTownHouse=='2'"><i class="fa fa-home"
+                                                aria-hidden="true"></i> <span>Townhouse</span></li>
+                                        <li ng-show="propertyDetails.isTownHouse=='1'"><i class="fa fa-home"
+                                                aria-hidden="true"></i>
+                                            <strike>Townhouse</strike>
+                                        </li>
+                                    </ul>
+                                    <div class="row">
+                                        <span class="spaceLeft">Floor Area(m2) -
+                                            {{propertyDetails.floor_area || 'NA'}}</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="spaceLeft">Lot Area(m2) -
+                                            {{propertyDetails.lot_erea || 'NA'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

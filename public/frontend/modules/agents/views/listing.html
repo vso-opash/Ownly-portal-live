@@ -1,0 +1,346 @@
+<!-- tabs -->
+<div class="ContentWrap" ng-init="getAgentList()">
+  <div class="ContentHead d-flex">
+    <h2>Agents</h2>
+    <div class="ml-auto TenanciesButtons" ng-show={{isPropertyOwner}}>
+      <button class="btn btn-property" ng-click="openRemoveTenant()">Request agent removal</button>
+    </div>
+  </div>
+  <div class="RefineResults d-flex">
+    <div ng-class="advanceSearchClass">
+      <button class="btn btn-secondary dropdown-toggle togle-default refine" ng-click="showPopup()" type="button"
+        id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Refine results
+        <i class="fa fa-caret-down" aria-hidden="true"></i>
+      </button>
+      <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2" id="agentSearchPopUp">
+        <div class="row">
+          <button style="margin-left: 243px;margin-top: 0px;" ng-click="hideSearchFilter()"><i
+              class="fa fa-close"></i></button>
+          <div class="col-sm-12 agentList">
+            <div class="refine_dropdown">
+              <form enctype="multipart/form-data" name="searchAgentForm" ng-init="user_submit = false" role="form"
+                novalidate autocomplete="off">
+                <div class="refinehead horiLine">
+                  <input ng-model="agent.name" type="text" name="search" placeholder="Name" class="search1">
+                  <span class="searchico">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="filters">
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                      <label class="control-label">Suburb</label>
+                      <input id="locality" type="text" ng-model="agent.city" name="city" class="form-control"
+                        ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25">
+                      <span class="error-span inner-error ng-binding" ng-show="searchAgentForm.city.$error.pattern"
+                        class="error-span inner-error ng-binding">
+                        <font color="Red">Agent Suburb must contain alphabet</font>
+                      </span>
+                      <span ng-show="searchAgentForm.city.$error.maxlength" class="error-span inner-error ng-binding">
+                        <font color="Red">Max 25 characters allowed</font>
+                      </span>
+                    </div>
+                    <!-- <div class="col-xs-6 col-sm-6 col-md-6">
+                      <button type="submit" ng-click="agentSearch(agent)"
+                        class="btn btn-property pull-right">Submit</button>
+                    </div> -->
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                      <label class="control-label">State</label>
+                      <input id="administrative_area_level_1" type="text" ng-model="agent.state" name="state"
+                        class="form-control" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="35">
+                      <span class="error-span inner-error ng-binding" ng-show="searchAgentForm.state.$error.pattern"
+                        class="error-span inner-error ng-binding">
+                        <font color="Red">Agent state must contain alphabet</font>
+                      </span>
+                      <span ng-show="searchAgentForm.state.$error.maxlength" class="error-span inner-error ng-binding">
+                        <font color="Red">Max 35 characters allowed</font>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                      <label class="control-label" for="settingLName">Postal Code</label>
+                      <input class="form-control frmInput margin_in text-capitalize" name="zipcode"
+                        ng-model="agent.zipCode" placeholder="Postal Code" type="text" ng-pattern="/^[0-9]{1,4}$/"
+                        ng-maxlength="4">
+                      <span class="error-span inner-error ng-binding" ng-show="searchAgentForm.zipcode.$error.pattern"
+                        class="error-span inner-error ng-binding">
+                        <font color="Red">Postal Code must be number</font>
+                      </span>
+                      <span ng-show="searchAgentForm.zipcode.$error.maxlength"
+                        class="error-span inner-error ng-binding">
+                        <font color="Red">Max 4 digits allowed</font>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="text-left">
+                      <a ng-click="clearSearch()" href="javascript:void(0)">Clear filters</a>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button type="submit" ng-click="agentSearch(agent)"
+                      class="btn btn-property pull-right">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- <span class="view-as">
+          <a href="javascript:void(0)" ng-click="showGrideView();">
+            <i class="fa fa-bars"></i>
+          </a>
+          <a href="javascript:void(0);" ng-click="showListView();" id="">
+            <i class="fa fa-th" aria-hidden="true"></i>
+          </a>
+        </span> -->
+      </div>
+    </div>
+    <div class="filtering-recent">
+      <ul>
+        <!-- ng-if="roleId!=agencyCode" -->
+        <li ng-click="changeSelection(1)" ng-class="selected==1?'active':''">
+          <a ng-click="getAgentList()" href="javascript:void(0)">All</a>
+        </li>
+        <li ng-click="changeSelection(2)" ng-class="selected==2?'active':''"
+          ng-if="roleId==agencyCode || roleId==ownerRoleId || roleId == tenantRoleId">
+          <a ng-click="getMyAgentList()" href="javascript:void(0)">My agents</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sort-grid ml-auto">
+      <div class="dropdown default-oder">
+        <button class="btn btn-secondary dropdown-toggle togle-default" type="button" id="dropdownMenu2"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{filterMatch}}
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button" ng-click="setOrderProperty('firstname')">Name</button>
+          <button class="dropdown-item" type="button" ng-click="setOrderProperty('city')">Suburb</button>
+          <button class="dropdown-item" type="button" ng-click="setOrderProperty('address')">Address</button>
+          <!-- <button class="dropdown-item" type="button">Something else here</button> -->
+        </div>
+      </div>
+      <span class="view-as">
+        <a href="javascript:void(0)" ng-click="showGrideView();">
+          <i class="fa fa-bars"></i>
+        </a>
+        <a href="javascript:void(0);" ng-click="showListView();" id="">
+          <i class="fa fa-th" aria-hidden="true"></i>
+        </a>
+        <!-- <a href="javascript:void(0);" id="">
+                              <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </a> -->
+      </span>
+    </div>
+  </div>
+  <div class="ContentBody">
+    <div class="row" ng-if="listView">
+      <!-- bulk delete agents -->
+      <div class="col-sm-12" ng-if="myagent_section">
+        <div class="select-delete">
+          <label class="check_container">
+            <input type="checkbox" ng-change="onClickFn(allOption)" ng-model="checkboxModel[allOption]"
+              checked="checked">
+            <span class="checkmark select-all" title=""></span>
+            <strong>Select All</strong>
+          </label>
+          <a href="javascript:void(0)" ng-click="bulkDelete(agentList)" id="bulk-delete-btn">
+            <i class="fa fa-trash-o" aria-hidden="true" title="Delete"></i> <strong>Delete</strong>
+          </a>
+        </div>
+      </div>
+      <!-- {{agentList}} -->
+      <!-- {{myagent_section }}
+              <br>
+              {{(myagent_section && allroleId.owner == roleId && agent_id_list && agent_id_list.length > 0 &&
+              agent_id_list.indexOf(agent._id) !== -1)}} -->
+      <!-- ng-if="!myagent_section || (myagent_section && allroleId.owner == roleId && agent_id_list && agent_id_list.length > 0 && agent_id_list.indexOf(agent._id) !== -1)" -->
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12"
+        dir-paginate="agent in agentList| itemsPerPage:8 | orderBy:orderProperty" current-page="pagination.current">
+        <div class="agent_profile marT20 clearfix inspection min-height-400">
+          <!-- bulk delete agents -->
+          <label ng-if="myagent_section && (agent._id !== loggedUserId)" class="check_container">
+            <input type="checkbox" ng-model="agent.checked" ng-change="onClickFn(agent)">
+            <span class="checkmark select-all" title=""></span>
+          </label>
+          <div class="contact_info">
+            <div class="img-width inspection">
+              <a ui-sref="profile({id:agent._id})">
+                <img ng-src="{{imageUrl}}{{agent.image}}" alt="Agent Profile"
+                  ng-show="{{agent.hasOwnProperty('image')==true && agent.image!=''}}" alt="">
+                <div ng-show="!agent.image.length>0 || !agent.image" class="default_121">
+                  {{agent.firstname.charAt(0).toUpperCase()}}{{agent.lastname.charAt(0).toUpperCase()}}
+                </div>
+              </a>
+              <!-- <span class="colorGreen_agentOwner"> -->
+              <span ng-class="agent.is_online == true ? 'colorGreen_agentOwner' : 'colorRed'"></span>
+              </span>
+            </div>
+            <h5 class="text-capitalize">{{agent.firstname}} {{agent.lastname}}</h5>
+            <div class="rating">
+              <span uib-rating ng-model="agent.averageRate" max="max" read-only="true" on-hover="hoveringOver(value)"
+                on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+            </div>
+            <div class="clearfix"></div>
+            <p>{{agent.averageRate ? agent.averageRate : 0}} from
+              {{agent.totalReviewLength?agent.totalReviewLength:0}} reviews</p>
+            <div class="clearfix"></div>
+            <p class="text-capitalize content-information"><span ng-if="agent.city">{{agent.city}},</span> <span
+                ng-if="agent.state">{{agent.state}}</span></p>
+            <button type="button" ng-click="openAgentSendMessage(agent._id,agent.firstname)"
+              class="btn btn-property">Contact
+              Agent</button>
+          </div>
+          <div class="agent_cmpnylogo">
+            <!-- <img src="assets/images/raine_horn.png"  alt="profile"> -->
+            <img ng-show="agent.agency_id.logoImage" err-src="assets/images/raine_horn.png"
+              ng-src="{{imageUrl}}{{agent.agency_id.logoImage}}" alt="profile">
+            <img ng-show="!agent.agency_id.logoImage" src="assets/images/raine_horn.png" alt="profile">
+          </div>
+          <div class="agent_detail">
+            <ul>
+              <li>Team member
+                <span ng-if="agent.team_cnt">{{agent.team_cnt}}</span>
+                <span ng-if="!agent.team_cnt">0</span>
+              </li>
+              <!-- <li>Inspection frequency
+                        <span>6/mo</span>
+                      </li> -->
+              <li>No. of properties managed
+                <span ng-if="agent.property_cnt">{{agent.property_cnt}}</span>
+                <span ng-if="!agent.property_cnt">0</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div ng-if="agentList.length==0 && isSearchedAgent==false" class="alert alert-info fade in alert-dismissable"
+        style="margin-top:18px;">
+        <strong>No Agents found to display</strong>
+      </div>
+      <div ng-if="agentList.length==0 && isSearchedAgent==true" class="alert alert-info fade in alert-dismissable"
+        style="margin-top:18px;">
+        <strong>No searched results were found</strong>
+      </div>
+    </div>
+    <div class="GrideView" ng-if="grideView">
+      <div class="col-sm-12 select-space" ng-if="myagent_section">
+        <div class="select-delete">
+          <label class="check_container">
+            <input type="checkbox" ng-change="onClickFn(allOption)" ng-model="checkboxModel[allOption]"
+              checked="checked">
+            <span class="checkmark select-all" title=""></span>
+            <strong>Select All</strong>
+          </label>
+          <a href="javascript:void(0)" ng-click="bulkDelete(agentList)" id="bulk-delete-btn">
+            <i class="fa fa-trash-o" aria-hidden="true" title="Delete"></i> <strong>Delete</strong>
+          </a>
+        </div>
+      </div>
+      <div class="" dir-paginate="agent in agentList| itemsPerPage:8 | orderBy:orderProperty"
+        current-page="pagination.current">
+        <div class="col-lg-12 agentlist marT20 marB20 inspection clearfix ">
+          <!-- bulk delete agents -->
+          <div class="col-lg-1 col-sm-1">
+            <label ng-if="myagent_section && (agent._id !== loggedUserId)" class="check_container">
+              <input type="checkbox" ng-model="agent.checked" ng-change="onClickFn(agent)">
+              <span class="checkmark select-all" title=""></span>
+            </label>
+          </div>
+          <div class="col-lg-1 col-sm-2 agentpro">
+            <div class="agentimg_width inspection">
+              <a ui-sref="profile({id:agent._id})">
+                <img ng-src="{{imageUrl}}{{agent.image}}" alt="" ng-show="agent.image.length>0">
+                <div ng-show="!agent.image.length>0 || !agent.image" class="default_121"
+                  style="height:70px;width:70px;line-height: 70px!important;">
+                  {{agent.firstname.charAt(0).toUpperCase()}}{{agent.lastname.charAt(0).toUpperCase()}}
+                </div>
+                <div class="colorGreen"></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-10 col-sm-9">
+            <div class="row">
+              <ul>
+                <li>
+                  <h5> {{agent.firstname}} {{agent.lastname}} </h5>
+                  <p> {{agent.agency_id.name}} </p>
+                </li>
+                <li>
+                  <span>
+                    <h5 ng-if="agent.property_cnt">{{agent.property_cnt}}</h5>
+                    <h5 ng-if="!agent.property_cnt">0</h5>
+                  </span>
+                  <span class="desc">No. of properties managed</span>
+                </li>
+                <li>
+                  <span>
+                    <h5 ng-if="agent.team_cnt">{{agent.team_cnt}}</h5>
+                    <h5 ng-if="!agent.team_cnt">0</h5>
+                  </span>
+                  <span class="desc">Team member</span>
+                </li>
+                <!-- <li>
+                        <span>
+                          <h5>6 Monthly </h5>
+                        </span>
+                        Ispection frequency
+                      </li> -->
+                <li>
+                  <div class="rating">
+                    <span uib-rating ng-model="agent.averageRate" max="max" read-only="true"
+                      on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']"
+                      aria-labelledby="default-rating"></span>
+                  </div>
+                  <p>{{agent.averageRate ? agent.averageRate : 0}} from
+                    {{agent.totalReviewLength?agent.totalReviewLength:0}} reviews</p>
+                </li>
+                <li>
+                  <button ng-click="openAgentSendMessage(agent._id,agent.firstname)" class="btn btn-start">Contact
+                    Agent</button>
+                </li>
+              </ul>
+
+            </div>
+            <!-- <div class="thumblist">
+                    <ul>
+                      <li class="thumb" ng-repeat="(key,image) in agent.images  | limitTo:4">
+                        <img src="{{userImageUrl}}{{image.url}}" alt="">
+                      </li>
+                    </ul>
+                  </div> -->
+          </div>
+          <!-- <div class="agent_cmpnylogolist">
+                  <img src="{{userImageUrl}}{{agent.agency_id.logoImage}}" alt="">
+                </div> -->
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div ng-if="agentList.length==0 && isSearchedAgent==false" class="alert alert-info fade in alert-dismissable"
+          style="margin-top:18px;">
+          <strong>No record to display</strong>
+
+        </div>
+        <div ng-if="agentList.length==0 && isSearchedAgent==true" class="alert alert-info fade in alert-dismissable"
+          style="margin-top:18px;">
+          <strong>No searched results were found</strong>
+        </div>
+      </div>
+    </div>
+    <nav class="pagination-container marT20">
+      <div class="pagination">
+        <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true" boundary-links="true"
+          on-page-change="pageChanged(newPageNumber)">
+        </dir-pagination-controls>
+      </div>
+    </nav>
+  </div>
+</div>

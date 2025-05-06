@@ -1,0 +1,681 @@
+<!-- tabs -->
+<div class="container">
+    <div class="row marT20" ng-init="initialize()">
+        <section>
+            <div class="bg-bar"></div>
+            <div class="wizard creat_property">
+                <div class="wizard-inner">
+                    <div class="wizard-container">
+                        <div class="card wizard-card" data-color="azure" id="wizard">
+                            <div class="wizard-header"> </div>
+                            <div class="wizard-navigation">
+                                <div class="progress-with-circle">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1"
+                                        aria-valuemax="3" ng-style="progressBarWidthStyle"></div>
+                                </div>
+                                <ul class="nav nav-tabs nav-pills" role="tablist">
+                                    <li ng-class="navPillsLiFirstClass">
+                                        <a href="javascript:void(0)" class="inactive" data-toggle="tab">
+                                            <div class="details">Basic Details</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                    <li ng-class="navPillsLiSecondClass">
+                                        <a href="javascript:void(0)" data-toggle="tab">
+                                            <div class="details">Property Details</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                    <li ng-class="navPillsLiThirdClass">
+                                        <a href="javascript:void(0)" data-toggle="tab">
+                                            <div class="details">Amenities</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                    <li ng-class="navPillsLiFourthClass">
+                                        <a href="javascript:void(0)" data-toggle="tab">
+                                            <div class="details">Complete</div>
+                                            <div class="icon-circle"> </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane active" ng-class="firstTabContent" role="tabpanel" id="step1">
+                                    <div class="form-heading">
+                                        <div class="">
+                                            <h1>Provide details about this listing</h1>
+                                            <!-- <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                <br> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small> -->
+                                        </div>
+                                        <div class="centered-form">
+                                            <div class="prop_detail">
+                                                <div class="">
+                                                    <div class="panel-body">
+                                                        <form enctype="multipart/form-data" name="createPropertyStepOne"
+                                                            ng-init="user_submit = false" role="form" novalidate
+                                                            autocomplete="off">
+                                                            <div class="row">
+                                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                    <div class="form-group text-left">
+                                                                        <label class="control-label"
+                                                                            for="product_categorie">Property
+                                                                            Category
+                                                                            <font color="Red">*</font>
+                                                                        </label>
+                                                                        <select ng-model="property.property_category"
+                                                                            name="property_category"
+                                                                            class="form-control" required>
+                                                                            <option value="">Select Property Category
+                                                                            </option>
+                                                                            <option
+                                                                                ng-repeat="property_cat in propertyCategory"
+                                                                                value="{{property_cat.code}}">
+                                                                                {{property_cat.name}}</option>
+                                                                        </select>
+                                                                        <span class="error-span inner-error ng-binding"
+                                                                            ng-show="createPropertyStepOne.property_category.$error.required && createPropertyStepOne.property_category.$touched"
+                                                                            class="error-span inner-error ng-binding">
+                                                                            <font color="Red">Property category is
+                                                                                Required</font>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                    <div class="form-group text-left">
+                                                                        <label class="control-label"
+                                                                            for="product_categorie">Property
+                                                                            Type
+                                                                            <font color="Red">*</font>
+                                                                        </label>
+                                                                        <select ng-model="property.property_type"
+                                                                            name="property_type" class="form-control"
+                                                                            required>
+                                                                            <option value="">Select Property Type
+                                                                            </option>
+                                                                            <option
+                                                                                ng-repeat="property_type in propertyType"
+                                                                                value="{{property_type.code}}">
+                                                                                {{property_type.name}}</option>
+                                                                        </select>
+                                                                        <span class="error-span inner-error ng-binding"
+                                                                            ng-show="createPropertyStepOne.property_type.$error.required && createPropertyStepOne.property_type.$touched"
+                                                                            class="error-span inner-error ng-binding">
+                                                                            <font color="Red">Property Type is Required
+                                                                            </font>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row marT10">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12"
+                                                                    ng-hide={{isOwner}}>
+                                                                    <div class="form-group text-left ">
+                                                                        <label style="margin-top: -23px;"
+                                                                            class="col-md-4 control-label"
+                                                                            for="product_categorie">Owner
+                                                                            <font color="Red">*</font>
+                                                                        </label>
+                                                                        <select ng-model="property.owned_by"
+                                                                            name="created_by" class="form-control"
+                                                                            required>
+                                                                            <option value="">Select Property Owner
+                                                                            </option>
+                                                                            <option ng-repeat="users_list in ownerList"
+                                                                                value="{{users_list._id}}">
+                                                                                {{users_list.firstname | titlecase}}
+                                                                                {{users_list.lastname | titlecase}} (
+                                                                                {{users_list.email}} )
+                                                                            </option>
+                                                                        </select>
+
+                                                                        <!-- *********************** -->
+                                                                        <!-- <ui-select ng-model="property.owned_by"
+                                                                            ng-required="true">
+                                                                            <ui-select-match style="margin-top: 20px;"
+                                                                                placeholder="Select property owner">
+                                                                                {{$select.selected.firstname}}
+                                                                                {{$select.selected.lastname}}
+                                                                            </ui-select-match>
+                                                                            <ui-select-choices
+                                                                                repeat="item._id as item in ownerList | filter:  $select.search">
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-1">
+                                                                                        <img class="img-circle drop_down_img_pro_o"
+                                                                                            ng-if="item.image"
+                                                                                            src="{{createrImageUrl}}{{item.image}}"
+                                                                                            alt="User img">
+                                                                                        <img ng-if="!item.image"
+                                                                                            class="img-circle drop_down_img_pro_o"
+                                                                                            alt="User img"
+                                                                                            src="assets/images/no_image.png">
+                                                                                    </div>
+                                                                                    <div class="col-sm-4 owner_space">
+                                                                                        <div ng-bind-html="item.firstname | highlight: $select.search"
+                                                                                            class="select_user_drop">
+                                                                                        </div>
+                                                                                        <small>email Id:
+                                                                                            {{item.email}}</small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </ui-select-choices>
+                                                                        </ui-select> -->
+                                                                        <!-- ********************************* -->
+                                                                        <span class="error-span inner-error ng-binding"
+                                                                            ng-show="createPropertyStepOne.created_by.$error.required && createPropertyStepOne.created_by.$touched"
+                                                                            class="error-span inner-error ng-binding">
+                                                                            <font color="Red">Property Owner is
+                                                                                Required</font>
+                                                                        </span>
+                                                                        <div class="text-left clearfix marT10">
+                                                                            <a href="javascript:void(0)"
+                                                                                ng-click="openDilogue()">
+                                                                                <span class="plus-round span-adj owner">
+                                                                                    <i class="fa fa-plus-circle owner"
+                                                                                        aria-hidden="true"></i>Add new
+                                                                                    owner</span>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row marT10">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                    <div class="form-group text-left">
+                                                                        <label>Property Address
+                                                                            <font color="Red">*</font>
+                                                                        </label>
+                                                                        <div id="imaginary_container">
+                                                                            <div
+                                                                                class="input-group stylish-input-group">
+                                                                                <input ng-change="addressInitialize()"
+                                                                                    googleplace type="text"
+                                                                                    name="address"
+                                                                                    ng-model="property.address"
+                                                                                    class="form-control"
+                                                                                    placeholder="Search" required>
+                                                                                <!-- <button ng-show="property.address.length>0" class="counterImg pull-right" type="button" ng-click="clearPropertyAddress()"><i class="fa fa-close"></i></button>  -->
+                                                                                <span
+                                                                                    class="error-span inner-error ng-binding"
+                                                                                    ng-show="createPropertyStepOne.address.$error.required && createPropertyStepOne.address.$touched"
+                                                                                    class="error-span inner-error ng-binding">
+                                                                                    <font color="Red">Property address
+                                                                                        is Required</font>
+                                                                                </span>
+                                                                                <span class="input-group-addon">
+                                                                                    <button type="submit">
+                                                                                        <span
+                                                                                            class="glyphicon glyphicon-map-marker"></span>
+                                                                                    </button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- <span class="span-adj address">Type Address manualy</span> -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row marT5">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                    <div class="form-group text-left">
+                                                                        <label>Property State
+                                                                            <font color="Red">*</font>
+                                                                        </label>
+                                                                        <div id="imaginary_container">
+                                                                            <div class="input-group">
+                                                                                <input id="administrative_area_level_1"
+                                                                                    type="text" name="state"
+                                                                                    ng-model="property.state"
+                                                                                    class="form-control" required>
+                                                                                <span
+                                                                                    class="error-span inner-error ng-binding"
+                                                                                    ng-show="createPropertyStepOne.state.$error.required && createPropertyStepOne.state.$touched"
+                                                                                    class="error-span inner-error ng-binding">
+                                                                                    <font color="Red">Property state is
+                                                                                        Required</font>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12">
+
+                                                                    <div class="form-group text-left">
+                                                                        <label>Property City
+                                                                            <font color="Red">*</font>
+                                                                        </label>
+                                                                        <div id="imaginary_container">
+                                                                            <div class="input-group">
+                                                                                <input id="locality" type="text"
+                                                                                    name="city" ng-model="property.city"
+                                                                                    class="form-control" required>
+                                                                                <input id="latitude" type="hidden"
+                                                                                    name="latitude"
+                                                                                    ng-model="property.latitude"
+                                                                                    class="form-control">
+                                                                                <input id="longitude" type="hidden"
+                                                                                    name="longitude"
+                                                                                    ng-model="property.longitude"
+                                                                                    class="form-control">
+                                                                                <span
+                                                                                    class="error-span inner-error ng-binding"
+                                                                                    ng-show="createPropertyStepOne.city.$error.required && createPropertyStepOne.city.$touched"
+                                                                                    class="error-span inner-error ng-binding">
+                                                                                    <font color="Red">Property city is
+                                                                                        Required</font>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                    <div class="form-group text-left">
+                                                                        <label class="text-left">Description
+                                                                            /
+                                                                            About this property
+                                                                            <font color="Red">*</font>
+                                                                        </label>
+                                                                        <label class="control-label"
+                                                                            for="property_description"></label>
+                                                                        <!-- <textarea ui-tinymce="tinymceOptions" ng-model="property.description" class="form-control" name="property_description" required></textarea> -->
+                                                                        <textarea ng-model="property.description"
+                                                                            class="form-control"
+                                                                            name="property_description"
+                                                                            required></textarea>
+                                                                        <span
+                                                                            class="error-span inner-error ng-binding text-left"
+                                                                            ng-show="createPropertyStepOne.property_description.$error.required && createPropertyStepOne.property_description.$touched">
+                                                                            <font color="Red">Property description is
+                                                                                Required</font>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-cont">
+                                        <!--   <div class="button-border">                -->
+                                        <hr>
+                                        <div class="border-lower">
+                                            <button ng-click="goToDashboard()" class="btn btn-cancel">Cancel</button>
+                                            <button ng-if="property.save_as_draft==true"
+                                                ng-disabled="createPropertyStepOne.$invalid"
+                                                ng-click="saveAsDraft(property)" class="btn btn-save">Save as
+                                                draft</button>
+                                            <button ng-click="moveToSecondStep()"
+                                                ng-disabled="createPropertyStepOne.$invalid"
+                                                class="btn btn-upload btn-proceed">Proceed</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-class="secondTabContent" role="tabpanel" id="step2">
+                                    <div class="form-heading" style="padding-bottom: 30px">
+                                        <div class="row">
+                                            <h1>Provide details about this listing</h1>
+                                            <!-- <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod -->
+                                            <!-- <br> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small> -->
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <div class="complete">
+                                            <form enctype="multipart/form-data" name="createPropertyStepTwo"
+                                                ng-init="user_submit = false" role="form" novalidate autocomplete="off">
+                                                <div class="services">
+                                                    <div class="row box">
+                                                        <!-- bed -->
+                                                        <div class="col-lg-4">
+                                                            <label>Beds</label>
+                                                            <input type="text" ng-maxlength="2" ng-pattern="/^[0-9]*$/"
+                                                                ng-model="property.number_bedroom" name="number_bedroom"
+                                                                placeholder="0" class="radii">
+                                                            <span class="error-span inner-error ng-binding"
+                                                                ng-show="createPropertyStepTwo.number_bedroom.$error.pattern || createPropertyStepTwo.number_bedroom.$error.fcsaNumber"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Number of bed Must Contain number and
+                                                                    positive value</font>
+                                                            </span>
+                                                            <span
+                                                                ng-show="createPropertyStepTwo.number_bedroom.$error.maxlength"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Max 2 digits allowed</font>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <label>Baths</label>
+                                                            <input type="text" ng-maxlength="2" ng-pattern="/^[0-9]*$/"
+                                                                ng-model="property.number_of_bathroom"
+                                                                name="number_of_bathroom" placeholder="0" class="radii">
+                                                            <span class="error-span inner-error ng-binding"
+                                                                ng-show="createPropertyStepTwo.number_of_bathroom.$error.pattern || createPropertyStepTwo.number_of_bathroom.$error.fcsaNumber"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Number of bathroom Must Contain
+                                                                    number and positive value</font>
+                                                            </span>
+                                                            <span
+                                                                ng-show="createPropertyStepTwo.number_of_bathroom.$error.maxlength"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Max 2 digits allowed</font>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <label>Parking</label>
+                                                            <input type="text" ng-maxlength="2" ng-pattern="/^[0-9]*$/"
+                                                                ng-model="property.number_of_parking"
+                                                                name="number_of_parking" placeholder="0" class="radii">
+                                                            <span class="error-span inner-error ng-binding"
+                                                                ng-show="createPropertyStepTwo.number_of_parking.$error.pattern || createPropertyStepTwo.number_of_parking.$error.fcsaNumber"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Number of parking Must Contain number
+                                                                    and positive value</font>
+                                                            </span>
+                                                            <span
+                                                                ng-show="createPropertyStepTwo.number_of_parking.$error.maxlength"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Max 2 digits allowed</font>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row box1">
+                                                        <!-- bed -->
+                                                        <div class="col-lg-4">
+                                                            <label>Floor Area(m2)</label>
+                                                            <input type="text" ng-maxlength="5" ng-pattern="/^[0-9]*$/"
+                                                                ng-model="property.floor_area" name="floor"
+                                                                placeholder="0" class="radii">
+                                                            <span class="error-span inner-error ng-binding"
+                                                                ng-show="createPropertyStepTwo.floor.$error.pattern || createPropertyStepTwo.floor.$error.fcsaNumber"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Floor Area(m2) Must Contain number
+                                                                    and positive value</font>
+                                                            </span>
+                                                            <span ng-show="createPropertyStepTwo.floor.$error.maxlength"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Max 5 digits allowed</font>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <label>Lot Area(m2)</label>
+                                                            <input type="text" ng-maxlength="5" ng-pattern="/^[0-9]*$/"
+                                                                ng-model="property.lot_erea" name="lot" placeholder="0"
+                                                                class="radii">
+                                                            <span class="error-span inner-error ng-binding"
+                                                                ng-show="createPropertyStepTwo.lot.$error.pattern || createPropertyStepTwo.lot.$error.fcsaNumber"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Lot Area(m2) Must Contain number and
+                                                                    positive value</font>
+                                                            </span>
+                                                            <span ng-show="createPropertyStepTwo.lot.$error.maxlength"
+                                                                class="error-span inner-error ng-binding">
+                                                                <font color="Red">Max 5 digits allowed</font>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="prop-upload">
+                                                    <div class="carousel slide article-slide"
+                                                        id="article-photo-carousel">
+                                                        <!-- Wrapper for slides -->
+                                                        <div class="carousel-inner cont-slider "
+                                                            style="width:600px;height:400px">
+                                                            <div ng-class="setImageasFeatured == key ? 'item active' : 'item'"
+                                                                ng-repeat="(key,image) in property.image">
+                                                                <img alt="" title="" class="alignImg"
+                                                                    ng-if="image.path && image.is_from_my_file==false && image.is_from_csv_file==false"
+                                                                    src="{{imageUrl}}{{property.image[key].path}}">
+                                                                <img class="alignImg"
+                                                                    ng-if="image.path && image.is_from_my_file==true && image.is_from_csv_file==false"
+                                                                    src="{{fileImageUrl}}{{property.image[key].path}}" />
+                                                                <img ng-if="image.path && image.is_from_csv_file==true && image.is_from_my_file==false"
+                                                                    src="{{image.path}}" alt="propimg">
+                                                            </div>
+                                                            <div ng-class="key==key+property.image.length? 'item active':'item'"
+                                                                ng-repeat="(key,files) in property.files">
+                                                                <img class="alignImg" alt="" title=""
+                                                                    ngf-src="!property.files[key].$error && property.files[key]"
+                                                                    src="http://placehold.it/600x400">
+                                                            </div>
+                                                            <div ng-class="key==key+property.files.length+property.image.length ? 'item active':'item'"
+                                                                ng-repeat="(key,files) in choosenFiles">
+                                                                <img class="alignImg" alt="" title=""
+                                                                    ng-src="{{fileImageUrl}}{{files.path}}"
+                                                                    src="http://placehold.it/600x400">
+                                                            </div>
+                                                        </div>
+                                                        <!-- Indicators -->
+                                                        <ol class="carousel-indicators alignImg feature-img-wrap"
+                                                            id="style-2-prop">
+                                                            <li ng-class="setImageasFeatured == key ? 'active' : ''"
+                                                                ng-repeat="(key,image) in property.image"
+                                                                data-slide-to="{{key}}"
+                                                                data-target="#article-photo-carousel"
+                                                                ng-click="setMeasFeaturedImage($index,'upload','exist')">
+                                                                <button class="property_image_deletebtn pull-right"
+                                                                    type="button"
+                                                                    ng-click="RemovePhotoAtUpdate($index); $event.stopPropagation();">
+                                                                    <i class="fa fa-close"></i>
+                                                                </button>
+                                                                <img ng-if="image.path && image.is_from_my_file==false && image.is_from_csv_file==false"
+                                                                    alt=""
+                                                                    src="{{imageUrl}}{{property.image[key].path}}">
+                                                                <img ng-if="image.path && image.is_from_my_file==true && image.is_from_csv_file==false"
+                                                                    src="{{fileImageUrl}}{{property.image[key].path}}" />
+                                                                <img ng-if="image.path && image.is_from_csv_file==true && image.is_from_my_file==false"
+                                                                    src="{{image.path}}" alt="propimg">
+                                                                <span class="fe-tag"
+                                                                    ng-show="setImageasFeatured==key && featuredFlag == 'exist'">Featured</span>
+                                                            </li>
+                                                            <li ng-class="key==key+property.image.length ? 'active': ''"
+                                                                ng-repeat="(key,files) in property.files"
+                                                                data-slide-to="{{key+property.image.length}}"
+                                                                data-target="#article-photo-carousel"
+                                                                ng-click="setMeasFeaturedImage($index,'upload','upload')">
+                                                                <button class="property_image_deletebtn pull-right"
+                                                                    type="button" ng-click="RemovePhoto($index)">
+                                                                    <i class="fa fa-close"></i>
+                                                                </button>
+                                                                <img alt=""
+                                                                    ngf-src="!property.files[key].$error && property.files[key]"
+                                                                    src="http://placehold.it/250x180">
+                                                                <span class="fe-tag"
+                                                                    ng-show="setImageasFeatured==key && featuredFlag == 'upload'">Featured</span>
+                                                            </li>
+                                                            <li ng-class="key==key+property.files.length+property.image.length ? 'active': ''"
+                                                                ng-repeat="(key,files) in choosenFiles"
+                                                                data-slide-to="{{key+property.files.length+property.image.length}}"
+                                                                data-target="#article-photo-carousel"
+                                                                ng-click="setMeasFeaturedImage($index,'choose','choose')">
+                                                                <button
+                                                                    class="propertyImg pull-right property_image_deletebtn"
+                                                                    type="button"
+                                                                    ng-click="RemovePhotoFromMyFiles(key)">
+                                                                    <i class="fa fa-close"></i>
+                                                                </button>
+                                                                <img alt="Maintenance Image"
+                                                                    ng-src="{{fileImageUrl}}{{files.path}}"
+                                                                    src="http://placehold.it/250x180">
+                                                                <span class="fe-tag"
+                                                                    ng-show="setImageasFeatured==key && featuredFlag == 'choose'">Featured</span>
+                                                            </li>
+                                                            <i ng-show="createPropertyStepTwo.file.$error.maxSize">
+                                                                <font color="Red">File too large max allowed size is
+                                                                    160MB</font>
+                                                            </i>
+                                                            <i ng-show="createPropertyStepTwo.file1.$error.maxSize">
+                                                                <font color="Red">File too large max allowed size is
+                                                                    160MB</font>
+                                                            </i>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                                <div class="btn-container alignButton">
+                                                    <!-- isAgentOwnerAgency == true ? (property.image.length == 0 ? true : false) : true -->
+                                                    <button type="button" ng-click="checkFileSize()"
+                                                        class="btn btn-labeled btn-upload" name="file1" ngf-drop
+                                                        ngf-select ng-model="property.files" class="drop-box"
+                                                        ngf-drag-over-class="'dragover'" ngf-multiple="true"
+                                                        ngf-resize="{width: 1306, height: 400}" ngf-max-size="160MB"
+                                                        ngf-allow-dir="true" accept="image/*,application/pdf">
+                                                        <span class="btn-label"> </span>Upload image</button>
+
+                                                    <!-- <uib-progressbar animate="false" value="fileProgress" type="success"><b>{{fileProgress}}%</b></uib-progressbar> -->
+                                                    <div class="btn btn-default image-preview-input btn-box btn-color btnSpace"
+                                                        name="file" ng-click="chooseFromMyFiles()">
+                                                        <span class="image-preview-input-title ">Choose from your
+                                                            files</span>
+                                                    </div>
+                                                    <input type="hidden" name="featured_image_index"
+                                                        id="featured_image_index" value="{{setImageasFeatured}}">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="btn-cont">
+                                        <!--   <div class="button-border">                -->
+                                        <hr>
+                                        <div class="border-lower">
+                                            <button ng-click="goToDashboard()" class="btn btn-cancel">Cancel</button>
+                                            <button ng-if="property.save_as_draft==true"
+                                                ng-click="saveAsDraft(property)" class="btn btn-save">Save as
+                                                draft</button>
+                                            <button ng-click="moveToFirstStep()" class="btn btn-upload">Back</button>
+                                            <button ng-disabled="createPropertyStepTwo.$invalid"
+                                                ng-click="moveToThirdStep()"
+                                                class="btn btn-upload btn-proceed">Proceed</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div ng-class="thirdTabContent" role="tabpanel" id="step3">
+
+                                    <div class="form-heading amenities">
+                                        <div class="">
+                                            <h1>
+                                                <b>What are the amenities</b>
+                                            </h1>
+                                            <!-- <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod -->
+                                            <!-- <br> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small> -->
+                                        </div>
+                                        <div class=" centered-form">
+                                            <div class="prop_detail">
+                                                <div class="">
+                                                    <div class="panel-body">
+                                                        <form role="form ">
+                                                            <div class="row">
+                                                                <h3 class="prtyCheck">Check all amenities that are
+                                                                    applicable </h3>
+                                                                <div class="col-xs-6 col-sm-6 col-md-6"
+                                                                    ng-repeat="(key,amenities_list) in amenitiesList">
+                                                                    <div class="form-group">
+                                                                        <div class="control-group">
+                                                                            <label class="control control-checkbox">
+                                                                                {{amenities_list.name}}
+
+                                                                                <input type="checkbox"
+                                                                                    ng-model="property.amenities[key].is_checked"
+                                                                                    value="false" />
+
+                                                                                <input type="hidden"
+                                                                                    ng-model="property.amenities[key].amenity_id"
+                                                                                    ng-value="amenities_list._id" />
+
+                                                                                <input type="hidden"
+                                                                                    ng-model="property.amenities[key].amenity_name"
+                                                                                    ng-value="amenities_list.name" />
+
+                                                                                <div class="control_indicator"></div>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                        <div
+                                                                            class="form-group text-left custom-textarea ">
+                                                                            <label for="comment">Other amenities</label>
+                                                                            <textarea ng-model="property.other_amenity"
+                                                                                class="form-control" rows="4" cols="50"
+                                                                                ui-tinymce="tinymceOptions" id="comment"
+                                                                                placeholder="press enter per item"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <!-- form closed -->
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-cont">
+                                        <!--   <div class="button-border">                -->
+                                        <hr>
+                                        <div class="border-lower">
+                                            <button ng-click="goToDashboard()" class="btn btn-cancel">Cancel</button>
+                                            <!-- <button class="btn btn-save">Save as draft</button> -->
+                                            <button ng-click="moveToSecondStep()" class="btn btn-upload">Back</button>
+                                            <button ng-if="property.save_as_draft==true" ladda="loginLoading"
+                                                data-style="slide-right" ng-click="updateProperty(property)"
+                                                class="btn btn-upload btn-proceed">Publish</button>
+                                            <button ng-if="property.save_as_draft==false" ladda="loginLoading"
+                                                data-style="slide-right" ng-click="updateProperty(property)"
+                                                class="btn btn-upload btn-proceed">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-class="fourthTabContent" role="tabpanel" id="complete">
+                                    <div class="form-heading">
+                                        <div class="row">
+                                            <div class="heading1">
+                                                <!-- text -->
+                                                <div class="complete-circle">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <h2>
+                                                    <b>Property Successfully Updated</b>
+                                                </h2>
+                                                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                    veniam, </p> -->
+
+                                                <!-- <button ng-click="goToAddProperty();" class="btn btn-upload btn-proceed btn-add">Add new property</button> -->
+                                                <h6>
+                                                    <a ui-sref="propertyDetails({id:property._id})">Listing Details</a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</section>
+
+<style>
+    .ui-select-search {
+        margin-top: 20px;
+    }
+
+    .carousel-indicators li {
+        text-indent: 0px !important;
+    }
+</style>

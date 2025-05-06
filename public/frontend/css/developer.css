@@ -1,0 +1,3167 @@
+/* .theme-whbl a, .theme-whbl .fc-state-default, .theme-whbl .jvectormap-zoomin, .theme-whbl .jvectormap-zoomout, .theme-whbl #user-profile .profile-details ul>li>span {
+    color: #00d7fc;
+} */
+
+body{ font-size:16px;}
+:focus, input:focus, select:focus, img:focus, a:focus,textarea:focus, button:focus{outline:0;outline-offset:0;}
+
+
+/* .property-content_listview {
+    padding: 2%;
+    box-shadow: 0px 0px 10px #ccc;
+    border-radius: 5px;
+    margin-left: 37%;
+    height: 200px;
+} */
+/* dt:24/11/17  */
+.labelClass {
+    display: inline-block;
+    max-width: 27px;
+    margin-bottom: 5px;
+    /* font-weight: bold; */
+    min-width: 100%;
+    font-size: 18px;
+}
+/* .checkbox{
+    zoom:2;
+} */
+.pointer{
+    cursor: pointer;
+}
+.propertyListingSpace{
+    margin-bottom: -29px;
+}
+  
+.formInput{
+    color: black;
+}
+.textColor{
+        color: white;
+}.forgotPassword{
+    margin-left: 97px;
+    margin-top: 43px;
+}
+.owner{
+    font-size: 14px;
+}
+.address {
+    margin-top: 7px;
+    color: #39CDF1;
+    /* margin-bottom: 10px; */
+}
+.description{
+    margin-top: 20px;
+}
+.indentation{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.listIn{
+    margin-left: 10px;
+}.btn-width{
+    width: 34%;
+} 
+.registration{
+    max-width: 217px;
+    font-size: 18px;
+}
+
+.regenreate{
+    font-family: sans;
+    text-align: center;
+    font-size: 26px;
+}
+.regTop{font-family: sans;
+margin-bottom: -2px;
+margin-top: 58px;
+}
+.regText{
+    margin-top: 37px;
+    text-align: center;
+}.fontSt{
+    font-family: sans;
+}.cursorSt{
+    cursor:not-allowed;
+}
+/* 
+.main-side-menu li:nth-child(13) a{
+	background-image: url(../images/tenant.png);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+	background-position: 30px 5px;
+}
+.main-side-menu li.active:nth-child(13) a{
+	background-image: url(../images/tenant-mo.png);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+	background-position: 30px 5px;
+}
+.theme-whbl #sidebar-nav .nav>li:nth-child(13)>a:hover{
+	background-image: url(../images/tenant-mo.png);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+	background-position: 30px 5px;
+}
+.main-side-menu li:nth-child(14) a{
+	background-image: url(../images/settings.png);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+	background-position: 30px 5px;
+}
+.main-side-menu li.active:nth-child(14) a{
+	background-image: url(../images/settings-mo.png);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+	background-position: 30px 5px;
+}
+.theme-whbl #sidebar-nav .nav>li:nth-child(14)>a:hover{
+	background-image: url(../images/settings-mo.png);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+	background-position: 30px 5px;
+} */
+.msgIndentation{
+    margin: 200px;
+}
+.propertyImg{
+    border-radius: 50%;
+    background: #00d7fc;
+    margin-right: 8px;
+    margin-top: 1px;
+}
+.contact_info img{height: 118px;width: 118px;}
+.default_121{
+    font-size: 35px;
+}
+
+.default_100 {
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    background-color: #4F90D1;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    line-height: 100px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.default_60P {
+    text-align: center;
+    margin-right: 23px;
+    width: 60px;
+    height: 60px;
+    background-color: #4F90D1;
+    margin-left: auto;
+    border-radius: 50%;
+    line-height: 60px;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.default_70 {
+    text-align: center;
+    width: 70px;
+    height: 70px;
+    background-color: #4F90D1;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: 10px;
+    line-height: 70px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 0 !important;
+}
+
+.default_45 {
+    text-align: center;
+    width: 45px;
+    height: 45px;
+    background-color: #4F90D1;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 45px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.sendReq {
+    margin-top: 25px;
+}
+
+.default_35 {
+    text-align: center;
+    color: white;
+}
+
+.msg-img {
+    border-radius: 50%;
+    width: 50px;
+    margin-right: 15px;
+}
+
+.default_60 {
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    background-color: #4F90D1;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 60px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.msgMargin {
+    margin-bottom: 20px;
+}
+
+.msgSpan {
+    position: absolute;
+    margin-left: 332px;
+    margin-top: -29px;
+    font-size: 12px;
+}
+
+.msgHeading {
+    color: #162441;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 70px;
+}
+.default_60P{text-align: center; margin-right: 23px;width: 60px;height:60px;background-color: #4F90D1; margin-left: auto;border-radius: 50%;line-height: 60px;color: #fff;font-size: 22px;font-weight: 500;
+}
+.default_70{text-align: center;width: 70px;height:70px;background-color: #4F90D1;border-radius: 50%;margin-left: auto;margin-right: 10px;line-height: 70px;color: #fff;font-size: 30px;font-weight: 600;}
+.default_45{text-align: center;width: 45px;height:45px;background-color: #4F90D1;border-radius: 50%;margin-left: auto;margin-right: auto;line-height: 45px;color: #fff;font-size: 30px;font-weight: 600;}
+.sendReq{margin-top: 25px;}.default_35{text-align: center;color: white;}
+.msg-img{border-radius: 50%;width: 50px;margin-right: 15px;}
+.default_60{text-align: center;width: 60px;height:60px;background-color: #4F90D1;border-radius: 50%;margin-left: auto;margin-right: auto;line-height: 60px;color: #fff;font-size: 30px;font-weight: 600;}
+.msgMargin{margin-bottom: 20px;}
+.msgSpan{position: absolute;margin-left: 332px;margin-top: -29px;font-size: 12px;}
+.msgHeading{color: #162441;display: inline-block;font-weight: 600;font-size: 14px;margin-left: 70px;}
+.msgContent{display: block;line-height: 1.4;font-weight: normal;color: #162441;font-size: 12px;margin-left: 70px;}
+.noMsg{
+    margin-top: 19px;
+    text-align: center;
+    margin-bottom: 19px;
+        overflow: auto;
+    max-height: 500px;
+}.space{
+    margin-right: 33px;
+}
+.msgImg{
+    position: absolute;
+    margin-top: 0px;
+    height: 45px;
+    max-width: 45px;
+    border-radius: 50%;
+}
+.profileImgBtn{
+    background: #00d7fc;
+    color: #fff;
+    margin-right: 10px;
+    border-radius: 17px;
+    border-bottom: none;
+    box-shadow: none !important;
+    padding: 7px 20px 7px 20px;
+    font-size: 13px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+.default_121 {
+    line-height: 121px;
+    font-weight: 600;
+    color: white;
+}
+.disable{
+    cursor: not-allowed;
+}
+.color{
+    color: #00d7fc; 
+}
+.maintenanceClass{
+    background: #00D8FF !important;
+    border: 2px solid #00D8FF;
+    color: #fff !important;
+}
+.alignMaint{
+    margin-left: 10px;
+}
+.mainNoRecord{
+    text-align: center;
+    color: #162441;
+    font-weight: 600;
+    margin-top: 154px;
+    font-size: 18px;
+}
+.maint_image{
+    border-radius: 50%;
+    background: #00d7fc;
+    position: relative;    
+    /* left: 95px; */
+    z-index: 999;
+    right: auto;
+    top: 0;
+}
+.btn-link {
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    text-decoration: none !important;
+}
+.maintWatcher{
+    margin-top: 50px;
+    text-align: center;
+    color: #162441;
+    font-weight: 500;
+}
+.maintListWatcher{
+    color: #162441;
+    font-weight: 500;
+  
+}
+.maintAtt{
+    text-align: center;
+    margin: 70px;
+    font-weight: 500;
+}
+.mainattIcon{
+    margin: 7px;
+    font-size: 24px;
+}
+.maintCounter{
+        background-color: #FDC614;
+        color: #fff;
+    
+        margin: 0 auto;
+        display: block;
+        margin-top: 20px;
+        border-radius: 17px;
+        box-shadow:none;   
+}
+.maintCounter:hover{
+    box-shadow: none;
+    color: white;
+}
+.maintDownload{
+    width: 45px;
+}
+.downIcon{
+    color:white;
+    margin-right: 16px;
+}
+.maintAttach{
+    margin-left: 22px;
+}
+.maintChoose{ 
+    padding-top: -29px;
+    padding-left: 2px;
+    padding-top: -45px;
+    display: inline;
+}
+.countermodal-header h3 {
+    font-size: 26px;
+    color: #162441;
+    font-weight: 500;
+    border-bottom: none;
+    margin: 18px;
+    margin-bottom: 34px;
+}
+/* .counter{
+    margin-left: 12px;
+    position: absolute;
+} */
+.counterMsg{
+    margin-top: 18px;
+}
+.counterMsgLabel{
+    padding-top: 35px;
+}
+.mainTCounter{
+    text-align: center;
+    color: #fff;
+    margin-top: 10px;
+    background-color: #FDC614;
+    border-radius: 50px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 17px;
+    min-width: 100px;
+    float: right;
+    border: none;
+    margin-right: 5px;
+}
+.counterImg{
+    border-radius: 50%;
+    background: #00d7fc;
+    margin-right: 386px;
+}
+.agreeSpace{
+    margin-top: 9px;
+}
+.default_118{text-align: center;width: 118px;height:118px;background-color: #4F90D1;border-radius: 50%;line-height: 118px;color: #fff;font-size: 30px;font-weight: 600;margin-left: 90px;}
+.dashboardMaintBook{
+    border-radius: 100px;
+    box-shadow: 0 2px 4px 0 rgba;
+    color: #FFFFFF;
+    /* font-family: "SF NS Text"; */
+    font-size: 9px;
+    font-weight: 900;
+    line-height: 11px;
+    text-align: center;
+    padding: 5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    background-color: #A45CD5;
+}
+.dashboardMaintComplete{
+    border-radius: 100px;
+    box-shadow: 0 2px 4px 0 rgba;
+    color: #FFFFFF;
+    /* font-family: "SF NS Text"; */
+    font-size: 9px;
+    font-weight: 900;
+    line-height: 11px;
+    text-align: center;
+    padding: 5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    background-color: #4CBB4C;
+}
+.dashboardMaintClose{
+    border-radius: 100px;
+    box-shadow: 0 2px 4px 0 rgba;
+    color: #FFFFFF;
+    /* font-family: "SF NS Text"; */
+    font-size: 9px;
+    font-weight: 900;
+    line-height: 11px;
+    text-align: center;
+    padding: 5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    background-color: #FF4646;
+}
+.dashboardMaintUserImg{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+
+}
+.right{
+    float: right;
+    font-size: 12px;
+}
+.agreeList_tenant{
+    margin-top: 12px;
+    font-size: 12px !important;
+}
+.agreement_detail{
+    text-align: center;
+    font-weight: 500 !important;
+}
+.agreement_attached{
+    margin-right: 128px;
+}
+.maintenanceUserImg{
+    border-radius: 50%;
+    background-clip: padding-box;
+    float: left;
+    height: 50px;
+    margin-right: 5px;
+    width: 50px;
+}
+.agreementNoData{
+    text-align: center;
+    font-weight: 500;
+    font-size: 17px;
+    margin-top: 163px;
+    margin-right: 100px;
+}
+.noticeBoard{
+    padding: 5%;
+    box-shadow: 0px 0px 10px #ccc;
+    border-radius: 5px;
+    min-height: 166px;
+}
+.maint_calender{
+    margin-top: -34px;
+    margin-left: 221px;
+}
+.removeAgent{
+    font-size: 11 !important;
+}
+/* .default_120{
+    line-height: 120px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    font-size: 35px;
+    margin-top: -68px;
+    width: 120px;
+    height: 120px;
+    background-color: #4F90D1;
+    border-radius: 50%;	
+} */
+.forwardReq{
+    text-align: center;
+    color: #fff;
+    margin-top: 10px;
+    background-color: #00d7fc;
+    border-radius: 50px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 17px;
+    min-width: 100px;
+    border: none;
+}
+.foward_req_btn{
+    background: #00d7fc;
+    color: #fff;
+    margin-left: 399px;
+    border-radius: 17px;
+    border-bottom: none;
+    box-shadow: 0px 2px 0px 0px #eee;
+    padding: 7px 20px 7px 20px;
+    font-size: 13px;
+    float: right;
+}
+.breadcrumb >li a{
+    /* color: #7F829F; */
+    color: #00cbef !important;
+    font-size: 12px;
+    line-height: 17px;
+    margin-right: 10px;
+}
+.cpyrt{
+    font-size: 12px;
+    color: #fff;
+    margin-top: 125px;
+}
+.size{
+    font-size: 7px;
+    
+}
+.fav-heart_blue a.active:before {
+    color: #00d4fc!important;
+    content: "\f004";
+}
+.spaceLeft{
+    margin-left: 28px;
+}
+.agreeCal{
+    margin-top: -34px;
+    margin-left: 248px !important;
+}
+.myActiveRole{
+    border: 2px solid #39CDF1;
+    /* margin-left: -14px; */
+    /* padding-top: 29px; */
+    padding-left: 10px;
+    padding-top: 10px;
+
+}
+.aciveRole{
+  background:#a0f7e8;
+}
+.profileImg{
+    float: left;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background: #fff;
+    margin-right: 30px;
+}
+.counterCal{
+    margin-left: 221px !important;
+}
+.alignProfilePencil{
+    position: absolute;
+    margin-top: 73px;
+    margin-left: -66px;
+}
+.deleteProperty{
+    margin-top: 25px;
+    margin-left: 4px;
+}
+.property_image_deletebtn{
+    border-radius: 50%;
+    background: #00d7fc;
+    position: absolute;
+    left: 93px;
+    z-index: 999;
+    right: auto;
+    top: 0;
+}
+.scrollBar{
+    overflow-y: scroll;
+    height: 500px;
+    overflow-x: hidden;
+}
+.alignPropertyId{
+    margin-left: 11px;
+}
+.maint_margin100{margin-left: 100px;}
+.maint_margin_day{white-space: nowrap;margin-left: 100px;};
+.agree_list_color{
+    color: black !important;
+}
+.agree_create_tenancy_in{
+    margin-left: 515px;
+    color: black;
+    font-weight: 500;
+}
+.cal_color, .btn-primary, .theme-whbl .btn-default, .theme-whbl .btn-info, .theme-whbl .btn-success, .theme-whbl .btn-warning, .theme-whbl .btn-danger, .theme-whbl .btn-primary:hover, .theme-whbl .btn-default:hover, .theme-whbl .btn-info:hover, .theme-whbl .btn-success:hover, .theme-whbl .btn-warning:hover, .theme-whbl .btn-danger:hover {
+color:black !important
+}
+.trader_map_view{
+    overflow: hidden;
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.maint_save_trader{
+    white-space: nowrap;
+    margin-top: -24px;
+    margin-left: 394px;
+    font-size: 12px;
+    list-style-type: none;
+    color: #00D8FF;
+    font-weight: 500;
+}
+.agree, .mce-path-item {
+    display: none;
+}
+.agree_detail p{
+    margin: 0 !important;
+}
+.agree_tennat_close{
+    width: 1px !important;
+}
+.file_hyper_link{
+    color: #3498db !important;
+    text-decoration: underline;
+}
+.agree_action{
+    font-weight: bold;
+    background-color: #00D8FF;
+    margin-right: 10px;
+    border-radius: 17px;
+    border-bottom: none;
+    box-shadow: 0px 2px 0px 0px #eee;
+    padding: 7px 20px 7px 20px;
+    font-size: 13px;
+    color: white;
+}
+.agree_action_templ{
+    left: 185px;
+    top: 36px;
+}
+.file_section{
+    margin-top: 5px;
+    width: 32px;
+    max-height: 84px;
+    margin-left: 111px;
+}
+
+
+.ng-cloak, .x-ng-cloak {
+display: none !important;
+}
+
+
+
+/* *************************** Scrollbar 23-Mar-18   ****************************** */
+
+
+.scrollbar{margin-left: 30px;float: left;height: 392px; width: 373px;background: #F5F5F5;overflow-y: scroll;margin-bottom: 25px;
+}
+.scrollbar_msg{margin-left: 30px;float: left;height: 475px;max-width: 278px;background: #F5F5F5;overflow-y: scroll;margin-bottom: 25px;
+}
+.scrollbar_msg2{ margin-left: 30px;float: left;height: 416px;width: 600px;background: #F5F5F5;overflow-y: scroll;margin-bottom: 25px;
+}
+.scrollbar_maint_msg{ margin-left: 30px;float: left;height: 500px;width: 612px;background: #F5F5F5;overflow-y: scroll;margin-bottom: 25px;
+}
+#style-2::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);border-radius: 10px;background-color: #F5F5F5;
+}
+#style-2::-webkit-scrollbar{max-width: 10px;background-color: #F5F5F5;
+}
+#style-2::-webkit-scrollbar-thumb{border-radius: 10px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);/* background-color: #D62929; */background-color: #D9DCE7;
+}
+.force-overflow{min-height: 450px;
+}
+#style-2-prop::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);border-radius: 10px;background-color: #F5F5F5;
+}
+#style-2-prop::-webkit-scrollbar{max-width: 5px;background-color: #F5F5F5;
+}
+#style-2-prop::-webkit-scrollbar-thumb{border-radius: 10px;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);/* background-color: #D62929; */background-color: #D9DCE7;
+}
+.drop_down_img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.drop_down_img_pro{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    margin-left: -14px;
+    
+}
+.drop_down_agree{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-left: -14px;
+}
+.drop_down_img_pro_o{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-left: -14px;
+    
+}
+.owner_space{
+    margin-left: 12px;
+}
+.advance_search_user{
+    margin-left: -4px;
+}
+
+.scrollbar_msg_chat {
+    max-width: 350px!important;
+    margin-left: 0px!important
+}
+
+.default_50 {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    background-color: #4F90D1;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 50px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 0 !important;
+}
+
+;
+/* .default_45_not{text-align: center;width: 45px;height:45px;background-color: #4F90D1;border-radius: 50%;margin-left: auto;margin-right: auto;line-height: 45px;color: #fff;font-size: 20px;font-weight: 600} */
+/* .messages-list .scrollbar .force-overflow .notifi_view{
+    background-color: black;
+    color: white;
+    text-align: center;
+    max-height: 139px;
+} */
+.notification_size{
+    margin-bottom: -28px;
+    margin-top:-10px;    
+}
+.sent_btn_maint{
+    margin-right: 113px;
+    background:#00d7fc;color: #fff; 
+    border-radius: 20px;
+    border-bottom: none;
+    box-shadow: 0px 2px 0px 0px #eee;
+    padding: 7px 20px 7px 20px;
+    font-size: 11px;
+}
+.review_btn_maint{
+    margin-top: -61px;margin-left: 133px;
+}
+.maint_sent_status{
+    /* margin-top: -21px;
+    margin-left: 277px; */
+    font-size: 13px;
+}
+.sent_font_color{
+    color: #00d7fc;
+    font-weight: 600;
+    padding-left: 6px;
+}
+.agreeCal {
+    margin-top: -34px;
+    margin-left: 88%!important;
+}
+
+.scrollbar {margin-left: 0px;float: left;height: 392px;width: 373px;background: #F5F5F5;margin-bottom: 25px;}
+.force-overflow {min-height: 450px;margin-bottom: 20px;}
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+    height: 7px;
+    width: 5px;
+    border: 1px solid #c7c5c5;
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    /* background: #FF0000; */
+    background: #e2e4ed;
+}
+.profile_inspection_detail ul li{ float:none; display:flex;}
+.profile_inspection_detail ul li small{ width:45%; font-size:13px;}
+.profile_inspection_detail ul li strong{ width:50%;}
+.profile_inspection_detail ul li a{ margin-left:10px;}
+
+.ser_cate li a { position:relative; background-color: #84bcea; border-radius: 2px;color: #fff;text-transform: uppercase;    white-space: nowrap;  /*padding-right:22px;*/ }
+.ser_cate li a span{ position:absolute;top: 50%; right: 5px; line-height: normal; transform: translateY(-50%); }
+.ser_cate li a span svg{     width: 10px !important;height: 10px;}
+.ser_cate li a:hover{ color:#fff;}
+.fc-day-number span { width:5px; height: 5px; background: #00d1f6; display: block;
+margin: 5px auto 0; border-radius: 10px;}
+
+tfooter th.fc-widget-footer { color:#bbb; font-size:10px;}
+.fc-today small{ display:block; text-align:center;}
+
+.fc-unthemed .fc-today {background: #00d1f6 !important;color: #FFF !important; border-radius: 4px;}
+td.fc-day.fc-widget-content.highlight-availability { background-color: #fff;}
+.fc th:nth-child(even), 
+.fc th:nth-child(odd) {background-color: #fff;font-weight: 400;color: #162441;}
+.fc-toolbar .fc-left {float: none;text-align: center;width: 100%;}
+.fc .fc-toolbar > * > :first-child {margin-left: 0;width: 100%;font-weight: 500;}
+
+.dashboard-calendar-sec {background: #fff; margin: 0; border:0; box-shadow:none;}
+.availability{ box-shadow:0 1px 2px 0 #EAECF6; border:1px solid #EDEEF6; background:#fff; text-align:center; margin:20px 0 0; padding:0 10px 20px;}
+.availability h3 {color: #162441; font-size: 20px; font-weight: 600;  line-height: 23px; border: none; margin: 30px 0 0 25px;text-align: left;}
+.fc-basic-view .fc-body .fc-row {border-bottom: 0 solid #F4F4F4 !important;}
+.fc-ltr .fc-basic-view .fc-day-number {text-align: center !important; font-weight:400; color: #162441;}
+
+.available_days_icon{ margin:30px 0 30px 20px; padding: 0 0 0 30px; display: block; color: #162441; font-size: 12px;  font-weight: 600; position: relative; text-transform: uppercase;}
+.available_days_icon:before{ content:'';position: absolute; top:50%;left: 0;width: 6px;height: 6px;border-radius: 100px;background: #00d1f6;transform: translateY(-50%);}
+.overview .ser_cate li a {color: #FFF;}
+
+.main_newReq ol, .main_newReq ul {display:initial; list-style-position:inside;}
+
+/* Subscription Page CSS */
+.subscription-inr-box{ max-width:630px; margin:0 auto;  display:block; border-radius:10px; position:relative; padding:54px 0 0;}
+.subscription-inr-box:before{content:''; width:568px; background:#00D8FF; height:54px;  position:absolute;top:0; left:50%; transform:translateX(-50%);  border-radius:10px 10px 0 0;}
+ul.subscription-list:before{content:''; box-shadow:0 0 15px 0 rgba(0,0,0,1); width:96%; height:14px; position:absolute; left:50%; transform: translateX(-50%); top:1px; z-index:-1; background:transparent;}
+ul.subscription-list:after{content:''; box-shadow:0 0 15px 0 rgba(0,0,0,1); width:96%; height:14px; position:absolute; left:50%; transform: translateX(-50%); bottom:1px; z-index:-1; background:transparent;}
+ul.subscription-list{ margin:0; padding:0; list-style:none; border-radius:10px; box-shadow:0 0 10px 0 rgba(0,0,0,.16); position:relative; z-index:10;}
+ul.subscription-list li:first-child{ border-radius:10px 10px 0 0;}
+ul.subscription-list li:last-child{ border-radius:0 0 10px 10px;}
+ul.subscription-list li { display:block; padding:15px 46px 15px 28px; min-height:110px; display:flex; align-items:center; background:#fff;}
+.subscription-list-div{ background:url(../images/subscription/check.svg) no-repeat 0 0; padding:0 0 0 40px;}
+.subscription-list-div h3{ display:block; color:#606382; font-size:16px; font-weight:700; line-height:20px; margin:0; padding:0;}
+.subscription-list-div h4{display:block; color:#606382; font-size:14px; font-weight:400; line-height:20px; margin:0; padding:0;}
+ul.subscription-list li:nth-child(2n+2){ background:rgba(0,216,255,.22);} 
+ul.subscription-list li.subscription-price-li{ background:#fff; }
+.subscription-price{ display:block; text-align:center; width:100%; }
+.subscription-price h5{ margin:0 0 7px; padding:0; display:block;  font-size:30px; line-height:47px; color:#00D8FF; font-weight:700;}
+.subscription-price h6{ margin:0 0 15px; padding:0; display:block;  font-size:20px; line-height:19px; color:#606382; font-weight:700;}
+.subscribe-btn-wrap{ width:568px; margin:0 auto;  }
+.subscribe-btn-wrap a{ width:100%; margin:0; border-radius:0 0 10px 10px; font-size:30px; font-weight:700; line-height:41px; padding:30px 0 22px; color:#fff; text-decoration:none; text-decoration:none; text-align:center;}		
+.subscribe-btn{ background:#00D8FF;}
+.current-plan{ background:#00CE08;}
+.active .subscribe-btn{display:block;}
+.active .current-plan {display:block;}
+
+/* .active .current-plan{} */
+.subscription-update-cancel{ display:none; margin:45px 0;}
+.active .subscription-update-cancel{display:block; text-align:center;}
+.subscription-update-cancel a{ font-size:14px; font-weight:500; line-height:18px; margin:7px 0; text-decoration:none;  }
+.subscription-update-cancel a:hover{ text-decoration:underline;  }
+.subscription-update-cancel a.update-card{color:#00D8FF;}
+.subscription-update-cancel a.cancel-subscribe{color:rgba(127,130,158,.5);}
+#subscription-popup .modal-dialog{ max-width:300px; border-radius:5px; background:#F5F5F5; }
+#subscription-popup .modal-content{border:0;}
+#subscription-popup .modal-header{ position:relative; padding:0 0 18px; text-align:center; background:#F5F5F7; border-bottom:1px solid #CCC; margin:0; flex-direction:column; justify-content:center; text-align:center; align-items:center; border-radius:5px 5px 0 0;}
+#subscription-popup .modal-header button{ opacity:1; position:absolute; top:10px; left:10px; padding:0; margin:0;}
+#subscription-popup .modal-header button >span img{ width:20px; height:20px;}
+#subscription-popup .modal-header .symbol{ margin:-36px 0 10px; display:block; text-align:center;}
+#subscription-popup .modal-header .symbol img{ width:72px; height:72px; }
+#subscription-popup .modal-header h4{ margin:0 0 2px; padding:0; display:block; color:#000; font-size:17px; font-weight:700; line-height:21px;}
+#subscription-popup .modal-header h5{ margin:0; padding:0; display:block; color:#666666; font-size:13px; font-weight:400; line-height:21px; font-style: italic;}
+#subscription-popup .modal-body{ padding:36px;}
+.subscription-email{ position:relative; margin:0 0 18px; border:1px solid #CCC; background:#fff; padding:5px 5px 5px 31px; border-radius:5px;}
+.subscription-email i{ position:absolute; top:12px;left:9px; vertical-align:top; line-height:100%; }
+.subscription-email i img{width:14px; height:11px; vertical-align:top; }
+.subscription-email input{border:0; background:transparent; line-height:25px; color:#000000; font-size:15px; font-weight:500; font-style:italic;}
+.card-details-wrap{ position:relative; margin:0 0 18px; border:1px solid #CCC; background:#fff; padding:50; border-radius:5px; display:inline-block; vertical-align:top;  }
+.card-details-wrap input{ border:0; background:transparent; line-height:26px; color:#000000; font-size:15px;font-weight:500; font-style:italic; width:100%;}
+.card-details-wrap>div{ position:relative; padding:5px 5px 5px 31px;}
+.card-details-wrap>div i{ position:absolute; top:9px;left:9px; vertical-align:top; line-height:100%; }		
+.card-number{ width:100%; border-bottom:1px solid #ccc; }
+.card-number i img{ width:14px; height:11px;}
+.card-date{ width:50%; float:left; }
+.card-date i img{ width:12px; height:12px;}    	
+.card-cvv{ width:50%; float:right; border-left:1px solid #ccc;}
+.card-cvv i img{ width:11px; height:12px;}
+.card-rememver input {padding: 0; height: initial; width: initial; margin-bottom: 0; display: none; cursor: pointer; }
+.card-rememver label {cursor: pointer; color: #666; font-size: 15px; margin: 0 0 38px; position: relative; border: 1px solid #CCC; border-radius: 5px; padding: 7px 9px 7px; display: block; font-weight: 400;}
+.card-rememver label:before {content: ''; -webkit-appearance: none; background-color: transparent; border: 1px solid #CCC; padding: 6px;display:inline-block; position: relative; vertical-align: top; cursor: pointer; margin: 4px 7px 0 0;border-radius: 3px;}
+.card-rememver input:checked + label:after { content:''; display:block; position:absolute; top:13px; left:14px; width:4px; height:7px; border: solid #0079bf; border-width:0 1px 1px 0; transform:rotate(45deg);}
+.pay-btn{border:1px solid #339CE1; width:100%;  text-align:center; color:#FFF; font-size:17px; font-weight:700; border-radius:5px;
+    background: #00d8ff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #00d8ff 0%, #2d99dd 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #00d8ff 0%,#2d99dd 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #00d8ff 0%,#2d99dd 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00d8ff', endColorstr='#2d99dd',GradientType=0 ); /* IE6-9 */}
+.pay-btn button{ border:0; background:transparent; width:100%; line-height:35px; display:block; text-align:center; padding:0 10px;}
+.radio_lb_mr{margin-top: 0px;}
+.radio_lb_mr .radio_lbl{margin-top: 10px;}
+.pac-container.pac-logo{ z-index: 100000000;}
+.custome-dropdown { position:relative;}
+.custome-dropdown input{border:1px solid #ccc; width: 100%; padding: 6px 12px; font-size: 13px; line-height: 22px; border-radius: 4px;}
+.custome-dropdown ul{ border:1px solid #ccc; background: #fff; padding:0; z-index:10; width:100%; border-radius:4px; margin:-14px 0 0 0; position:absolute; top:65px; left:0; max-height:250px; overflow: auto;}
+.custome-dropdown ul li{ list-style:none;}
+.custome-dropdown ul li h3{ margin:0; padding:10px 20px;font-size:14px; line-height:16px; color:#333; font-weight:500; border:0; }
+.custome-dropdown-li-box{ display:flex; align-items:center; background-color:#fff; background-image:none; padding: 10px 20px; border-bottom: 1px solid #e4e4e4; box-shadow:none; margin: 0; width: 100%; box-sizing: border-box; cursor: pointer; border-radius: 0;} 
+.custome-dropdown-li-img{ margin:0 5px 0 0;}
+.custome-dropdown-li-img img{ width:40px; height:40px; border-radius:100px;}
+.custome-dropdown-li-info h4{ margin:0 0 8px; padding:0; display:block; font-size:14px; line-height:16px; color:#333; font-weight:500;}
+.custome-dropdown-li-info h5{ margin:0 0 8px; padding:0; display:block; font-size:13px; line-height:16px; color:#333; font-weight:400;}
+.inspection {position:relative;}
+
+.due-date{ position:relative;}
+.due-date .input-group-btn{ position:absolute; bottom:0px; right:2px; width:auto; padding:0;}
+.due-date .input-group-btn button{ padding:4px 12px;}
+.mr_popup_cats{    background-color: #1f2022;border-radius: 2px;color: #FFF;text-transform: uppercase;white-space: nowrap;font-size: 10px;display: inline-block;padding: 3px;margin: 2px;}
+.mr-listing ul li {padding: 5px 25px 5px;}
+.mr-listing ul li a span {background: none repeat scroll 0 0 #e74c3c;border-radius: 50%;background-clip: padding-box;color: #fff;display: block;font-size: 9px;height: 16px;line-height: 16px;position: absolute;right: 10px;text-align: center;top: 0px;width: 16px;}
+
+/*
+CSS for dropdown with Search
+*/
+/* #content-3{background: #F5F5F5;} */
+#content-3::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: #F5F5F5;}
+#content-3::-webkit-scrollbar{width: 6px;background-color: #F5F5F5;}
+#content-3::-webkit-scrollbar-thumb{background-color: #000000;}
+.show_more span.btn-link{text-align: left;color: #19a1df !important;font-weight: 700;font-size: 10px;}
+
+
+.white-box{background: #fff; border: 1px solid #EDEEF6; border-radius: 4px; display: block;padding: 30px; box-shadow: 0 1px 2px rgba(234,236,246,1);margin: 0 0 40px;}
+.white-box.request_det .show_more span.btn-link{ padding:20px 0 0; top:0;}
+.white-box.request_det h5{ margin-bottom:15px;}
+.white-box.request_det p {margin: 0;}
+
+.job-details-process.board ul.nav-tabs { display:flex; justify-content:space-evenly;}
+.job-details-process.board ul.nav-tabs > li:after{ display:none;}
+.job-details-process.board ul.nav-tabs > li{ width:30%; margin:0; float:none;}
+.job-details-process.board ul.nav-tabs > li a{ position:relative;}
+.job-details-process.board ul.nav-tabs > li a:after { content:""; width:28px; position:absolute; border-top:5px dotted #E2E4ED; top:50%; transform: translate(-50%, -50%); left:calc(200% + 14px);}
+.job-details-process.board ul.nav-tabs > li:first-child a:after{ left:201%;}
+.job-details-process.board ul.nav-tabs > li:nth-child(4) a:after{ left:200%;}
+
+.job-details-process.board ul.nav-tabs > li:first-child,
+.job-details-process.board ul.nav-tabs > li:last-child{ width:auto;}
+.job-details-process.board ul.nav-tabs > li:last-child a:after{ display:none;}
+.job-details-process.board ul.nav-tabs > li + li{ margin-left:10%;}
+
+.white-box.attchment ul li {display: block; vertical-align:top; padding:0;}
+.white-box.attchment ul li + li{ padding-top:15px; }
+.white-box.attchment .atch_img {    border-radius: 5px;height: auto; width: 100%; margin: 0 0 10px;}.white-box.attchment ul li .attchment-name {width: 100%;float:none; margin:0;}
+.white-box.attchment .atch_img img {    width:100%; max-height: 160px; border-radius: 5px; object-fit: initial; height: auto;}
+.white-box.attchment h5 {display: block;margin: 0 0 15px;}
+
+.applicants-content{ display:block;}
+.applicants-content h2{ margin:0 0 25px; color: #162441; font-size: 16px;  font-weight: 600; padding: 0;}
+.applicants-content ul{ margin:0 -30px; padding:0; list-style:none;}
+.applicants-content ul li{ display:block;  margin:0; padding:0 30px} 
+.applicants-content ul li + li{margin-top:25px; padding-top:25px; border-top:1px solid #eee;}
+.applicants-content-box{ display:flex;}
+.applicants-content-img{ margin:0 25px 0 0;}
+.applicants-content-img span{ width:80px; height:80px; border-radius: 100px; display:block; overflow:hidden;}
+.applicants-content-img span img{width:80px; height:80px; border-radius: 100px; display:block;}
+
+.applicants-content-text{ display:block;}
+.applicants-content-text h3{ line-height:normal; display:block; border:0; margin:0 0 8px; color:#162441; font-size:16px; font-weight:600; padding:0;}
+
+.applicants-review{ display:flex; line-height:normal; align-items:center; margin:0 0 8px;}
+.applicants-review p{ font-size:15px; color:#666; line-height:normal; margin:0; padding:0;}
+.applicants-review .rating{ margin:0 15px 0 0;}
+
+.applicants-info{ display:flex; margin: 0 0 8px; align-items: center;}
+.applicants-info p{ margin:0 25px 0 0; padding:0; font-size:13px; color:#666; line-height:normal;}
+.applicants-info p i{ margin-right:5px;}
+
+.applicants-content-btn{ display:block; margin:20px 0 0 auto;}
+.applicants-content-btn a{ line-height:28px; display: block; font-size: 13px; color: #fff; font-weight: 500; text-transform: uppercase; min-width: 120px;
+background: #00d7fc; border-radius: 100px; text-align: center;}
+
+
+.recommended-traders{ display:block;}
+.recommended-traders h2{margin: 0 0 15px; color: #162441; font-size: 16px; font-weight: 600; padding:0;}
+.recommended-traders ul.perfect-trade{ margin:0 -8px; padding:10px 0 0 0; display:flex; list-style:none; flex-wrap:wrap;}
+.recommended-traders ul.perfect-trade li{ margin:0 8px 15px; width:calc(33.33% - 16px); padding:0;}
+.recommended-traders ul.perfect-trade li:before{ display:none;}
+.recommended-traders .perfect-trade-box{ box-shadow:0 1px 2px #EAECF6; border:1px solid #EDEEF6; padding:25px 20px; background:#fff; position:relative; text-align:center;}
+.recommended-traders .perfect-trade-img{ display:inline-block; text-align:center; margin:0 auto 16px; position:relative; vertical-align:top;}
+.recommended-traders .perfect-trade-img img{border-radius:110px; width:90px; height:90px;}
+.recommended-traders .perfect-trade-box h3{ margin:0 0 17px; padding:0; color:#606382; font-weight:700; display:block; border:0; font-size:15px; text-align:center;}
+.recommended-traders .perfect-trade-box h6{ margin:0 0 17px; padding:0; color:#7F829E; font-size:11px; font-weight:400; display:block; text-align:center;}
+.recommended-traders .trade-list{ display:flex; margin:0 0 15px; flex-wrap:wrap; justify-content:center;}
+.recommended-traders .trade-list a{ color:#fff; font-size:7px; font-weight:700; text-transform: uppercase; letter-spacing:.01em; background: #84bcea; margin:3px; width:calc(50% - 6px); border-radius:3px; text-align:center; line-height:18px; text-overflow:ellipsis; white-space: nowrap; overflow:hidden; display:block; padding:0 4px;}
+.recommended-traders .trade-list a.counter{ width:50px;}
+.recommended-traders .trade-btm{ display:flex;}
+.recommended-traders .trade-btm a{ line-height:23px; font-weight:400; text-transform:uppercase; letter-spacing:.01em; border-radius:100px; width:130px; text-align:center; font-size:10px; transition:ease-in-out .5s; padding:0 20px; margin: 0 auto;}
+.recommended-traders .trade-btm a.bdr-btn{ background:transparent; border:1px solid #00CBEF; color:#606382;}
+.recommended-traders .trade-btm a.bdr-btn:hover{ background:#00CBEF; color:#fff; text-decoration:none;}
+.recommended-traders .trade-btm a.bg-btn{ background:#00CBEF; border:1px solid #00CBEF; color:#fff;}
+.recommended-traders .trade-btm a.bg-btn:hover{ background:transparent; color:#00CBEF;text-decoration:none;}
+
+.star-review{ display:flex; justify-content:center; margin:0 0 5px;}
+.star-review i{ margin:0 1px; }
+.half-star-img{ background:url(../images/half-star.png) no-repeat 0 0 / 13px; width:13px; height:13px;}
+.yellow-star-img{ background:url(../images/yellow-star.svg) no-repeat 0 0 / 13px; width:13px; height:13px;}
+.grey-star-img{ background:url(../images/grey-star.svg) no-repeat 0 0 / 13px; width:13px; height:13px; }
+.img-width.inspection{ display:inline-block; position: relative; width:auto;}
+.recommended-traders .colorGreen{ bottom:16px; right:0;}
+.recommended-traders .colorRed{bottom:16px; right:0;}
+.recommended-traders .colorYellow{bottom:16px; right:0;}
+.show_number_link {cursor: pointer;}
+.apply_job_lbl { color: #1aa7bf;font-weight: 400;font-size: x-small;}
+.apply_job_suburb { color: #606382; font-weight: 400; font-size: x-large;}
+/* .text-capitalize{text-transform: uppercase;} */
+.mr_crumbs li a{color: #00cbef !important;font-weight: 700;}
+
+.d-flex{ display:flex !important; align-items:center;}
+.public-list-traders { padding-top: 15px;}
+.public-list-traders { display:flex; align-items:center; flex-wrap:wrap;}
+.public-list-traders .agntprofile { margin:0 25px 0 0;}
+.public-list-traders .agntprofile a{ display:block;}
+.public-list-traders .agntprofile a img{ width:70px; height:70px; display:block; border-radius:100px;}
+.public-list-traders .agntprofile-info{ display:block; width:calc(100% - 255px);}
+.public-list-traders .agntprofile-info h3{ display:block; padding:0; margin:0 0 10px; line-height:24px; font-size:18px; color: #606360; font-weight:700; border:0;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+.public-list-traders .agntprofile-info h3 a{line-height:24px; font-size:18px; color:#606360; font-weight:700; border:0;}
+.public-list-traders .agntprofile-info p{line-height:24px; font-size:16px; color:#7F829E; font-weight:400; border:0;  margin:0 0 15px; padding:0;}
+
+.public-list-traders .agntprofile-info h4{ display:block; padding:0; margin:0; line-height:24px; font-size:18px; color: #606360; font-weight:700; border:0;}
+.public-list-traders .agntprofile-info h4 a{line-height:24px; font-size:18px; color:#606360; font-weight:700; border:0;}
+.public-list-traders .agntprofile-info ul{ display:flex; list-style:none; margin:0; padding:0;}
+.public-list-traders .agntprofile-info ul li{ margin:0 30px 0 0; display:flex; }
+.public-list-traders .agntprofile-info ul li img{ max-height:18px; margin:0 10px 0 0;}
+.public-list-traders .agntprofile-info ul li h4{ margin:0; padding:0; font-size:14px; color:#7F829F; line-height:19px; font-weight:400; max-width: 165px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;width: 145px;}
+
+.public-list-traders .agntprofile-info-btn{ display:block; margin:0 0 0 auto; max-width:155px; text-align:center;}
+.public-list-traders .agntprofile-info-btn a{ width:100%; border:2px solid #00d7fc; border-radius: 100px; line-height: 18px; padding:6px 35px 4px 35px; font-size: 13px; color: #fff; text-transform: uppercase; background: #00d7fc; letter-spacing: .04em; display: block; margin:0 0 8px;}
+.public-list-traders .agntprofile-info-btn a:hover{ background:transparent; color:#00d7fc; }
+.public-list-traders .agntprofile-info-btn h4{ margin:0; padding:0; font-size:12px; color:#666; text-transform:uppercase; font-weight:400;}
+.public-list-traders .agntprofile-info-btn h3{ margin:0 0 10px;; padding:0; font-size:26px; line-height:26px; display:flex; align-items:center; border:0; justify-content: center; font-weight:700; color:#606382;}
+
+.search-keyword-wrap{ margin:0 0 16px;width: 100%;}
+.search-keyword-wrap form{width:100%;display:flex; align-items:center;}
+.search-keyword-input{ background:#fff; border:1px solid #EDEEF6; padding:0 10px 0 47px; position:relative; width:78%;}
+.search-keyword-input i{ position:absolute; top:50%; transform:translateY(-50%); left:17px;}
+.search-keyword-input input{ background:transparent; border:0; font-size:13px; color:#B1B3C5; font-style:italic; font-weight:400; line-height:34px; width:100%;}
+.select-option-wrap{ margin:0 0 0 auto; width:20%;}
+.select-option-wrap select{border:1px solid #DBDDEE; background:#F1F2F8; border-radius:4px; line-height:38px; color:#7F829E; font-size:13px; font-weight:400; width:100%; padding: 10px 10px 9px; }
+.agntprofile-info-btn h3 .quotes_lbl{color:#9597af; border-bottom:none; font-size:14px; padding-top:3px; font-weight:400;}
+/* .detail.apt-list {padding: 31px 36px;} */
+
+.scrollbar-traders{margin-left: 30px;float: left;height: 300px;width: 65px;background: #F5F5F5;overflow-y: scroll;margin-bottom: 25px;}
+#notebook_ul1::-webkit-scrollbar-track{	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);	background-color: #F5F5F5;}
+#notebook_ul1::-webkit-scrollbar{width: 6px;background-color: #F5F5F5;}
+#notebook_ul1::-webkit-scrollbar-thumb{background-color: #d9dce7;}
+
+.input-price-section {display: flex; width: 100%; margin-bottom: 15px;}
+.input-price-section .icon {padding: 10px;color: #000;min-width: 50px;text-align: center;border: 1px solid #ccc;border-right: none;}
+.format_text::first-letter {text-transform: uppercase;}
+.applicants-content-text h3 .trader_link {color: #606382;}
+span.input-group-btn{ position:absolute; right: 2px; top: auto; width: 30px; height: 30px; bottom: 2px; border: 0;
+border-radius: 0 6px 6px 0;}
+.form-group {margin-bottom:20px; position:relative;}
+.form-control {padding: 6px 32px 6px 12px;}
+span.input-group-btn button {margin: 0 !important; width: 30px; height: 30px; background: transparent; border: 0; padding: 0;}
+span.input-group-btn button i{color:#999;}
+.price-symbol{ position:relative;}
+.price-symbol i{ font-style:normal; position:absolute; top:0; left:2px; width:34px; height:34px; text-align:center; line-height:32px; border-right:1px solid #ccc;}
+.contact_info .colorGreen,
+.contact_info .coloryellow,
+.contact_info .colorRed {bottom:12px; right:4px;}
+.project-listing-latest > h5{ float:left;}
+.left-symbol input.form-control { padding: 6px 15px 6px 48px;}
+.accept-apply-btn{margin-bottom:15px;}
+.default-oder .btn.btn-secondary.dropdown-toggle.togle-default {margin: 0; /*width: calc(100% - 20px);*/ text-align: left;}
+.default-oder i.fa.fa-caret-down { position:absolute; top:50%; transform: translateY(-50%); right:1rem; margin:0;}
+.mobile-nav{ display:none;}
+p.message_line a.footer_link_outer_page{ color:#fff; }
+button.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right {width: fit-content;}
+.apt-list h5 {text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width:100%;}
+.home-pg.dashboard-calendar-sec{margin-top: 15px;}
+.home-pg.dashboard-calendar-sec .cal_title{color: #606382; padding-top: 20px; font-weight: 700; font-size: 16px; padding-left: 20px;}
+.public-list-dtl-01 .public-list-traders .agntprofile-info {display: block;width: calc(100% - 95px); padding:0;}
+.public-list-dtl-01 .public-list-traders .agntprofile-info ul li{ margin:0; display:block; width:100%;}
+.public-list-dtl-01 .public-list-traders .agntprofile-info ul li h4{ max-width:100%; width:100%; overflow:visible; white-space:initial;}
+.public-list-dtl-01 .public-list-traders-01.public-list-traders .agntprofile-info ul{ margin:0 -7px;}
+.public-list-dtl-01 .public-list-traders-01.public-list-traders .agntprofile-info ul li {margin: 5px 7px;display: flex; width: auto;}
+.public-list-dtl-01 .public-list-traders-01.public-list-traders .agntprofile-info ul li h4{ max-width:165px; }
+.public-list-traders.public-list-traders-03 .agntprofile-info h4 a {text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display: block;}
+.public-list-traders.public-list-traders-03 .agntprofile-info p {overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.public-list-traders.public-list-traders-03 .agntprofile-info ul li{ max-width:50%;}
+.public-list-traders.public-list-traders-03 .agntprofile-info ul li h4{ width:auto; max-width:initial;}
+.mr_user_profile {display: inline-block;vertical-align: top;margin: 0 0 10px;}
+.custome-dropdown-li-img .default_100 {width: 40px; height: 40px; font-size: 20px; line-height: 45px; line-height: 45px; color: #FFF; text-align: center;}
+
+.ng-image-crop {text-align: center;margin: 0 auto;position: relative;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;-o-user-select: none;user-select: none;}
+.ng-image-crop > section {background: #ccc;}
+.ng-image-crop button {margin-top: 10px;}
+.ng-image-crop .cropping-guide {display: block;background: rgba(255, 255, 255, .3);border: 2px dashed white;position: absolute;pointer-events: none;}
+.ng-image-crop--circle .cropping-guide {border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;-o-border-radius: 50%;}
+.ng-image-crop .cropping-canvas {background: rgba(255, 255, 255, .3);margin: 0 auto;cursor: move;}  
+.ng-image-crop .zoom-handle {display: block;position: absolute;bottom: 1px;left: 1px;background: rgba(255,255,255,0.7);width: 80px;height: 80px;cursor: move;border-radius: 200px 50px;  }
+.ng-image-crop .zoom-handle > span {color: rgba(0, 0, 0, 0.5);-webkit-transform: rotate(-45deg);-moz-transform: rotate(-45deg);-ms-transform: rotate(-45deg);-o-transform: rotate(-45deg);transform: rotate(-45deg);display: block;position: relative;top: 32px;}  
+.ng-image-crop .zoom-handle {display: none;}
+.crop-image.banner-img-modal {width: 600px !important;display: inline-block;text-align: left;vertical-align: middle;}
+.result-datauri {width: 300px;height: 100px;font-size: 11px;line-height: 15px;padding: 5px;border: 1px solid black;clear: both;display: block;margin: 20px auto;}
+.theme-whbl.block-ui .modal-dialog {
+    /* width: 1500px; */
+    max-width: 100%;
+}
+.theme-whbl.block-ui .modal-body{
+    width: 1500px;
+    height: auto;
+}
+.theme-whbl.block-ui .modal-body section{
+    width: 1470px !important;
+    height: 550px !important;
+}
+.theme-whbl.block-ui .modal-body .image-crop-section-final{
+    width: 1650px ;
+    height: 550px;
+}
+
+.theme-whbl.block-ui .modal-body .ng-image-crop--square{
+    width: 1470px !important;
+    height: 550px;
+}
+/* .cropping-canvas{
+    width: 1470px;
+    height: 550px;
+}
+.cropping-guide{
+    width: 1400px !important;
+    height: 300px !important;
+    top: 125px !important;
+    left: 35px !important;
+} */
+
+
+.ng-image-crop .cropping-guide {left: 10px !important;}
+.theme-whbl.block-ui .modal-dialog {
+    max-width:1650px;
+    /* width: 100% !important; */
+}
+.theme-whbl.block-ui .modal-body .ng-image-crop--square {
+    width: 100% !important;    overflow: auto;
+}
+.theme-whbl.block-ui .modal-body {
+    width: 100%;
+}
+body .crop-image.modal-dialog.modal-lg.ng-scope {
+    margin: 0 auto;
+}
+.theme-whbl.block-ui .modal-body section {
+    /* width: 100% !important; */
+    width: 1835px !important;
+    height: 100% !important;
+}
+.ng-image-crop .cropping-canvas {
+    margin: 0 0 0 -30px;
+}
+ul.uib-datepicker-popup.dropdown-menu.ng-scope {
+    width: auto;
+}
+.public-list-dtl-01 .detail.apt-list .public-list-traders{ padding:0 180px 0 0; position:relative; align-items:inherit;}
+.public-list-dtl-01 .agntprofile-info-btn.price-sec{ position:absolute; top:0; right:0;margin:0;}
+
+.public-list-traders-03 {padding:0 180px 0 0; position:relative; align-items:inherit;}
+.agnt_list .public-list-traders-03 .agntprofile-info-btn{ position:absolute; top:0; right:0;margin:0; display:block;}
+.agnt_list .public-list-traders-03 .agntprofile-info-btn a.pointer{ margin:0; width:100%;}
+
+.agnt_list .public-list-traders-01 .agntprofile-info-btn{ position:absolute; top:0; right:0; display:block; margin:0;}
+.main-title.marT20.left-pro {text-align: left;}
+body.login-register-forgate-password{
+    background-image: url(../images/bg_login.png);
+    background-position: center center;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+body.login-register-forgate-password .bg{
+    background:transparent;
+}
+ui-cropper{width:100%;display:block}ui-cropper.fixed-height{height:100%;position:relative;overflow:hidden}ui-cropper.fixed-height canvas{display:block;position:absolute;top:50%;left:50%}ui-cropper.full-width{text-align:center}ui-cropper.full-width canvas{display:inline}ui-cropper canvas{outline:0;-webkit-tap-highlight-color:rgba(255,255,255,0)}ui-cropper .loading{width:100%;font-size:16px;font-weight:700;display:-webkit-box;display:-ms-flexbox;display:flex;display:-webkit-flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-justify-content:center;color:#fff;background-color:rgba(0,0,0,.75)}ui-cropper .loading .fixed-height{height:100%;position:absolute}
+/* .cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width:500px;
+    height:350px;
+  } */
+a.declinebtn, a.declinebtn:hover {background: #FF4646;color: #FFF;}
+
+ul.uib-datepicker-popup .btn-default {
+    background: transparent;
+    box-shadow: none;
+}
+ul.uib-datepicker-popup .btn-default.active, 
+ul.uib-datepicker-popup .btn-default:active, 
+ul.uib-datepicker-popup .btn-default.active .text-info {
+    background-color: #d0d0d0;
+    border-color: transparent;
+    color: black;
+}
+ul.uib-datepicker-popup .btn-default:hover {
+    background-color: #eaeaea;
+    border-color: transparent;
+}
+ul.uib-datepicker-popup .btn-default .glyphicon{
+color:#a6a6a6;
+}
+
+ul.uib-datepicker-popup .btn.btn-default.uib-title:hover, 
+ul.uib-datepicker-popup .btn.btn-default.uib-right:hover, 
+ul.uib-datepicker-popup .btn.btn-default.uib-left:hover {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+ul.uib-datepicker-popup .btn.btn-success.uib-close,
+ul.uib-datepicker-popup .btn.btn-info.uib-datepicker-current,
+ul.uib-datepicker-popup .btn.btn-danger.uib-clear
+{
+    font-weight: 700;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+/* social login */
+.or-div{ position: relative; display:block; text-align:center; margin:0 0 30px;}
+.or-div:before{content:''; background:rgba(255,255,255,.15); height:1px; width:100%; position:absolute; top:50%; transform:translateY(-50%); left:0; z-index: 0; }
+.or-div span{ display:inline-block; vertical-align:top; color:#fff; font-size:14px; font-weight:700; line-height:24px; padding:0 30px;}
+.login-other-option{ width:100%;}
+.login-other-option a{ display:block; border-radius:100px; height:38px; line-height:38px; text-align:center; font-size:11px; font-weight:700; padding:0 60px; position:relative;width: 100%;}
+.login-other-option a i{ position: absolute; top:50%; transform:translateY(-50%); left:26px;}
+.login-other-option a + a{ margin-top:14px; }
+.login-other-option a.google-login{ background:#fff; color:#606382;} 
+.login-other-option a.facebook-login{ background:#475993; color:#fff;}
+
+.select-delete{ border:1px solid #eee; border-radius:4px; display:inline-block; vertical-align:top;  background:#fff; padding:0;}
+.select-delete label.check_container{ display:inline-block; vertical-align:top; min-width:120px; margin:0; padding:.8rem .8rem .8rem 40px;}
+.select-delete label.check_container strong{ font-weight:400; color:#666; font-size:14px;line-height:1.6; white-space:nowrap;}
+.select-delete label.check_container .checkmark { top: 50%; left: 10px;  transform: translateY(-50%);}
+.select-delete a{ margin:0; border-left:1px solid #EEE; padding:0 0 0 1.4rem; font-weight:400; color:#666; 
+    font-size:14px;line-height:1.5;}
+.select-delete a strong{ font-weight:400; color:#666; font-size:14px; line-height:1.5; vertical-align:top; padding:0 0 0 .3rem;}
+.select-delete #bulk-delete-btn { margin:0;border-left: 1px solid #EEE;padding:.89rem; display:inline-block; vertical-align:top; line-height:1;}
+.select-delete #bulk-delete-btn i{ margin:0;font-size:20px;}
+.select-delete .check_container .checkmark:after {left:7px; top:2px; width:7px; height:12px;}
+.agent_profile .check_container .checkmark:after {left:7px; top:2px; width:7px; height:12px;}
+.agent_profile .check_container{ margin:0 0 0 1.5rem; z-index:10;}
+.NotificationlistBox{ background:#fff; box-shadow:1px 1px 1px 1px #eee; padding:1rem 1rem 1rem 11rem; border:0; border-bottom:2px solid #EEE; position:relative; min-height:100px; margin:0 0 1.5rem; display:flex; align-items:center;}
+.NotificationImg{ position:absolute; top:1rem;left:1rem; width:80px; height:80px; background:#eee; border:2px solid #fff; box-shadow:0 0 30px 0 rgba(0,0,0,0.1); border-radius:100px;}
+.NotificationImg img{ width:80px; height:80px;border-radius:100px;}
+.NotificationlistBox .time{ position:absolute; top:2rem; right:2rem; color:#B1B3C5; font-size:1.2rem; text-align:right;}
+.NotificationlistBox .content-text a{ color:#162441; font-weight:600; font-size:15px;}
+.NotificationlistBox .content-text p{ line-height:1.4; font-weight:normal; color: #162441; font-size: 13px;     min-height: inherit; margin:0;}
+
+.ml-auto { margin-left:auto !important;}
+.mr-auto { margin-right:auto !important;}
+.ContentWrap { padding:3rem;}
+.ContentHead{ margin:0 0 1.5rem;}
+.ContentHead h2 {margin: 0;padding: 0;color: #606382;font-size: 29px;font-weight: bold;}
+.RefineResults{ border-bottom: 2px solid #EEE; padding: 1rem 0; margin: 0 0 1rem; display: inline-block; vertical-align: top; width: 100%; border-top: 2px solid #EEE;}
+.filtering-recent ul{ margin:0;}
+.RefineResults button.btn.btn-secondary.dropdown-toggle.togle-default { padding-right:3rem; margin:0; width:auto; position:relative;}
+.RefineResults button.btn.btn-secondary.dropdown-toggle.togle-default i.fa-caret-down{ position: absolute; top: 50%;
+right: 1rem; transform: translateY(-50%); margin: 0;}
+.advanceSearchClass{ margin-right:2rem;}
+.ContentHead .TenanciesButtons .btn{ margin-left:15px;}
+
+.AgentListBox{}
+.AgentListBox .agnt_list{ margin-bottom:15px; background: #ffffff; border-radius:6px; display:flex; align-items:center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; padding:15px;}
+.AgentListBox .agnt_mainImg { height: 132px; margin:0; padding:0;}
+.AgentListBox .agnt_mainImg img{height: 100%; width: 100%;}
+.detail.apt-list { padding:0 30px;}
+.detail.apt-list>.d-flex{ flex-wrap:wrap;}
+.agree_applist .apt-list-details {display:inline-block; vertical-align:top; padding-top:15px;width: 100%;}
+.GrideView .agentlist{ background:#fff; padding:1rem; margin:0 0 1rem;}
+
+
+.maintain-request-sec{ display:inline-block; vertical-align:top; width:100%;}
+.ContentHead .dropdown{ display:inline-block; vertical-align:top;}
+.container {max-width: 100%;}
+.tab-review-cstm .review_lists {flex-direction: column;}
+
+.search-box a {font-size: 13px;font-weight: 400;color: #666;display: inline-block;padding: 2px 0px 12px 0px;    cursor: pointer;}
+.search-box a i {color: #b7b6b6;}
+.search-box i.fa.fa-caret-down, .head-p i.fa.fa-caret-up {margin-left: 15px;color: #b7b6b6;}
+.input-serch {border: 0px solid #eef0f5;width: 100%;font-size: 12px;padding: 10px;border-radius: 4px;padding-right: 25px;}
+.span-search {position: relative;display: inline-block;width: 100%;}
+.span-search i.fa.fa-search {right: 0;left: auto;top: 0;height: 100%;padding: 0 10px;display: flex;align-items: center;z-index: 1;}
+.p-agent-name {font-size: 12px;font-weight: 500;color: #606382;margin: 0;padding: 0;margin-bottom: 2px;}
+p.head-p {font-size: 13px;font-weight: 400;color: #666;display: inline-block;padding: 0;margin: 0 0 15px 0;cursor: pointer;}
+p.head-p i.fa.fa-caret-down {color: #b7b6b6;}
+.dropdown-open {position: absolute;top: 0;left: 0;background: #fff;border: 1px solid #e2e4ed;max-width: 250px;width: 100%;box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.08);border-radius: 4px;padding: 15px;z-index: 1;transition: ease-in-out .5s;display: none;}
+.dropdown-cstm {position: relative;}
+.serach-box {border: 1px solid #eef0f5;border-radius: 4px;}
+.serach-box ul {margin: 0;padding: 0;list-style: none;border: 0px solid #eef0f5;margin-top: 0;padding: 0;max-height: 220px;overflow: auto;}
+.serach-box ul li {font-size: 12px;font-weight: 500;color: #606382;padding: 10px 12px;border-bottom: 1px solid #eef0f5;cursor: pointer;}
+.serach-box ul img {width: 32px;border-radius: 50%;margin-right: 8px;}
+.serach-box ul li:last-child {border-bottom: 0;}
+
+.AgencyHubTable{ width:100%;overflow: auto;}
+.AgencyHubTable table thead th {border: 0;background: #606382;text-transform: uppercase;font-size: 11px;line-height: 1.5;color: #fff;padding: 1.5rem 1.5rem;font-weight: 500;border-bottom: 15px solid #f8f8ff;text-align: center;}
+.AgencyHubTable table thead th:first-child{ border-radius:4px 0 0 4px; text-align:left;}
+.AgencyHubTable table thead th:last-child{ border-radius:0 4px 4px 0;}
+
+.HubProfile{ position: relative; padding:0 0 0 48px; min-height:40px; text-align:left}
+.HubProfile span{ width:40px; height:40px; display:block; background:#eee; border-radius:100px; position:absolute; top:0; left:0;}
+.HubProfile h3{ margin:0; padding:.2rem 0 .4rem 0; font-size:16px; font-weight:600; color:#26275e; display:block; border:0;}
+.HubProfile h4{ margin:0; padding:0; font-size:11px; font-weight:400; color:#64e8f6; display:block;}
+.AgencyHubTable table td{ background:#fff; border:0; padding:1rem 1.5rem; text-align:center;}
+.AgencyHubTable table td:nth-child{text-align:left;} 
+.AgencyHubTable table td h3 {margin: 0;padding: 0;display: block;font-size: 16px;font-weight: 600;line-height: 1.5;border: 0;color: #606382;}
+.AgencyHubTable table td p{ margin:0; padding:0; font-size:9.5px; font-weight:400; color:#999; display:block; text-transform:uppercase;}
+.AgencyHubTable table td.agencyhub-td h3 {font-size: 22px;color: #7f829e;font-weight: bold;}
+.ServiceReq h3{ padding:0 0.5rem; }
+.ServiceReq>div>div{ padding:0 5px; text-align:center;}
+.AgencyHubTable table td .ColorSky p{ color:skyblue;}
+.AgencyHubTable table td .ColorYellow p{ /**color:yellow;*/ color: #fbcb2c;}
+.AgencyHubTable table td .ColorPurple p{ color:purple}
+.AgencyHubTable table td .ColorGreen p{ color:green}
+.AgencyHubTable table td .ColorOrange p{ color:orangered}
+
+.AgencyHubHead{ margin:0 0 1.5rem 0; border-top:1px solid #eee; padding: 1.5rem 0 0;}
+.RayWhite{ position: relative; padding:0 0 0 65px; min-height:50px; text-align:left}
+.RayWhite>span{ width:50px; height:50px; display:block; background:#eee; border-radius:100px; position:absolute; top:0; left:0;}
+.RayWhite h3{ margin:0; padding:.6rem 0 .4rem 0; font-size:16px; font-weight:600; color:#26275e; display:block; border:0;}
+.RayWhite p{ margin:0; padding:0; font-size:13px; font-weight:400; color:#999; display:block;}
+.RayWhite p >span{ margin:0 1rem 0 0;}
+
+.AgencyHubHeadR{ margin-left:auto; text-align:center; align-items: baseline;}
+.AgencyHubHeadR >div {margin: 0;padding-right: 15px;padding-left: 40px;}
+.AgencyHubHeadR h3 {margin: 0;padding: 0;font-size: 14px;font-weight: 600;color: #606382;display: block;text-transform: uppercase;border: 0;}
+.AgencyHubHeadR h4 {margin: 7px 0 3px 0;padding: 0;font-size: 20px;color: #00cbef;display: block;font-weight: bold;}
+.AgencyHubHeadR p {margin: 0;padding: 0;font-size: 12px;font-weight: 400;color: #babccc;display: block;text-transform: uppercase;}
+.AgencyHubTable table td.ServiceReq h3 {font-size: 22px;color: #7f829e;font-weight: bold;}
+.HubProfile span img {height: 40px;width: 40px;border-radius: 100px;}
+.RayWhite span img {
+      vertical-align: middle;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.select-space {padding: 0;margin-bottom: 12px;}
+.label-one {min-height: 15px;}
+/*.search-ic:After {position: absolute;content: "\f002";font-family: fontawesome;right: 10px;top: 7px;color: #999;font-size: 14px;}
+.search-ic {position: relative;display: block;}*/
+.AgencyHubTable .table>tbody+tbody {border-top: 1px solid #ddd;}
+.AgencyHubTable .table tbody>tr>td {padding: 20px 8px;}
+
+/***** Media start *****/
+
+@media (min-width:1200px){
+div#content-wrapper {width: calc(100% - 230px);}
+}
+
+
+@media(max-width:1450px){
+    .public-list-traders {align-items: initial;}
+    .public-list-traders .agntprofile-info {display:block; width:calc(100% - 100px);}
+    .public-list-traders .agntprofile-info ul {flex-wrap:wrap; }
+    .public-list-traders .agntprofile-info-btn {display: flex; align-items:center; margin: 10px 0 0 100px;max-width: 280px;text-align:center; width: auto;}
+    .public-list-traders .agntprofile-info-btn a {width:170px; margin:0 15px 0 0;}
+    .public-list-traders .agntprofile-info ul li {margin: 0 30px 10px 0;}
+    /* .public-list-dtl-01 .public-list-traders .agntprofile-info {width:calc(100% - 95px);} */
+    .public-list-traders-02.public-list-traders .agntprofile-info-btn h3 {margin: 0 10px 0 0;}
+    .public-list-dtl-01 .detail.apt-list { padding:15px;}
+    .public-list-dtl-01 .public-list-traders .agntprofile {margin: 0 15px 0 0;    }
+    .public-list-dtl-01 .agntprofile-info-btn.price-sec {display: block;max-width: initial;}
+    .public-list-dtl-01 .public-list-traders .agntprofile-info-btn a,
+    .public-list-dtl-01 .public-list-traders .agntprofile-info-btn h3 {margin:5px 0;}
+    
+}
+
+@media(min-width:992px) and (max-width:1199px){
+    .recommended-traders ul.perfect-trade li {width: calc(50% - 16px);}    
+    .applicants-content-box {flex-wrap: wrap;}
+    .applicants-content-text {width: calc(100% - 100px);}
+    .applicants-content-img {margin:0;}
+    .applicants-content-btn {margin: 10px 0 0 69px;}
+    .applicants-info p {margin: 0 15px 0 0;}
+    div#content-wrapper {width: calc(100% - 230px);}
+    .AgencyHubHead {flex-direction: column;align-items: flex-start;}
+    .RayWhite {width: 100%;margin-bottom: 20px;}
+    .AgencyHubHeadR {margin-left: 0;text-align: left;align-items: baseline;}
+    .AgencyHubHeadR >div {margin: 0;margin-right: 1rem;}
+}
+
+@media(max-width:1024px){
+    .public-list-dtl-01 .detail.apt-list .public-list-traders {padding: 0 0 0 85px;position: relative;align-items: inherit;}
+    .public-list-dtl-01 .agntprofile-info-btn.price-sec {position: relative;text-align: left; display:flex;}
+    .public-list-dtl-01 .public-list-traders .agntprofile-info-btn h3{ margin:0 15px 0 0;}
+    .public-list-dtl-01 .public-list-traders .agntprofile {margin: 0 15px 0 0;position: absolute;top: 0;left: 0;}
+    .public-list-dtl-01 .public-list-traders .agntprofile-info {display: block;width: 100%;padding: 0 0 15px;}
+    .agnt_list .public-list-traders-01 .agntprofile-info-btn {position: relative;display: flex;margin: 0;}
+    .agnt_list .public-list-traders-01 .agntprofile-info-btn h4{ margin-left:20px;}
+    .public-list-traders-03 {padding: 0;}
+    .agnt_list .public-list-traders-03 .agntprofile-info-btn {position: relative;margin: 0;display: flex;}
+    .public-list-traders-03 {padding: 0 15px 0 85px;}
+    .public-list-traders-03.public-list-traders .agntprofile {margin: 0;position: absolute;top: 0;left: 0;}
+    .public-list-traders-03.public-list-traders .agntprofile-info {display: block;width: 100%;    }
+    .container .message1 { margin:15px 0;}
+    .ContentWrap {padding:1rem;}
+}
+
+@media(max-width:991px){
+    body.block-ui {padding:0;}
+    #header-navbar { z-index:101; position:fixed; width:100%; top:0;left: 0;}
+    .navbar-toggle{ display:none;}
+    .nav-no-collapse.pull-right{ padding-right:50px;}
+    .mobile-nav{ display:block;}    
+    .mobile-nav.open {z-index: 1;position: relative;}
+    .mobile-nav.open .mobile-nav-inr{ transition:ease-in-out .5s; left:0; opacity:1;}
+    .mobile-nav-inr{ opacity:0; transition:ease-in-out .5s; position:fixed; top:0; left:-100%; overflow:hidden; background:#fff; height:100%;    width: 240px;}
+	.mobile-nav ul{ margin:0; padding:0; list-style:none; overflow:auto; height:calc(100% - 110px);}
+	.mobile-nav ul li{ margin:20px 0; padding:0;}
+    .mobile-nav ul li a{ display:block; color:#606382; font-weight:600; font-size:14px; line-height:30px; padding:0 10px 0 20px; }
+    .mobile-nav-inr ul li a img {max-height:20px; margin:0 15px 0 0;}
+	.mobile-user{ display:flex; align-items:center;	padding:20px;
+		background: -moz-linear-gradient(top,  rgba(7,96,189,1) 0%, rgba(41,222,255,1) 100%);
+		background: -webkit-linear-gradient(top,  rgba(7,96,189,1) 0%,rgba(41,222,255,1) 100%);
+		background: linear-gradient(to bottom,  rgba(7,96,189,1) 0%,rgba(41,222,255,1) 100%); 
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0760bd', endColorstr='#29deff',GradientType=0 );}
+	.mobile-user span{ margin:0 10px 0 0; display:block;}
+	.mobile-user span img{ width:60px; height:60px; display:block;}
+	.mobile-user strong{ color:#fff; font-size:16px; font-weight:700; }    
+    #nav-icon2 { position:fixed; top:20px; right:15px; margin:0; height:22px; width:30px; -webkit-transform:rotate(0deg); 
+    -moz-transform: rotate(0deg); -o-transform: rotate(0deg); transform:rotate(0deg); -webkit-transition:.5s ease-in-out; -moz-transition: .5s ease-in-out; -o-transition: .5s ease-in-out; transition: .5s ease-in-out; cursor: pointer; }
+	#nav-icon2 span {display: block; position: absolute; height: 2px; width: 50%; background: #fff; opacity: 1; -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); transform: rotate(0deg); -webkit-transition: .25s ease-in-out; -moz-transition: .25s ease-in-out; -o-transition: .25s ease-in-out; transition: .25s ease-in-out; }
+	#nav-icon2 span:nth-child(even) {left: 50%; border-radius: 0 9px 9px 0; }
+	#nav-icon2 span:nth-child(odd) {left:0px;border-radius: 9px 0 0 9px;}
+	#nav-icon2 span:nth-child(1), #nav-icon2 span:nth-child(2) {top: 0px;}
+	#nav-icon2 span:nth-child(3), #nav-icon2 span:nth-child(4) {top: 9px;}
+	#nav-icon2 span:nth-child(5), #nav-icon2 span:nth-child(6) {top: 18px;}
+	.open #nav-icon2 span:nth-child(1),.open #nav-icon2 span:nth-child(6) {-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);}
+	.open #nav-icon2 span:nth-child(2),.open #nav-icon2 span:nth-child(5) {-webkit-transform: rotate(-45deg);-moz-transform: rotate(-45deg);-o-transform: rotate(-45deg);transform: rotate(-45deg);}
+	.open #nav-icon2 span:nth-child(1) {left: 5px;top: 7px;}
+	.open #nav-icon2 span:nth-child(2) {left: calc(50% - 5px);top: 7px;}
+	.open #nav-icon2 span:nth-child(3) {left: -50%;opacity: 0;}
+	.open #nav-icon2 span:nth-child(4) {left: 100%;opacity: 0;}
+	.open #nav-icon2 span:nth-child(5) {left: 5px;top: 12px;}
+    .open #nav-icon2 span:nth-child(6) {left: calc(50% - 5px);top: 12px;}
+    .mobile-nav.open:after { content:''; background:rgba(0,0,0,.8); width:100%; height:100%; position:fixed; top:0;left:-100%;z-index: -1; transition:ease-in-out .5s;}
+    .mobile-nav.open:after{ left:0;}
+    .active .sidebar img:first-child {display: none;}
+    .active .sidebar img:last-child { display:inline-block;}
+    .mobile-nav ul li.active a{ color:#00d7fc;}
+    body .clearfix.back { clear:inherit;}
+    .public-list-dtl-01 .public-list-traders-01.public-list-traders .agntprofile-info ul li {margin: 0 0 10px;display: flex;width: 100%;}
+    .public-list-dtl-01 .public-list-traders-01.public-list-traders .agntprofile-info ul li h4 {max-width: 100%;}
+    .public-list-traders.public-list-traders-03 .agntprofile-info-btn h3{ margin:0 10px 0 0;}
+    .d-flex{ flex-wrap:wrap;}
+    #page-wrapper {padding-top:62px;}
+    .AgencyHubHead {flex-direction: column;align-items: flex-start;}
+    .RayWhite {width: 100%;margin-bottom: 20px;}
+    .AgencyHubHeadR {margin-left: 0;text-align: left;align-items: baseline;}
+    .AgencyHubHeadR >div {margin: 0;margin-right: 1rem;}
+    .table tbody>tr>td.ServiceReq>div {width: 320px;}
+    .RayWhite p {font-size: 12px;}
+.RayWhite h3 {font-size: 15px;}
+.AgencyHubHeadR h3 {font-size: 12px;}
+.AgencyHubHeadR h4 {font-size: 14px;} 
+.AgencyHubHeadR p {font-size: 11px;}
+.AgencyHubTable table td h3 {font-size: 12px;line-height: 1.2;}
+.HubProfile h4 {font-size: 13px;}
+.AgencyHubTable table td p {font-size: 10px;}
+div#content-wrapper {width: 100%;}
+}
+
+
+
+
+
+@media(max-width:767px){
+    .row { margin-left: -15px; margin-right: -15px;}
+    .container { padding-left:15px; padding-right:15px;}
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 { padding-left: 15px;padding-right: 15px;}
+    .applicants-content-box {flex-wrap:wrap;padding: 20px 10px;}
+    .applicants-content-img {margin:0 0 15px 0;}
+    .applicants-content-text {display:block;width: 100%;}
+    .applicants-content-btn {margin:10px 0 0; }
+    .recommended-traders ul.perfect-trade li {width: calc(50% - 16px);}
+    .setting-section {width:100%; padding:0 15px;}
+    #content-wrapper {padding:0;}
+    .setting-section .settingPage.marT30 { margin-top:20px;}
+    .settingPage.marT30{ padding:0 15px;}
+    ul.nav-editprofile{ white-space:nowrap; display:flex; overflow:scroll;}
+    ul.nav-editprofile li{ float:none;}
+    .settingPage + .col-sm-8.marT30{margin:20px 0;}
+    .theme-whbl #content-wrapper { background-color:#fff;}
+    .setting-section #myprofile{ border:1px solid #EDEEF6;}
+    .setting-section .col-lg-12.col-md-12 { margin:0; width:100%;}
+    .unread-messages-section .detail {width: 75%;}
+    .maintenance-list .col-sm-2.col-md-2.col-lg-2 .his_img {float: left; margin-right: 10px}
+    .project-listing-latest { padding:0;}
+    .project-listing-latest > h5{ margin:0; font-size:1.6rem; float:none; display:block; line-height:1.5;}
+    .heading-padding-zero, .button-padding-zero{ margin-bottom:0;}
+    .profile_btn { margin:0 auto 25px; text-align:center;}
+    .profile_img img { border-radius:50%; background-clip:padding-box; float:none; height:120px; margin:0 auto 10px; width:120px; display:block;}
+    .btn-updateavtar {padding:10px 20px; width:188px; margin:0 auto;}
+    .profile_btn p {padding:15px 0 0; max-width:280px; margin:0 auto;}
+    #myprofile .panel-body {padding:30px 0 20px; border:0;}
+    #myprofile .marT30 { margin-top:0; }
+    #myprofile .panel{ padding:0; margin:0; border:0; box-shadow:none;}
+    #myprofile textarea.form-control {height: 150px;padding: 10px;}
+    ul.subscription-list { margin:-10px 0 0;}
+    ul.subscription-list li {padding:15px 25px 15px 15px;}
+    .subscribe-btn-wrap {width:80%; margin:0 auto;}
+    .subscribe-btn-wrap a { width:100%; font-size:24px; line-height:40px; padding:10px 0 13px;}
+    #subscription{ padding:0;}
+    .subscription-inr-box:before {width: 80%;}
+    .subscription-list-div {padding:0 0 0 36px; background-size:22px;background-position: 0 5px;}
+    .subscription-list-div h3 {font-size:15px; line-height:normal; margin:0 0 10px; padding:0;}
+    .subscription-list-div h4 {line-height: normal;}
+    .subscription-price h5 {margin:0; font-size:26px;}
+    .subscription-price h6 {font-size:16px; line-height:normal; letter-spacing:0;}
+    .subscription-update-cancel {margin:15px 0;}
+    .setting-section .panel.panel-default {border: 0; box-shadow: none; padding: 0 10px; margin-bottom: 0;}
+    .default-oder .btn.btn-secondary.dropdown-toggle.togle-default{ background:#eee !important; border: 1px solid #ddd !important; padding:6px 10px; margin:0; width:100%; border-radius:4px; text-align:left;}
+    .default-oder i.fa.fa-caret-down { float:right; margin:4px 0 0;}
+    .filtering-recent ul {overflow:auto; white-space:nowrap;}
+    .search-keyword-wrap form {flex-wrap:wrap;}
+    .search-keyword-input {background: #fff;border: 1px solid #EDEEF6;padding: 0 10px 0 47px;position: relative;width: 100%;margin: 0 0 15px;}
+    .select-option-wrap {margin:0; width:100%;}
+    .maintenance-requests-div .agnt_list {margin: 0 0 20px; padding: 0; box-shadow: 0 0 20px 0 rgba(0,0,0,.1);}
+    .maintenance-requests-div .detail.apt-list {padding: 15px; text-align:center}
+    .maintenance-requests-div .public-list-traders .agntprofile a img {display: inline-block;}
+    .maintenance-requests-div .public-list-traders .agntprofile { margin:-60px auto 10px; width:100%; text-align:center; z-index:100; position:relative;}
+    .maintenance-requests-div .setting-section .row.ng-scope {margin: 0;padding: 0;}
+    .maintenance-requests-div .public-list-traders .agntprofile-info {display:block; width:100%;text-align:center; padding:0;}
+    .maintenance-requests-div .public-list-traders .agntprofile-info ul {justify-content:center;}
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn {flex-wrap:wrap; justify-content:center; margin:10px auto 0; justify-content:center; width:100%;}
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn a{ margin:0 0 10px;}
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn h4{ width:100%;}
+    .maintenance-requests-div .public-list-traders .agntprofile-info ul li {margin: 0 0 10px 0;width: 100%;text-align: center;justify-content: center;}
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn h3{ width:100%; margin:0 0 15px;}
+    .maintenance-requests-div .agnt_list .detail {padding:8px; margin: -30px 0 15px;}
+    .maintenance-requests-div .agnt_list .detail.apt-list{ margin:0;}
+    .maintenance-requests-div .cat_id{ word-break:break-all; width:100%; display:block; white-space:initial; text-align:center;}
+    .maintenance-requests-div .cat_id span {padding: 10px 0;font-size: 13px;text-align: center;}
+    .maintenance-requests-div .comp-right {float: none;width: 100%;display:block;vertical-align: top;text-align: center;}
+    .maintenance-requests-div .comp-right button{ display:inline-block; vertical-align:top; margin:0 10px; float:none;}
+    .maintenance-requests-div button.mainTCounter {width: 200px; float: none; margin: 10px auto; display: block; text-align: center;    }
+    .setting-section  .board .nav-tabs > li {width: 60px; margin:0 50px 0 0 !important;}
+    .setting-section  .board .nav-tabs > li a {width:60px;height: 60px;line-height: 50px;}
+    .board .nav-tabs > li > a span.round-tabs{width:60px;height: 60px;  padding-top:2px;}
+    .board > div.board-inner > .nav-tabs {border:none; display:flex; overflow:auto;}
+    .board .nav-tabs > li:after{ right: -41px; top:40%; left:auto; width:30px; position:absolute; border-top:4px dotted #E2E4ED;}
+    .board { width:100%; height:auto !important;}
+    .main_detail span {color: #7F829F;font-size: 13px; line-height:20px; margin:0 0 15px; width:calc(100% - 25px); display:inline-block; vertical-align:top;}
+    .main_detail img {margin-right: 5px;display: inline-block;}
+    .accept-apply-btn{ margin:0 0 20px; text-align:center; }
+    .request_det p {margin:5px 0 15px 0;}
+    .board .nav-tabs > li a{ width:60px; height:60px; line-height:60px;}    
+    .job-details-process .nav.marB20>li {margin: 0 30px 0 0 !important;}
+    .job-details-process.board ul.nav-tabs {justify-content:initial; overflow:auto;}
+    .setting-section .breadcrumb {padding: 0px 0px 15px 0 !important; width:100%; margin:0;}
+    .setting-section .breadcrumb>li {margin-left: 0;}
+    .setting-section .breadcrumb>li+li:before {padding-right: 10px!important;}
+    .white-box {padding:15px; margin:0 0 20px;}
+    .amnt-container {padding: 0; padding-bottom:0;}
+    .attchment ul {padding:0; margin:0 -10px;}
+    .white-box.attchment ul li {width: calc(50% - 20px); margin: 0 10px;}
+    .amnt { padding:15px;}
+    .conversation .row.reply { align-self:initial; height: auto; border: 0; background: #eee; padding: 10px !important;}
+    .scrollBar {border: 1px solid #eee;}
+    .conversation {border:0;}
+    .maintAtt {text-align: center;padding: 0;font-weight: 500;margin: 0;background: #eee;padding: 30px; margin:0 0 20px; }
+    .attchment + .horiLine.marT20{ display:none;}
+    .white-box.recommended-traders {border:0; box-shadow:none; padding:8px;}
+    .recommended-traders h2 { margin:0 -8px 5px;}
+    .applicants-content .applicants-info {flex-wrap: wrap;}
+    .applicants-content .applicants-info p { margin:0 10px 10px 0;}
+    .applicants-content .applicants-content-box {flex-wrap:wrap; padding:0 10px;}
+    .applicants-content ul { margin:0 -15px;}
+    #header-navbar .nav>li>a {padding:20px 8px; margin: 0;}
+    #logo {margin:0; padding:12px 10px;}
+    .public-list-dtl-01 .public-list-traders-01.public-list-traders .agntprofile-info ul li {margin: 5px;display: flex;width: auto;}
+    .public-list-traders.public-list-traders-03 .agntprofile-info ul li h4 {width: clac(100% - 15px);}
+    .maintenance-requests-div .public-list-traders-03.public-list-traders .agntprofile-info ul li {margin: 0 10px 10px 0;width: auto;}    
+    .sent1{ float:none; display:inline-block; vertical-align:top; margin:0 0 10px; padding:5px 30px;}
+    .detail .apt-list-details {padding: 10px 0;display: inline-block;vertical-align: top;}
+    .apt-list-details ul li {margin:0 10px;}
+    .cover-photo img {width: auto;}
+    .public-list-dtl-01 .detail.apt-list .public-list-traders {padding: 0;}
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn{ position:relative;}
+    .public-list-traders-03 {padding:0;}
+    .footer_link_outer_page {display:block; max-width:160px; margin:10px auto 30px;}
+    .container .frgtpass{ width:100%; padding:20px 30px;}
+    .project-listing-latest, .app-btn-grp {margin-top:0;}
+    .col-sm-12.horiLine .col-sm-5{ padding:0;}
+    .col-sm-12.horiLine .sort-grid{float: none;}
+    .col-sm-12.horiLine .sort-grid .dropdown.default-oder { float: left; width: 60%; margin:0;}
+    .col-sm-12.horiLine .sort-grid span{ padding:.5rem 0 0; display:inline-block; vertical-align:top;}
+    
+    #header-navbar .profile-dropdown>a>img {height:34px; margin:-5px 5px 0 0; width:34px;}
+    .setting-section .board {margin-top:0;}
+    .scrollBar {height: auto; max-height:350px; min-height:80px;}
+    .setting-refine-search .project-listing-latest{ margin:0;}
+    .TenanciesButtons{ margin:0 !important; padding:0; text-align:left;}
+    .TenanciesButtons button.btn{ margin:.5rem .2rem .5rem 0;}
+    .TenanciesButtons a.btn{margin:.5rem .2rem .5rem 0;}
+    .setting-refine-search button.btn.refine { margin-left:0;}
+    .setting-refine-search .btn.btn-secondary.dropdown-toggle.togle-default {margin: 0; width:100%; border:0 !important; text-align:left;}
+    .detail.apt-list{ padding:1rem 0;}
+    .detail.agreement a {margin:0 15px;}
+    .apt-list-details ul {display: inline-block; vertical-align: top; width: 100%; margin:0 -10px;}
+    .detail .apt-list-details{ padding:10px 0 0;}
+    .agnt_list { margin:0 0 15px; padding:0 15px;}
+    .nav-no-collapse.pull-right { padding-right:35px;}
+    .NotificationImg img {width:70px; height:70px; border-radius: 100px;}
+    .NotificationImg {top:.8rem; left:.8rem; width: 70px; height: 70px;}
+    .NotificationlistBox {padding:1rem 1rem 1rem 8rem;}
+    .NotificationlistBox .time{ position:relative; top:0; right:0; margin:0 0 .5rem;text-align:left;}
+    .profile-menu {padding:30px 20px 0; width:100%; height:100%; overflow:auto; }
+    .profile-header .btn-switch{ margin:.6rem 0 0;}
+    .profile-header {padding-bottom:10px;}
+    .profile-links ul {padding: 1.2rem 0 0;}
+    #thepopupdiv {top:0; height:100%;}
+    .TenantListBtn{ text-align:left;}
+    .TenantListBtn button{ margin-bottom:8px;}
+    .review_overall{ padding:0 0 1rem;}
+    .review_overall .col-lg-9{ padding:0;}
+    .project-detail h5{ margin:0;}
+    .ContentHead { margin:0 0 .5rem; flex-wrap:wrap;}
+    .ContentHead h2{ margin-bottom:1rem; width:100%;}
+    .ContentHead .TenanciesButtons .btn { margin:0 .5rem .5rem 0;}
+    .AgentListBox .agnt_list { padding:15px 0 0; flex-wrap:wrap; margin:0;}
+    .AgentListBox .agnt_mainImg {margin:0 0 .5rem;}
+    .dropdown-menu{ min-width:100%;}    
+    .other-action{ text-align:left;}
+    .other-action button{ margin:0 .5rem .5rem 0;}
+    .calendarCursor .fc-toolbar {margin:1em 0;}
+    .calendarCursor .fc-toolbar .fc-left{ width:auto;}
+    .calendarCursor .fc-left h2{ margin:0; padding:0; line-height:34px;}
+    .home-pg.dashboard-calendar-sec .cal_title{ padding-left:0;}
+    .DisputesWrap { padding:0;}
+    .DisputesWrap .col-sm-2.col-xs-12{ padding:0;clear: initial; float: left; width: 50px;}
+    .DisputesWrap .col-sm-2.col-xs-12 img{ margin:0;}
+    .DisputesWrap .detail.apt-list {padding:0 0 0 1rem; width: calc(100% - 70px) !important;}
+    .DisputesWrap .detail.apt-list .row{ margin:0;}
+    .DisputesWrap .detail.apt-list .row .col-sm-11{ padding:0;}
+    .DisputesWrap .detail.apt-list .row + .row{ text-align:right;}
+    .price-sec .price h4{text-align:left;}
+    .price-sec .days,
+    .price-sec .price{ padding-left:60px; text-align:left;}
+    .sort-grid {float:none;width:100%;}
+    .sort-grid .dropdown.default-oder{ width:calc(100% - 70px);}
+    .sort-grid span {position: relative; top: 12px;}
+    .filtering-recent{ overflow:hidden; float:left; margin-top:.6rem;}
+
+    .sort-grid { display:flex; width:100%;}
+    .sort-grid .dropdown.default-oder{ width:calc(100% - 70px); margin:0;}
+    .sort-grid .view-as{ margin:0 0 0 auto; padding:5px 0 0;}
+    .filtering-recent{ width:100%; margin:.8rem 0;}
+    .dropdown.default-oder {float:left; width:100%; margin:0;}
+    #content-wrapper {width: 100%;}
+    .alert {padding: 10px;font-size: 14px;}
+    .thread-top {padding-top: 0;}
+    .maintenance-list.col-lg-12 > div {padding: 0;}
+    .btn-property {padding: 7px 12px 7px 8px;}
+    .ContentHead .TenanciesButtons .btn {margin-right: 0;}
+    .maintenance-list.col-lg-12 {padding: 20px 0px 10px;}
+    .maintain-request span, .maintain-category span {word-break: break-all;white-space: initial;}
+    .my-property-content_listview {height: auto;}
+    .statistics-sec .stats {margin: 0 0 12px 0;}
+    .property-details.bottom-position-set {position: relative;width: 100%;bottom: 0;margin-top: 0;}
+    .property-details.bottom-position-set tr td {vertical-align: middle;}
+    .pad-zero {padding-left: 0;padding-right: 0;}
+    .profile-header-cstm .cover-photo img {position: relative;top: 0;left: 0;width: 100%;height: 100%;}
+    .profile-header-cstm .profile-info-header {width: 100%;padding: 0 15px;margin-top: 15px;margin-top: -27px;}
+    .profile-header-cstm .profile_det {top: 32px;}
+    .profile-header-cstm .profile-pic .inspection {margin-top: 0;}
+    .profile-header-cstm .profile_inspection_detail {padding: 15px;}
+    .profile-header-cstm .right-side-btns {margin-top: 0;}
+    .carousel-inner.cont-slider {width: 100%!important;}
+    .property_Detail_new .article-slide .carousel-indicators {height: auto;}
+    .slick-next {right: -15px;}
+    .slick-prev {left: -15px;}
+    .property-content_listview .property-title h4:After {content: " ";display: block;clear: both;}
+    .property-content_listview .property-title h4 {height: auto;}
+    .property-content_listview .property-address {max-height: initial;margin-top: 0;margin-bottom: 15px;height: auto;}
+    .property-details td {padding-right: 15px;}
+    .property-details {display: flex;flex-wrap: wrap;}
+    .property-content_listview {height: auto;}
+    .property-title {margin-bottom: 0;}
+    .img_list .property-img1 img {border-radius: 5px;}
+    .review {padding-left: 0;padding-right: 0;}
+    .nav-tabs.set-background-color {padding: 0px 15px;}
+    .tab-review-cstm .maintain-request-sec {margin: 0;}
+    .tab-review-cstm .review_list > div {padding-left: 0;padding-right: 0;}
+    .tab-review-cstm .review_list {padding-bottom: 0;}
+    .tab-review-cstm .rating.raging-left-align {font-size: 14px;}
+    .tab-review-cstm .rew_img.new-images-set {text-align: left;}
+    .tab-review-cstm .rew_img1 {text-align: left;}
+    .review-response {padding-left: 20px;}
+    .review-response > div {padding: 0;}
+    .s-section-left {padding: 0;}
+    .btn-mobile-property {display: flex;margin-bottom: 15px;flex-wrap: wrap;}
+    .rental_case {width: 100%;}
+.table tbody>tr>td.ServiceReq>div {width: 320px;}
+    .RayWhite p {font-size: 12px;}
+.RayWhite h3 {font-size: 15px;}
+.AgencyHubHeadR h3 {font-size: 12px;}
+.AgencyHubHeadR h4 {font-size: 14px;} 
+.AgencyHubHeadR p {font-size: 11px;}
+.AgencyHubTable table td h3 {font-size: 12px;line-height: 1.2;}
+.HubProfile h4 {font-size: 13px;}
+.AgencyHubTable table td p {font-size: 10px;}
+.AgencyHubHeadR >div {margin: 0;margin-right: 10px;margin-bottom: 15px;}
+
+}    
+
+.ContentHead .TenanciesButtons .btn {
+    margin-left: 15px;
+}
+
+.AgentListBox {}
+
+.AgentListBox .agnt_list {
+    margin-bottom: 15px;
+    background: #ffffff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 15px;
+}
+
+.AgentListBox .agnt_mainImg {
+    height: 132px;
+    margin: 0;
+    padding: 0;
+}
+
+.AgentListBox .agnt_mainImg img {
+    height: 100%;
+    width: 100%;
+}
+
+.detail.apt-list {
+    padding: 0 30px;
+}
+
+.agree_applist .apt-list-details {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 15px;
+    width: 100%;
+}
+
+.maintain-request-sec {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+}
+
+.ContentHead .dropdown {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.container {
+    max-width: 100%;
+}
+
+.tab-review-cstm .review_lists {
+    flex-direction: column;
+}
+.ui-select-bootstrap>.ui-select-match>.btn {
+    margin: 0 !important;
+    background: transparent !important;
+    padding: 0 12px;
+    box-shadow: none;
+    line-height: 14px;
+}
+.ui-select-bootstrap>.ui-select-match>.btn i {
+    top: 7px;
+    color: #000;
+    border-top-color: #999;
+}
+.ui-select-bootstrap>.ui-select-choices.ng-scope {
+    padding: 0;
+    border: 0;
+}
+
+/* DDA Notification css */
+
+.cricle-txt {float: left;font-size: 20px !important;position: absolute;width: 50px;margin-top: 10px;height: 45px;max-width: 45px;margin-left: -19px;}
+.custome-dropdown .fa-search-span {display: inline-block;width: 100%;position: relative;}
+.custome-dropdown .fa-search-span button.btn {background: transparent;padding: 0;}
+.custome-dropdown .fa-search-span button.btn .fa-search {right: 10px;top: 10px;}
+.custome-dropdown .fa-search-span input {padding-right: 30px;}
+
+.angular-lightbox.hidden {
+	 display: none;
+}
+ .angular-lightbox section {
+	 position: fixed;
+	 z-index: 100065;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 100%;
+	 background-color: rgba(0, 0, 0, 0.8);
+}
+ .angular-lightbox section > article {
+	 color: white;
+}
+ .angular-lightbox section > article > header a.close-btn {
+	 position: absolute;
+	 top: 20px;
+	 right: 30px;
+	 font-size: 3em;
+	 cursor: pointer;
+	 color: #ddd;
+}
+ .angular-lightbox section > article > header a.close-btn:hover, .angular-lightbox section > article > header a.close-btn:focus {
+	 color: white;
+}
+ .angular-lightbox section > article > content {
+	 margin: 0 auto;
+	 height: 50%;
+	 position: absolute;
+	 top: 30%;
+	 text-align: center;
+	 width: 100%;
+	/* @media screen and (min-width: $maxWidthContent) {
+		 width: $maxWidthContent;
+	}
+	 */
+}
+ .angular-lightbox section > article > content > iframe {
+	 max-width: 900px;
+	 margin: 0 auto;
+}
+
+.upload-instruction-btn {color: #38d5ff;letter-spacing: 0;font-weight: 700;margin-top: 12px;padding-left: 0;background-color: transparent;border: 0;}
+.upload-instruction-btn img {margin-left: 3px;}
+
+
+.nav-stacked>li+li {
+    margin-top: 2px !important ;
+}
+.chat_img img {
+    max-width: 250px;
+    border-radius: 6px;
+}
+
+#toast-container .toast {
+    opacity: 1 !important;
+}
+
+.amenities-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/***** Media start *****/
+
+@media(max-width:499px){
+    .recommended-traders ul.perfect-trade li {margin:0 0 15px; width:100%; padding:0;}
+    #logo {margin:0; padding:12px 8px;}
+    .public-list-traders.public-list-traders-03 .agntprofile-info-btn h3 {margin:0 0 10px 0;}
+}
+
+@media (min-width:1200px) {
+    div#content-wrapper {
+        width: calc(100% - 230px);
+    }
+}
+
+@media(max-width:1450px) {
+    .public-list-traders {
+        align-items: initial;
+    }
+    .public-list-traders .agntprofile-info {
+        display: block;
+        width: calc(100% - 100px);
+    }
+    .public-list-traders .agntprofile-info ul {
+        flex-wrap: wrap;
+    }
+    .public-list-traders .agntprofile-info-btn {
+        display: flex;
+        align-items: center;
+        margin: 10px 0 0 100px;
+        max-width: 280px;
+        text-align: center;
+        width: auto;
+    }
+    .public-list-traders .agntprofile-info-btn a {
+        width: 170px;
+        margin: 0 15px 0 0;
+    }
+    .public-list-traders .agntprofile-info ul li {
+        margin: 0 30px 10px 0;
+    }
+    /* .public-list-dtl-01 .public-list-traders .agntprofile-info {width:calc(100% - 95px);} */
+    .public-list-traders-02.public-list-traders .agntprofile-info-btn h3 {
+        margin: 0 10px 0 0;
+    }
+    .public-list-dtl-01 .detail.apt-list {
+        padding: 15px;
+    }
+    .public-list-dtl-01 .public-list-traders .agntprofile {
+        margin: 0 15px 0 0;
+    }
+    .public-list-dtl-01 .agntprofile-info-btn.price-sec {
+        display: block;
+        max-width: initial;
+    }
+    .public-list-dtl-01 .public-list-traders .agntprofile-info-btn a, .public-list-dtl-01 .public-list-traders .agntprofile-info-btn h3 {
+        margin: 5px 0;
+    }
+}
+
+@media (min-width:1201px) and (max-width:1450px){
+.RayWhite p {font-size: 12px;}
+.RayWhite h3 {font-size: 15px;}
+.AgencyHubHeadR h3 {font-size: 12px;}
+.AgencyHubHeadR h4 {font-size: 14px;} 
+.AgencyHubHeadR p {font-size: 11px;}
+.AgencyHubTable table td h3 {font-size: 12px;line-height: 1.2;}
+.HubProfile h4 {font-size: 13px;}
+.AgencyHubTable table td p {font-size: 10px;}
+}
+
+@media(min-width:992px) and (max-width:1199px) {
+
+    .RayWhite p {font-size: 12px;}
+.RayWhite h3 {font-size: 15px;}
+.AgencyHubHeadR h3 {font-size: 12px;}
+.AgencyHubHeadR h4 {font-size: 15px;} 
+.AgencyHubHeadR p {font-size: 11px;}
+.AgencyHubTable table td h3 {font-size: 12px;line-height: 1.2;}
+.HubProfile h4 {font-size: 13px;}
+.AgencyHubTable table td p {font-size: 10px;}
+
+    .recommended-traders ul.perfect-trade li {
+        width: calc(50% - 16px);
+    }
+    .applicants-content-box {
+        flex-wrap: wrap;
+    }
+    .applicants-content-text {
+        width: calc(100% - 100px);
+    }
+    .applicants-content-img {
+        margin: 0;
+    }
+    .applicants-content-btn {
+        margin: 10px 0 0 69px;
+    }
+    .applicants-info p {
+        margin: 0 15px 0 0;
+    }
+}
+
+@media(max-width:1024px) {
+    .public-list-dtl-01 .detail.apt-list .public-list-traders {
+        padding: 0 0 0 85px;
+        position: relative;
+        align-items: inherit;
+    }
+    .public-list-dtl-01 .agntprofile-info-btn.price-sec {
+        position: relative;
+        text-align: left;
+        display: flex;
+    }
+    .public-list-dtl-01 .public-list-traders .agntprofile-info-btn h3 {
+        margin: 0 15px 0 0;
+    }
+    .public-list-dtl-01 .public-list-traders .agntprofile {
+        margin: 0 15px 0 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .public-list-dtl-01 .public-list-traders .agntprofile-info {
+        display: block;
+        width: 100%;
+        padding: 0 0 15px;
+    }
+    .agnt_list .public-list-traders-01 .agntprofile-info-btn {
+        position: relative;
+        display: flex;
+        margin: 0;
+    }
+    .agnt_list .public-list-traders-01 .agntprofile-info-btn h4 {
+        margin-left: 20px;
+    }
+    .public-list-traders-03 {
+        padding: 0;
+    }
+    .agnt_list .public-list-traders-03 .agntprofile-info-btn {
+        position: relative;
+        margin: 0;
+        display: flex;
+    }
+    .public-list-traders-03 {
+        padding: 0 15px 0 85px;
+    }
+    .public-list-traders-03.public-list-traders .agntprofile {
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .public-list-traders-03.public-list-traders .agntprofile-info {
+        display: block;
+        width: 100%;
+    }
+    .container .message1 {
+        margin: 15px 0;
+    }
+    .ContentWrap {
+        padding: 1rem;
+    }
+}
+
+@media(max-width:991px) {
+    body.block-ui {
+        padding: 0;
+    }
+    #header-navbar {
+        z-index: 101;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+    .navbar-toggle {
+        display: none;
+    }
+    .nav-no-collapse.pull-right {
+        padding-right: 50px;
+    }
+    .mobile-nav {
+        display: block;
+    }
+    .mobile-nav.open {
+        z-index: 1;
+        position: relative;
+    }
+    .mobile-nav.open .mobile-nav-inr {
+        transition: ease-in-out .5s;
+        left: 0;
+        opacity: 1;
+    }
+    .mobile-nav-inr {
+        opacity: 0;
+        transition: ease-in-out .5s;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        overflow: hidden;
+        background: #fff;
+        height: 100%;
+        width: 240px;
+    }
+    .mobile-nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        overflow: auto;
+        height: calc(100% - 110px);
+    }
+    .mobile-nav ul li {
+        margin: 20px 0;
+        padding: 0;
+    }
+    .mobile-nav ul li a {
+        display: block;
+        color: #606382;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 30px;
+        padding: 0 10px 0 20px;
+    }
+    .mobile-nav-inr ul li a img {
+        max-height: 20px;
+        margin: 0 15px 0 0;
+    }
+    .mobile-user {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        background: -moz-linear-gradient(top, rgba(7, 96, 189, 1) 0%, rgba(41, 222, 255, 1) 100%);
+        background: -webkit-linear-gradient(top, rgba(7, 96, 189, 1) 0%, rgba(41, 222, 255, 1) 100%);
+        background: linear-gradient(to bottom, rgba(7, 96, 189, 1) 0%, rgba(41, 222, 255, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0760bd', endColorstr='#29deff', GradientType=0);
+    }
+    .mobile-user span {
+        margin: 0 10px 0 0;
+        display: block;
+    }
+    .mobile-user span img {
+        width: 60px;
+        height: 60px;
+        display: block;
+    }
+    .mobile-user strong {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700;
+    }
+    #nav-icon2 {
+        position: fixed;
+        top: 20px;
+        right: 15px;
+        margin: 0;
+        height: 22px;
+        width: 30px;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transition: .5s ease-in-out;
+        -moz-transition: .5s ease-in-out;
+        -o-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
+        cursor: pointer;
+    }
+    #nav-icon2 span {
+        display: block;
+        position: absolute;
+        height: 2px;
+        width: 50%;
+        background: #fff;
+        opacity: 1;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transition: .25s ease-in-out;
+        -moz-transition: .25s ease-in-out;
+        -o-transition: .25s ease-in-out;
+        transition: .25s ease-in-out;
+    }
+    #nav-icon2 span:nth-child(even) {
+        left: 50%;
+        border-radius: 0 9px 9px 0;
+    }
+    #nav-icon2 span:nth-child(odd) {
+        left: 0px;
+        border-radius: 9px 0 0 9px;
+    }
+    #nav-icon2 span:nth-child(1), #nav-icon2 span:nth-child(2) {
+        top: 0px;
+    }
+    #nav-icon2 span:nth-child(3), #nav-icon2 span:nth-child(4) {
+        top: 9px;
+    }
+    #nav-icon2 span:nth-child(5), #nav-icon2 span:nth-child(6) {
+        top: 18px;
+    }
+    .open #nav-icon2 span:nth-child(1), .open #nav-icon2 span:nth-child(6) {
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    .open #nav-icon2 span:nth-child(2), .open #nav-icon2 span:nth-child(5) {
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+    .open #nav-icon2 span:nth-child(1) {
+        left: 5px;
+        top: 7px;
+    }
+    .open #nav-icon2 span:nth-child(2) {
+        left: calc(50% - 5px);
+        top: 7px;
+    }
+    .open #nav-icon2 span:nth-child(3) {
+        left: -50%;
+        opacity: 0;
+    }
+    .open #nav-icon2 span:nth-child(4) {
+        left: 100%;
+        opacity: 0;
+    }
+    .open #nav-icon2 span:nth-child(5) {
+        left: 5px;
+        top: 12px;
+    }
+    .open #nav-icon2 span:nth-child(6) {
+        left: calc(50% - 5px);
+        top: 12px;
+    }
+    .mobile-nav.open:after {
+        content: '';
+        background: rgba(0, 0, 0, .8);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        z-index: -1;
+        transition: ease-in-out .5s;
+    }
+    .mobile-nav.open:after {
+        left: 0;
+    }
+    .active .sidebar img:first-child {
+        display: none;
+    }
+    .active .sidebar img:last-child {
+        display: inline-block;
+    }
+    .mobile-nav ul li.active a {
+        color: #00d7fc;
+    }
+    body .clearfix.back {
+        clear: inherit;
+    }
+    .public-list-dtl-01 .public-list-traders-01.public-list-traders .agntprofile-info ul li {
+        margin: 0 0 10px;
+        display: flex;
+        width: 100%;
+    }
+    .public-list-dtl-01 .public-list-traders-01.public-list-traders .agntprofile-info ul li h4 {
+        max-width: 100%;
+    }
+    .public-list-traders.public-list-traders-03 .agntprofile-info-btn h3 {
+        margin: 0 10px 0 0;
+    }
+    .d-flex {
+        flex-wrap: wrap;
+    }
+    #page-wrapper {
+        padding-top: 62px;
+    }
+}
+
+@media(max-width:767px) {
+    .row {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .applicants-content-box {
+        flex-wrap: wrap;
+        padding: 20px 10px;
+    }
+    .applicants-content-img {
+        margin: 0 0 15px 0;
+    }
+    .applicants-content-text {
+        display: block;
+        width: 100%;
+    }
+    .applicants-content-btn {
+        margin: 10px 0 0;
+    }
+    .recommended-traders ul.perfect-trade li {
+        width: calc(50% - 16px);
+    }
+    .setting-section {
+        width: 100%;
+        padding: 0 15px;
+    }
+    #content-wrapper {
+        padding: 0;
+    }
+    .setting-section .settingPage.marT30 {
+        margin-top: 20px;
+    }
+    .settingPage.marT30 {
+        padding: 0 15px;
+    }
+    ul.nav-editprofile {
+        white-space: nowrap;
+        display: flex;
+        overflow: scroll;
+            align-items: center;
+    }
+    ul.nav-editprofile li {
+        float: none;
+    }
+    .settingPage+.col-sm-8.marT30 {
+        margin: 20px 0;
+    }
+    .theme-whbl #content-wrapper {
+        background-color: #fff;
+    }
+    .setting-section #myprofile {
+        border: 1px solid #EDEEF6;
+    }
+    .setting-section .col-lg-12.col-md-12 {
+        margin: 0;
+        width: 100%;
+    }
+    .unread-messages-section .detail {
+        width: 75%;
+    }
+    .maintenance-list .col-sm-2.col-md-2.col-lg-2 .his_img {
+        float: left;
+        margin-right: 10px
+    }
+    .project-listing-latest {
+        padding: 0;
+    }
+    .project-listing-latest>h5 {
+        margin: 0;
+        font-size: 1.6rem;
+        float: none;
+        display: block;
+        line-height: 1.5;
+    }
+    .heading-padding-zero, .button-padding-zero {
+        margin-bottom: 0;
+    }
+    .profile_btn {
+        margin: 0 auto 25px;
+        text-align: center;
+    }
+    .profile_img img {
+        border-radius: 50%;
+        background-clip: padding-box;
+        float: none;
+        height: 120px;
+        margin: 0 auto 10px;
+        width: 120px;
+        display: block;
+    }
+    .btn-updateavtar {
+        padding: 10px 20px;
+        width: 188px;
+        margin: 0 auto;
+    }
+    .profile_btn p {
+        padding: 15px 0 0;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    #myprofile .panel-body {
+        padding: 30px 0 20px;
+        border: 0;
+    }
+    #myprofile .marT30 {
+        margin-top: 0;
+    }
+    #myprofile .panel {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+    }
+    #myprofile textarea.form-control {
+        height: 150px;
+        padding: 10px;
+    }
+    ul.subscription-list {
+        margin: -10px 0 0;
+    }
+    ul.subscription-list li {
+        padding: 15px 25px 15px 15px;
+    }
+    .subscribe-btn-wrap {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .subscribe-btn-wrap a {
+        width: 100%;
+        font-size: 24px;
+        line-height: 40px;
+        padding: 10px 0 13px;
+    }
+    #subscription {
+        padding: 0;
+    }
+    .subscription-inr-box:before {
+        width: 80%;
+    }
+    .subscription-list-div {
+        padding: 0 0 0 36px;
+        background-size: 22px;
+        background-position: 0 5px;
+    }
+    .subscription-list-div h3 {
+        font-size: 15px;
+        line-height: normal;
+        margin: 0 0 10px;
+        padding: 0;
+    }
+    .subscription-list-div h4 {
+        line-height: normal;
+    }
+    .subscription-price h5 {
+        margin: 0;
+        font-size: 26px;
+    }
+    .subscription-price h6 {
+        font-size: 16px;
+        line-height: normal;
+        letter-spacing: 0;
+    }
+    .subscription-update-cancel {
+        margin: 15px 0;
+    }
+    .setting-section .panel.panel-default {
+        border: 0;
+        box-shadow: none;
+        padding: 0 10px;
+        margin-bottom: 0;
+    }
+    .default-oder .btn.btn-secondary.dropdown-toggle.togle-default {
+        background: #eee !important;
+        border: 1px solid #ddd !important;
+        padding: 6px 10px;
+        margin: 0;
+        width: 100%;
+        border-radius: 4px;
+        text-align: left;
+    }
+    .default-oder i.fa.fa-caret-down {
+        float: right;
+        margin: 4px 0 0;
+    }
+    .filtering-recent ul {
+        overflow: auto;
+        white-space: nowrap;
+    }
+    .search-keyword-wrap form {
+        flex-wrap: wrap;
+    }
+    .search-keyword-input {
+        background: #fff;
+        border: 1px solid #EDEEF6;
+        padding: 0 10px 0 47px;
+        position: relative;
+        width: 100%;
+        margin: 0 0 15px;
+    }
+    .select-option-wrap {
+        margin: 0;
+        width: 100%;
+    }
+    .maintenance-requests-div .agnt_list {
+        margin: 0 0 20px;
+        padding: 0;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, .1);
+    }
+    .maintenance-requests-div .detail.apt-list {
+        padding: 15px;
+        text-align: center
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile a img {
+        display: inline-block;
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile {
+        margin: -60px auto 10px;
+        width: 100%;
+        text-align: center;
+        z-index: 100;
+        position: relative;
+    }
+    .maintenance-requests-div .setting-section .row.ng-scope {
+        margin: 0;
+        padding: 0;
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile-info {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile-info ul {
+        justify-content: center;
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 10px auto 0;
+        justify-content: center;
+        width: 100%;
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn a {
+        margin: 0 0 10px;
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn h4 {
+        width: 100%;
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile-info ul li {
+        margin: 0 0 10px 0;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn h3 {
+        width: 100%;
+        margin: 0 0 15px;
+    }
+    .maintenance-requests-div .agnt_list .detail {
+        padding: 8px;
+        margin: -30px 0 15px;
+    }
+    .maintenance-requests-div .agnt_list .detail.apt-list {
+        margin: 0;
+    }
+    .maintenance-requests-div .cat_id {
+        word-break: break-all;
+        width: 100%;
+        display: block;
+        white-space: initial;
+        text-align: center;
+    }
+    .maintenance-requests-div .cat_id span {
+        padding: 10px 0;
+        font-size: 13px;
+        text-align: center;
+    }
+    .maintenance-requests-div .comp-right {
+        float: none;
+        width: 100%;
+        display: block;
+        vertical-align: top;
+        text-align: center;
+    }
+    .maintenance-requests-div .comp-right button {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 10px;
+        float: none;
+    }
+    .maintenance-requests-div button.mainTCounter {
+        width: 200px;
+        float: none;
+        margin: 10px auto;
+        display: block;
+        text-align: center;
+    }
+    .setting-section .board .nav-tabs>li {
+        width: 60px;
+        margin: 0 50px 0 0 !important;
+    }
+    .setting-section .board .nav-tabs>li a {
+        width: 60px;
+        height: 60px;
+        line-height: 50px;
+    }
+    .board .nav-tabs>li>a span.round-tabs {
+        width: 60px;
+        height: 60px;
+        padding-top: 2px;
+    }
+    .board>div.board-inner>.nav-tabs {
+        border: none;
+        display: flex;
+        overflow: auto;
+    }
+    .board .nav-tabs>li:after {
+        right: -41px;
+        top: 40%;
+        left: auto;
+        width: 30px;
+        position: absolute;
+        border-top: 4px dotted #E2E4ED;
+    }
+    .board {
+        width: 100%;
+        height: auto !important;
+    }
+    .main_detail span {
+        color: #7F829F;
+        font-size: 13px;
+        line-height: 20px;
+        margin: 0 0 15px;
+        width: calc(100% - 25px);
+        display: inline-block;
+        vertical-align: top;
+    }
+    .main_detail img {
+        margin-right: 5px;
+        display: inline-block;
+    }
+    .accept-apply-btn {
+        margin: 0 0 20px;
+        text-align: center;
+    }
+    .request_det p {
+        margin: 5px 0 15px 0;
+    }
+    .board .nav-tabs>li a {
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+    }
+    .job-details-process .nav.marB20>li {
+        margin: 0 30px 0 0 !important;
+    }
+    .job-details-process.board ul.nav-tabs {
+        justify-content: initial;
+        overflow: auto;
+    }
+    .setting-section .breadcrumb {
+        padding: 0px 0px 15px 0 !important;
+        width: 100%;
+        margin: 0;
+    }
+    .setting-section .breadcrumb>li {
+        margin-left: 0;
+    }
+    .setting-section .breadcrumb>li+li:before {
+        padding-right: 10px!important;
+    }
+    .white-box {
+        padding: 15px;
+        margin: 0 0 20px;
+    }
+    .amnt-container {
+        padding: 0;
+        padding-bottom: 0;
+    }
+    .attchment ul {
+        padding: 0;
+        margin: 0 -10px;
+    }
+    .white-box.attchment ul li {
+        width: calc(50% - 20px);
+        margin: 0 10px;
+    }
+    .amnt {
+        padding: 15px;
+    }
+    .conversation .row.reply {
+        align-self: initial;
+        height: auto;
+        border: 0;
+        background: #eee;
+        padding: 10px !important;
+    }
+    .scrollBar {
+        border: 1px solid #eee;
+    }
+    .conversation {
+        border: 0;
+    }
+    .maintAtt {
+        text-align: center;
+        padding: 0;
+        font-weight: 500;
+        margin: 0;
+        background: #eee;
+        padding: 30px;
+        margin: 0 0 20px;
+    }
+    .attchment+.horiLine.marT20 {
+        display: none;
+    }
+    .white-box.recommended-traders {
+        border: 0;
+        box-shadow: none;
+        padding: 8px;
+    }
+    .recommended-traders h2 {
+        margin: 0 -8px 5px;
+    }
+    .applicants-content .applicants-info {
+        flex-wrap: wrap;
+    }
+    .applicants-content .applicants-info p {
+        margin: 0 10px 10px 0;
+    }
+    .applicants-content .applicants-content-box {
+        flex-wrap: wrap;
+        padding: 0 10px;
+    }
+    .applicants-content ul {
+        margin: 0 -15px;
+    }
+    #header-navbar .nav>li>a {
+        padding: 20px 8px;
+        margin: 0;
+    }
+    #logo {
+        margin: 0;
+        padding: 12px 10px;
+    }
+    .public-list-dtl-01 .public-list-traders-01.public-list-traders .agntprofile-info ul li {
+        margin: 5px;
+        display: flex;
+        width: auto;
+    }
+    .public-list-traders.public-list-traders-03 .agntprofile-info ul li h4 {
+        width: clac(100% - 15px);
+    }
+    .maintenance-requests-div .public-list-traders-03.public-list-traders .agntprofile-info ul li {
+        margin: 0 10px 10px 0;
+        width: auto;
+    }
+    .sent1 {
+        float: none;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 0 10px;
+        padding: 5px 30px;
+    }
+    .detail .apt-list-details {
+        padding: 10px 0;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .apt-list-details ul li {
+        margin: 0 10px;
+    }
+    .cover-photo img {
+        width: auto;
+    }
+    .public-list-dtl-01 .detail.apt-list .public-list-traders {
+        padding: 0;
+    }
+    .maintenance-requests-div .public-list-traders .agntprofile-info-btn {
+        position: relative;
+    }
+    .public-list-traders-03 {
+        padding: 0;
+    }
+    .footer_link_outer_page {
+        display: block;
+        max-width: 160px;
+        margin: 10px auto 30px;
+    }
+    .container .frgtpass {
+        width: 100%;
+        padding: 20px 30px;
+    }
+    .project-listing-latest, .app-btn-grp {
+        margin-top: 0;
+    }
+    .col-sm-12.horiLine .col-sm-5 {
+        padding: 0;
+    }
+    .col-sm-12.horiLine .sort-grid {
+        float: none;
+    }
+    .col-sm-12.horiLine .sort-grid .dropdown.default-oder {
+        float: left;
+        width: 60%;
+        margin: 0;
+    }
+    .col-sm-12.horiLine .sort-grid span {
+        padding: .5rem 0 0;
+        display: inline-block;
+        vertical-align: top;
+    }
+    #header-navbar .profile-dropdown>a>img {
+        height: 34px;
+        margin: -5px 5px 0 0;
+        width: 34px;
+    }
+    .setting-section .board {
+        margin-top: 0;
+    }
+    .scrollBar {
+        height: auto;
+        max-height: 350px;
+        min-height: 80px;
+    }
+    .setting-refine-search .project-listing-latest {
+        margin: 0;
+    }
+    .TenanciesButtons {
+        margin: 0 !important;
+        padding: 0;
+        text-align: left;
+    }
+    .TenanciesButtons button.btn {
+        margin: .5rem .2rem .5rem 0;
+    }
+    .TenanciesButtons a.btn {
+        margin: .5rem .2rem .5rem 0;
+    }
+    .setting-refine-search button.btn.refine {
+        margin-left: 0;
+    }
+    .setting-refine-search .btn.btn-secondary.dropdown-toggle.togle-default {
+        margin: 0;
+        width: 100%;
+        border: 0 !important;
+        text-align: left;
+    }
+    .detail.apt-list {
+        padding: 1rem 0;
+    }
+    .detail.agreement a {
+        margin: 0 15px;
+    }
+    .apt-list-details ul {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        margin: 0 -10px;
+    }
+    .detail .apt-list-details {
+        padding: 10px 0 0;
+    }
+    .agnt_list {
+        margin: 0 0 15px;
+        padding: 0 15px;
+    }
+    .nav-no-collapse.pull-right {
+        padding-right: 35px;
+    }
+    .NotificationImg img {
+        width: 70px;
+        height: 70px;
+        border-radius: 100px;
+    }
+    .NotificationImg {
+        top: .8rem;
+        left: .8rem;
+        width: 70px;
+        height: 70px;
+    }
+    .NotificationlistBox {
+        padding: 1rem 1rem 1rem 8rem;
+    }
+    .NotificationlistBox .time {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin: 0 0 .5rem;
+        text-align: left;
+    }
+    .profile-menu {
+        padding: 30px 20px 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
+    .profile-header .btn-switch {
+        margin: .6rem 0 0;
+    }
+    .profile-header {
+        padding-bottom: 10px;
+    }
+    .profile-links ul {
+        padding: 1.2rem 0 0;
+    }
+    #thepopupdiv {
+        top: 0;
+        height: 100%;
+    }
+    .TenantListBtn {
+        text-align: left;
+    }
+    .TenantListBtn button {
+        margin-bottom: 8px;
+    }
+    .review_overall {
+        padding: 0 0 1rem;
+    }
+    .review_overall .col-lg-9 {
+        padding: 0;
+    }
+    .project-detail h5 {
+        margin: 0;
+    }
+    .ContentHead {
+        margin: 0 0 .5rem;
+        flex-wrap: wrap;
+    }
+    .ContentHead h2 {
+        margin-bottom: 1rem;
+        width: 100%;
+        /* padding-left: 28px; */
+    }
+     .ContentHead .header-left-mr{
+        padding-left: 28px;
+     }
+    .theme-whbl #header-navbar .nav>li.profile-dropdown>a .default_35 {
+    height: 34px;
+    margin: -5px 5px 0 0;
+    width: 34px;
+}
+    .ContentHead .TenanciesButtons .btn {
+        margin: 0 .5rem .5rem 0;
+    }
+    .AgentListBox .agnt_list {
+        padding: 15px 0 0;
+        flex-wrap: wrap;
+        margin: 0;
+    }
+    .AgentListBox .agnt_mainImg {
+        margin: 0 0 .5rem;
+    }
+    .dropdown-menu {
+        min-width: 100%;
+    }
+    .other-action {
+        text-align: left;
+    }
+    .other-action button {
+        margin: 0 .5rem .5rem 0;
+    }
+    .calendarCursor .fc-toolbar {
+        margin: 1em 0;
+    }
+    .calendarCursor .fc-toolbar .fc-left {
+        width: auto;
+    }
+    .calendarCursor .fc-left h2 {
+        margin: 0;
+        padding: 0;
+        line-height: 34px;
+    }
+    .home-pg.dashboard-calendar-sec .cal_title {
+        padding-left: 0;
+    }
+    .DisputesWrap {
+        padding: 0;
+    }
+    .DisputesWrap .col-sm-2.col-xs-12 {
+        padding: 0;
+        clear: initial;
+        float: left;
+        width: 50px;
+    }
+    .DisputesWrap .col-sm-2.col-xs-12 img {
+        margin: 0;
+    }
+    .DisputesWrap .detail.apt-list {
+        padding: 0 0 0 1rem;
+        width: calc(100% - 70px) !important;
+    }
+    .DisputesWrap .detail.apt-list .row {
+        margin: 0;
+    }
+    .DisputesWrap .detail.apt-list .row .col-sm-11 {
+        padding: 0;
+    }
+    .DisputesWrap .detail.apt-list .row+.row {
+        text-align: right;
+    }
+    .price-sec .price h4 {
+        text-align: left;
+    }
+    .price-sec .days, .price-sec .price {
+        padding-left: 60px;
+        text-align: left;
+    }
+    .sort-grid {
+        display: flex;
+        width: 100%;
+    }
+    .sort-grid .dropdown.default-oder {
+        width: calc(100% - 70px);
+        margin: 0;
+    }
+    .sort-grid .view-as {
+        margin: 0 0 0 auto;
+        padding: 5px 0 0;
+    }
+    .filtering-recent {
+        width: 100%;
+        margin: .8rem 0;
+    }
+    .dropdown.default-oder {
+        float: left;
+        width: 100%;
+        margin: 0;
+    }
+    #content-wrapper {
+        width: 100%;
+    }
+    .alert {
+        padding: 10px;
+        font-size: 14px;
+    }
+    .thread-top {
+        padding-top: 0;
+    }
+    .maintenance-list.col-lg-12>div {
+        padding: 0;
+    }
+    .btn-property {
+        padding: 7px 12px 7px 8px;
+    }
+    .ContentHead .TenanciesButtons .btn {
+        margin-right: 0;
+    }
+    .maintenance-list.col-lg-12 {
+        padding: 20px 0px 10px;
+    }
+    .maintain-request span, .maintain-category span {
+        word-break: break-all;
+        white-space: initial;
+    }
+    .my-property-content_listview {
+        height: auto;
+    }
+    .statistics-sec .stats {
+        margin: 0 0 12px 0;
+    }
+    .property-details.bottom-position-set {
+        position: relative;
+        width: 100%;
+        bottom: 0;
+        margin-top: 0;
+    }
+    .property-details.bottom-position-set tr td {
+        vertical-align: middle;
+    }
+    .pad-zero {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .profile-header-cstm .cover-photo img {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .profile-header-cstm .profile-info-header {
+        width: 100%;
+        padding: 0 15px;
+        margin-top: 15px;
+        margin-top: -27px;
+    }
+    .profile-header-cstm .profile_det {
+        top: 32px;
+    }
+    .profile-header-cstm .profile-pic .inspection {
+        margin-top: 0;
+    }
+    .profile-header-cstm .profile_inspection_detail {
+        padding: 15px;
+    }
+    .profile-header-cstm .right-side-btns {
+        margin-top: 0;
+    }
+    .carousel-inner.cont-slider {
+        width: 100%!important;
+    }
+    .property_Detail_new .article-slide .carousel-indicators {
+        height: auto;
+    }
+    .slick-next {
+        right: -15px;
+    }
+    .slick-prev {
+        left: -15px;
+    }
+    .property-content_listview .property-title h4:After {
+        content: " ";
+        display: block;
+        clear: both;
+    }
+    .property-content_listview .property-title h4 {
+        height: auto;
+    }
+    .property-content_listview .property-address {
+        max-height: initial;
+        margin-top: 0;
+        margin-bottom: 15px;
+        height: auto;
+    }
+    .property-details td {
+        padding-right: 15px;
+    }
+    .property-details {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .property-content_listview {
+        height: auto;
+    }
+    .property-title {
+        margin-bottom: 0;
+    }
+    .img_list .property-img1 img {
+        border-radius: 5px;
+    }
+    .review {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .nav-tabs.set-background-color {
+        padding: 0px 15px;
+    }
+    .tab-review-cstm .maintain-request-sec {
+        margin: 0;
+    }
+    .tab-review-cstm .review_list>div {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .tab-review-cstm .review_list {
+        padding-bottom: 0;
+    }
+    .tab-review-cstm .rating.raging-left-align {
+        font-size: 14px;
+    }
+    .tab-review-cstm .rew_img.new-images-set {
+        text-align: left;
+    }
+    .tab-review-cstm .rew_img1 {
+        text-align: left;
+    }
+    .review-response {
+        padding-left: 20px;
+    }
+    .review-response>div {
+        padding: 0;
+    }
+    .s-section-left {
+        padding: 0;
+    }
+    .btn-mobile-property {
+        display: flex;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width:767px){
+    .nav-editprofile li.active {margin-top: 0;}  
+}
+
+@media(max-width:499px) {
+    .recommended-traders ul.perfect-trade li {
+        margin: 0 0 15px;
+        width: 100%;
+        padding: 0;
+    }
+    #logo {
+        margin: 0;
+        padding: 12px 8px;
+    }
+    .public-list-traders.public-list-traders-03 .agntprofile-info-btn h3 {
+        margin: 0 0 10px 0;
+    }
+    
+}

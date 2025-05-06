@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="9px" height="16px" viewBox="0 0 9 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>dollar</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-weight="400" font-family="Roboto-Medium, Roboto" line-spacing="21" font-size="16">
+        <g id="Dispute" transform="translate(-38.000000, -396.000000)" fill="#B1B3C5">
+            <g id="dollar" transform="translate(38.000000, 394.000000)">
+                <text id="$">
+                    <tspan x="0" y="15">$</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

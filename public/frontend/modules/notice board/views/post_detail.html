@@ -1,0 +1,211 @@
+<div id="mycontroller" class="container" ng-init="postNoticeDetailPage()">
+  <div class="row">
+    <div class="setting-section">
+
+      <div class="col-sm-4 strata_Pdetl marT30">
+        <h4 class="marB30 ">Announcement : {{noticePost.title}}</h4>
+        <p>{{noticePost.description}}</p>
+        <div class="row marT20 marB20">
+          <div class="col-sm-1">
+            <img src="assets/images/property-id.svg" alt="property id" class="marker">
+          </div>
+          <div class="col-sm-10">
+            <span>{{noticePost.noticeboard_id.property_id_arr[0].address}}</span>
+          </div>
+          <!-- <div class="col-sm-5">
+            <img src="assets/images/Tenants icons.svg" alt="calendar" class="tradimg">
+            <span>20 members</span>
+          </div> -->
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="tags clearfix">
+              <ul>
+                <li ng-repeat="(key,allowedRole) in noticePost.assign_to_roles">
+                  <span>{{allowedRole.role_id.description}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="horiLine marB20"></div>
+        <div class="toggleSwitch">
+          <label class="switch">
+            <input checked="" type="checkbox" ng-model="noticePost.enable_thread_post">
+            <span class="slider round"></span>
+          </label>
+          <p ng-show="noticePost.enable_thread_post==true">Yes, allow thread</p>
+          <p ng-show="noticePost.enable_thread_post==false">No, not allow thread</p>
+        </div>
+        <div class="horiLine marT20"></div>
+        <div ng-show="noticePost.createdby == userId">
+          <button class="btn btn-cancel pointer"
+            ng-click="deletePost(noticePost._id,noticePost.noticeboard_id._id)">Delete</button>
+          <button class="btn btn-property" ng-click="openEditPost()">Edit post</button>
+        </div>
+      </div>
+
+      <div class="col-sm-8 marT30">
+
+        <div class="conversation">
+          <!-- <div class="row heading">
+            <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+              <div class="heading-avatar-icon inspection">
+                <img src="assets/images/no_image.png">
+                <span class="colorGreen"></span>
+              </div>
+            </div>
+            <div class="col-sm-8 col-xs-7 heading-name">
+              <a class="heading-name-meta">John Doe </a>
+              <p> Tenant | Property ID : 10025111</p>
+            </div>
+          </div> -->
+          <div class="row message" id="conversation">
+            <div class="row message-body" ng-init="chatInitialize()">
+              <div ng-repeat="message in privateMessage">
+                <div class="row message-body" ng-if="message.from._id!=loggedInUserId">
+                  <div class="col-sm-2 col-xs-2 text-center">
+                    <div class="">
+                      <img ng-if="message.from.image" height="50px" width="50px" class="img-circle"
+                        ng-src="{{userImageUrl}}{{message.from.image}}" src="assets/images/george.png">
+                      <div ng-show="!message.from.image.length>0 || !message.from.image" class="default_35 margin">
+                        {{message.from.firstname.charAt(0).toUpperCase()}}{{message.from.lastname.charAt(0).toUpperCase()}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-10 col-xs-10 message-main-receiver">
+                    <div class="receiver">
+                      <div ng-if="!message.is_file" class="message-text">
+                        {{message.msg}}
+                      </div>
+                      <div ng-if="message.is_file" class="file_msg message-text">
+                        <a href="{{baseUrl}}{{message.document_path}}" target="_blank">{{message.msg}}</a>
+                        <p>{{message.size}} kb</p>
+                        <p>
+                          <i class="fa fa-file"></i> File</p>
+                        <div class="horiLine"></div>
+                        <div class="text-center">
+                          <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                            <span>Open</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <span class="message-time pull-left"> {{message.time|date}} </span>
+                  </div>
+                </div>
+                <div class="row message-body" ng-if="message.from._id==loggedInUserId">
+                  <div class="col-sm-2 col-xs-2 pull-right  text-center">
+                    <div class="">
+                      <img ng-if="message.from.image" height="50px" width="50px" src="assets/images/george.png"
+                        class="img-circle" ng-src="{{userImageUrl}}{{message.from.image}}">
+                      <div ng-show="!message.from.image.length>0 || !message.from.image" class="default_35 margin">
+                        {{message.from.firstname.charAt(0).toUpperCase()}}{{message.from.lastname.charAt(0).toUpperCase()}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-10 col-xs-10 message-main-sender">
+                    <div class="sender">
+                      <div ng-if="!message.is_file" class="message-text">
+                        {{message.msg}}
+                      </div>
+                      <div ng-if="message.is_file" class="file_msg message-text">
+                        <a target="_blank"> {{message.msg}}</a>
+                        <p>{{message.size}} kb</p>
+                        <p>
+                          <i class="fa fa-file"></i> File </p>
+                        <div class="horiLine"></div>
+                        <div class="text-center">
+                          <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                            <span>Open</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <span class="message-time"> {{message.time|date}} </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row message-body">
+                <div ng-if="privateMessage.length==0"
+                  style="margin-top:25%;text-align:center;margin-right:1%;margin-left:1%"
+                  class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                  <strong>No Chat initaited Yet!</strong>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row message-body">
+                <div class="col-sm-2 col-xs-2">
+                  <div class="">
+                    <img src="assets/images/george.png">
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xs-10 message-main-receiver">
+                  <div class="receiver">
+                    <div class="message-text">
+                      Hi, what are you doing?!
+                    </div>
+                  </div>
+                  <div class="receiver_nrml">
+                    <div class="message-text">
+                      Hi, what are you doing?!
+                    </div>
+                  </div>
+
+                  <span class="message-time pull-left"> 11:22 AM       </span>
+                </div>
+              </div> -->
+
+            <!-- <div class="status"> <h2><span>Today</span> </h2> </div> -->
+
+            <!-- <div class="row message-body">
+                <div class="col-sm-2 col-xs-2 pull-right">
+                  <div class="">
+                    <img src="assets/images/george.png">
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xs-10 message-main-sender">
+                  <div class="sender">
+                    <div class="message-text">
+                      I am doing nothing man!
+                    </div>
+                  </div>
+                  <span class="message-time">  11:22 AM </span>
+                </div>
+
+              </div> -->
+          </div>
+          <div class="row reply">
+            <div class="col-sm-10 col-xs-12 reply-main">
+              <textarea id="example1" ng-model="chat.generalMsg" class="form-control" rows="1"
+                placeholder="Type your message" enter-submit="send_message(chat.generalMsg)"></textarea>
+              <!-- <div class="reply-emojis">
+                <i class="fa fa-smile-o fa-2x"></i>
+              </div> -->
+              <div class="reply-emojis">
+                <button class="btn btn-pic" type="file" ngf-select="uploadFile($file)" ngf-max-height="1000"
+                  ngf-max-size="1MB">
+                  <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-2 col-xs-12 reply-send">
+              <button id="messageSent" ng-click="send_message(chat.generalMsg);" type="submit"
+                class="btn btn-property">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#example1").emojioneArea();
+    $('#messageSent').click(function () {
+      $('.emojionearea-editor').empty();
+    });
+  });
+</script>

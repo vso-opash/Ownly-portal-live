@@ -1,0 +1,708 @@
+<div class="container">
+  <div class="row">
+    <div class="setting-section">
+      <div class="rent_popup">
+        <!-- <span class="close">&times;</span> -->
+        <h3>Agreement details</h3>
+
+        <div class="rental_case"
+          ng-init="getAgencyProperty();addAgreementInit();reInitializeTinymce();getAllTenantFromDatabase();">
+          <!-- <h4> Rental case number : 102</h4> -->
+          <form novalidate="" name="agreementForm">
+            <div class="row  marT20">
+              <!-- Property address will be here -->
+              <!-- <div class="col-xs-12 col-sm-12 col-md-12"> -->
+              <!-- <div class="form-group text-left"> -->
+              <!-- <label class="control-label" for="product_categorie">Select property
+                    <font color="Red">*</font>
+                  </label> -->
+
+              <!-- <select name="selectProperty" ng-model="agreement.property_id"
+                    ng-change="getTenants();getPropertyOwner(agreement.property_id)" name="created_by"
+                    class="form-control" required>
+                    <option value="" disabled>Select Property </option>
+                    <option ng-repeat="(key,property) in propertyList" value="{{property}}">{{property.address}}
+                    </option>
+                  </select> -->
+
+              <!-- *********************** -->
+              <!-- getTenants(); -->
+              <!-- <ui-select ng-model="agreement.property_id" ng-required="true"
+                    ng-change="getPropertyOwner(agreement.property_id)">
+                    <ui-select-match placeholder="Select property">
+                      {{$select.selected.address | limitTo:80}} {{$select.selected.address.length>80?"...":""}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="item in propertyList">
+                      <div class="row">
+                        <div class="col-sm-1">
+                          <img class="img-circle drop_down_agree"
+                            ng-if="item.image[0].path && item.image[0].is_from_my_file==false && item.image[0].is_from_csv_file==false"
+                            src="{{propertyImageUrl}}thumb/{{item.image[0].path}}" alt="propimg">
+                          <img class="img-circle drop_down_agree"
+                            ng-if="item.image[0].path && item.image[0].is_from_my_file==true  && item.image[0].is_from_csv_file==false"
+                            src="{{agreementFileImageUrl}}{{item.image[0].path}}" alt="propimg">
+                          <img class="img-circle drop_down_agree"
+                            ng-if="item.image[0].path && item.image[0].is_from_csv_file==true && item.image[0].is_from_my_file==false"
+                            src="{{item.image[0].path}}" alt="propimg">
+                          <img class="img-circle drop_down_agree" ng-if="!item.image[0].path"
+                            src="assets/images/placeholder.jpg">
+                        </div>
+                        <div class="col-sm-4">
+                          <div ng-bind-html="item.address " class="select_user_drop"></div>
+                          <small>Property Id: {{item.property_id}}</small>
+                        </div>
+                      </div>
+                    </ui-select-choices>
+                  </ui-select> -->
+
+
+
+              <!-- <span class="error-span inner-error ng-binding "
+                    ng-show="agreementForm.selectProperty.$error.required && agreementForm.selectProperty.$touched "
+                    class="error-span inner-error ng-binding ">
+                    <font style="font-size: 13px;" color="Red">Select property is required</font>
+                  </span> -->
+              <!-- </div> -->
+              <!-- <span ng-show="agreementForm.selectProperty.$error.required && agreementForm.selectProperty.$touched" class="error-span inner-error ng-binding">
+                  <font style="font-size: 13px;" color="Red">This field is required</font>
+                </span> -->
+              <!-- </div> -->
+
+
+
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group text-left">
+                  <label class="control-label" for="property_add">Property Address
+                    <font color="Red">*</font>
+                  </label>
+                  <span class="search-ic"><input name="address1" googleplace ng-maxlength="200" class="form-control"
+                      ng-model="agreement.property_add" type="text" placeholder="" ng-change="addressInitialize()"
+                      required></span>
+                  <input id="latitude" type="hidden" name="latitude" ng-model="agreement.location_latitude"
+                    class="form-control" value="{{agreement.location_latitude}}">
+
+                  <input id="longitude" type="hidden" name="longitude" ng-model="agreement.location_longitude"
+                    class="form-control" value="{{agreement.location_longitude}}">
+                </div>
+              </div>
+
+
+
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group text-left">
+                  <label class="control-label" for="property_owner">Property owner email
+                    <font color="Red">*</font>
+                  </label>
+                  <!-- <input type="text" ng-maxlength="254" name="property_owner" ng-model="addUserData.property_owner"
+                    ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+                    class="form-control " placeholder="" required>
+                  <span class="error-span inner-error ng-binding "
+                    ng-show="createUserForm.property_owner.$error.pattern && createUserForm.property_owner.$touched "
+                    class="error-span inner-error ng-binding ">
+                    <font color="Red">Please enter proper email address</font>
+                  </span>
+                  <span ng-show="createUserForm.property_owner.$error.maxlength"
+                    class="error-span inner-error ng-binding">
+                    <font color="Red">Max 254 characters allowed.</font>
+                  </span>
+                  <span
+                    ng-show="createUserForm.property_owner.$touched && createUserForm.property_owner.$error.required"
+                    class="error-span inner-error ng-binding">
+                    <font color="Red">Email is required.</font>
+                  </span> -->
+
+                  <input name="property_owner" class="form-control" ng-model="agreement.property_owner"
+                    ng-maxlength="254" type="text"
+                    ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required>
+                  <span style="white-space: nowrap;" class="text-danger"
+                    ng-show="agreementForm.property_owner.$error.pattern">
+                    <font color="Red" style="font-size: 13px;">Please enter valid email address</font>
+                  </span>
+                  <span style="white-space: nowrap;" ng-show="agreementForm.property_owner.$error.maxlength"
+                    class="error-span inner-error ng-binding">
+                    <font color="Red" style="font-size: 13px;">Max 254 characters allowed.</font>
+                  </span>
+
+
+
+                  <!-- <select id="product_categorie1" name="product_categorie" class="form-control"
+                    placeholder="Property owner">
+                    <option value=owner._id>{{owner.fullname}}</option>
+                  </select> -->
+
+
+
+                </div>
+              </div>
+            </div>
+            <div class="horiLine marT20"></div>
+            <!-- <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group text-left">
+                  <label class="control-label" for="settingFName">Address of services of notices (can be an agent's
+                    address):
+                    <font color="Red">*</font>
+                  </label>
+                  <input name="address1" googleplace ng-maxlength="200" class="form-control"
+                    ng-model="agreement.address_service_notice1" type="text"
+                    placeholder="Address of services of notices">
+
+                  <span ng-show="agreementForm.address1.$error.maxlength" class="error-span inner-error ng-binding">
+                    <font style="font-size: 13px;" color="Red">Max 200 characters are allowed in Address of services of
+                      notices field</font>
+                  </span>
+
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group text-left Agree_addtenant">
+                  <label class="control-label" for="product_categorie">Add tenant email (you can add more than 1, comma
+                    separated)
+                    <font color="Red">*</font>
+                  </label>
+                  <tags-input ng-model="agreement.tenantArray" placeholder="Add a Tenant" required></tags-input>
+                  <!-- {{agreement.tenantArray}} -->
+                  <!-- <input name="settingFName" class="form-control" type="text" placeholder="saerch anything">
+                            <i class="fa fa-search" aria-hidden="true"></i></input> -->
+                  <!-- ng-click="calledTenantList(agreement.property_id)" -->
+                  <!-- <div class="form-group text-left" isteven-multi-select input-model="tenantList"
+                    output-model="newArray2" button-label="firstname lastname" item-label="firstname lastname"
+                    tick-property="ticked" required>
+                  </div> -->
+                  <!-- <div ng-if="newArray2.length>0" class="col-xs-12 col-sm-12 col-md-12 tags">
+                    <ul>
+                      <li ng-repeat="(key,value) in newArray2">
+                        <img ng-src="{{userImageUrl}}{{value.image}}" src="assets/images/no_image.png" alt="img">
+                        <span>{{value.firstname}} {{value.lastname}}</span>
+                  </li>
+                  </ul>
+                </div> -->
+                  <!-- <span ng-show="noTenant" class="error-span inner-error ng-binding">
+                    <font style="font-size: 13px;" color="Red">No tenant is associated with this property</font>
+                  </span>
+                  <span ng-show="propertyAss" class="error-span inner-error ng-binding">
+                    <font style="font-size: 13px;" color="Red">First select property</font>
+                  </span> -->
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group text-left">
+                  <label class="control-label" for="product_categorie">Term of this agreement is
+                    <font color="Red">*</font>
+                  </label>
+                  <select id="product_categorie1" ng-init="agreement.terms = '1'" name="product_categorie"
+                    ng-change="agreementTermChanged(agreement.terms,agreement.tenancy_start_date)"
+                    ng-model="agreement.terms" class="form-control">
+                    <option value="1" selected>6 Months</option>
+                    <option value="2">Yearly</option>
+                  </select>
+                </div>
+              </div> -->
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group text-left">
+                  <label class="control-label" for="settingFName">Tenancy start date
+                    <font color="Red">*</font>
+                  </label>
+                  <!-- <input name="tenancystart" valid-date class="form-control" ng-model="agreement.tenancy_start_date" type="date">
+                  <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                  </input>
+                  <span class="text-danger" ng-show="agreementForm.tenancystart.$error.date">
+                    <font color="Red">Not a valid date.</font>
+                  </span> -->
+
+                  <div type="text" class="form-control "
+                    ng-change="agreementTermChanged(agreement.terms,agreement.tenancy_start_date)"
+                    placeholder="Created From" uib-datepicker-popup name="date" ng-model="agreement.tenancy_start_date"
+                    is-open="popup2.opened" datepicker-options="dateOptions" close-text="Close">
+                    {{agreement.tenancy_start_date|date}}
+                  </div>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default blueBtn agreeCal cal_color" ng-click="open2()">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+              <!-- <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group text-left">
+                  <label class="control-label" for="settingFName">Rental case validity
+                    <font color="Red">*</font>
+                  </label>
+                  <div type="text" class="form-control " placeholder="Created To" ng-click="openEndDate()" readonly
+                    uib-datepicker-popup name="date" ng-model="agreement.case_validity" is-open="popupEnd.opened"
+                    datepicker-options="dateOptions2" close-text="Close">
+                    {{agreement.case_validity|date}}
+                  </div>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default blueBtn agreeCal" ng-click="openEndDate()">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </div>
+                <span class="text-danger" ng-show="agreement.case_validity<agreement.tenancy_start_date">
+                  <font color="Red">Rental case validity has to greater Tenancy start date.</font>
+                </span>
+              </div> -->
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group text-left">
+                  <label class="control-label" for="product_categorie">Tenancy End Date
+                    <font color="Red">*</font>
+                  </label>
+                  <div type="text" class="form-control" placeholder="Created From" uib-datepicker-popup name="date"
+                    ng-model="agreement.tenancy_length" is-open="popup3.opened" datepicker-options="dateOptions2"
+                    close-text="Close">
+                    {{agreement.tenancy_length|date}}
+                  </div>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default blueBtn agreeCal cal_color" ng-click="open3()">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                  <!-- <select id="product_categorie1" ng-init="agreement.tenancy_length = '1'" name="tenancyLength"
+                    ng-model="agreement.tenancy_length" class="form-control" placeholder="Add as new tenant" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select> -->
+                </div>
+              </div>
+
+              <div class="col-xs-6 col-sm-3 col-md-3">
+                <div class="form-group text-left">
+                  <label class="control-label label-one">Rent($)
+                    <font color="Red">*</font>
+                  </label>
+                  <input name="rent" class="form-control" ng-pattern="/^[0-9]*$/" min="0"
+                    ng-change="getBondValidationValue(agreement.rent_price,agreement.rental_period,agreement.rent_bond_price);"
+                    ng-maxlength="10" ng-model="agreement.rent_price" type="text" required>
+                  <span style="white-space: nowrap;" class="text-danger" ng-show="agreementForm.rent.$error.pattern">
+                    <font color="Red" style="font-size: 13px;">Only positive numbers are allowed in Rent field</font>
+                  </span>
+                  <span style="white-space: nowrap;" ng-show="agreementForm.rent.$error.maxlength"
+                    class="error-span inner-error ng-binding">
+                    <font color="Red" style="font-size: 13px;">Max 10 digits are allowed in Rent field</font>
+                  </span>
+                </div>
+
+              </div>
+
+              <div class="col-xs-6 col-sm-3 col-md-3">
+                <div class="form-group text-left">
+                  <label class="control-label label-one" for="product_categorie"></label>
+                  <select ng-init="agreement.rental_period = '1'"
+                    ng-change="getBondValidationValue(agreement.rent_price,agreement.rental_period,agreement.rent_bond_price);"
+                    id="product_categorie1" name="product_categorie" ng-model="agreement.rental_period"
+                    class="form-control" placeholder="Add as new tenant" required>
+                    <option value="1" selected>Monthly</option>
+                    <option value="2">Yearly</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group text-left">
+                  <label class="control-label" for="settingFName">Payable in advance starting on
+                    <font color="Red">*</font>
+                  </label>
+                  <!-- <input valid-date name="payable" class="form-control" ng-model="agreement.payable_advance_start_on" type="date">
+                  <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                  </input>
+                  <span class="text-danger" ng-show="agreementForm.payable.$error.date">
+                    <font color="Red">Not a valid date.</font>
+                  </span> -->
+                  <div type="text" class="form-control " placeholder="Created From" uib-datepicker-popup name="date"
+                    ng-model="agreement.payable_advance_start_on" is-open="popupPay.opened"
+                    datepicker-options="dateOptionsPayable" close-text="Close">
+                    {{agreement.payable_advance_start_on|date}}
+                  </div>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default blueBtn agreeCal" ng-click="openPayable()">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group text-left">
+                  <label class="control-label" for="settingFName">Address of services of notices </label>
+                  <input placeholder="Enter a location" name="address2" googleplace ng-maxlength="200"
+                    class="form-control" ng-model="agreement.address_service_notice2" type="text">
+                  <span ng-show="agreementForm.address2.$error.maxlength" class="error-span inner-error ng-binding">
+                    <font color="Red" style="font-size: 13px;">Max 200 characters are allowed in Address of services of
+                      notices field</font>
+                  </span>
+                </div>
+
+              </div>
+            </div> -->
+
+            <!-- <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group text-left">
+                  <label class="control-label" for="settingFName">Tenancy inclusions (ie. a common parking space or
+                    furniture provided.)</label>
+                  <textarea name="inclusion" aw-limit-length="1000"
+                    ng-keyup="tenancyInclusionLimit(agreement.tenancy_inclusion.length)" ng-maxlength="1000"
+                    class="form-control" type="text" ng-model="agreement.tenancy_inclusion"
+                    placeholder="One item per line"></textarea>
+                  <span ng-show="agreementForm.inclusion.$error.maxlength" class="error-span inner-error ng-binding">
+                    <font color="Red" style="font-size: 13px;">Max 1000 characters are allowed in Tenancy inclusions
+                      field</font>
+                  </span>
+                </div>
+
+                <p class="agree_create_tenancy_in">Left:
+                  <span>
+                    <font color="Red">{{1000-agreement.tenancy_inclusion.length}}</font>
+                  </span>
+                </p>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="para">
+                  <!-- <h4>The method by which rent must be paid:</h4>
+                  <p class="form-inline">(a) to
+                    <font color="Red">*</font>
+                    <input type="text" name="rentTo" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="50" class="input_Line"
+                      ng-model="agreement.rent_paid_to" placeholder="Owner name"> at
+
+
+                    <font color="Red">*</font>
+                    <input placeholder="Receiving address" ng-maxlength="250" type="text"
+                      ng-pattern="/^[a-zA-Z0-9-.'#()&,'' ]*$/" class="input_Line" name="rentPaidAt"
+                      ng-model="agreement.rent_paid_at"> by cash or cheque, or
+                    <span ng-show="agreementForm.rentTo.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 50 characters are allowed in Owner name field</font>
+                    </span>
+                    <span class="error-span inner-error ng-binding" ng-show="agreementForm.rentTo.$error.pattern"
+                      class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Only characters are allowed in Owner name field</font>
+                    </span>
+
+                    <span ng-show="agreementForm.rentPaidAt.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 250 characters are allowed in Receiving address field</font>
+                    </span>
+                    <span class="text-danger" ng-show="agreementForm.rentPaidAt.$error.pattern">
+                      <br />
+                      <font color="Red">Only characters are allowed in Receiving address field</font>
+                    </span>
+                  </p>
+
+                  <p> (b) into the following account, or any other account nominated by the landlord : </p>
+                  <p>BSB number :
+                    <input placeholder="Bank code" ng-maxlength="6" ng-pattern="/^[0-9]*$/" name="bsb_number"
+                      type="text" class="input_Line" ng-model="agreement.bsb_number"> account number :
+                    <input placeholder="Account number" type="text" ng-maxlength="16" ng-pattern="/^[0-9]*$/"
+                      class="input_Line" name="accno" ng-model="agreement.account_number">
+
+                    <span class="text-danger" ng-show="agreementForm.bsb_number.$error.pattern">
+                      <br />
+                      <font color="Red">Only positive numbers are allowed in Bank code field</font>
+                    </span>
+                    <span ng-show="agreementForm.bsb_number.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 6 digits are allowed in Bank code field</font>
+                    </span>
+
+                    <span ng-show="agreementForm.accno.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 16 characters are allowed in Account number field</font>
+                    </span>
+                    <span class="text-danger" ng-show="agreementForm.accno.$error.pattern">
+                      <br />
+                      <font color="Red">Only positive numbers are allowed in Account number field</font>
+                    </span>
+                  </p>
+                  <p>account name :
+                    <input placeholder="Account holder name" ng-maxlength="64" name="accname" type="text"
+                      ng-pattern="/^[a-zA-Z .']*$/" class="input_Line" ng-model="agreement.account_name">
+                    <span ng-show="agreementForm.accname.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 64 characters are allowed in Account holder name field</font>
+                    </span>
+                    <span class="text-danger" ng-show="agreementForm.accname.$error.pattern">
+                      <br />
+                      <font color="Red">Only characters are allowed in Account holder name field</font>
+                    </span>
+                  </p>
+
+                  <p>payment reference :
+                    <input placeholder="Cash/Cheque" name="reference" type="text" ng-maxlength="16"
+                      ng-pattern="/^[a-zA-Z ]*$/" class="input_Line" ng-model="agreement.payment_reference"> , or
+                    <span ng-show="agreementForm.reference.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 16 characters are allowed in Cash/Cheque field</font>
+                    </span>
+                    <span class="text-danger" ng-show="agreementForm.reference.$error.pattern">
+                      <br />
+                      <font color="Red">Only characters are allowed in Cash/Cheque field</font>
+                    </span>
+                  </p>
+                  <p>(c) as follows :
+                    <input name="follow" type="text" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="50" class="input_Line"
+                      ng-model="agreement.follow_as" />
+                    <span ng-show="agreementForm.follow.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 50 characters are allowed in as follows field</font>
+                    </span>
+                    <span class="text-danger" ng-show="agreementForm.follow.$error.pattern">
+                      <br />
+                      <font color="Red">Only characters are allowed in as follows field</font>
+                    </span>
+
+
+
+                  </p>
+                  <p class="marT30">
+                    <span> Note: The landlord or landlord's agent must permit the tenant to pay the rent by at least
+                      one means for
+                      which the tenant does not incur a cost (other than bank or other account fees usually payable for
+                      the
+                      tenant's transactions) and that is reasibably available to the tenant.
+                    </span>
+                  </p>
+
+
+
+                  <h4 class="marT30">RENTAL BOND[cross out if there is not going to be around] :</h4>
+                  <p>A rental bond of
+                    <font color="Red">*</font>$
+                    <input placeholder="Amount(Monthly)" type="text"
+                      ng-change="checkBondValue(agreement.rent_bond_price);" ng-maxlength="10" class="input_Line"
+                      name="bond" ng-pattern="/^[0-9]*$/" min="0" ng-model="agreement.rent_bond_price">
+                    must be paid by the tenant on signing this agreement.
+                    <span class="text-danger" ng-show="agreementForm.bond.$error.pattern">
+                      <br />
+                      <font color="Red">Only positive numbers are allowed in Amount(Monthly) field</font>
+                    </span>
+                    <span ng-show="agreementForm.bond.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 10 digits are allowed in Amount(Monthly) field</font>
+                    </span>
+                    <span ng-show="bondError" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Rental bond amount should be less than or equal to monthly rent</font>
+                    </span>
+
+                  </p>
+
+                  <p>The amount of the rental bond must not be more than 4 weeks rent.</p>
+
+                  <h4 class="marT30">Maximum number of occupants</h4>
+                  <p> No more than
+                    <input placeholder="N occupant(s)" type="text" ng-maxlength="2" name="occupant"
+                      ng-model="agreement.number_of_occupants" ng-pattern="/^[0-9]*$/" min="0" class="input_Line">
+                    occupant(s) may ordinarily live in the
+                    premises at one time.
+                    <span class="text-danger" ng-show="agreementForm.occupant.$error.pattern">
+                      <br />
+                      <font color="Red">Only positive numbers are allowed in N occupant(s) field</font>
+                    </span>
+                    <span ng-show="agreementForm.occupant.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 2 digits are allowed in N occupant(s) field</font>
+                    </span>
+                  </p>
+                  <h4 class="marT30">Urgent repairs</h4>
+                  <p>Nominated trades people for urgent repairs</p>
+                  <p>Electric repairs:
+                    <input placeholder="Name" aw-limit-length="50" type="text" ng-pattern="/^[a-zA-Z ]*$/"
+                      ng-maxlength="50" name="electricrepair" class="input_Line"
+                      ng-model="agreement.electricity_repairs"> Telephone:
+                    <input placeholder="Number" name="electricTel" type="text" class="input_Line" ng-maxlength="14"
+                      ng-pattern="/^[0-9]*$/" min "0" ng-model="agreement.electricity_repairs_phone_number">
+
+                    <span class="text-danger" ng-show="agreementForm.electricrepair.$error.maxlength">
+                      <br />
+                      <font color="Red">Max 50 characters are allowed in Name field</font>
+                    </span>
+                    <span class="error-span inner-error ng-binding"
+                      ng-show="agreementForm.electricrepair.$error.pattern" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Only characters are allowed in Name field</font>
+                    </span>
+
+                    <span class="text-danger" ng-show="agreementForm.electricTel.$error.pattern">
+                      <br />
+                      <font color="Red">Only numbers are allowed in Telephone field</font>
+                    </span>
+                    <span ng-show="agreementForm.electricTel.$error.maxlength"
+                      class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 14 digits are allowed in Telephone field</font>
+                    </span>
+                  </p>
+
+                  <p>Plumbing repairs:
+                    <input placeholder="Name" aw-limit-length="50" type="text" ng-pattern="/^[a-zA-Z ]*$/"
+                      ng-maxlength="50" name="plumbingrepair" class="input_Line" ng-model="agreement.plumbing_repairs">
+                    Telephone:
+                    <input placeholder="Number" type="text" class="input_Line" name="plumbingTel" ng-maxlength="14"
+                      ng-pattern="/^[0-9]*$/" min "0" ng-model="agreement.plumbing_repairs_phone_number">
+
+                    <span class="text-danger" ng-show="agreementForm.plumbingrepair.$error.maxlength">
+                      <br />
+                      <font color="Red">Max 50 characters are allowed in Name field</font>
+                    </span>
+                    <span class="error-span inner-error ng-binding"
+                      ng-show="agreementForm.plumbingrepair.$error.pattern" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Only characters are allowed in Name field</font>
+                    </span>
+
+                    <span class="text-danger" ng-show="agreementForm.plumbingTel.$error.pattern">
+                      <br />
+                      <font color="Red">Only numbers are allowed in Telephone field</font>
+                    </span>
+                    <span ng-show="agreementForm.plumbingTel.$error.maxlength"
+                      class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 14 digits are allowed in Telephone field</font>
+                    </span>
+
+                  </p>
+
+                  <p>Other repairs:
+                    <input placeholder="Name" aw-limit-length="50" type="text" name="otherrepair" ng-maxlength="50"
+                      ng-pattern="/^[a-zA-Z ]*$/" class="input_Line" ng-model="agreement.other_repair"> Telephone:
+                    <input placeholder="Number" type="text" name="otherTel" class="input_Line" ng-maxlength="14"
+                      ng-pattern="/^[0-9]*$/" min "0" ng-model="agreement.other_repair_phone_number">
+
+                    <span class="text-danger" ng-show="agreementForm.otherrepair.$error.maxlength">
+                      <br />
+                      <font color="Red">Max 50 characters are allowed in Name field</font>
+                    </span>
+                    <span class="error-span inner-error ng-binding" ng-show="agreementForm.otherrepair.$error.pattern"
+                      class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Only characters are allowed in Name field</font>
+                    </span>
+                    <span class="text-danger" ng-show="agreementForm.otherTel.$error.pattern">
+                      <br />
+                      <font color="Red">Only numbers are allowed in Telephone field</font>
+                    </span>
+                    <span ng-show="agreementForm.otherTel.$error.maxlength" class="error-span inner-error ng-binding">
+                      <br />
+                      <font color="Red">Max 14 digits are allowed in Telephone field</font>
+                    </span>
+                  </p>
+
+                  <h4 class="marT30">Water usage</h4>
+                  <p>Will the tenant be required to pay separately for water usage?</p>
+                  <p class="disFlex">
+                    <label class="check_container">Yes
+                      <input type="checkbox" ng-checked="agreement.water_usage==true" ng-true-value="true"
+                        ng-model="agreement.water_usage">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="check_container">No
+                      <input type="checkbox" ng-checked="agreement.water_usage==false" ng-true-value="false"
+                        ng-model="agreement.water_usage">
+                      <span class="checkmark"></span>
+                    </label>
+                  </p>
+                  <h4 class="marT20">Strata-by-laws</h4>
+                  <p>Are there any strata or community scheme by-laws applicable to the residential premises?</p>
+                  <p class="disFlex">
+                    <label class="check_container">Yes
+                      <input type="checkbox" ng-model="agreement.strata_by_laws"
+                        ng-checked="agreement.strata_by_laws==true" ng-true-value="true">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="check_container">No
+                      <input type="checkbox" ng-checked="agreement.strata_by_laws==false" ng-true-value="false"
+                        ng-model="agreement.strata_by_laws">
+                      <span class="checkmark"></span>
+                    </label>
+                  </p>
+                  <h4 class="marT20">Conditional report</h4>
+                  <p>A conditon report relating to the condition of the premises must be completed by or on behalf of
+                    the landlord
+                    before or when this agreement is signed</p>
+
+                  <h4 class="marT20">Tenancy laws</h4>
+                  <p>The Residential Tenancies regulation Act 2010 apply to this agreement. Both the landlord and the
+                    tenant
+                    must comply with these laws.</p> -->
+
+
+                  <!-- {{agreement.detail}} -->
+                  <h4 class="marT20">Agreement details</h4>
+                  <textarea ui-tinymce="tinymceOptions" name="agreement" ng-model="agreement.detail" placeholder=""
+                    class="form-control agree">
+                  </textarea>
+
+                  <div class="main_newReqthumb">
+                    <ol>
+                      <li ng-class="key==0 ? 'active': ''" ng-repeat="(key,files) in images" data-slide-to="{{key}}"
+                        data-target="#article-photo-carousel">
+                        <button class="maint_image pull-right" type="button" ng-click="RemovePhoto($index)">
+                          <i class="fa fa-close"></i>
+                        </button>
+                        <img alt="Maintenance Image" style="height:100px;width:100px;"
+                          ngf-src="!images[key].$error && images[key]" src="http://placehold.it/250x180">
+
+                      </li>
+                      <i ng-show="agreementForm.file1.$error.maxSize">
+                        <font color="Red">File too large max allowed size is 160MB</font>
+                      </i>
+                    </ol>
+                  </div>
+                  <div class="marT10">
+                    <button class="btn btn-upload" name="file1" ngf-drop ngf-select ng-model="images" class="drop-box"
+                      ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-resize="{width: 1306, height: 400}"
+                      ngf-max-size="160MB" ngf-allow-dir="true" accept="image/*,application/pdf"
+                      ngf-allow-dir="true">Upload
+                      image</button>
+                  </div>
+                </div>
+                <div class="horiLine marT20"></div>
+                <div class="rent-btn">
+                  <button class="btn btn-cancel" ng-click="cancelAgreementCreation(agreement,images)">Cancel</button>
+                  <button class="btn btn-save" ladda="loginLoading" data-style="slide-right"
+                    ng-click="draftAgreement(agreement,images)">Save
+                    as draft</button>
+                  <button class="btn btn-upload" ladda="loginLoading" data-style="slide-right"
+                    ng-click="saveAgreement(agreement,images)">Create</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <style>
+  .ui-select-search{
+    margin-top: 20px;
+}
+</style> -->
+<script type="text/javascript">
+  tinymce.init({
+    selector: "#mytextarea"
+  });
+</script>

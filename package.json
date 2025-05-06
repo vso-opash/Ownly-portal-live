@@ -1,0 +1,47 @@
+{
+  "name": "BIR",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.13.3",
+    "comma-number": "^1.1.0",
+    "compression": "^1.7.0",
+    "cookie-parser": "^1.4.3",
+    "croppr": "^2.3.1",
+    "debug": "~2.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.13.4",
+    "express-error-handler": "^1.1.0",
+    "fs-extra": "^0.30.0",
+    "hashids": "^1.0.2",
+    "https": "^1.0.0",
+    "i18n-2": "^0.6.3",
+    "jsforce": "^1.8.0",
+    "jsonwebtoken": "^7.4.1",
+    "jwt-simple": "^0.5.0",
+    "mongoose": "^4.11.5",
+    "mongoose-unique-validator": "^1.0.5",
+    "ng-stripe-checkout": "^1.0.4",
+    "ng-sweet-alert": "^1.0.11",
+    "satellizer": "^0.15.5",
+    "socket.io": "^1.7.4",
+    "sweetalert": "^2.1.2",
+    "twilio": "~2.9.2",
+    "ui-cropper": "^1.0.9",
+    "ui-select-infinity": "^0.1.6",
+    "underscore": "^1.8.3"
+  },
+  "description": "Boat Insurance Rater",
+  "main": "server.js",
+  "devDependencies": {},
+  "author": "Ankur A",
+  "license": "ISC",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  }
+}

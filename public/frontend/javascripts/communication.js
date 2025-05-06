@@ -1,0 +1,2 @@
+"use strict";
+angular.module("SYNC").factory("communicationService", ["$http", function(t) { var n = {}; return n.resultViaGet = function(n, o, i, e) { void 0 != o && (t.defaults.headers.common.Authorization = "Basic " + o), void 0 != i && (i = '{"ContentType":' + i + '"}'), t.get(n, i).then(function(t) { e(t) }, function(t) { e(t) }) }, n.resultViaPost = function(n, o, i, e, u) { void 0 != i && (i = '{"ContentType":' + i + '"}'), t.post(n, e, i).then(function(t) { u(t) }, function(t) { u(t) }) }, n }]);

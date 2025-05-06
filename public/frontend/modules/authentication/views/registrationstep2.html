@@ -1,0 +1,153 @@
+<div class="section bg_reg">
+    <div class="container">
+        <div class="logo"></div>
+        <div class="regis" ng-init="checkforManagerRequest()">
+            <form id="signup_form" name="signup_form" novalidate>
+                <div class="row">
+                    <h1 class="marB30">You are almost done!</h1>
+                    <div class="row ">
+                        <div class="col-sm-6 col-xs-12 marB20">
+                            <label>First name</label>
+                            <input type="text" autocomplete="off" class="formInput" ng-pattern="/^[a-zA-Z ]*$/"
+                                ng-maxlength="25" name="firstname" ng-model="step3.firstname" type="text" required />
+                            <span ng-show="signup_form.firstname.$touched && signup_form.firstname.$error.required"
+                                class="redb">
+                                <font color="Red">This field is required.</font>
+                            </span>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="signup_form.firstname.$error.pattern"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">First Name Must Contain Alphabet</font>
+                            </span>
+                            <span ng-show="signup_form.firstname.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 25 characters allowed</font>
+                            </span>
+                        </div>
+                        <div class="col-sm-6 col-xs-12 marB20">
+                            <label>Last name</label>
+                            <input type="text" class="formInput" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25"
+                                ng-model="step3.lastname" type="text" name="Last name" required />
+                            <span ng-show="signup_form.lastname.$touched && signup_form.lastname.$error.required"
+                                class="redb">
+                                <font color="Red">This field is required.</font>
+                            </span>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="signup_form.lastname.$error.pattern" class="error-span inner-error ng-binding">
+                                <font color="Red">Last Name Must Contain Alphabet</font>
+                            </span>
+                            <span ng-show="signup_form.lastname.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 25 characters allowed</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6 col-xs-12 marB20">
+                            <label>Mobile number</label>
+                            <input type="text" class="formInput" ng-model="step3.mobile_no" name="mobile_no"
+                                ng-maxlength="14" ng-pattern="/^[0-9]*$/" ng-model="signStep2.mobile" required />
+                            <font color: "Red">
+                                <span ng-show="signup_form.mobile_no.$touched && signup_form.mobile_no.$error.required"
+                                    class="redb">
+                                    <font color="Red">This field is required.</font>
+                                </span>
+                            </font>
+                            <span class="text-danger" ng-show="signup_form.mobile_no.$error.pattern">
+                                <font color="Red">Only numbers are allowed.</font>
+                            </span>
+                            <span ng-show="signup_form.mobile_no.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 14 digits are allowed</font>
+                            </span>
+                        </div>
+                        <div class="col-sm-6 col-xs-12 marB20">
+                            <label>Email address</label>
+                            <input type="text" ng-maxlength="254" class="formInput"
+                                ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,50})$/"
+                                name="email" ng-model="step3.email" required />
+                            <span ng-show="signup_form.email.$error.maxlength" class="redb">
+                                <font color="Red">Max 254 length is allowed.</font>
+                            </span>
+                            <span ng-show="signup_form.email.$error.pattern" class="redb">
+                                <font color="Red">Please enter valid email address.</font>
+                            </span>
+                            <span ng-show="signup_form.email.$touched && signup_form.email.$error.required"
+                                class="redb">
+                                <font color="Red">This field is required.</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6 col-xs-12">
+                            <label>Password</label>
+                            <!-- ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                             min="5" max="15" -->
+                            <input type="password" class="formInput" name="password"
+                                ng-pattern="/^(?=.*[a-z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/" min="8" ng-model="step3.password"
+                                required />
+                            <font color: "Red">
+                                <span ng-show="signup_form.password.$touched && signup_form.password.$error.required"
+                                    class="redb">
+                                    <font color="Red">This field is required.</font>
+                                </span>
+                            </font>
+                            <span class="text-danger" ng-show="signup_form.password.$error.pattern">
+                                <!-- <font color="Red">Password should be 5 character long and must contain at least one
+                                    lowercase, one uppercase, one number, and one special character.</font> -->
+                                <font color="Red">Password must have 8 characters and combination of numbers and
+                                    letters.</font>
+                            </span>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <label>Confirm Password</label>
+                            <!-- ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/" min="5" max="15" -->
+                            <input type="password" class="formInput"
+                                ng-pattern="/^(?=.*[a-z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/" min="8" name="confirmPassword"
+                                ng-model="step3.confirmPassword" required />
+                            <!-- <input type="password" placeholder="Confirm Password" class="formInput"  ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                  name="confirmPassword" ng-model="step3.confirmPassword" valid-password-c="step3.password" required/> -->
+                            <span class="text-danger" ng-show="signup_form.confirmPassword.$error.pattern">
+                                <font color="Red">
+                                    Password must have 8 characters and combination of numbers and letters.
+                                </font>
+                                <!-- <font color="Red">Password should be 5 character long and must contain at least one
+                                    lowercase, one uppercase, one number, and one special character.</font> -->
+                            </span>
+                            <span
+                                ng-show="signup_form.confirmPassword.$touched && signup_form.confirmPassword.$error.required"
+                                class="redb">
+                                <font color="Red">This field is required.</font>
+                            </span>
+                            <span class="redb"
+                                ng-show="signup_form.confirmPassword.$touched  && signup_form.confirmPassword.$error.noMatch">
+                                <font color="Red">Confirm password not matched</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12 marB20">
+                            <div class="checkbox marB20">
+                                <h3>
+                                    <input id="checkbox-1" ng-model="step3.checkedStatus" class="checkbox-custom"
+                                        name="checkbox-1" type="checkbox" checked>
+                                    <label for="checkbox-1" class="checkbox-custom-label">Yes, I understand and agree to
+                                        <span>Ownly Conditions</span> including
+                                        <span>User agreement</span> and
+                                        <span>Privacy Policy</span>.</label>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center marB20">
+                        <button ladda="loginLoading" data-style="slide-right" ng-click="registrationstep2(step3)"
+                            ng-disabled="signup_form.$invalid" type="submit" class="btn-login">Create account</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <p class="message_line">Have an account?
+            <a ui-sref="login">Log in here</a>
+        </p>
+    </div>
+</div>

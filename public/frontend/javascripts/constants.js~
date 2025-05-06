@@ -1,0 +1,253 @@
+// var baseUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+var baseUrl = "http://52.64.215.66:5095";
+// var baseUrl = "http://52.34.207.5:5095"; 
+
+var facebook_client_id = "870499776350043";
+//var baseUrl = location.protocol+'//'+location.hostname+'5075';
+var roleId = {
+    agent: "5a12b4fe6b53784648d45479",
+    ownAgency: "5a1d113016bed22901ce050b",
+    tenant: "5a1d11c016bed22901ce050c",
+    owner: "5a1d295034240d4077dff208",
+    runStrataManagementCompany: "5a1d27076ef60c3d44e9b378",
+    workForStrataManagementCompany: "5a1d2be334240d4077dff209",
+    trader: "5a1d26b26ef60c3d44e9b377"
+}
+var noticeBoardRoles = [
+    {name: "Agent",_id: "5a12b4fe6b53784648d45479"},
+    {name:"Tenant",_id: "5a1d11c016bed22901ce050c"},
+    {name:"Property Owner",_id: "5a1d295034240d4077dff208"},
+    {name:"Agency Owner",_id: "5a1d113016bed22901ce050b"},
+    {name:"Run Strata Management Company",_id: "5a1d27076ef60c3d44e9b378"},
+    {name:"Work For Strata Management Company",_id: "5a1d2be334240d4077dff209"}
+]
+var role ={
+    agent: "agents",
+    ownAgency: "ownAgencies",
+    tenant: "tenants",
+    owner: "owners",
+    runStrataManagementCompany: "runStrataManagementCompany",
+    workForStrataManagementCompany: "workForStrataManagementCompany",
+    trader: "trader"
+}
+var country= "Australia";
+ 
+var MaintenanceState ={
+    sent : 1,
+    accepted : 2,
+    booked : 3,
+    completed : 5,
+    closed : 4,
+    due : 6
+}
+
+var austriliaState = [
+    "New South Wales",
+    "Australian Capital Territory",
+    "Victoria",
+    "Queensland",
+    "South Australia",
+    "Western Australia",
+    "Tasmania",
+    "Northern Territory"
+]
+     
+var webservices = {
+    //authentication   floorLevel 
+    "authenticate": baseUrl + "/api/userLogin",
+    "forgot_password": baseUrl + "/api/forgotPassword",
+    "signup": baseUrl + "/api/userRegister",
+    "activateUserAccount": baseUrl + "/api/activateUserAccount",
+    "resetpassword": baseUrl + "/api/resetUserPassword",
+    "facebookLogin": baseUrl + "/api/auth/facebooklogin",
+
+    //property
+    "createProperty": baseUrl + "/api/createProperty",
+    "getTenantedProperty": baseUrl + "/api/getTenantedPropertyList",
+    "getPropertySales": baseUrl + "/api/getSalesProperty",
+    "userLogOut": baseUrl + "/api/userLogout",
+    "getPropertyListing": baseUrl + "/api/allProperty",
+    "getDatabaseProperty": baseUrl + "/api/getDatabaseProperty",
+    "singlePropertyDetail": baseUrl + "/api/singleProperty",
+    "getMyProperitesList": baseUrl + "/api/getPropertyListById",
+    "postProperty": baseUrl + "/api/propertyPost",
+    "rentalPropertyPriceSort": baseUrl + "/api/getRentalPropertyPriceSort",
+    "deleteProperty": baseUrl + "/api/deletePropertyById",
+    "getPropertyOwner": baseUrl + "/api/getPropertyOwner",
+    "latestPropertySortByPsf": baseUrl + "/api/getLatestPropertySortByPsf",
+    "savePropertyAsDraft": baseUrl + "/api/savePropertyAsDraft",
+    "getAmenities": baseUrl + "/api/getAmenites",
+    "updatePropertyById": baseUrl + "/api/updatePropertyById",
+    "createPropertyOwner": baseUrl + "/api/addPropertyOwner",
+    "getAgencyProperty": baseUrl + "/api/getPropertyByAgentId",
+    "addToFavProperty": baseUrl + "/api/addToFavouritesProperty",
+    "getPropertyListingBySearch": baseUrl + "/api/getAllPropertyBySearch",
+    "getPropertyAgreementDetails": baseUrl + "/api/getAgreementForPropertyDetail",
+    "getPropertyTenantHistory": baseUrl + "/api/getTenanciesHistory",
+    "getPropertyMaintenanceHistory": baseUrl + "/api/getMaintenanceByProperty",
+    "getPropertyForAgentRemoval": baseUrl + "/api/getAgentRemovalProperties",
+    "deleteProperty": baseUrl + "/api/deletePropertyById",
+    "uploadPropertyDocs": baseUrl +"/api/getPropertyDataForUploadingDocument",
+    "checkUserPropertyRelation": baseUrl +"/api/isUserAssociatedWithProperty",
+
+    // individual chat count
+    "getPropertyById": baseUrl + "/api/singleProperty",
+    "unreadChatNotificationSeller": baseUrl + "/api/chatNotificationUnreadMsgSeller",
+    //user service 
+    "getUserById": baseUrl + "/api/getUserDetails",
+    "getAgentProperty": baseUrl + "/api/getPropertyByAgentId", 
+    "getFavTenantList": baseUrl + "/api/getFavTenants",
+    "getStatisticsCount": baseUrl + "/api/getStatisticsData",
+    //"updateUserProfile": baseUrl + "/api/updateProfile",
+    "updateUserProfile": baseUrl + "/api/updateUserProfile",
+    "updateUserPassword": baseUrl + "/api/changePassword",
+    //user notifications 
+    "updateNotification": baseUrl + "/api/updateUserNotificationSettings",
+    "getNotification": baseUrl + "/api/getUserNotification",
+    "uploadUserImage": baseUrl + "/api/updateUserPic",
+    "userNotificationStatus": baseUrl + "/api/getUserNotificationStatus",
+    "getRoleList" :  baseUrl + "/api/roles",
+    "lastRoleLogged" : baseUrl + "/api/loggedInUserRole",
+    "getUserRoleId" : baseUrl + "/api/getRoleIdFromUserId",
+    "getuserNotificationStatus" : baseUrl + "/api/userNotificationStatus",
+    "saveUserNotificationStatus" : baseUrl + "/api/saveNotificationStatus",
+    "userPermission" : baseUrl + "/api/getUserPermission",
+    "saveRoles" : baseUrl + "/api/saveUserMultiRoles",
+    "registrationInfo" : baseUrl + "/api/userDataOnRegistration",
+    "saveInvitedUserPassword" : baseUrl + "/api/saveInvitedUserPassword",
+    "userNotifications" : baseUrl + "/api/notificationList",
+    "updateUserBannerImage" : baseUrl + "/api/updateBannerPic",
+    "getUserDefaultRollId" : baseUrl + "/api/getUserDefaultRoles",
+    "directLogin" : baseUrl + "/api/directLogin",
+    "userRoles" : baseUrl +"/api/getUserRoles",
+    "getReviewForUser": baseUrl +"/api/getUserReview",
+    "getUnreadDashboardMessages": baseUrl +"/api/getUnreadChat",
+    "getActiveMaintenanceList": baseUrl +"/api/getActiveMaintenanceList",
+    "getAllnGeneralThread": baseUrl +"/api/generalThreadForAll",
+    "getMaintenanceThread": baseUrl +"/api/generalThreadForMaintenance",
+    "notificationRead": baseUrl +"/api/markNotificationAsRead",
+
+
+    //message
+    "getUserMessage": baseUrl + "/api/getMessageChatUsers",
+    "markMessageAsRead": baseUrl + "/api/markMessageAsRead",
+
+    //tenant
+    "newTenant": baseUrl + "/api/addNewTenant",
+    "tenantList": baseUrl + "/api/tenantsList", 
+    "sendMessage":  baseUrl + "/api/sendMessage",
+    "tenantDatabaseList":  baseUrl + "/api/allTenentsFromDatabase",
+    "propertyListingInAddTenant":  baseUrl + "/api/getPropertyForAddingTenant", 
+    "getTenantNameOnPropertyDetail": baseUrl + "/api/TenantListWithinProperty",
+    "getUserActiveRole":  baseUrl + "/api/getUserActiveRoles",
+    "getAgreementOnTenantProfile":  baseUrl + "/api/getTenantAgreementsForProfile/:id", 
+
+    //trader
+    "traderList": baseUrl + "/api/tradersList",
+    "getServiceCategoryList": baseUrl + "/api/getServiceCategory",
+    "getTraderOptionList": baseUrl + "/api/tradersOptionList",
+    "getTraderJobHistoryList": baseUrl + "/api/tradersJobHistory",
+    "getAllUSerReview": baseUrl + "/api/getTraderAllReviews/:id",
+    "getTenantUSerReview": baseUrl + "/api/GetUserRolesReview",
+    "getSavedTradersList": baseUrl + "/api/getAllSavedTraders",
+    //Agency 
+    "getAgencyByAgentId": baseUrl + "/api/getAgencyById",
+    "getAgencyProperties": baseUrl + "/api/getAcencyProperties",
+    "getAgencyAgentList": baseUrl + "/api/agentsListWithInAgency",
+    "getMyAgentList": baseUrl + "/api/agentsListWithInAgency",
+    "getAllAgencies": baseUrl + "/api/getAgencies",
+    "userAssociationWithAgency": baseUrl + "/api/agencyAssociationRequest",
+    "getUserNoticeBoard": baseUrl + "/api/noticeboardList",
+    "addToFavTrader": baseUrl + "/api/addToFavouritesUser",
+    "getFavPropertyListing": baseUrl + "/api/getFaviouratePropertyList",
+    "getWatchersList" : baseUrl + "/api/getWatchersList/:id",
+    "addPropertyManager": baseUrl + "/api/addAgentsByPrinciple",
+    "addReview": baseUrl + "/api/addReview",
+    "agencyProfileData":  baseUrl + "/api/getAgencyProfile",
+
+    //  maintenance
+    "removeWatcher": baseUrl + "/api/removeUserFromWatcher", 
+    "maintenanceList": baseUrl + "/api/maintenanceList",
+    "addMaintenance" : baseUrl + "/api/addMaintenance",
+    "getDocumentList": baseUrl + "/api/getUploadedDocument",
+    "detailMaintenenace" : baseUrl + "/api/getMaintenanceDetail/:id",
+    "addToFav": baseUrl + "/api/addDocumentToFav",
+    "getFavDocumentList": baseUrl + "/api/getFavUploadedDocument",
+    "deleteDocument": baseUrl + "/api/deleteDocument",
+    "maintenceProperty": baseUrl + "/api/propertyListForMaintenance",
+    "acceptDenyMaintenanceReq": baseUrl + "/api/acceptorDeniedJob",
+    "counterProposal":  baseUrl + "/api/counterProposals",
+    "completeMaintJob":  baseUrl + "/api/completeJob",
+    "getTenantForwardList":  baseUrl + "/api/maintenanceRequestByTenant",
+    "forwardRequest":  baseUrl + "/api/forwardMaintenanceRequest",
+    "cancelRequest":  baseUrl + "/api/cancelMaintenanceRequest",
+    "approvedCounterProposal": baseUrl + "/api/acceptDeclineProposalRequest",
+    "declineCounterProposal": baseUrl + "/api/acceptDeclineProposalRequest",
+    "declineJobConfirmation": baseUrl + "/api/confirmDeclineCompleteJob",
+    "approveJobConfirmation": baseUrl + "/api/confirmDeclineCompleteJob",
+    "pickedTraderList": baseUrl + "/api/pickFromYourSavedTraders",
+    // agreement 
+    "getTenantForAgreement":  baseUrl + "/api/getTenantListInProperty/:id",
+    "getPropertyOwnerForAgreement":  baseUrl + "/api/getOwnerListInProperty/:id" ,
+    "addAgreement": baseUrl + "/api/addAgreements",
+    "agreementListing": baseUrl + "/api/agreementList",
+    "getAgreementDetail": baseUrl + "/api/agreementDetail/:id" ,
+    "deleteAgreement":  baseUrl + "/api/deleteAgreement/:id",
+    "editAgreement": baseUrl + "/api/editRentalcases",
+    "agreementListInAddTenant": baseUrl +"/api/getAgreementByProperty/:id",
+    "agreementBulkListing": baseUrl +"/api/agreementBulkUploadListing",
+    //agent
+    "agentRemoval": baseUrl + "/api/agentRemovalsRequest",
+    "getAgentList": baseUrl + "/api/agentsList",
+    "getStartaList": baseUrl + "/api/startaUserList",
+    "updateAgentExistingPropertyImg": baseUrl + "/api/updateExistingAgentPropertyImage",
+    "agentProfileData": baseUrl + "/api/getAgentProfile",
+
+    //notice board
+
+    "addNoticeBoard": baseUrl + "/api/addNoticeboard",
+    "noticeBoardListing": baseUrl + "/api/noticeboardList",
+    "addNoticePost": baseUrl + "/api/addNoticeboardPost",
+    "getNoticeBoardDetail": baseUrl + "/api/noticeBoardDetail/:id",
+    "getPostDetail": baseUrl + "/api/noticeboardPostDetail/:id",
+    "getPropertyListForstarta": baseUrl + "/api/getPropertyListForstarta",
+    "editPost":  baseUrl + "/api/editNoticeboardPost/:id",
+    "deletePost":  baseUrl + "/api/deleteNoticeboardPost/:id",
+    "deleteNoticeBoard":  baseUrl + "/api/deleteNoticeBoard/:id",
+    "getStatisticsData"  : baseUrl + "/api/getAdminStatisticsData",
+    "editNoticeboard" : baseUrl + "/api/editNoticeboard",
+    "noticeBoardAddToFavourite": baseUrl + "/api/addToFavNoticeboard",
+    "getFavNoticeBoard": baseUrl + "/api/getFaviourateNoticeboardList",
+    "getUserCount": baseUrl + "/api/getUserCountsViaProperties",
+    //chat
+    "getChatUserList":  baseUrl + "/api/getChatUsers",
+
+    //msg
+    "messageList": baseUrl + "/api/messagesList",
+    //Adv.search
+    "globalSearch": baseUrl + "/api/gobalSearch",
+
+    //file search
+    "fileSearch": baseUrl + "/api/getYourFileBySearch",
+    "addUserToTag": baseUrl + "/api/addDocumentToTags",
+    //disputes
+    "addDisputes": baseUrl + "/api/addDisputes",
+    "getDisputes": baseUrl + "/api/getDisputes",
+    "getDisputesById": baseUrl + "/api/getDisputesById",
+    "updateDisputeStatus": baseUrl + "/api/updateDisputeStatusById",
+    "searchDispute":  baseUrl + "/api/getSearchedDisputes",
+    
+    //check reset password link
+    "checkResetPasswordLink" :  baseUrl + "/api/resetUserPasswordLinkExist",
+    //Inspection 
+    "getInspectionDate": baseUrl + "/api/dashboardInspection",
+}
+var appConstants = {
+    "authorizationKey": "dGF4aTphcHBsaWNhdGlvbg=="
+}
+
+var headerConstants = {
+    "json": "application/json"
+}
+
+

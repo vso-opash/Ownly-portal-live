@@ -1,0 +1,1644 @@
+<!-- <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script> -->
+
+<div class="ContentWrap">
+  <div ng-if="!isProd">
+    <div class="ContentHead d-flex">
+      <h2>Home</h2>
+      <div class="ml-auto TenanciesButtons" ng-show={{isAgentOwnerAgency}}>
+        <button class="btn btn-property" ng-click="addProperty()">
+          <i class="fa fa-plus make-circle" aria-hidden="true"></i>New Property</button>
+        <button class="btn btn-property" ng-click="openAddMaintenance()" href="javascript:void(0);">
+          <i class="fa fa-plus make-circle" aria-hidden="true"></i>New Maintenance Request</button>
+        <div class="dropdown drop-down-wrap">
+          <button class="btn btn-property dropdown-toggle" type="button" data-toggle="dropdown">Other Actions
+            <span class="caret"></span></button>
+          <ul class="dropdown-menu right-adj dropdown-menu-set">
+            <li>
+              <a ng-click="openAddTenant()" href="javascript:void(0);">New Tenant</a>
+            </li>
+            <!-- <li ng-if="tenantView_ || agentView_ || ownerView_">
+                        <a ng-click="openAddMaintenance()" href="javascript:void(0);">New maintenance request</a>
+                      </li> -->
+            <li>
+              <a href="/#!/add_agreement">New Agreement</a>
+            </li>
+            <!-- <li>
+                                  <a href="/#!/add_agreement">New agency agreement</a>
+                                </li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="horiLine"></div>
+    <div ng-if="agencyOwner_">
+      <div class="dropdown-cstm">
+        <div class="search-box"><a ng-click="selectAgentDropdown()">{{filteredAgent}} <i class="fa fa-caret-down"
+              aria-hidden="true"></i></a></div>
+        <div class="dropdown-open" id="agentDropdown">
+          <p class="head-p" ng-click="hideAgentDropdown()">Select Agent <i class="fa fa-caret-up"
+              aria-hidden="true"></i></p>
+          </button>
+          <p class="p-agent-name">Search for Agent</p>
+          <div class="serach-box">
+            <span class="span-search">
+              <input type="search" ng-model="filterAgentValue" class="input-serch" id="" name="" placeholder="">
+              <span ng-click="getMyAgents(filterAgentValue)"><i class="fa fa-search" aria-hidden="true"></i></span>
+            </span>
+            <ul class="ul-agent-drop">
+              <li ng-repeat="agent in agentList">
+                <div ng-click="switchToAgentRole(agent)">
+                  <img ng-src="{{userImageUrl}}{{agent.image}}"> {{agent.firstname}} {{agent.lastname}}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="horiLine"></div>
+    </div>
+
+    <div class="ContentBody row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+        <div class="my-property-sec" ng-if="isTrader == false">
+
+          <div class="main-title">
+            <h3>My properties</h3>
+          </div>
+          <div class="" dir-paginate="property_listing in propertyList| itemsPerPage:5"
+            current-page="pagination.current">
+            <div class="col-lg-12 col-md-12 marT20 marB20">
+              <div class="my-property_listview shadow-hover inspection kek-class">
+                <div class="counter-div" ng-show="agent==roleId || ownAgency==roleId || roleRecord.owner == roleId"
+                  ng-if="property_listing.application_count && property_listing.application_count > 0">
+                  {{property_listing.application_count}}</div>
+                <div class="img_list">
+                  <div ng-repeat="(key, images) in property_listing.image" ng-if="images.isFeatured">
+                    <a ui-sref="propertyDetails({id:property_listing._id})" class="my-property-img1">
+                      <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                        src="{{propertyImage}}thumb/{{images.path}}" alt="propimg" onerror="this.src='assets/images/placeholder.jpg'">
+                      <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{images.path}}" alt="propimg" onerror="this.src='assets/images/placeholder.jpg'">
+                      <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                        src="{{images.path}}" alt="propimg" onerror="this.src='assets/images/placeholder.jpg'">
+                      <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                    </a>
+                    <!-- <a ui-sref="propertyDetails({id:property_listing._id})" class="my-property-img1">
+                          <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                            src="{{propertyImage}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                          <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+                            src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                          <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                            src="{{property_listing.image[0].path}}" alt="propimg">
+                          <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg">
+                        </a> -->
+                  </div>
+                  <div ng-if="property_listing.image.length==0">
+                    <a ui-sref="propertyDetails({id:property_listing._id})" class="my-property-img1">
+                      <img src="assets/images/placeholder.jpg">
+                    </a>
+                  </div>
+                </div>
+                <div class="my-property-content_listview">
+                  <div class="my-property-title">
+                    <h4>
+                      <a ui-sref="propertyDetails({id:property_listing._id})">{{property_listing.address | replace: ',
+                              Australia':'' | limitTo : 50}}{{property_listing.address.length > 50 ? "..." : ""}}</a>
+                    </h4>
+                    <p class="my-property-address property-address">{{property_listing.description | limitTo :
+                            94}}{{property_listing.description.length > 94 ? "..." : ""}}
+                    </p>
+                  </div>
+                  <table class="property-details marT20 bottom-position-set">
+                    <tbody>
+                      <tr>
+                        <td class="userName"> <a class="pointer"
+                            ng-click="myPropertyToOwnerProfile(property_listing.owned_by._id)">{{property_listing.owned_by.firstname
+                                  | titlecase}} {{property_listing.owned_by.lastname | titlecase}}</a></td>
+                        <td class="userpic">
+                          <a class="pointer" ng-click="myPropertyToOwnerProfile(property_listing.owned_by._id)"><img
+                              ng-src="{{userImageUrl}}{{property_listing.owned_by.image}}"
+                              src="/assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'" alt="user"></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- <span class="propertyNoti">4</span> -->
+            </div>
+          </div>
+
+          <div ng-if="propertyList.length==0" class="alert alert-info fade in alert-dismissable"
+            style="margin-top:18px;">
+            <strong>No record to display</strong>
+          </div>
+        </div>
+        <!-- unread messages starts here -->
+
+        <div ng-init="getUnreadMessage()" class="unread-messages-section">
+
+          <div class="main-title {{ isTrader == false ? 'marT20 thread-top' : '' }} ">
+            <h3>Unread Messages</h3>
+          </div>
+          <div ng-repeat="messages in unReadMessages |limitTo:10" class="his_main marT10 clearfix">
+            <a class="pointer" ng-click="goToMsgChatScreen(messages.from_user._id)">
+              <div class="col-sm-12 his_main_list">
+                <div class="his_img inspection">
+                  <img ng-if="messages.from_user.Image.length && messages.from_user.Image!=''"
+                    style="height:50px;width:50px" class="img-circle"
+                    ng-src="{{userImageUrl}}{{messages.from_user.Image}}" onerror="this.src='/assets/images/no_image.png'" >
+                  <div ng-if="!messages.from_user.Image || messages.from_user.Image==''" class="col-sm-3 default_50">
+                    {{messages.from_user.firstname.charAt(0).toUpperCase()}}{{messages.from_user.lastname.charAt(0).toUpperCase()}}
+                  </div>
+                  <span
+                    ng-class="messages.from_user.is_online == true ? 'colorGreen color-set' : 'colorRed color-set'"></span>
+                </div>
+                <div class="detail">
+                  <div class="top-detail-section">
+                    <div class="name-sec">
+                      <h4 class="full-username">{{messages.from_user.firstname | titlecase}} {{messages.from_user.lastname |
+                              titlecase}}</h4>
+                    </div>
+                    <div class="timestamp">
+                      <span>{{messages.createdAt | date}}</span>
+                    </div>
+                  </div>
+                  <div class="comment-sec">
+                    <span>{{messages.message}}</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- <div ng-repeat="messages in unReadMessages |limitTo:10" class="his_main marT10 clearfix">
+                  <a class="pointer" ng-click="goToMsgChatScreen(messages.from._id)">
+                    <div class="col-sm-12 his_main_list">
+                      <div class="his_img inspection">
+                        <img ng-if="messages.from.image.length && messages.from.image!=''" style="height:50px;width:50px"
+                          class="img-circle" ng-src="{{userImageUrl}}{{messages.from.image}}">
+                        <div ng-if="!messages.from.image || messages.from.image==''" class="col-sm-3 default_50">
+                          {{messages.from.firstname.charAt(0).toUpperCase()}}{{messages.from.lastname.charAt(0).toUpperCase()}}
+                        </div>
+                        <span ng-class="messages.from.is_online == true ? 'colorGreen color-set' : 'colorRed color-set'"></span>
+                      </div>
+                      <div class="detail">
+                        <div class="top-detail-section">
+                          <div class="name-sec">
+                            <h4 class="full-username">{{messages.from.firstname | titlecase}} {{messages.from.lastname |
+                              titlecase}}</h4>
+                          </div>
+                          <div class="timestamp">
+                            <span>{{messages.created | date}}</span>
+                          </div>
+                        </div>
+                        <div class="comment-sec">
+                          <span>{{messages.msg}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div> -->
+          <div ng-if="unReadMessages.length==0" class="alert alert-info fade in alert-dismissable"
+            style="margin-top:18px;">
+            <strong>No record to display</strong>
+          </div>
+        </div>
+        <!-- unread messages ends here -->
+
+        <!-- active threads section starts here -->
+        <div class="thread-section unread-messages-section  thread-top">
+          <div class="main-title ">
+            <h3>Active Threads</h3>
+          </div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a ng-click="showReview('all')" ng-class="(isAll==true)?'nav-link active':'nav-link'" id="all-tab"
+                data-toggle="tab" href="javascript:void(0);" role="tab" aria-controls="all" aria-selected="true">All</a>
+            </li>
+            <li class="nav-item">
+              <a ng-click="showReview('general')" ng-class="(general==true)?'nav-link active':'nav-link'"
+                id="general-tab" data-toggle="tab" href="javascript:void(0);" role="tab" aria-controls="general"
+                aria-selected="false">General</a>
+            </li>
+            <li class="nav-item">
+              <a ng-click="showReview('maintenance')" ng-class="(maintenance==true)?'nav-link active':'nav-link'"
+                id="maintain-tab" data-toggle="tab" href="javascript:void(0);" role="tab" aria-controls="maintain"
+                aria-selected="false">Maintenance</a>
+            </li>
+            <li class="nav-item">
+              <a ng-click="showReview('disputes')" ng-class="(disputes==true)?'nav-link active':'nav-link'"
+                id="dispute-tab" data-toggle="tab" href="javascript:void(0);" role="tab" aria-controls="dispute"
+                aria-selected="false">
+                Disputes</a>
+            </li>
+            <!-- <li class="nav-item">
+                      <a ng-click="showReview('inspections')" ng-class="(inspections==true)?'nav-link active':'nav-link'" id="inspection-tab" data-toggle="tab"
+                        href="javascript:void(0);" role="tab" aria-controls="inspection" aria-selected="false">Inspections</a>
+                    </li> -->
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content" ng-init="showReview('all');">
+            <div ng-if="isAll" ng-class="(isAll==true)?'tab-pane active':'tab-pane'" class="tab-pane active" id="all"
+              role="tabpanel" aria-labelledby="all-tab">
+              <div class="maintainance-list-sec" ng-repeat="(key, data) in all_data_list | orderBy : '-createdAt'"
+                ng-if="key < 5">
+                <!-- | limitTo: 5 -->
+                <div class="maintenance-list col-lg-12 pointer " ng-click="agreementDetail(data._id)"
+                  ng-if="data.type== 'general'">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==false && data.property_id.image[0].is_from_csv_file==false"
+                        ng-src="{{propertyImageUrl}}{{data.property_id.image[0].path}}"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'"  />
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==true  && data.property_id.image[0].is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{data.property_id.image[0].path}}"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" />
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_csv_file==true && data.property_id.image[0].is_from_my_file==false"
+                        src="{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" />
+                      <img ng-if="!data.property_id.image[0].path" src="assets/images/placeholder.jpg"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a>{{data.property_address}}</a></h4>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                    <div class="days">{{data.createdAt|date:"MMM d, yyyy h:m a"}}</div>
+                  </div>
+                </div>
+                <div class="maintenance-list col-lg-12 pointer " ng-click="maintainenceDetail(data._id)"
+                  ng-if="data.type== 'maintenance'">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==false && data.property_id.image[0].is_from_csv_file==false"
+                        src="{{imageUrl}}thumb/{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==true  && data.property_id.image[0].is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_csv_file==true && data.property_id.image[0].is_from_my_file==false"
+                        src="{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                      <img ng-if="!data.property_id.image[0].path" src="assets/images/placeholder.jpg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a>{{data.request_overview | limitTo :26}}
+                          {{data.request_overview.length > 26 ? "..." : ""}}</a></h4>
+                    </div>
+                    <div class="dt-wrap">
+                      <div class="maintain-request">
+                        <span>{{data.request_detail}} </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                    <div class="days">{{data.createdAt|date:"MMM d, yyyy h:m a"}}</div>
+                  </div>
+                </div>
+
+                <div class="maintenance-list col-lg-12 clearfix pointer " ng-click="goToDisputeDetail(data._id)"
+                  ng-if="data.type== 'disputes'">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <img class="data_dashboard"
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==false && data.property_id.image[0].is_from_csv_file==false"
+                        src="{{imageUrl}}thumb/{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                      <img class="data_dashboard"
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                      <img class="data_dashboard"
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_csv_file==true && data.property_id.image[0].is_from_my_file==false"
+                        src="{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                      <img class="data_dashboard" ng-if="!data.property_id.image[0].path"
+                        src="assets/images/placeholder.jpg" style="height:50px;width:50px;border-radius: 50%;">
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a class="color_anchor pointer">{{data.subject |
+                                  limitTo :70}} {{data.subject.length > 70 ? "..." : ""}}</a></h4>
+                    </div>
+                    <div class="dt-wrap">
+                      <div class="maintain-request">
+                        <span>{{data.message}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec dispute_status">
+                    <div class="row">
+                      <div ng-if="data.dispute_status == 1" class="sent1 dis_dash">In Progress</div>
+                      <div ng-if="data.dispute_status == 2" class="accepted1 dis_dash">Resolved</div>
+                      <div ng-if="data.dispute_status == 3" class="booked1 dis_dash dis_status">Closed</div>
+                    </div>
+                  </div>
+                </div>
+                <div ng-if="all_data_list.length==0 && all_data_list.length==0">
+                  <div class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No Data Found</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="general" ng-class="(general==true)?'tab-pane active':'tab-pane'" class="tab-pane" id="general"
+              role="tabpanel" aria-labelledby="general-tab">
+              <div class="maintainance-list-sec" ng-repeat="agreement in agreementList |limitTo: 5">
+                <div class="maintenance-list col-lg-12 pointer " ng-click="agreementDetail(agreement._id)"
+                  ng-if="agreement.last_message_date != ''">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <img
+                        ng-if="agreement.property_id.image[0].path && agreement.property_id.image[0].is_from_my_file==false && agreement.property_id.image[0].is_from_csv_file==false"
+                        ng-src="{{propertyImageUrl}}{{agreement.property_id.image[0].path}}"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" />
+                      <img
+                        ng-if="agreement.property_id.image[0].path && agreement.property_id.image[0].is_from_my_file==true  && agreement.property_id.image[0].is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{agreement.property_id.image[0].path}}"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" />
+                      <img
+                        ng-if="agreement.property_id.image[0].path && agreement.property_id.image[0].is_from_csv_file==true && agreement.property_id.image[0].is_from_my_file==false"
+                        src="{{agreement.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" />
+                      <img ng-if="!agreement.property_id.image[0].path" src="assets/images/placeholder.jpg"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a>{{agreement.property_address}}</a></h4>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                    <div class="days">{{agreement.createdAt|date:"MMM d, yyyy h:m a"}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="maintenance" ng-class="(maintenance==true)?'tab-pane active':'tab-pane'" class="tab-pane"
+              id="maintain" role="tabpanel" aria-labelledby="maintain-tab">
+              <div class="maintainance-list-sec" ng-repeat="maintenanceHistory in maintenanceThreadList |limitTo: 5">
+                <div class="maintenance-list col-lg-12 pointer " ng-click="maintainenceDetail(maintenanceHistory._id)">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <!-- <a class="pointer" ng-click="maintainenceDetail(maintenanceHistory._id)"> -->
+                      <img
+                        ng-if="maintenanceHistory.property_id.image[0].path && maintenanceHistory.property_id.image[0].is_from_my_file==false && maintenanceHistory.property_id.image[0].is_from_csv_file==false"
+                        src="{{imageUrl}}thumb/{{maintenanceHistory.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                      <img
+                        ng-if="maintenanceHistory.property_id.image[0].path && maintenanceHistory.property_id.image[0].is_from_my_file==true  && maintenanceHistory.property_id.image[0].is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{maintenanceHistory.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                      <img
+                        ng-if="maintenanceHistory.property_id.image[0].path && maintenanceHistory.property_id.image[0].is_from_csv_file==true && maintenanceHistory.property_id.image[0].is_from_my_file==false"
+                        src="{{maintenanceHistory.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                      <img ng-if="!maintenanceHistory.property_id.image[0].path" src="assets/images/placeholder.jpg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <!-- <img ng-if="maintenanceHistory.created_by.image && maintenanceHistory.created_by.image!=''"
+                                ng-src="{{userImageUrl}}{{maintenanceHistory.created_by.image}}" style="height:50px;width:50px;border-radius: 50%;"
+                                src="/assets/images/no_image.png">
+                              <div ng-if="!maintenanceHistory.created_by.image" class="col-sm-3 default_50">
+                                {{maintenanceHistory.created_by.firstname.charAt(0).toUpperCase()}}{{maintenanceHistory.created_by.lastname.charAt(0).toUpperCase()}}
+                              </div> -->
+                      <!-- </a> -->
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a>{{maintenanceHistory.request_overview | limitTo :26}}
+                          {{maintenanceHistory.request_overview.length > 26 ? "..." : ""}}</a></h4>
+                    </div>
+                    <div class="dt-wrap">
+                      <div class="maintain-request">
+                        <!-- <span>{{maintenanceHistory.request_detail | limitTo :26}}
+                              {{maintenanceHistory.request_detail.length > 26 ? "..." : ""}} </span> -->
+                        <span>{{maintenanceHistory.request_detail}} </span>
+                      </div>
+                    </div>
+                    <!-- <div class="maintain-category">
+                              <i class="fa fa-hashtag">#</i>
+                              <span>Category name</span>
+                            </div> -->
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                    <div class="days">{{maintenanceHistory.createdAt|date:"MMM d, yyyy h:m a"}}</div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div ng-if="maintenanceThreadList.length==0">
+                <div class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                  <strong>No record to display</strong>
+                </div>
+              </div>
+            </div>
+            <div ng-if="disputes" ng-class="(disputes==true)?'tab-pane active':'tab-pane'" class="tab-pane" id="dispute"
+              role="tabpanel" aria-labelledby="dispute-tab">
+              <div ng-hide="agentView && maintNavList=='Requested by tenant'" class="row marT10"
+                dir-paginate="dispute in disputeList| itemsPerPage:8 | orderBy:filterMatch"
+                current-page="pagination.current">
+                <div class="agnt_list clearfix pointer DisputesWrap " ng-click="goToDisputeDetail(dispute._id)">
+                  <div class="col-sm-2 col-xs-12  clearfix">
+                    <!-- <a ng-click="goToDisputeDetail(dispute._id)" class="property-img1 inspection pointer"> -->
+                    <img class="dispute_dashboard"
+                      ng-if="dispute.property_id.image[0].path && dispute.property_id.image[0].is_from_my_file==false && dispute.property_id.image[0].is_from_csv_file==false"
+                      src="{{imageUrl}}thumb/{{dispute.property_id.image[0].path}}" alt="propimg"
+                      style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                    <img class="dispute_dashboard"
+                      ng-if="dispute.property_id.image[0].path && dispute.property_id.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+                      src="{{fileImageUrl}}{{dispute.property_id.image[0].path}}" alt="propimg"
+                      style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" > 
+                    <img class="dispute_dashboard"
+                      ng-if="dispute.property_id.image[0].path && dispute.property_id.image[0].is_from_csv_file==true && dispute.property_id.image[0].is_from_my_file==false"
+                      src="{{dispute.property_id.image[0].path}}" alt="propimg"
+                      style="height:50px;width:50px;border-radius: 50%;" onerror="this.src='assets/images/placeholder.jpg'" >
+                    <img class="dispute_dashboard" ng-if="!dispute.property_id.image[0].path"
+                      src="assets/images/placeholder.jpg" style="height:50px;width:50px;border-radius: 50%;">
+                    <!-- </a> -->
+                    <!-- <a href="/#!/profile/{{dispute.created_by_id._id}}">
+                            <img class="createdByImage" ng-src="{{userImageUrl}}{{dispute.created_by_id.image}}" src="assets/images/no_image.png">
+                          </a> -->
+                    <!-- <a href="/#!/profile/{{dispute.created_by_id._id}}" ng-show="!dispute.created_by_id.image.length>0 || !dispute.created_by_id.image" class="pointer" href="/#!/dispute.created_by_id_profile/{{dispute.created_by_id._id}}">
+                          <div class="default_121">
+                         {{dispute.created_by_id.firstname.charAt(0).toUpperCase()}}{{dispute.created_by_id.lastname.charAt(0).toUpperCase()}}
+                          </div>
+                        </a> -->
+                  </div>
+                  <div class="col-9 col-8 detail apt-list clearfix dispute_dash_sub">
+                    <div class="row">
+                      <div class="col-9 clearfix">
+                        <h5 class="text-capitalize">
+                          <a class="color_anchor pointer" ng-click="goToDisputeDetail(dispute._id)">{{dispute.subject |
+                                  limitTo :70}} {{dispute.subject.length > 70 ? "..." : ""}}</a>
+                        </h5>
+                        <div class="dt-wrap">
+                          <div class="cat_id">
+                            <span>
+                              <!-- {{dispute.message|limitTo :70}} {{dispute.message.length > 70 ? "..." : ""}} -->
+                              {{dispute.message}}
+                            </span>
+                            <div class="clearfix"></div>
+                            <!-- <span style="position:relative; top: 10px;">
+                                  <a href="/#!/profile/{{dispute.agent_id._id}}">
+                                    <img class="createdByImage" ng-src="{{userImageUrl}}{{dispute.agent_id.image}}" src="assets/images/no_image.png" style="width: 35px; height: 35px; padding-right: 0px">
+                                  </a> -->
+                            <!-- <a href="/#!/profile/{{dispute.agent_id._id}}" ng-show="!dispute.agent_id.image.length>0 || !dispute.agent_id.image" class="pointer" href="/#!/dispute.agent_id_profile/{{dispute.agent_id._id}}">
+                                  <div class="default_121">
+                                 {{dispute.agent_id.firstname.charAt(0).toUpperCase()}}{{dispute.agent_id.lastname.charAt(0).toUpperCase()}}
+                                  </div>
+                                </a> -->
+                            <!-- </span> -->
+                            <!-- <span style="position:relative; top: 10px;">
+                                  <a href="/#!/profile/{{dispute.owner_id._id}}">
+                                    <img class="createdByImage" ng-src="{{userImageUrl}}{{dispute.owner_id.image}}" src="assets/images/no_image.png" style="width: 35px; height: 35px;">
+                                  </a>
+                                </span> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-1">
+
+                      </div>
+                      <div class="col-sm-11">
+                        <div ng-if="dispute.dispute_status == 1" class="sent1 dis_dash">In Progress</div>
+                        <div ng-if="dispute.dispute_status == 2" class="accepted1 dis_dash">Resolved</div>
+                        <div ng-if="dispute.dispute_status == 3" class="booked1 dis_dash dis_status">Closed</div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+              </div>
+              <div ng-if="disputeList.length==0">
+                <div class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                  <strong>No disputes to display</strong>
+                </div>
+              </div>
+            </div>
+            <div ng-if="inspections" ng-class="(inspections==true)?'tab-pane active':'tab-pane'" class="tab-pane"
+              id="inspection" role="tabpanel" aria-labelledby="inspection-tab">
+              <div ng-if="maintenanceInspectionsList.length==0">
+                <div class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                  <strong>No record to display</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- active threads section ends here -->
+
+
+
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+        <!-- notice section starts here -->
+        <div ng-hide={{isTrader}} class="notice-section">
+          <div class="main-title">
+            <h3>Notice board</h3>
+          </div>
+          <div class="notice-div" ng-repeat="notice in noticeBoardList | limitTo:2">
+            <!-- <div class="col-lg-12 col-md-12 marT20"> -->
+            <!-- <div class="post overWriteHeight post-height-set" ui-sref="noticeBoardDetail({id:notice._id})" ng-show="notice.deleted==false">
+                        <a class="pointer">
+                          <h4>Title : {{notice.title | limitTo :100}} {{notice.title.length > 100 ? "..." : ""}}</h4>
+                          <font color="Black"><span>Date:{{notice.createdAt | date}}</span></font>
+                          <font color="Black">
+                            <p>{{notice.description| limitTo :300}} {{notice.description.length > 300 ? "..." : ""}}</p>
+                          </font>
+                        </a>
+                        <p class="property-address">Plan Id:{{notice.noticeboard_id}}</p>
+                      </div> -->
+
+            <!-- </div> -->
+            <div class="col-lg-12 col-md-12 marT20">
+              <div class="my-property_listview shadow-hover">
+                <div class="img_list">
+                  <a href="/#!/notice_board_detail/{{notice._id}}" class="my-property-img1">
+                    <img src="{{imageUrl}}{{notice.property_id_arr[0].image[0].path}}"
+                      err-src="/assets/images/placeholder.jpg" alt="Property Image">
+                  </a>
+                </div>
+                <div class="my-property-content_listview">
+                  <div class="my-property-title">
+                    <h4>
+                      <a href="/#!/notice_board_detail/{{notice._id}}">{{notice.property_id_arr[0].address | limitTo :
+                              50}}{{notice.property_id_arr[0].address.length > 50 ? "..."
+                              : ""}}</a>
+                    </h4>
+                    <p class="my-property-date">{{notice.createdAt | date}}</p>
+                    <p class="my-property-address property-address">{{notice.description| limitTo :300}}
+                      {{notice.description.length > 300 ? "..." : ""}}</p>
+                  </div>
+                  <!-- <table class="property-details marT20">
+                                <tbody>
+                                  <tr>
+                                    <td class="userName">Frank McAdams</td>
+                                    <td class="userpic"><img src="/assets/images/ryan.png" alt="user"></td>
+                                  </tr>
+                                </tbody>
+                              </table> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-if="noticeBoardList.length==0" class="alert alert-info fade in alert-dismissable"
+            style="margin-top:18px;">
+            <strong>No record to display</strong>
+          </div>
+
+        </div>
+        <!-- notice section ends here -->
+
+        <!-- upcoming inspection starts here -->
+
+        <div class="maintain-request-sec" ng-init="getInspectionOnCalendar()">
+          <!-- <div class="main-title marT30 marB20 thread-top">
+                    <h3>Upcoming Inspections</h3>
+                  </div> -->
+          <div class="home-pg dashboard-calendar-sec"
+            ng-show="agent==roleId || ownAgency==roleId || roleRecord.owner == roleId || roleRecord.tenant == roleId">
+            <div class="cal_title">Upcoming Inspections</div>
+            <div class="calendarCursor" ui-calendar="uiConfig.calendar" ng-model="eventSources2" ui-config="calendar"
+              id="calendar"></div>
+          </div>
+          <!-- upcoming inspection ends here -->
+
+          <!-- active maintenance starts here -->
+          <div class="maintain-request-sec marT20" ng-init="maintenanceListing();">
+            <div class="main-title marB20 thread-top">
+              <h3>Active maintenance request</h3>
+              <div ng-if="maintainList.length==0" class="alert alert-info fade in alert-dismissable"
+                style="margin-top:18px;">
+                <strong>No record to display</strong>
+              </div>
+            </div>
+            <!-- post 1 -->
+            <div class="maintainance-list-sec" ng-repeat="maintain in maintainList">
+              <div class="maintenance-list col-lg-12"
+                ng-if="maintain.request_type == 0 || (maintain.request_type == 1 && isTrader)"
+                ng-click="maintainenceDetail(maintain._id)">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <div class="his_img">
+                    <a class="pointer"
+                      ng-click="goToUserProfilePage(maintain.created_by._id, maintain.created_by_role._id)">
+                      <img ng-if="maintain.created_by.image && maintain.created_by.image!=''"
+                        ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                        style="height:60px;width:60px;border-radius: 50%;" src="/assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'" >
+                      <div ng-if="!maintain.created_by.image" class="col-sm-3 default_50">
+                        {{maintain.created_by.firstname.charAt(0).toUpperCase()}}{{maintain.created_by.lastname.charAt(0).toUpperCase()}}
+                      </div>
+                      <!-- <img class="dashboardMaintUserImg" ng-src="{{maintenanceImageUrl}}{{maintain.images[0].path}}" src="assets/images/no_image.png"> -->
+                    </a>
+                  </div>
+                </div>
+                <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                  <div class="maintain-title">
+                    <h4>
+                      <a class="pointer">{{maintain.request_overview |
+                              limitTo :100}} {{maintain.request_overview.length > 100 ? "..." : ""}}</a>
+                    </h4>
+                  </div>
+                  <div class="maintain-request">
+                    <i class="fa fa-tag" aria-hidden="true"></i>
+                    <span>Requested ID : {{maintain.request_id}}</span>
+                  </div>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                  <div class="price">
+                    <h4>${{maintain.budget}}</h4>
+                  </div>
+                  <!-- <div class="days">in {{maintain.difference | positive}} days</div> -->
+                  <div class="days"> {{maintain.due_date | date}} </div>
+                  <div ng-if="maintain.req_status == 2 && maintain.request_type == 0" class="status accepted">ACCEPTED
+                  </div>
+                  <div ng-if="maintain.req_status == 3 && maintain.request_type == 0" class="dashboardMaintBook">Booked
+                  </div>
+                  <div ng-if="maintain.req_status == 5 && maintain.request_type == 0" class="dashboardMaintComplete">
+                    Completed</div>
+                  <div ng-if="maintain.req_status == 7 && maintain.request_type == 0" class="dashboardMaintClose">Denied
+                  </div>
+                  <div ng-if="maintain.req_status == 4 && maintain.request_type == 0" class="dashboardMaintClose">Closed
+                  </div>
+                </div>
+              </div>
+              <div class="maintenance-list col-lg-12" ng-if="maintain.request_type == 1 && isTrader == false"
+                ng-click="goToJobDetail(maintain._id)">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <div class="his_img">
+                    <a class="pointer"
+                      ng-click="goToUserProfilePage(maintain.created_by._id, maintain.created_by_role._id)">
+                      <img ng-if="maintain.created_by.image && maintain.created_by.image!=''"
+                        ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                        style="height:60px;width:60px;border-radius: 50%;" src="/assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'" >
+                      <div ng-if="!maintain.created_by.image" class="col-sm-3 default_50">
+                        {{maintain.created_by.firstname.charAt(0).toUpperCase()}}{{maintain.created_by.lastname.charAt(0).toUpperCase()}}
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                  <div class="maintain-title">
+                    <h4>
+                      <a class="pointer">{{maintain.request_overview |
+                              limitTo :100}} {{maintain.request_overview.length > 100 ? "..." : ""}}</a>
+                    </h4>
+                  </div>
+                  <div class="maintain-request">
+                    <i class="fa fa-tag" aria-hidden="true"></i>
+                    <span>Requested ID : {{maintain.request_id}}</span>
+                  </div>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                  <div class="price">
+                    <h4>${{maintain.budget}}</h4>
+                  </div>
+                  <!-- <div class="days">in {{maintain.difference | positive}} days</div> -->
+                  <div class="days"> {{maintain.due_date | date}} </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- active maintenance ends here -->
+
+        <!-- statistics section starts here -->
+        <div ng-show="agent==roleId || ownAgency==roleId" class="statistics-sec">
+          <div class="col-lg-12">
+            <div class="row sta-marginleft">
+              <div class="col-lg-8">
+                <div class="main-title marT30 marB20 thread-top">
+                  <h3>Statistics</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 sta-card">
+              <div class="row">
+                <div ng-hide={{isTenant}} class="col-lg-4 stats">
+                  <a class="pointer" ng-click="fromCountToTenantList()">
+                    <h2>{{tenantCnt}}</h2>
+                  </a>
+                  <span>Tenants</span>
+                </div>
+                <div class="col-lg-4 stats">
+                  <a class="pointer" href="/#!/property_listing">
+                    <h2>{{propertyCnt}}</h2>
+                  </a>
+                  <span>Properties</span>
+                </div>
+                <div class="col-lg-4 stats">
+                  <a class="pointer" href="/#!/maintance_listing" ng-click="fromCountToMaintenanceList()">
+                    <h2>{{requestCnt}}</h2>
+                  </a>
+                  <span>Requests</span>
+                </div>
+                <div class="col-lg-4 stats" ng-if="reveal_contact_number && reveal_contact_number > 0">
+                  <h2>{{reveal_contact_number}}</h2>
+                  <span>Phone View</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- statistics section ends here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="isProd">
+    <div class="ContentHead d-flex">
+      <h2>Home</h2>
+      <div ng-show={{isAgentOwnerAgency}} class="ml-auto TenanciesButtons">
+        <!-- removed for now -->
+        <!-- <button class="btn btn-property" ng-click="addProperty()">
+                          <i class="fa fa-plus make-circle" aria-hidden="true"></i>New Property</button> -->
+        <!-- removed for now -->
+        <button class="btn btn-property" ng-click="openAddMaintenance()" href="javascript:void(0);">
+          <i class="fa fa-plus make-circle" aria-hidden="true"></i>New Maintenance Request</button>
+        <!-- <div class="dropdown drop-down-wrap"> -->
+        <!-- <button class="btn btn-property dropdown-toggle" type="button" data-toggle="dropdown">Other Actions -->
+        <!-- <span class="caret"></span></button> -->
+        <!-- <ul class="dropdown-menu right-adj dropdown-menu-set"> -->
+        <!-- removed for now -->
+        <!-- <li>
+                              <a ng-click="openAddTenant()" href="javascript:void(0);">New Tenant</a>
+                            </li> -->
+        <!-- removed for now -->
+        <!-- <li ng-if="tenantView_ || agentView_ || ownerView_">
+                      <a ng-click="openAddMaintenance()" href="javascript:void(0);">New maintenance request</a>
+                    </li> -->
+        <!-- removed for now -->
+        <!-- <li>
+                              <a href="/#!/add_agreement">New Agreement</a>
+                            </li> -->
+        <!-- removed for now -->
+        <!-- <li>
+                                        <a href="/#!/add_agreement">New agency agreement</a>
+                                      </li> -->
+        <!-- </ul> -->
+        <!-- </div> -->
+        <!--<button class="btn btn-import" ng-click="openOtherPopup();">
+                            <div ng-class="popupClass">
+                              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"> Other Action
+                                <b class="caret"></b>
+                              </a>
+                              <ul class="dropdown-menu right-adj dropdown-menu-set">
+                                <li>
+                                  <a ng-click="openAddTenant()" href="javascript:void(0);">New Tenant</a>
+                                </li>
+                                <li>
+                                  <a ng-click="openAddMaintenance()" href="javascript:void(0);">New maintenance request</a>
+                                </li>
+                                <li>
+                                  <a href="javascript:void(0);">New tenancy request</a>
+                                </li>
+                                <li>
+                                  <a href="/#!/add_agreement">New agency agreement</a>
+                                </li>
+                              </ul>
+                            </div>
+                          </button>-->
+      </div>
+    </div>
+    <div class="horiLine"></div>
+    <div class="ContentBody row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <!-- removed for now -->
+        <!-- <div class="my-property-sec" ng-if="isTrader == false">
+
+                        <div class="main-title">
+                          <h3>My properties</h3>
+                        </div>
+                        <div class="row" dir-paginate="property_listing in propertyList| itemsPerPage:5"
+                          current-page="pagination.current">
+                          <div class="col-lg-12 col-md-12 marT20">
+                            <div class="my-property_listview shadow-hover inspection kek-class">
+                              <div class="counter-div" ng-show="agent==roleId || ownAgency==roleId || roleRecord.owner == roleId"
+                                ng-if="property_listing.application_count && property_listing.application_count > 0">
+                                {{property_listing.application_count}}</div>
+                              <div class="img_list">
+                                <div ng-repeat="(key, images) in property_listing.image" ng-if="images.isFeatured">
+                                  <a ui-sref="propertyDetails({id:property_listing._id})" class="my-property-img1">
+                                    <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                      src="{{propertyImage}}thumb/{{images.path}}" alt="propimg">
+                                    <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                      src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                                    <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                      src="{{images.path}}" alt="propimg">
+                                    <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                                  </a> -->
+
+
+        <!-- <a ui-sref="propertyDetails({id:property_listing._id})" class="my-property-img1">
+                                  <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                    src="{{propertyImage}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                                  <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                                  <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                                    src="{{property_listing.image[0].path}}" alt="propimg">
+                                  <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg">
+                                </a> -->
+
+
+        <!-- </div>
+                              </div>
+                              <div class="my-property-content_listview">
+                                <div class="my-property-title">
+                                  <h4>
+                                    <a ui-sref="propertyDetails({id:property_listing._id})">{{property_listing.address | replace: ',
+                                      Australia':'' | limitTo : 50}}{{property_listing.address.length > 50 ? "..." : ""}}</a>
+                                  </h4>
+                                  <p class="my-property-address property-address">{{property_listing.description | limitTo :
+                                    94}}{{property_listing.description.length > 94 ? "..." : ""}}
+                                  </p>
+                                </div>
+                                <table class="property-details marT20 bottom-position-set">
+                                  <tbody>
+                                    <tr>
+                                      <td class="userName"> <a class="pointer"
+                                          ng-click="myPropertyToOwnerProfile(property_listing.owned_by._id)">{{property_listing.owned_by.firstname
+                                          | titlecase}} {{property_listing.owned_by.lastname | titlecase}}</a></td>
+                                      <td class="userpic">
+                                        <a class="pointer" ng-click="myPropertyToOwnerProfile(property_listing.owned_by._id)"><img
+                                            ng-src="{{userImageUrl}}{{property_listing.owned_by.image}}"
+                                            src="/assets/images/no_image.png" alt="user"></a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div> -->
+        <!-- <span class="propertyNoti">4</span> -->
+        <!-- </div>
+                        </div>
+
+                        <div ng-if="propertyList.length==0" class="alert alert-info fade in alert-dismissable"
+                          style="margin-top:18px;">
+                          <strong>No record to display</strong>
+                        </div>
+                      </div> -->
+        <!-- removed for now -->
+        <!-- unread messages starts here -->
+
+        <div ng-init="getUnreadMessage()" class="unread-messages-section">
+
+          <div class="main-title {{ isTrader == false ? 'marT20 thread-top' : '' }} ">
+            <h3>Unread Messages</h3>
+          </div>
+          <div ng-repeat="messages in unReadMessages |limitTo:10" class="his_main marT10 clearfix">
+            <a class="pointer" ng-click="goToMsgChatScreen(messages.from_user._id)">
+              <div class="col-sm-12 his_main_list">
+                <div class="his_img inspection">
+                  <img ng-if="messages.from_user.Image.length && messages.from_user.Image!=''"
+                    style="height:50px;width:50px" class="img-circle"
+                    ng-src="{{userImageUrl}}{{messages.from_user.Image}}">
+                  <div ng-if="!messages.from_user.Image || messages.from_user.Image==''" class="col-sm-3 default_50">
+                    {{messages.from_user.firstname.charAt(0).toUpperCase()}}{{messages.from_user.lastname.charAt(0).toUpperCase()}}
+                  </div>
+                  <span
+                    ng-class="messages.from_user.is_online == true ? 'colorGreen color-set' : 'colorRed color-set'"></span>
+                </div>
+                <div class="detail">
+                  <div class="top-detail-section">
+                    <div class="name-sec">
+                      <h4 class="full-username">{{messages.from_user.firstname | titlecase}} {{messages.from_user.lastname |
+                                      titlecase}}</h4>
+                    </div>
+                    <div class="timestamp">
+                      <span>{{messages.createdAt | date}}</span>
+                    </div>
+                  </div>
+                  <div class="comment-sec">
+                    <span>{{messages.message}}</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- <div ng-repeat="messages in unReadMessages |limitTo:10" class="his_main marT10 clearfix">
+                          <a class="pointer" ng-click="goToMsgChatScreen(messages.from._id)">
+                            <div class="col-sm-12 his_main_list">
+                              <div class="his_img inspection">
+                                <img ng-if="messages.from.image.length && messages.from.image!=''" style="height:50px;width:50px"
+                                  class="img-circle" ng-src="{{userImageUrl}}{{messages.from.image}}">
+                                <div ng-if="!messages.from.image || messages.from.image==''" class="col-sm-3 default_50">
+                                  {{messages.from.firstname.charAt(0).toUpperCase()}}{{messages.from.lastname.charAt(0).toUpperCase()}}
+                                </div>
+                                <span ng-class="messages.from.is_online == true ? 'colorGreen color-set' : 'colorRed color-set'"></span>
+                              </div>
+                              <div class="detail">
+                                <div class="top-detail-section">
+                                  <div class="name-sec">
+                                    <h4 class="full-username">{{messages.from.firstname | titlecase}} {{messages.from.lastname |
+                                      titlecase}}</h4>
+                                  </div>
+                                  <div class="timestamp">
+                                    <span>{{messages.created | date}}</span>
+                                  </div>
+                                </div>
+                                <div class="comment-sec">
+                                  <span>{{messages.msg}}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </a>
+                        </div> -->
+          <div ng-if="unReadMessages.length==0" class="alert alert-info fade in alert-dismissable"
+            style="margin-top:18px;">
+            <strong>No record to display</strong>
+          </div>
+        </div>
+        <!-- unread messages ends here -->
+
+        <!-- active threads section starts here -->
+        <div class="thread-section unread-messages-section  thread-top">
+          <div class="main-title">
+            <h3>Active Threads</h3>
+          </div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a ng-click="showReview('all')" ng-class="(isAll==true)?'nav-link active':'nav-link'" id="all-tab"
+                data-toggle="tab" href="javascript:void(0);" role="tab" aria-controls="all" aria-selected="true">All</a>
+            </li>
+            <li class="nav-item">
+              <a ng-click="showReview('general')" ng-class="(general==true)?'nav-link active':'nav-link'"
+                id="general-tab" data-toggle="tab" href="javascript:void(0);" role="tab" aria-controls="general"
+                aria-selected="false">General</a>
+            </li>
+            <li class="nav-item">
+              <a ng-click="showReview('maintenance')" ng-class="(maintenance==true)?'nav-link active':'nav-link'"
+                id="maintain-tab" data-toggle="tab" href="javascript:void(0);" role="tab" aria-controls="maintain"
+                aria-selected="false">Maintenance</a>
+            </li>
+            <li class="nav-item">
+              <a ng-click="showReview('disputes')" ng-class="(disputes==true)?'nav-link active':'nav-link'"
+                id="dispute-tab" data-toggle="tab" href="javascript:void(0);" role="tab" aria-controls="dispute"
+                aria-selected="false">
+                Disputes</a>
+            </li>
+            <!-- <li class="nav-item">
+                              <a ng-click="showReview('inspections')" ng-class="(inspections==true)?'nav-link active':'nav-link'" id="inspection-tab" data-toggle="tab"
+                                href="javascript:void(0);" role="tab" aria-controls="inspection" aria-selected="false">Inspections</a>
+                            </li> -->
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content" ng-init="showReview('all');">
+            <div ng-if="isAll" ng-class="(isAll==true)?'tab-pane active':'tab-pane'" class="tab-pane active" id="all"
+              role="tabpanel" aria-labelledby="all-tab">
+              <div class="maintainance-list-sec" ng-repeat="(key, data) in all_data_list | orderBy : '-createdAt'"
+                ng-if="key < 5">
+                <!-- | limitTo: 5 -->
+                <div class="maintenance-list col-lg-12 pointer " ng-click="agreementDetail(data._id)"
+                  ng-if="data.type== 'general'">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==false && data.property_id.image[0].is_from_csv_file==false"
+                        ng-src="{{propertyImageUrl}}{{data.property_id.image[0].path}}"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==true  && data.property_id.image[0].is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{data.property_id.image[0].path}}"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_csv_file==true && data.property_id.image[0].is_from_my_file==false"
+                        src="{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                      <img ng-if="!data.property_id.image[0].path" src="assets/images/placeholder.jpg"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a>{{data.property_id.address}}</a></h4>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                    <div class="days">{{data.createdAt|date:"MMM d, yyyy h:m a"}}</div>
+                  </div>
+                </div>
+                <div class="maintenance-list col-lg-12 pointer " ng-click="maintainenceDetail(data._id)"
+                  ng-if="data.type== 'maintenance'">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==false && data.property_id.image[0].is_from_csv_file==false"
+                        src="{{imageUrl}}thumb/{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==true  && data.property_id.image[0].is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <img
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_csv_file==true && data.property_id.image[0].is_from_my_file==false"
+                        src="{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <img ng-if="!data.property_id.image[0].path" src="assets/images/placeholder.jpg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a>{{data.request_overview | limitTo :26}}
+                          {{data.request_overview.length > 26 ? "..." : ""}}</a></h4>
+                    </div>
+                    <div class="dt-wrap">
+                      <div class="maintain-request">
+                        <span>{{data.request_detail}} </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                    <div class="days">{{data.createdAt|date:"MMM d, yyyy h:m a"}}</div>
+                  </div>
+                </div>
+
+                <div class="maintenance-list col-lg-12 clearfix pointer " ng-click="goToDisputeDetail(data._id)"
+                  ng-if="data.type== 'disputes'">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <img class="data_dashboard"
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==false && data.property_id.image[0].is_from_csv_file==false"
+                        src="{{imageUrl}}thumb/{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <img class="data_dashboard"
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <img class="data_dashboard"
+                        ng-if="data.property_id.image[0].path && data.property_id.image[0].is_from_csv_file==true && data.property_id.image[0].is_from_my_file==false"
+                        src="{{data.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <img class="data_dashboard" ng-if="!data.property_id.image[0].path"
+                        src="assets/images/placeholder.jpg" style="height:50px;width:50px;border-radius: 50%;">
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a class="color_anchor pointer">{{data.subject |
+                                          limitTo :70}} {{data.subject.length > 70 ? "..." : ""}}</a></h4>
+                    </div>
+                    <div class="dt-wrap">
+                      <div class="maintain-request">
+                        <span>{{data.message}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec dispute_status">
+                    <div class="row">
+                      <div ng-if="data.dispute_status == 1" class="sent1 dis_dash">In Progress</div>
+                      <div ng-if="data.dispute_status == 2" class="accepted1 dis_dash">Resolved</div>
+                      <div ng-if="data.dispute_status == 3" class="booked1 dis_dash dis_status">Closed</div>
+                    </div>
+                  </div>
+                </div>
+                <div ng-if="all_data_list.length==0 && all_data_list.length==0">
+                  <div class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No Data Found</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="general" ng-class="(general==true)?'tab-pane active':'tab-pane'" class="tab-pane" id="general"
+              role="tabpanel" aria-labelledby="general-tab">
+              <div class="maintainance-list-sec" ng-repeat="agreement in agreementList |limitTo: 5">
+                <div class="maintenance-list col-lg-12 pointer " ng-click="agreementDetail(agreement._id)"
+                  ng-if="agreement.last_message_date != ''">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <img
+                        ng-if="agreement.property_id.image[0].path && agreement.property_id.image[0].is_from_my_file==false && agreement.property_id.image[0].is_from_csv_file==false"
+                        ng-src="{{propertyImageUrl}}{{agreement.property_id.image[0].path}}"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                      <img
+                        ng-if="agreement.property_id.image[0].path && agreement.property_id.image[0].is_from_my_file==true  && agreement.property_id.image[0].is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{agreement.property_id.image[0].path}}"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                      <img
+                        ng-if="agreement.property_id.image[0].path && agreement.property_id.image[0].is_from_csv_file==true && agreement.property_id.image[0].is_from_my_file==false"
+                        src="{{agreement.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                      <img ng-if="!agreement.property_id.image[0].path" src="assets/images/placeholder.jpg"
+                        style="height:50px;width:50px;border-radius: 50%;" />
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a>{{agreement.property_id.address}}</a></h4>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                    <div class="days">{{agreement.last_message_date|date:"MMM d, yyyy h:m a"}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="maintenance" ng-class="(maintenance==true)?'tab-pane active':'tab-pane'" class="tab-pane"
+              id="maintain" role="tabpanel" aria-labelledby="maintain-tab">
+              <div class="maintainance-list-sec" ng-repeat="maintenanceHistory in maintenanceThreadList |limitTo: 5">
+                <div class="maintenance-list col-lg-12 pointer " ng-click="maintainenceDetail(maintenanceHistory._id)">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="his_img">
+                      <!-- <a class="pointer" ng-click="maintainenceDetail(maintenanceHistory._id)"> -->
+                      <img
+                        ng-if="maintenanceHistory.property_id.image[0].path && maintenanceHistory.property_id.image[0].is_from_my_file==false && maintenanceHistory.property_id.image[0].is_from_csv_file==false"
+                        src="{{imageUrl}}thumb/{{maintenanceHistory.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <img
+                        ng-if="maintenanceHistory.property_id.image[0].path && maintenanceHistory.property_id.image[0].is_from_my_file==true  && maintenanceHistory.property_id.image[0].is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{maintenanceHistory.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <img
+                        ng-if="maintenanceHistory.property_id.image[0].path && maintenanceHistory.property_id.image[0].is_from_csv_file==true && maintenanceHistory.property_id.image[0].is_from_my_file==false"
+                        src="{{maintenanceHistory.property_id.image[0].path}}" alt="propimg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <img ng-if="!maintenanceHistory.property_id.image[0].path" src="assets/images/placeholder.jpg"
+                        style="height:50px;width:50px;border-radius: 50%;">
+                      <!-- <img ng-if="maintenanceHistory.created_by.image && maintenanceHistory.created_by.image!=''"
+                                        ng-src="{{userImageUrl}}{{maintenanceHistory.created_by.image}}" style="height:50px;width:50px;border-radius: 50%;"
+                                        src="/assets/images/no_image.png">
+                                      <div ng-if="!maintenanceHistory.created_by.image" class="col-sm-3 default_50">
+                                        {{maintenanceHistory.created_by.firstname.charAt(0).toUpperCase()}}{{maintenanceHistory.created_by.lastname.charAt(0).toUpperCase()}}
+                                      </div> -->
+                      <!-- </a> -->
+                    </div>
+                  </div>
+                  <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                    <div class="maintain-title">
+                      <h4><a>{{maintenanceHistory.request_overview | limitTo :26}}
+                          {{maintenanceHistory.request_overview.length > 26 ? "..." : ""}}</a></h4>
+                    </div>
+                    <div class="dt-wrap">
+                      <div class="maintain-request">
+                        <!-- <span>{{maintenanceHistory.request_detail | limitTo :26}}
+                                      {{maintenanceHistory.request_detail.length > 26 ? "..." : ""}} </span> -->
+                        <span>{{maintenanceHistory.request_detail}} </span>
+                      </div>
+                    </div>
+                    <!-- <div class="maintain-category">
+                                      <i class="fa fa-hashtag">#</i>
+                                      <span>Category name</span>
+                                    </div> -->
+                  </div>
+                  <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                    <div class="days">{{maintenanceHistory.createdAt|date:"MMM d, yyyy h:m a"}}</div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div ng-if="maintenanceThreadList.length==0">
+                <div class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                  <strong>No record to display</strong>
+                </div>
+              </div>
+            </div>
+            <div ng-if="disputes" ng-class="(disputes==true)?'tab-pane active':'tab-pane'" class="tab-pane" id="dispute"
+              role="tabpanel" aria-labelledby="dispute-tab">
+              <div ng-hide="agentView && maintNavList=='Requested by tenant'" class="row marT10"
+                dir-paginate="dispute in disputeList| itemsPerPage:8 | orderBy:filterMatch"
+                current-page="pagination.current">
+                <div class="agnt_list clearfix pointer DisputesWrap" ng-click="goToDisputeDetail(dispute._id)">
+                  <div class="col-sm-2 col-xs-12  clearfix">
+                    <!-- <a ng-click="goToDisputeDetail(dispute._id)" class="property-img1 inspection pointer"> -->
+                    <img class="dispute_dashboard"
+                      ng-if="dispute.property_id.image[0].path && dispute.property_id.image[0].is_from_my_file==false && dispute.property_id.image[0].is_from_csv_file==false"
+                      src="{{imageUrl}}thumb/{{dispute.property_id.image[0].path}}" alt="propimg"
+                      style="height:50px;width:50px;border-radius: 50%;">
+                    <img class="dispute_dashboard"
+                      ng-if="dispute.property_id.image[0].path && dispute.property_id.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+                      src="{{fileImageUrl}}{{dispute.property_id.image[0].path}}" alt="propimg"
+                      style="height:50px;width:50px;border-radius: 50%;">
+                    <img class="dispute_dashboard"
+                      ng-if="dispute.property_id.image[0].path && dispute.property_id.image[0].is_from_csv_file==true && dispute.property_id.image[0].is_from_my_file==false"
+                      src="{{dispute.property_id.image[0].path}}" alt="propimg"
+                      style="height:50px;width:50px;border-radius: 50%;">
+                    <img class="dispute_dashboard" ng-if="!dispute.property_id.image[0].path"
+                      src="assets/images/placeholder.jpg" style="height:50px;width:50px;border-radius: 50%;">
+                    <!-- </a> -->
+                    <!-- <a href="/#!/profile/{{dispute.created_by_id._id}}">
+                                    <img class="createdByImage" ng-src="{{userImageUrl}}{{dispute.created_by_id.image}}" src="assets/images/no_image.png">
+                                  </a> -->
+                    <!-- <a href="/#!/profile/{{dispute.created_by_id._id}}" ng-show="!dispute.created_by_id.image.length>0 || !dispute.created_by_id.image" class="pointer" href="/#!/dispute.created_by_id_profile/{{dispute.created_by_id._id}}">
+                                  <div class="default_121">
+                                 {{dispute.created_by_id.firstname.charAt(0).toUpperCase()}}{{dispute.created_by_id.lastname.charAt(0).toUpperCase()}}
+                                  </div>
+                                </a> -->
+                  </div>
+                  <div class="col-9 col-8 detail apt-list clearfix dispute_dash_sub">
+                    <div class="row">
+                      <div class="col-9 clearfix">
+                        <h5 class="text-capitalize">
+                          <a class="color_anchor pointer" ng-click="goToDisputeDetail(dispute._id)">{{dispute.subject |
+                                          limitTo :70}} {{dispute.subject.length > 70 ? "..." : ""}}</a>
+                        </h5>
+                        <div class="dt-wrap">
+                          <div class="cat_id">
+                            <span>
+                              <!-- {{dispute.message|limitTo :70}} {{dispute.message.length > 70 ? "..." : ""}} -->
+                              {{dispute.message}}
+                            </span>
+                            <div class="clearfix"></div>
+                            <!-- <span style="position:relative; top: 10px;">
+                                          <a href="/#!/profile/{{dispute.agent_id._id}}">
+                                            <img class="createdByImage" ng-src="{{userImageUrl}}{{dispute.agent_id.image}}" src="assets/images/no_image.png" style="width: 35px; height: 35px; padding-right: 0px">
+                                          </a> -->
+                            <!-- <a href="/#!/profile/{{dispute.agent_id._id}}" ng-show="!dispute.agent_id.image.length>0 || !dispute.agent_id.image" class="pointer" href="/#!/dispute.agent_id_profile/{{dispute.agent_id._id}}">
+                                          <div class="default_121">
+                                         {{dispute.agent_id.firstname.charAt(0).toUpperCase()}}{{dispute.agent_id.lastname.charAt(0).toUpperCase()}}
+                                          </div>
+                                        </a> -->
+                            <!-- </span> -->
+                            <!-- <span style="position:relative; top: 10px;">
+                                          <a href="/#!/profile/{{dispute.owner_id._id}}">
+                                            <img class="createdByImage" ng-src="{{userImageUrl}}{{dispute.owner_id.image}}" src="assets/images/no_image.png" style="width: 35px; height: 35px;">
+                                          </a>
+                                        </span> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-1">
+
+                      </div>
+                      <div class="col-sm-11">
+                        <div ng-if="dispute.dispute_status == 1" class="sent1 dis_dash">In Progress</div>
+                        <div ng-if="dispute.dispute_status == 2" class="accepted1 dis_dash">Resolved</div>
+                        <div ng-if="dispute.dispute_status == 3" class="booked1 dis_dash dis_status">Closed</div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+              </div>
+              <div ng-if="disputeList.length==0">
+                <div class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                  <strong>No disputes to display</strong>
+                </div>
+              </div>
+            </div>
+            <div ng-if="inspections" ng-class="(inspections==true)?'tab-pane active':'tab-pane'" class="tab-pane"
+              id="inspection" role="tabpanel" aria-labelledby="inspection-tab">
+              <div ng-if="maintenanceInspectionsList.length==0">
+                <div class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                  <strong>No record to display</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- active threads section ends here -->
+
+
+
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+        <!-- removed for now -->
+        <!-- notice section starts here -->
+        <!-- <div ng-hide={{isTrader}} class="notice-section">
+                        <div class="main-title">
+                          <h3>Notice board</h3>
+                        </div>
+                        <div class="row notice-div" ng-repeat="notice in noticeBoardList | limitTo:2"> -->
+
+        <!-- <div class="col-lg-12 col-md-12 marT20">
+                            <div class="post overWriteHeight post-height-set" ui-sref="noticeBoardDetail({id:notice._id})"
+                              ng-show="notice.deleted==false">
+                              <a class="pointer">
+                                <h4>Title : {{notice.title | limitTo :100}} {{notice.title.length > 100 ? "..." : ""}}</h4>
+                                <font color="Black"><span>Date:{{notice.createdAt | date}}</span></font>
+                                <font color="Black">
+                                  <p>{{notice.description| limitTo :300}} {{notice.description.length > 300 ? "..." : ""}}</p>
+                                </font>
+                              </a>
+                              <p class="property-address">Plan Id:{{notice.noticeboard_id}}</p>
+                            </div>
+                          </div> -->
+
+        <!-- <div class="col-lg-12 col-md-12 marT20">
+                            <div class="my-property_listview shadow-hover">
+                              <div class="img_list">
+                                <a href="/#!/notice_board_detail/{{notice._id}}" class="my-property-img1">
+                                  <img src="{{imageUrl}}{{notice.property_id_arr[0].image[0].path}}"
+                                    err-src="/assets/images/placeholder.jpg" alt="Property Image">
+                                </a>
+                              </div>
+                              <div class="my-property-content_listview">
+                                <div class="my-property-title">
+                                  <h4>
+                                    <a href="/#!/notice_board_detail/{{notice._id}}">{{notice.property_id_arr[0].address | limitTo :
+                                      50}}{{notice.property_id_arr[0].address.length > 50 ? "..."
+                                      : ""}}</a>
+                                  </h4>
+                                  <p class="my-property-date">{{notice.createdAt | date}}</p>
+                                  <p class="my-property-address property-address">{{notice.description| limitTo :300}}
+                                    {{notice.description.length > 300 ? "..." : ""}}</p>
+                                </div> -->
+        <!-- <table class="property-details marT20">
+                                        <tbody>
+                                          <tr>
+                                            <td class="userName">Frank McAdams</td>
+                                            <td class="userpic"><img src="/assets/images/ryan.png" alt="user"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table> -->
+        <!-- </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div ng-if="noticeBoardList.length==0" class="alert alert-info fade in alert-dismissable"
+                          style="margin-top:18px;">
+                          <strong>No record to display</strong>
+                        </div>
+
+                      </div> -->
+        <!-- notice section ends here -->
+        <!-- removed for now -->
+
+        <!-- upcoming inspection starts here -->
+
+        <div class="maintain-request-sec" ng-init="getInspectionOnCalendar()">
+          <!-- <div class="main-title marT30 marB20 thread-top">
+                            <h3>Upcoming Inspections</h3>
+                          </div> -->
+          <div class="home-pg dashboard-calendar-sec"
+            ng-show="agent==roleId || ownAgency==roleId || roleRecord.owner == roleId || roleRecord.tenant == roleId">
+            <div class="cal_title">Upcoming Inspections</div>
+            <div class="calendarCursor" ui-calendar="uiConfig.calendar" ng-model="eventSources2" ui-config="calendar"
+              id="calendar"></div>
+          </div>
+          <!-- upcoming inspection ends here -->
+
+          <!-- active maintenance starts here -->
+          <div class="maintain-request-sec" ng-init="maintenanceListing();">
+            <div class="main-title marT30 marB20 thread-top">
+              <h3>Active maintenance request</h3>
+              <div ng-if="maintainList.length==0" class="alert alert-info fade in alert-dismissable"
+                style="margin-top:18px;">
+                <strong>No record to display</strong>
+              </div>
+            </div>
+            <!-- post 1 -->
+            <div class="maintainance-list-sec" ng-repeat="maintain in maintainList">
+              <div class="maintenance-list col-lg-12"
+                ng-if="maintain.request_type == 0 || (maintain.request_type == 1 && isTrader)"
+                ng-click="maintainenceDetail(maintain._id)">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <div class="his_img">
+                    <a class="pointer"
+                      ng-click="goToUserProfilePage(maintain.created_by._id, maintain.created_by_role._id)">
+                      <img ng-if="maintain.created_by.image && maintain.created_by.image!=''"
+                        ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                        style="height:60px;width:60px;border-radius: 50%;" src="/assets/images/no_image.png">
+                      <div ng-if="!maintain.created_by.image" class="col-sm-3 default_50">
+                        {{maintain.created_by.firstname.charAt(0).toUpperCase()}}{{maintain.created_by.lastname.charAt(0).toUpperCase()}}
+                      </div>
+                      <!-- <img class="dashboardMaintUserImg" ng-src="{{maintenanceImageUrl}}{{maintain.images[0].path}}" src="assets/images/no_image.png"> -->
+                    </a>
+                  </div>
+                </div>
+                <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                  <div class="maintain-title">
+                    <h4>
+                      <a class="pointer">{{maintain.request_overview |
+                                      limitTo :100}} {{maintain.request_overview.length > 100 ? "..." : ""}}</a>
+                    </h4>
+                  </div>
+                  <div class="maintain-request">
+                    <i class="fa fa-tag" aria-hidden="true"></i>
+                    <span>Requested ID : {{maintain.request_id}}</span>
+                  </div>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                  <div class="price">
+                    <h4>${{maintain.budget}}</h4>
+                  </div>
+                  <!-- <div class="days">in {{maintain.difference | positive}} days</div> -->
+                  <div class="days"> {{maintain.due_date | date}} </div>
+                  <div ng-if="maintain.req_status == 2 && maintain.request_type == 0" class="status accepted">ACCEPTED
+                  </div>
+                  <div ng-if="maintain.req_status == 3 && maintain.request_type == 0" class="dashboardMaintBook">Booked
+                  </div>
+                  <div ng-if="maintain.req_status == 5 && maintain.request_type == 0" class="dashboardMaintComplete">
+                    Completed</div>
+                  <div ng-if="maintain.req_status == 7 && maintain.request_type == 0" class="dashboardMaintClose">Denied
+                  </div>
+                  <div ng-if="maintain.req_status == 4 && maintain.request_type == 0" class="dashboardMaintClose">Closed
+                  </div>
+                </div>
+              </div>
+              <div class="maintenance-list col-lg-12" ng-if="maintain.request_type == 1 && isTrader == false"
+                ng-click="goToJobDetail(maintain._id)">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <div class="his_img">
+                    <a class="pointer"
+                      ng-click="goToUserProfilePage(maintain.created_by._id, maintain.created_by_role._id)">
+                      <img ng-if="maintain.created_by.image && maintain.created_by.image!=''"
+                        ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                        style="height:60px;width:60px;border-radius: 50%;" src="/assets/images/no_image.png">
+                      <div ng-if="!maintain.created_by.image" class="col-sm-3 default_50">
+                        {{maintain.created_by.firstname.charAt(0).toUpperCase()}}{{maintain.created_by.lastname.charAt(0).toUpperCase()}}
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
+                  <div class="maintain-title">
+                    <h4>
+                      <a class="pointer">{{maintain.request_overview |
+                                      limitTo :100}} {{maintain.request_overview.length > 100 ? "..." : ""}}</a>
+                    </h4>
+                  </div>
+                  <div class="maintain-request">
+                    <i class="fa fa-tag" aria-hidden="true"></i>
+                    <span>Requested ID : {{maintain.request_id}}</span>
+                  </div>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 price-sec">
+                  <div class="price">
+                    <h4>${{maintain.budget}}</h4>
+                  </div>
+                  <!-- <div class="days">in {{maintain.difference | positive}} days</div> -->
+                  <div class="days">{{maintain.due_date | date}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- active maintenance ends here -->
+
+        <!-- statistics section starts here -->
+        <div ng-show="agent==roleId || ownAgency==roleId" class="statistics-sec">
+          <div class="col-lg-12">
+            <div class=" sta-marginleft">
+              <div class="col-lg-8">
+                <div class="main-title marT30 marB20 thread-top">
+                  <h3>Statistics</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 sta-card">
+              <div class="row">
+                <!-- <div ng-hide={{isTenant}} class="col-lg-4 stats">
+                                <a class="pointer" ng-click="fromCountToTenantList()">
+                                  <h2>{{tenantCnt}}</h2>
+                                </a>
+                                <span>Tenants</span>
+                              </div> -->
+                <!-- <div class="col-lg-4 stats">
+                                <a class="pointer" href="/#!/property_listing">
+                                  <h2>{{propertyCnt}}</h2>
+                                </a>
+                                <span>Properties</span>
+                              </div> -->
+                <div class="col-lg-4 stats">
+                  <a class="pointer" href="/#!/maintance_listing" ng-click="fromCountToMaintenanceList()">
+                    <h2>{{requestCnt}}</h2>
+                  </a>
+                  <span>Requests</span>
+                </div>
+                <div class="col-lg-4 stats" ng-if="reveal_contact_number && reveal_contact_number > 0">
+                  <h2>{{reveal_contact_number}}</h2>
+                  <span>Phone View</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- statistics section ends here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" ng-init="dashboardInitialize()" ng-cloak>
+  <div class="row margin-top-10">
+    <!-- staging -->
+    <div ng-if="!isProd" class="setting-section">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 horiLine">
+        <div class="col-sm-4  col-xs-12 project-detail marB20 heading-padding-zero">
+          <h5></h5>
+        </div>
+        <div class="col-sm-8 col-xs-12 marT10 marB10 text-right button-padding-zero other-action">
+
+          <!--<button class="btn btn-import" ng-click="openOtherPopup();">
+              <div ng-class="popupClass">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"> Other Action
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu right-adj dropdown-menu-set">
+                  <li>
+                    <a ng-click="openAddTenant()" href="javascript:void(0);">New Tenant</a>
+                  </li>
+                  <li>
+                    <a ng-click="openAddMaintenance()" href="javascript:void(0);">New maintenance request</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);">New tenancy request</a>
+                  </li>
+                  <li>
+                    <a href="/#!/add_agreement">New agency agreement</a>
+                  </li>
+                </ul>
+              </div>
+            </button>-->
+        </div>
+      </div>
+
+
+
+      <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 horiLine padB10">
+          <div class="col-sm-12">
+            <div class="col-sm-2">
+              <div>
+                <div class="dropdown default-oder"> -->
+      <!-- <button class="btn btn-secondary dropdown-toggle togle-default refine" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Refine results
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                  </button>
+                  <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button">Action</button>
+                    <button class="dropdown-item" type="button">Another action</button>
+                    <button class="dropdown-item" type="button">Something else here</button>
+                  </div> -->
+      <!-- </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div> -->
+
+
+
+    </div>
+
+    <!-- Production -->
+    <div ng-if="isProd" class="setting-section">
+      <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 horiLine padB10">
+                  <div class="col-sm-12">
+                    <div class="col-sm-2">
+                      <div>
+                        <div class="dropdown default-oder"> -->
+      <!-- <button class="btn btn-secondary dropdown-toggle togle-default refine" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Refine results
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                          </button>
+                          <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item" type="button">Action</button>
+                            <button class="dropdown-item" type="button">Another action</button>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                          </div> -->
+      <!-- </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div> -->
+
+
+
+    </div>
+  </div>
+  <!-- <script>
+    jQuery.noConflict();
+
+    </script> -->

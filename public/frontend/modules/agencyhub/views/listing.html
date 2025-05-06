@@ -1,0 +1,244 @@
+<div class="ContentWrap" ng-init="initialize()">
+    <div class="ContentHead d-flex">
+        <h2>AgencyHub</h2>
+    </div>
+    <div class="AgencyHubHead d-flex">
+        <div class="RayWhite">
+            <span>
+                <!-- <img ng-src="{{userImageUrl}}{{agency.logoImage}}" src="assets/images/no_image.png"> -->
+                <img ng-show="agency.logoImage" ng-src="{{userImageUrl}}{{agency.logoImage}}" alt="Agent Logo Image">
+                <img ng-show="!agency.logoImage|| agency.logoImage==''" src="assets/images/no_image.png" alt="profile">
+            </span>
+            <h3>{{agency.name}}</h3>
+            <p><span uib-rating ng-model=createdByRate.data max="5" read-only="true" on-hover="hoveringOver(value)"
+                    on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                {{createdByRate.data}} from {{createdByRate.total_review}} reviews</p>
+        </div>
+        <div class="AgencyHubHeadR d-flex">
+            <div>
+                <h3>Maintenances</h3>
+                <h4> {{agencyStatsData.totalMRcount}} / {{agencyStatsData.totalClosedMRcount}}</h4>
+                <p>All / Closed</p>
+            </div>
+            <!-- <div>
+                <h3>Services Request by tenants</h3>
+                <h4>91 / 14</h4>
+                <p>All / Closed</p>
+            </div> -->
+            <div>
+                <h3>Average Completion in</h3>
+                <h4>{{agencyStatsData.totalAvgDaysCount}} days</h4>
+                <p></p>
+            </div>
+            <div>
+                <h3>tenancies</h3>
+                <h4> {{agencyStatsData.totalAgreementsCount}} </h4>
+                <p></p>
+            </div>
+            <div>
+                <h3>Disputes</h3>
+                <h4> {{agencyStatsData.totalOpenDisputesCount}} / {{agencyStatsData.totalClosedDisputesCount}}</h4>
+                <p>Open / closed</p>
+            </div>
+            <div>
+                <h3>Points</h3>
+                <h4> {{agencyStatsData.totalPoints}} </h4>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="AgencyHubTable">
+        <table class="table">
+            <thead>
+                <th>Property Manager</th>
+                <th>Service requests</th>
+                <!-- <th>Service requests by tenants</th> -->
+                <th>Maintenances</th>
+                <th>Average SR Completion</th>
+                <th>Message</th>
+                <th>Tenancies</th>
+                <th>Disputes</th>
+                <th>Points</th>
+            </thead>
+            <tbody dir-paginate="agent in agentsList| itemsPerPage:8| orderBy:orderProperty"
+                current-page="pagination.current">
+                <tr>
+                    <td>
+                        <div class="HubProfile">
+                            <span>
+                                <img ng-src="{{userImageUrl}}{{agent.image}}" src="assets/images/no_image.png">
+                            </span>
+                            <h3>{{agent.firstname}} {{agent.lastname}} </h3>
+                            <h4 ui-sref="profile({id:agent._id})">View Account</h4>
+                        </div>
+                    </td>
+                    <td class="ServiceReq">
+                        <div class="d-flex">
+                            <div class="ColorSky">
+                                <h3>{{agent.sentMR}}</h3>
+                                <p>Sent</p>
+                            </div>
+                            <div class="ColorYellow">
+                                <h3> {{agent.acceptedMR}} </h3>
+                                <p>Accepted</p>
+                            </div>
+                            <div class="ColorPurple">
+                                <h3> {{agent.bookedMR}} </h3>
+                                <p>Booked</p>
+                            </div>
+                            <div class="ColorGreen">
+                                <h3> {{agent.completedMR}} </h3>
+                                <p>Completed</p>
+                            </div>
+                            <div class="ColorOrange">
+                                <h3> {{agent.closedMR}} </h3>
+                                <p>Closed</p>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- <td>
+                        <h3>10 / 0</h3>
+                        <p>forwarded / Pending</p>
+                    </td> -->
+                    <td class="agencyhub-td">
+                        <h3>{{agent.totalMR}} / {{agent.closedMR}} </h3>
+                        <p>All / Closed</p>
+                    </td>
+                    <td class="agencyhub-td">
+                        <h3> {{agent.avg_comp_days ? agent.avg_comp_days : '-'}} </h3>
+                    </td>
+                    <td class="agencyhub-td">
+                        <h3>{{agent.sentMsgs}} / {{agent.receivedMsgs}}</h3>
+                        <p>Sent / Received</p>
+                    </td>
+                    <td class="agencyhub-td">
+                        <h3> {{agent.agreementCount}} </h3>
+                    </td>
+                    <td class="agencyhub-td">
+                        <h3>{{agent.openDisputes}} / {{agent.closedDisputes}}</h3>
+                        <p>OPen / Closed</p>
+                    </td>
+                    <td class="agencyhub-td">
+                        <h3>{{agent.points}}</h3>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>
+                        <div class="HubProfile">
+                            <span></span>
+                            <h3>Andy Harrison</h3>
+                            <h4>View Account</h4>
+                        </div>
+                    </td>
+                    <td class="ServiceReq">
+                        <div class="d-flex">
+                            <div class="ColorSky">
+                                <h3>12</h3>
+                                <p>Sent</p>
+                            </div>
+                            <div class="ColorYellow">
+                                <h3>4</h3>
+                                <p>Accepted</p>
+                            </div>
+                            <div class="ColorPurple">
+                                <h3>2</h3>
+                                <p>Booked</p>
+                            </div>
+                            <div class="ColorGreen">
+                                <h3>2</h3>
+                                <p>Completed</p>
+                            </div>
+                            <div class="ColorOrange">
+                                <h3>2</h3>
+                                <p>Closed</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <h3>10 / 0</h3>
+                        <p>forwarded / Pending</p>
+                    </td>
+                    <td>
+                        <h3>5 Days</h3>
+                    </td>
+                    <td>
+                        <h3>5 / 16</h3>
+                        <p>Answered / unanswered</p>
+                    </td>
+                    <td>
+                        <h3>7</h3>
+                    </td>
+                    <td>
+                        <h3>5 / 16</h3>
+                        <p>OPen / Closed</p>
+                    </td>
+                    <td>
+                        <h3>10</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="HubProfile">
+                            <span></span>
+                            <h3>Andy Harrison</h3>
+                            <h4>View Account</h4>
+                        </div>
+                    </td>
+                    <td class="ServiceReq">
+                        <div class="d-flex">
+                            <div class="ColorSky">
+                                <h3>12</h3>
+                                <p>Sent</p>
+                            </div>
+                            <div class="ColorYellow">
+                                <h3>4</h3>
+                                <p>Accepted</p>
+                            </div>
+                            <div class="ColorPurple">
+                                <h3>2</h3>
+                                <p>Booked</p>
+                            </div>
+                            <div class="ColorGreen">
+                                <h3>2</h3>
+                                <p>Completed</p>
+                            </div>
+                            <div class="ColorOrange">
+                                <h3>2</h3>
+                                <p>Closed</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <h3>10 / 0</h3>
+                        <p>forwarded / Pending</p>
+                    </td>
+                    <td>
+                        <h3>5 Days</h3>
+                    </td>
+                    <td>
+                        <h3>5 / 16</h3>
+                        <p>Answered / unanswered</p>
+                    </td>
+                    <td>
+                        <h3>7</h3>
+                    </td>
+                    <td>
+                        <h3>5 / 16</h3>
+                        <p>OPen / Closed</p>
+                    </td>
+                    <td>
+                        <h3>10</h3>
+                    </td>
+                </tr> -->
+            </tbody>
+        </table>
+        <nav class="pagination-container marT20">
+            <div class="pagination">
+                <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true"
+                    boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+                </dir-pagination-controls>
+            </div>
+        </nav>
+    </div>
+
+</div>

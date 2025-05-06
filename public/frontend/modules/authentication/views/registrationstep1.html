@@ -1,0 +1,43 @@
+<div class="section bg_reg">
+    <div class="container">
+        <div class="logo"></div>
+        <div class="regis1" ng-init="getRoleListInfo()">
+            <div class="row">
+                <h1 class="marB30">Create your Ownly account</h1>
+                <div class="marB20">
+                    <h3>Why do you want to join Ownly? </h3>
+                    <!-- <div ng-repeat="(key,roles) in roleList"> -->
+                    <div ng-repeat="(key,roles) in staticUserRole">
+                        <input id="radio_{{key}}" type="radio" ng-value="roles._id" ng-model="role.value" name="radio1"
+                            ng-init="$index==0?(role.value=roles._id):''" ng-click="roleSelected(roles._id)"
+                            class="role_radio" />
+                        <label for="radio_{{key}}">{{roles.title}}</label>
+                    </div>
+                </div>
+                <div class="text-center marB20">
+                    <button type="submit" ng-click="registrationStep1(role)" class="btn-login">
+                        <!-- Proceed -->
+                        Sign Up with Email
+                    </button>
+                </div>
+
+                <div class="or-div">
+                    <span>Or</span>
+                </div>
+                <div class="login-other-option">
+                    <a ng-click="socialLogin('google', role)" class="google-login">
+                        <i><img src="./assets/images/icon-google.png" alt="" /></i>
+                        SIGN UP WITH GOOGLE
+                    </a>
+                    <a ng-click="socialLogin('facebook', role)" class="facebook-login">
+                        <i><img src="./assets/images/facebook.png" alt="" /></i>
+                        SIGN UP WITH FACEBOOK
+                    </a>
+                </div>
+            </div>
+        </div>
+        <p class="message_line bottom-pad-20 signup_link">Have an account?
+            <a ui-sref="login" class="footer_link_outer_page">Log in here</a>
+        </p>
+    </div>
+</div>

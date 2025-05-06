@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>ios-search</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="Mobile-Header" transform="translate(-333.000000, -47.000000)" stroke="#FFFFFF" stroke-width="1.5">
+            <g id="Header">
+                <g id="Search" transform="translate(20.000000, 39.000000)">
+                    <g id="ios-search" transform="translate(311.000000, 5.650000)">
+                        <path d="M22.5078125,13.1585141 C22.5078125,18.1952016 18.2088876,22.2801938 12.9060445,22.2801938 C7.60320133,22.2801938 3.3042764,18.1952016 3.3042764,13.1585141 C3.3042764,8.12081316 7.60320133,4.03683448 12.9060445,4.03683448 C18.2088876,4.03683448 22.5078125,8.12081316 22.5078125,13.1585141 L22.5078125,13.1585141 Z" id="Stroke-105"></path>
+                        <polygon id="Stroke-106" points="19 20.6338874 23 24.35 23.5 23.85 19.6674638 20"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

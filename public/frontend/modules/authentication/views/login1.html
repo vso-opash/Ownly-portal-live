@@ -1,0 +1,80 @@
+<div ng-if="isLoggedIn==false" class="section bg">
+    <div class="container">
+        <div class="logo"></div>
+        <div class="login" ng-init='readcookie()'>
+            <div class="row">
+                <form name="login_form" method="post" id="login" novalidate>
+                    <h1 class="marB30"> Log in to your Ownly account</h1>
+                    <div class="marB20">
+                        <label>Email address</label>
+                        <input ng-maxlength="254" class="form-control frmInput" name="username" type="text"
+                            ng-model="user.email"
+                            ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,50})$/"
+                            autocomplete="off" required />
+                        <span
+                            ng-show="login_form.username.$touched && login_form.username.$invalid || login_form.username.$error.pattern"
+                            class="redb">
+                            <font color="Red">Please provide valid email .</font>
+                        </span>
+                        <span ng-show="login_form.username.$error.maxlength" class="redb">
+                            <font color="Red">Max 254 characters allowed.</font>
+                        </span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label>Password</label>
+                        <a href="javascript:void(0)" ng-click="forgotPasswordLink()">Forgotten password?</a>
+                        <input ng-enter="login(user)" class="form-control frmInput" type="password" name="password"
+                            ng-maxlength="15" autocomplete="off" ng-model="user.password" required
+                            ng-attr-type="{{ showPassword ? 'text':'password'}}" />
+                        <span id="hide_show_pwd_click" ng-click="toggleShowPassword()"
+                            ng-class="{'fa fa-eye': showPassword,'fa fa-eye-slash': !showPassword}"
+                            style="cursor: pointer;"></span>
+                        <span ng-show="login_form.password.$touched && login_form.password.$invalid" class="redb">
+                            <font color="Red">Password field is required</font>
+                        </span>
+                        <span class="text-danger" ng-show="login_form.password.$error.maxlength">
+                            <font color="Red">Max allowed length is 15</font>
+                        </span>
+                    </div>
+                    <!-- <div class="">
+                        <div class=" marB20">
+                            <div class="checkbox marB20">
+                                <h3>
+                                    <input id="checkbox-1" ng-click="rememberme(user)" ng-model="remember"
+                                        class="checkbox-custom" name="checkbox-1" type="checkbox" checked="">
+                                    <label for="checkbox-1" class="checkbox-custom-label">keep me signed in</label>
+                                </h3>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="text-center marB20">
+                        <button type="submit" ladda="loginLoading" data-style="slide-right" ng-click="login(user)"
+                            class="btn-login">Log in</button>
+                        <!-- remember -->
+                    </div>
+                    <div class="or-div">
+                        <span>Or</span>
+                    </div>
+                    <div class="login-other-option">
+                        <a ng-click="socialLogin('google', '')" class="google-login">
+                            <i><img src="./assets/images/icon-google.png" alt="" /></i>
+                            LOG IN WITH GOOGLE
+                        </a>
+                        <a ng-click="socialLogin('facebook', '')" class="facebook-login">
+                            <i><img src="./assets/images/facebook.png" alt="" /></i>
+                            LOG IN WITH FACEBOOK
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <p class="message_line marB30 signup_link">Don't have an account?
+            <a ui-sref="signupStep1" class="footer_link_outer_page">Sign up here</a>
+        </p>
+    </div>
+</div>
+
+
+<script>
+    $("form :input").attr("autocomplete", "off");
+</script>

@@ -1,0 +1,152 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Agent Management
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">
+                    <i class="fa fa-dashboard"></i> Dashboard</a>
+            </li>
+            <li>
+                <a ui-sref="agentListing">
+                    <i class="fa fa-user-secret"></i>Agent Management</a>
+            </li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Search Filters </h3>
+                        <div class="pull-right"><a ng-click="back()"><i class="fa fa-angle-left margin-r-5"
+                                    aria-hidden="true"></i> Back</a></div>
+                    </div>
+                    <div class="box-header with-border">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-7">
+                                <div class="input-group input-group col-sm-6">
+                                    <input name="table_search" ng-model="searchUser"
+                                        class="form-control pull-right ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"
+                                        placeholder="Search by Name" id="datepicker" autocomplete="false" required=""
+                                        type="text">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" ng-click="searchUserAdmin(searchUser)">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                        <button class="btn btn-default" ng-click="getAgentList()"
+                                            title="Refresh user list" style="margin-left:6px;">
+                                            <i class="fa fa-refresh"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-xs-6 col-sm-5 text-right ng-scope">
+                                <div class="input-group input-group-sm pull-right">
+                                    <a class="btn btn-primary btn-flat btn-sm" ui-sref="addUser" title="Add user">Add New User</a>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body box box-warning table-responsive" ng-init="getAgentList()">
+                    <table class="table table-bordered  ng-table">
+                        <thead class="">
+                            <tr>
+                                <th title="" class="header" style="cursor:default">
+                                    <div class="ng-table-header ">
+                                        <span>Image</span>
+                                    </div>
+
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header" ng-click='sortRecentUserColumn("name")'
+                                        ng-class='sortClass("name")'>
+                                        <span>Agency Name</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("firstname")'
+                                        ng-class='sortClass("firstname")'>
+                                        <span>First Name</span>
+                                    </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("lastname")'
+                                        ng-class='sortClass("lastname")'>
+                                        <span>Last Name</span>
+                                    </div>
+
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("state")'
+                                        ng-class='sortClass("state")'>
+                                        <span>State</span>
+                                    </div>
+
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortRecentUserColumn("city")'
+                                        ng-class='sortClass("city")'>
+                                        <span>City</span>
+                                    </div>
+
+                                </th>
+                                <th title="" class="header  sortable ">
+                                    <div class="ng-table-header changeCursorType">
+                                        <span>Action</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-if="agentList.length!=0"
+                                dir-paginate="agentData in agentList|orderBy:columnUser:reverseUser| itemsPerPage:8| filter:searchUser"
+                                class="">
+                                <td>
+                                    <span class="chat-img pull-left">
+                                        <img class="pointerCursor adminprofileimg" err-src="./images/no_image.png"
+                                            ng-src="{{imageUrl}}{{agentData.image?agentData.image:' '}}" width="100px"
+                                            alt="User Image">
+                                    </span>
+                                </td>
+                                <td sortable="'name'" class="text-capitalize">{{agentData.agency_id.name}}</td>
+                                <td sortable="'firstname'" class="text-capitalize">{{agentData.firstname}}</td>
+                                <td class="text-capitalize">{{agentData.lastname}}</td>
+                                <td class="text-capitalize">{{agentData.state}}</td>
+                                <td class="text-capitalize">{{agentData.city}}</td>
+                                <td data-title="'Actions'" class="actions" data-title-text="Actions" align="center">
+                                    <a ui-sref="userDetail({id:agentData._id})">
+                                        <i class="fa fa-eye" aria-hidden="true" title="View Details"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" ng-click="getAgentPropertyListing(agentData._id)">
+                                        <i class="fa fa-info-circle" aria-hidden="true"
+                                            title="View Property Listing"></i>
+                                    </a>
+                                    <!-- <a ui-sref="userEdit({id:agentData._id})">
+                                            <i class="fa fa-pencil" aria-hidden="true" title="Edit user"></i>
+                                        </a>
+                                        <a ng-click="deleteUser(agentData._id)">
+                                            <i class="fa fa-trash-o" aria-hidden="true" title="Delete user"></i>
+                                        </a> -->
+                                    <a ui-sref='emailTemplateUser({id:agentData._id})'>
+                                        <i class="fa fa-send-o" aria-hidden="true" title="Send email to user"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr ng-if="agentList.length == 0" style='color:#605ca8;font-size: 15px;'>
+                                <td colspan="7" style="text-align: center;">No records found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pull-right"
+                        style="font-size:14px;margin-bottom:25px;margin-top:-11px;margin-right: 13px;">
+                        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

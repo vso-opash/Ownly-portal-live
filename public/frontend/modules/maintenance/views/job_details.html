@@ -1,0 +1,256 @@
+<div class="container" ng-init="jobDetail();">
+    <div class="row marT20">
+        <div class="setting-section">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 horiLine">
+                <ol class="breadcrumb">
+                    <li>
+                        <a class="text-capitalize pointer" ui-sref="maintance_listing">MAINTENANCE</a>
+                    </li>
+                    <li>
+                        <a class="text-capitalize pointer" ui-sref="maintance_listing">PUBLIC</a>
+                    </li>
+                    <li>
+                        <a class="active text-capitalize "> {{detail.request_overview | limitTo:200}}
+                            {{detail.request_overview > 200 ? "..." : ""}}</a>
+                    </li>
+                </ol>
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 main_detail marB20">
+                        <h5 class="text-capitalize">{{detail.request_overview}}</h5>
+                        <!-- <div>
+                            <img src="assets/images/map-marker.svg" alt="mapmarker" class="marker">
+                            <span>{{detail.property_id.address}}</span>
+                            <img src="assets/images/Traders_grey.svg" alt="trader" class="tradimg"
+                                ng-if="detail.trader_id.firstname">
+                            <span class="text-capitalize">{{detail.trader_id.firstname}}
+                                {{detail.trader_id.lastname}}</span>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="setting-section board job-details-process">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <ul class="nav nav-tabs marB20" id="myTab">
+                    <li ng-class="detail.req_status == 1? 'active' : ''">
+                        <a href="javascript:void(0)" aria-controls="home" role="tab">
+                            <span class="round-tabs one disableClass">
+                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        Sent
+                    </li>
+                    <li ng-class="detail.req_status == 2 ? 'active' : ''">
+                        <a href="javascript:void(0)" aria-controls="profile" role="tab">
+                            <span class="round-tabs two disableClass">
+                                <i class="fa fa-ticket" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        Accepted
+                    </li>
+                    <li ng-class="detail.req_status ==  3 ? 'active' : ''">
+                        <a href="javascript:void(0)" aria-controls="prototyping" role="tab">
+                            <span class="round-tabs three disableClass">
+                                <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        Booked
+                    </li>
+
+                    <li ng-class="detail.req_status == 5? 'active' : ''">
+                        <a href="javascript:void(0)" aria-controls="uidesign" role="tab">
+                            <span class="round-tabs four disableClass">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        Completed
+                    </li>
+
+                    <li ng-class="detail.req_status == 4? 'active' : ''">
+                        <a href="javascript:void(0)" aria-controls="doner" role="tab">
+                            <span class="round-tabs five disableClass">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <!-- removed for now -->
+                        <!-- Confirmed -->
+                        <!-- removed for now -->
+                        Closed
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="setting-section">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="request_det horiLine white-box">
+                        <h5>Request details</h5>
+                        <p ng-text-truncate="detail.request_detail" ng-tt-chars-threshold="400"
+                            ng-tt-more-label="SHOW MORE" ng-tt-less-label="SHOW LESS" class="show_more"></p>
+                        <div ng-if="detail.request_detail.length==0">No record to display</div>
+                    </div>
+                    <div class="white-box" ng-if="counter_proposals && counter_proposals.length > 0">
+                        <div class="applicants-content">
+                            <h2>Applicants</h2>
+                            <ul>
+                                <li ng-repeat="proposal in counter_proposals"
+                                    ng-if="proposal.proposal_type && proposal.proposal_type == 'apply'">
+                                    <div class="applicants-content-box">
+                                        <div class="applicants-content-img">
+                                            <span>
+                                                <img ng-show="proposal.users[0].image" alt="Trader Profile"
+                                                    ng-src="{{imageUrl}}{{proposal.users[0].image}}">
+                                                <img ng-show="!proposal.users[0].image.length>0 || !proposal.users[0].image"
+                                                    src="assets/images/no_image.png">
+                                            </span>
+                                        </div>
+                                        <div class="applicants-content-text">
+                                            <h3>
+                                                <a class="trader_link"
+                                                    href="/#!/trader_profile/{{proposal.users[0]._id}}">
+                                                    {{(proposal.users[0] && proposal.users[0].business_name &&
+                                                    proposal.users[0].business_name != '') ?
+                                                    proposal.users[0].business_name : (proposal.users[0].firstname + " "
+                                                    + proposal.users[0].lastname)}}
+                                                </a>
+                                            </h3>
+                                            <div class="applicants-review"
+                                                ng-if="proposal.totalReviewLength && proposal.totalReviewLength > 0">
+                                                <a ng-click="goToTraderProfile(proposal.users[0]._id)">
+                                                    <div class="rating">
+                                                        <span uib-rating ng-model="proposal.averageRate" max="5"
+                                                            read-only="true" on-hover="hoveringOver(value)"
+                                                            on-leave="overStar = null" titles="['one','two','three']"
+                                                            aria-labelledby="default-rating"></span>
+                                                    </div>
+                                                    <p>{{proposal.averageRate}} from {{proposal.totalReviewLength}}
+                                                        reviews
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <div class="applicants-info">
+                                                <p><i><img src="assets/images/dollar-symbol.png" alt="" /></i>
+                                                    {{proposal.proposed_price}}</p>
+                                                <p><i><img src="assets/images/calendar-symbol.png" alt="" /></i>
+                                                    {{proposal.proposed_date | date}}</p>
+                                                <p
+                                                    ng-click="goToMaintDetailwithJob(proposal.maintenance_id, proposal.users[0]._id)">
+                                                    <i><img src="assets/images/phone-call.png" alt="" /></i>
+                                                    {{proposal.users[0].mobile_no}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="applicants-content-btn">
+                                            <a ng-if="proposal.status == 0 || proposal.status == 1"
+                                                href="javascript:void(0);"
+                                                ng-click="goToMaintDetailwithJob(proposal.maintenance_id, proposal.users[0]._id)">Chat</a>
+                                            <a ng-if="proposal.status == 2" class="declinebtn"
+                                                href="javascript:void(0);">Declined</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="white-box recommended-traders" ng-if="traderList && traderList.length > 0">
+                        <h2>Recommended Traders</h2>
+                        <ul class="perfect-trade">
+                            <li ng-repeat="trader in traderList">
+                                <div class="perfect-trade-box">
+                                    <div class="fav-heart_blue">
+                                        <a href="javascript:void(0)"
+                                            ng-class="(trader.data.is_fav==1||selected==2) ? 'active': '' "
+                                            ng-click="addToFav(trader.data._id,trader.data.is_fav,selected)"></a>
+                                    </div>
+                                    <div class="perfect-trade-img">
+                                        <img class="img-circle" ng-src="{{imageUrl}}{{trader.data.image}}" alt=""
+                                            ng-show="trader.data.image.length>0"
+                                            onerror="this.src='/assets/images/no_image.png'">
+                                        <img ng-show="!trader.data.image.length>0 || !trader.data.image"
+                                            src="assets/images/no_image.png"
+                                            onerror="this.src='/assets/images/no_image.png'">
+                                        <span
+                                            ng-class="trader.data.is_online == true ? 'colorGreen_tenant' : 'colorRed'"></span>
+                                    </div>
+                                    <h3 class="text-capitalize">{{trader.data.firstname}} {{trader.data.lastname}}</h3>
+                                    <div class="star-review">
+                                        <span uib-rating ng-model="trader.data.averageRate" max="max" read-only="true"
+                                            on-hover="hoveringOver(value)" on-leave="overStar = null"
+                                            titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                                    </div>
+                                    <h6>({{trader.data.totalReviewLength ? trader.data.totalReviewLength : 0}}) Reviews
+                                    </h6>
+                                    <div class="trade-list">
+                                        <a href="javascript:void(0);" class="margin-between ng-binding ng-scope"
+                                            ng-repeat="(key,cat) in trader.data.categories_id | limitTo : 2 : 0">
+                                            {{cat.name.length > 25 ? (cat.name | limitTo:25) + "..." : cat.name}}</a>
+                                        <a href="javascript:void(0);" class="margin-between ng-binding ng-scope"
+                                            ng-if="trader.data.categories_id.length > 3">
+                                            +{{trader.data.categories_id.length - 3}}
+                                        </a>
+                                    </div>
+                                    <div class="trade-btm">
+                                        <a href="javascript:void(0)"
+                                            ng-click="openEditMaintenance(trader.data.firstname, trader.data.lastname, trader.data._id)"
+                                            class="bg-btn">Invite Quote</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                    <div class="amnt white-box">
+                        <div class="amnt-container">
+                            <div class="price"> $
+                                <span>{{detail.budget}}</span>
+                            </div>
+                            <!-- <span class="pull-right"> in {{detail.difference | positive}} days</span> -->
+                            <span class="pull-right">{{detail.due_date | date}}</span>
+                        </div>
+                        <!-- <div class="amnt-container">
+                            <span class="pull-right">{{detail.due_date | date}}</span>
+                        </div> -->
+                    </div>
+                    <div class="attchment white-box">
+                        <h5>Attachments</h5>
+                        <ul>
+                            <li ng-repeat="image in detail.images">
+                                <div class="atch_img">
+                                    <img class="pointer" ng-if="!image.document_type" ng-click="openImages(image.path)"
+                                        ng-src="{{maintenanceImageUrl}}{{image.path}}" src="assets/images/doc.jpg"
+                                        alt="atch1">
+                                    <img ng-if="image.document_type=='excel'" src="assets/images/xls.png"
+                                        class="img-responsive disable agreeAttch" alt="atch1">
+                                    <img ng-if="image.document_type=='doc'" src="assets/images/word.png"
+                                        class="img-responsive disable agreeAttch" alt="atch1">
+                                    <img ng-if="image.document_type=='pdf'" src="assets/images/pdf.png"
+                                        class="img-responsive disable agreeAttch" alt="atch1">
+                                    <img ng-if="image.document_type=='ppt'" src="assets/images/ppt.png"
+                                        class="img-responsive disable agreeAttch" alt="atch1">
+                                </div>
+                                <div class="attchment-name alignMaint">
+                                    {{image.path}}
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="maintAtt" ng-if="detail.images.length==0">
+                            <i class="fa fa-paperclip mainattIcon"></i>No record to display</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#example1").emojioneArea();
+    });
+    $('#sendMsg').click(function () {
+        $('.emojionearea-editor').empty();
+    });
+</script>

@@ -1,0 +1,233 @@
+<div class="ContentWrap" id="mycontroller" ng-init="chatInitialize()">
+  <div class="ContentHead d-flex">
+    <h2>Messages</h2>
+  </div>
+  <div class="ContentBody">
+    <div class="row app-one">
+      <div class="col-sm-4 side chat-Mar-right">
+        <div class="side-one">
+          <div class="row searchBox">
+            <div class="col-sm-12 searchBox-inner">
+              <div class="form-group has-feedback">
+                <input ng-model="searchText" id="searchText" type="text" class="form-control" name="searchText"
+                  placeholder="Search messages" style="padding-left:35px;">
+                <i class="fa fa-search" aria-hidden="true" style="top:10px; left:10px; position: absolute;"></i>
+              </div>
+            </div>
+          </div>
+          <div class="scrollbar_msg scrollbar_msg_chat" id="style-2">
+            <div class="force-overflow">
+              <div class="tab-content">
+                <div class="tab-pane active" ng-if="showAllContainer" id="all-msg" role="tabpanel"
+                  aria-labelledby="all-msg">
+                  <div class="row sideBar">
+                    <div class="row sideBar-body"
+                      ng-repeat="users in userList | filter: searchText | orderBy : created">
+                      <div class="col-sm-3 col-xs-3 sideBar-avatar" ng-click="select_user(users)">
+                        <div class="avatar-icon">
+                          <a href="javascript:void(0);" ng-click="select_user(users)">
+                            <img ng-if="users.image && users.image!=''" src="assets/images/no_image.png"
+                              ng-src="{{imageUrl}}{{users.image}}" onerror="this.src='/assets/images/no_image.png'">
+                            <img ng-if="!users.image || users.image==''" src="assets/images/no_image.png"
+                              onerror="this.src='/assets/images/no_image.png'">
+                            <span ng-class="users.is_online == true ? 'colorGreen' : 'colorRed'"></span>
+                          </a>
+                        </div>
+                      </div>
+                      <div ng-click="select_user(users)" class="col-sm-9 col-xs-9 sideBar-main" data-id="{{users._id}}">
+                        <div class="row">
+                          <div class="col-sm-8 col-xs-8 sideBar-name">
+                            <h5 ng-click="select_user(users)">{{users.full_name}}</h5>
+                            <!-- <span class="name-meta unread_message unread_message_{{users._id}}"
+                                    ng-if="users.isRead == false">{{users.chat_message | limitTo :10}} {{users.chat_message.length
+                                    > 10 ? "..." : " "}} </span> -->
+                            <span class="name-meta">{{users.chat_message | limitTo :10}} {{users.chat_message.length
+                              > 10 ? "..." : " "}} </span>
+                            <div ng-if="onlineUsers.users.id">online</div>
+                          </div>
+                          <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
+                            <span class="time-meta pull-right">{{getDateFormatMain(users.created)}} </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- chat section -->
+      <div ng-show="showAllContainer" class="col-sm-8 conversation">
+        <div class="row heading">
+          <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+            <div class="heading-avatar-icon inspection">
+              <img ng-if="selectedUser.image && selectedUser.image!=''" ng-src="{{imageUrl}}{{selectedUser.image}}"
+                src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'">
+              <img ng-if="!selectedUser.image||selectedUser.image==''" src="assets/images/no_image.png"
+                onerror="this.src='/assets/images/no_image.png'">
+              <!-- <span ng-class="selectedUser.is_online == true ? 'colorGreen' : 'colorRed'"></span> -->
+              <span
+                ng-class="selectedUser.is_online == true ? 'indivi-greenColor-chat' : 'indivi-redColor-chat'"></span>
+            </div>
+          </div>
+          <div class="col-sm-8 col-xs-7 heading-name">
+            <a class="heading-name-meta">{{selectedUser.firstname}} {{selectedUser.lastname}}</a>
+          </div>
+        </div>
+
+        <div class="row message" id="conversation">
+          <div ng-repeat="message in privateMessage">
+            <div class="row message-body" ng-if="message.from._id!=loggedInUserId">
+              <div class="col-sm-2 col-xs-2 text-center receiver_img">
+                <div class="" ng-if="message.from.image && message.from.image != ''">
+                  <img height="50px" width="50px" src="assets/images/no_image.png" class="img-circle"
+                    ng-src="{{imageUrl}}{{message.from.image}}" onerror="this.src='/assets/images/no_image.png'">
+                </div>
+                <div class="" ng-if="!message.from.image || message.from.image == ''">
+                  <img height="50px" width="50px" src="assets/images/no_image.png" class="img-circle"
+                    ng-src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'">
+                </div>
+                <!-- <div class="">
+                        <img height="50px" width="50px" class="img-circle" ng-src="{{imageUrl}}{{message.from.image}}"
+                          src="assets/images/no_image.png">
+                      </div> -->
+              </div>
+              <div class="col-sm-10 col-xs-10 message-main-receiver">
+                <div class="receiver" ng-if="!message.is_file">
+                  <div class="message-text">
+                    {{message.msg}}
+                  </div>
+                  <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                    <a href="{{baseUrl}}{{message.document_path}}" target="_blank">{{message.msg}}</a>
+                    <p>{{message.size}} kb</p>
+                    <p>
+                      <i class="fa fa-file"></i> File</p>
+                    <div class="horiLine"></div>
+                    <div class="text-center">
+                      <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                        <span>Open</span>
+                      </a>
+                    </div>
+                  </div> -->
+                </div>
+                <div ng-if="message.is_file" class="chat_img">
+                  <a target="_blank" href="{{baseUrl}}{{message.document_path}}"><img
+                      src="{{baseUrl}}{{message.document_path}}"></a>
+                </div>
+                <div class="clearfix"></div>
+                <span class="message-time pull-left"> {{getDateFormat(message.created)}} </span>
+              </div>
+            </div>
+            <div class="row message-body" ng-if="message.from._id==loggedInUserId">
+              <div class="col-sm-2 col-xs-2 pull-right text-center sender_img">
+                <div class="" ng-if="message.from.image && message.from.image != ''">
+                  <img height="50px" width="50px" src="assets/images/no_image.png" class="img-circle"
+                    ng-src="{{imageUrl}}{{message.from.image}}" onerror="this.src='/assets/images/no_image.png'">
+                </div>
+                <div class="" ng-if="!message.from.image || message.from.image == ''">
+                  <img height="50px" width="50px" src="assets/images/no_image.png" class="img-circle"
+                    ng-src="assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'">
+                </div>
+              </div>
+              <div class="col-sm-10 col-xs-10 message-main-sender">
+                <div class="sender" ng-if="!message.is_file">
+                  <div class="message-text">
+                    {{message.msg}}
+                  </div>
+                  <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                    <a href="{{baseUrl}}{{message.document_path}}" target="_blank">{{message.msg}}</a>
+                    <p>{{message.size}} kb</p>
+                    <p>
+                      <i class="fa fa-file"></i> File </p>
+                    <div class="horiLine"></div>
+                    <div class="text-center">
+                      <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                        <span>Open</span>
+                      </a>
+                    </div>
+                  </div> -->
+                </div>
+                <div ng-if="message.is_file" class="chat_img">
+                  <a href="{{baseUrl}}{{message.document_path}}" target="_blank"><img
+                      src="{{baseUrl}}{{message.document_path}}"></a>
+                </div>
+                <div class="clearfix"></div>
+                <span class="message-time"> {{getDateFormat(message.created)}} </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-xs-6 heading-name">
+            <div ng-if="privateMessage.length==0" style="margin-top:25%;text-align:center"
+              class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+              <strong>No Chat initaited Yet!</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- </div>
+              </div> -->
+
+        <div class="row reply">
+          <form id="sendMsgForm" name="sendMsgForm" ng-submit="send_message(private_Message)">
+            <div class="col-sm-10 col-xs-12 reply-main">
+              <textarea rows="1" id="example1" class="form-control text-message" rows="1" ng-model="private_Message"
+                placeholder="Type message" enter-submit="send_message(private_Message)"></textarea>
+              <!-- <textarea rows="1" id="example1" class="form-control" rows="1" id="comment" ng-model="private_Message"
+                      placeholder="Type message"></textarea> -->
+              <div class="reply-emojis">
+                <button class="btn btn-pic" type="file" ngf-select="uploadFile($file,$invalidFiles)">
+                  <!-- ngf-max-height="1000" ngf-max-size="1MB" -->
+                  <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-2 col-xs-12 reply-send">
+              <button type="submit" name="sendMsg" id="sendMsg" class="btn btn-property">Send</button>
+              <span class="alert-msg">{{file.result}}</span>
+            </div>
+          </form>
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#example1").emojioneArea({});
+
+          // setTimeout(function () {
+
+          //   $(document).find('.emojionearea-editor').on('keydown', function (event) {
+          //    // console.log("i m calling", event.keyCode , "   ", event.key);
+          //     if (event.keyCode == 13){
+          //         if (!event.shiftKey){
+          //           return true;
+          //         }
+          //         return false;
+          //       }
+
+          //   });
+
+          // }, 3000);
+
+
+          // $("#comment").emojioneArea({
+          //     events: {
+          //       keypress: function (editor, event) {
+          //         if (event.which == 13) {
+          //           angular.element('#example1').scope().sendChat();
+          //           $('.emojionearea-editor').empty();
+          //         }
+          //       }
+          //     }
+          //   });
+        });
+        $('#sendMsg').click(function () {
+          $('.emojionearea-editor').empty();
+        });
+        $('#sendMaintenanceMsg').click(function () {
+          $('.emojionearea-editor').empty();
+        });
+      </script>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="container" ng-init="globalSearch()">
+    <div class="row marT20">
+        <div class="setting-section">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 horiLine ">
+                <div class="col-sm-12 search_listing ">
+                    <h5>{{total}} results for the terms
+                        <span>"{{text}}"</span>
+                    </h5>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="col-sm-3 searchpage marT30">
+                <ul class="nav nav-pills nav-stacked nav-search">
+                    <li role="presentation" class="active" ng-click="showdiv('0')">
+                        <a href="javascript:void(0)" aria-controls="everything" role="tab" data-toggle="tab" aria-expanded="true">
+                            Everthing
+                            <span>({{propertyData.length+allUserData.length}})</span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="" ng-click="showdiv('1')">
+                        <a href="javascript:void(0)" aria-controls="prop" role="tab" data-toggle="tab" aria-expanded="false">
+                            Properties
+                            <span>({{propertyData.length}})</span>
+
+                        </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="javascript:void(0)" aria-controls="tenant" role="tab" data-toggle="tab" aria-expanded="false">
+                            Tenants
+                            <span>({{tenantCount}})</span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="javascript:void(0)" aria-controls="traders" role="tab" data-toggle="tab" aria-expanded="false" ng-click="ShowHide()">
+                            Traders
+                            <span>({{traderCount}})</span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="javascript:void(0)" aria-controls="msg" role="tab" data-toggle="tab" aria-expanded="false">
+                            Messages
+                            <span>(0)</span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="javascript:void(0)" aria-controls="req" role="tab" data-toggle="tab" aria-expanded="false">
+                            Requests
+                            <span>(0)</span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="javascript:void(0)" aria-controls="files" role="tab" data-toggle="tab" aria-expanded="false">
+                            Files
+                            <span>(0)</span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="javascript:void(0)" aria-controls="cases" role="tab" data-toggle="tab" aria-expanded="false">
+                            Cases
+                            <span>(0)</span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="" ng-click="showdiv('2')">
+                        <a href="javascript:void(0)" aria-controls="other" role="tab" data-toggle="tab" aria-expanded="false">
+                            Others
+                            <span>({{gobalArr.length -propertyData.length -tenantCount -traderCount}})</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-9 marT30">
+                <div class="col-md-12 col-sm-12 clearfix">
+                    <div class="dropdown default-oder marB20">
+                        <button class="btn btn-secondary dropdown-toggle togle-default disable" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            By best match
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                        <!-- <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item" type="button" ng-click="setOrderProperty('address')" >Address</button>
+                            <button class="dropdown-item" type="button" ng-click="setOrderProperty('firstname')">Name</button>
+                           
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="tab-content">
+                    <div id="Everything" class="col-sm-12 tab-pane fade tabbedContent active in">
+                        <!-- dir-paginate="data in propertyData| itemsPerPage:8" -->
+                        <div class="row marB20" dir-paginate="data in gobalArr|itemsPerPage:9| orderBy:orderProperty" current-page="pagination.current" >
+                            <div ng-if="data.hasOwnProperty('address')==true"> 
+                                    <div class="col-md-12 col-sm-12" >
+                                        <div class="search_result clearfix">
+                                        
+                                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 prop_icon width35">
+                                                    <img src="assets/images/property.png" />
+                                                <!-- <img ng-src="{{propertyImageUrl}}{{data.image[0].path}}"  alt=""> -->
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 prop_img">
+                                                <a class="pointer" ui-sref="propertyDetails({id:data._id})">
+                                                <img  ng-if="data.image[0].path && data.image[0].is_from_my_file==false" ng-src="{{propertyImageUrl}}{{data.image[0].path}}" err-src="/assets/images/placeholder.jpg"
+                                                    class="" alt="propimg ">
+                                                <img  ng-if="data.image[0].path && data.image[0].is_from_my_file==true" src="{{fileImageUrl}}{{data.image[0].path}}" 
+                                                    alt="propimg">
+                                                <img ng-if="!data.image[0].path" src="/assets/images/placeholder.jpg" class="" alt="propimg ">
+                                            </a>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-7 prop_des">
+                                                <a href="/#!/property_details/{{data._id}}" class="property-img1 inspection">
+                                                    <h5>{{data.address}}</h5>
+                                                </a>
+                                                <p>{{data.description}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div ng-if="data.hasOwnProperty('firstname')==true">
+                            <div class="col-md-12 col-sm-12">
+                                    
+                                    <div class="search_result clearfix">
+                                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 prop_icon width35">
+                                            <img ng-if="data.groups[0].role_id == tenantRoleId"  src="assets/images/tenant.png" />
+                                            <img ng-if="data.groups[0].role_id == traderRoleId" src="assets/images/trader.png" />
+                                            <img ng-if="data.groups[0].role_id == agentRoleId" src="assets/images/user.png" />
+                                            <img ng-if="data.groups[0].role_id == agencyRoleId" src="assets/images/agency.png" />
+                                     </div>
+                                        <div class="col-lg-2 col-md-1 col-sm-1 col-xs-1 prop_icon">
+                                        <a class="pointer" ng-click="goToUserProfile(data.groups[0],data.groups[0])">
+                                            <img ng-if="data.image.length>0" ng-src="{{userImageUrl}}{{data.image}}" class="profileImg">
+                                        
+                                            <div ng-if="!data.image||data.image==''"  class="default_70 advance_search_user">
+                                                {{data.firstname.charAt(0).toUpperCase()}}{{data.firstname.charAt(0).toUpperCase()}}
+                                            </div>
+                                        </a>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-7 prop_des">
+                                            <a ng-click="goToSearchUserProfile(data.groups[0],data.agency_id)" class="property-img1 inspection pointer" ng-class="(data.groups[0].role_id==runStrataRoleId||data.groups[0].role_id==workStrataRoleId)?'disable':''">
+                                                <h5>{{data.firstname}} {{data.lastname}}</h5>
+                                            </a>
+                                            <p>{{data.about_user|limitTo:100}}{{data.about_user>100?"...":""}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="gobalArr.length==0" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                <strong>No searched results were found</strong>
+                          </div>
+                        <!-- <div class="row marB20"  ng-repeat="data in allUserData" >
+                           
+                        </div> -->
+                        <nav class="pagination-container marT20">
+                            <div class="pagination">
+                                <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true" boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+                                </dir-pagination-controls>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+              
+            </div>
+        </div>
+    </div>
+</div>

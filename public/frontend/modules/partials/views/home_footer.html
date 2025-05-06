@@ -1,0 +1,78 @@
+<div class="inner-box clearfix">
+	<div class="col-sm-7">
+		<div class="row" >
+			<div class="send_message clearfix" >
+				<h2>
+					Send a Message
+				</h2>
+				<form id="contactUs_form" name="contactUs_form" novalidate id="contact">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<input type="text" class="form-control" autocomplete="off" ng-pattern="/^[a-zA-Z+\s]*$/" name="firstname"  ng-model="contactUs.fullname" ng-maxlength="25" placeholder="Full Name" required>
+							<span ng-show="contactUs_form.firstname.$touched && contactUs_form.firstname.$error.required" class="redb"><font color="Red">This field is required.</font></span>
+							<span class="error-span inner-error ng-binding" ng-show="contactUs_form.firstname.$error.pattern" class="error-span inner-error ng-binding"><font color="Red">Full Name Must Contain Alphabet</font></span>
+							<span ng-show="contactUs_form.firstname.$error.maxlength" class="error-span inner-error ng-binding"><font color="Red">Max 25 characters allowed</font></span>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<input ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" name="email" ng-model="contactUs.email" type="email" required class="form-control" placeholder="Email">
+							<span ng-show="contactUs_form.email.$error.pattern" class="redb"><font color="Red">Please Enter valid Email.</font></span>
+							<span ng-show="contactUs_form.email.$touched && contactUs_form.email.$error.required" class="redb"><font color="Red">This field is required.</font></span>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Mobile Number" name="mobile_no" ui-mask="+65 8000 0000" ng-model="contactUs.mobile_no" required>
+							<font color: "Red"><span ng-show="contactUs_form.mobile_no.$touched && contactUs_form.mobile_no.$error.required" class="redb"><font color="Red">This field is required.</font></span></font>
+							<span class="text-danger" ng-show="contactUs_form.mobile_no.$error.pattern"><font color="Red">Only numbers are allowed.</font></span>
+							<span ng-show="contactUs_form.mobile_no.$touched && contactUs_form.mobile_no.$invalid" class="redb"><font color="Red">Mobile number should be 8 digits and it starts with either 8 or 9.</font></span>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<textarea cols="5" placeholder="Message"  ng-model="contactUs.msg" class="form-control" ng-maxlength="50"></textarea>
+							<span ng-show="contactUs_form.message.$touched && contactUs_form.message.$error.required" class="redb"><font color="Red">This field is required.</font></span>
+							<!-- <span class="error-span inner-error ng-binding" ng-show="contactUs_form.message.$error.pattern" class="error-span inner-error ng-binding"><font color="Red">First Name Must Contain Alphabet</font></span> -->
+							<span ng-show="contactUs_form.message.$error.maxlength" class="error-span inner-error ng-binding"><font color="Red">Max 25 characters allowed</font></span>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<button type="button" ng-click="contacUsFormSubmission(contactUs)" class="btn_submit">SUBMIT</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-5">
+		<div class="row">
+			<div class="contact_us clearfix">
+				<div class="footer_logo">
+					<img src="/assets/images/logo_footer.png" alt="">
+				</div>
+				<h3>Contact Us</h3>
+				<h5><img src="/assets/images/address_icon.png" alt=""> Address will shown here.</h5>
+				<h5><img src="/assets/images/mobile_icon.png" alt=""> 123456789</h5>
+				<h5><img src="/assets/images/email_icon.png" alt="">Info@test.com</h5>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="copyright-footer">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="copy-right">Copyright © 2017. All rights reserved.</div>
+			<ul class="social-network">
+				<li>
+					<a href="#" class="icoFacebook" title="Facebook"> <i class="fa fa-twitter" aria-hidden="true"></i></a>
+				</li>
+				<li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-google-plus" aria-hidden="true"></i> </a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<a id="back-to-top" ng-click="scrollToTop()" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page"
+				data-toggle="tooltip" data-placement="left">
+	<span class="glyphicon glyphicon-menu-up"></span>
+</a>

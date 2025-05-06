@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="17px" viewBox="0 0 13 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>ios-trash</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Strata---Posts" transform="translate(-341.000000, -1015.000000)" fill="#FF5757">
+            <g id="Posts" transform="translate(-33.000000, 997.000000)">
+                <g id="Post">
+                    <g id="Notice-board-tile">
+                        <g id="Post-tile">
+                            <g id="ios-trash" transform="translate(374.000000, 18.000000)">
+                                <path d="M8.83966,14.97054 L8.16034,14.94946 L8.50034,4.06912 L9.17966,4.09054 L8.83966,14.97054 Z M6.12,14.96 L6.8,14.96 L6.8,4.08 L6.12,4.08 L6.12,14.96 Z M4.08034,14.97054 L3.74034,4.09054 L4.41966,4.06912 L4.75966,14.94946 L4.08034,14.97054 Z M4.08,1.36 C4.08,0.98498 4.38498,0.68 4.76,0.68 L8.16,0.68 C8.53468,0.68 8.84,0.98498 8.84,1.36 L8.84,2.04 L4.08,2.04 L4.08,1.36 Z M9.52,2.04 L9.52,1.36 C9.52,0.60996 8.91004,0 8.16,0 L4.76,0 C4.00996,0 3.4,0.60996 3.4,1.36 L3.4,2.04 L0,2.04 L0,2.72 L0.70516,2.72 L1.70238,15.68012 C1.79588,16.46892 2.34158,16.99898 3.06,17 L9.86034,17 C10.56006,16.99932 11.13058,16.44376 11.21898,15.66618 L12.21484,2.72 L12.92,2.72 L12.92,2.04 L9.52,2.04 Z" id="Fill-49"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,587 @@
+<div class="profile-new-header container" ng-init="initailize()">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="cover-photo">
+        <img ng-show="userInfo.bannerImage" ng-src="{{imageUrl}}{{userInfo.bannerImage}}" alt="Agent Banner Image">
+        <img ng-show="!userInfo.bannerImage|| userInfo.bannerImage==''" src="assets/images/banner.png" alt="profile">
+        <div class="profile_btn" ng-show="viewEditBanner">
+          <button class="btn profileImgBtn" aria-hidden="true" name="file" ngf-max-size="15MB" ngf-drop ngf-select
+            ng-model="userInfo.files" class="drop-box" ngf-drag-over-class="'dragover'" ngf-multiple="true"
+            ngf-allow-dir="true" accept="image/*" ngf-change="openCropBanner($event)">
+            <i class="fa fa-pencil" title="Edit banner image"></i> Edit</button>
+
+          <button class="btn profileImgBtn" aria-hidden="true" name="file" ngf-max-size="15MB" ngf-drop ngf-select
+            ng-model="userInfo.files" class="drop-box" ngf-change="openCropBanner($event)"
+            ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" accept="image/*">
+            <i class="fa fa-pencil" title="Edit banner image"></i>Edit</button>
+
+        </div>
+      </div>
+    </div>
+    <div class="row profile-info" ng-init="getUserInfo();getAgentReview();">
+      <div class="profile-info-header">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile-pic">
+          <div class="traderimg-width inspection">
+            <img ng-show="userInfo.image.length>0 || userInfo.image" ng-src="{{imageUrl}}{{userInfo.image}}"
+              alt="Agent profile">
+            <img ng-show="!userInfo.image.length>0 || !userInfo.image" src="assets/images/no_image.png">
+            <div class="colorGreen_agentOwner"></div>
+          </div>
+          <div class="profile_det">
+            <h2 class="text-capitalize">{{userInfo.firstname}} {{userInfo.lastname}}</h2>
+            <div class="rating-new clearfix rate_ball">
+              <span uib-rating ng-model=createdByRate.data max="5" read-only="true" on-hover="hoveringOver(value)"
+                on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+            </div>
+            <p>{{createdByRate.data}} from {{createdByRate.total_review}} reviews</p>
+          </div>
+        </div>
+        <div class=" col-lg-5 col-md-6 col-sm-6 col-xs-12 profile_inspection_detail">
+          <ul>
+            <li>
+              <small>No of property managed</small>
+              <span>{{propertyCount}}</span>
+            </li>
+            <li ng-if="userInfo._id != logged_in_user_id">
+              <small>Mobile number</small>
+              <span ng-if="userInfo.mobile_no && userInfo.mobile_no != '' && display_less_number == true">
+                <strong class="teaser">****** {{ userInfo.mobile_no | limitTo:-4 }}</strong>
+                <a class="show_number_link" ng-click="show_full_number()">SHOW NUMBER</a>
+              </span>
+              <span ng-if="userInfo.mobile_no && userInfo.mobile_no != '' && display_less_number == false">
+                <strong>{{ userInfo.mobile_no}}</strong>
+              </span>
+            </li>
+            <li ng-if="userInfo._id == logged_in_user_id">
+              <small>Mobile number</small>
+              <span>
+                <strong>{{ userInfo.mobile_no}}</strong>
+              </span>
+            </li>
+
+            <!-- <li>Inspection frequency
+              <span>6 monthly</span>
+            </li> -->
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 marT20 inspection right-side-btns">
+          <button class="btn btn-import" ng-show="!viewEditBanner&&isReviewedAllowed && allow_togive_review == true"
+            ng-click="openReviewPopup()">Write
+            a review</button>
+          <button class="btn btn-property" ng-show="!viewEditBanner"
+            ng-click="openAgentSendMessage(userInfo._id)">Contact
+            agent</button>
+
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row profile-info" ng-init="getUserInfo()">
+            <div class="profile-info-header">
+               <div class="col-sm-2 profile-pic"><img err-src="/assets/images/no_image.png" ng-src="{{imageUrl}}{{userInfo.image}}"></div>
+               <div class="col-sm-3">
+                  <h2 class="text-capitalize">{{userInfo.firstname}} {{userInfo.lastname}}</h2>
+                  <div class="rating-new clearfix">
+                     <ul>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-sm-4 profile_inspection_detail">
+                  <ul>
+                     <li>No of property managed<span>{{propertyCount}}</span></li>
+                     <li>Phone number<span>{{userInfo.mobile_no}}</span></li>
+                     <li>Inspection frequency<span>6 monthly</span></li>
+                  </ul>
+               </div>
+               <div class="clearfix"></div>
+               <div class="col-sm-3"></div>
+            </div>
+         </div> -->
+  </div>
+</div>
+<div class="container profile-content">
+  <div class="row">
+    <div class="setting-section">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="about-andy">
+          <h3 class="text-capitalize">About {{userInfo.firstname}} {{userInfo.lastname}}</h3>
+          <p ng-if="userInfo.groups.about_user" ng-text-truncate="userInfo.groups.about_user"
+            ng-tt-chars-threshold="250" ng-tt-more-label="Show more" ng-tt-less-label="Show less"></p>
+          <div ng-show="!userInfo.groups.about_user" class="alert alert-info fade in alert-dismissable"
+            style="margin-top:18px;">
+            <strong> No Data Found</strong>
+          </div>
+        </div>
+        <div ng-if="userInfo.agency_id" class="Agency marT20">
+          <h3>Agency</h3>
+          <div>
+            <img ng-src="{{imageUrl}}{{userInfo.agency_id.logoImage}}" src="/assets/images/raine&horn.png"
+              alt "company logo">
+          </div>
+          <div class="contact_info clearfix">
+            <h5 class="text-capitalize">{{userInfo.agency_id.name}}</h5>
+            <div class="rating">
+              <span uib-rating ng-model=agencyRate.data max="5" read-only="true" on-hover="hoveringOver(value)"
+                on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+            </div>
+            <p>{{agencyRate.data}} from {{agencyRate.total_review}} reviews</p>
+          </div>
+          <p ng-if="userInfo.agency_id.principle_id.groups.about_user">
+            {{userInfo.agency_id.principle_id.groups.about_user}}
+          </p>
+          <div ng-show="!userInfo.agency_id.principle_id.groups.about_user"
+            class="alert alert-info fade in alert-dismissable" style="margin-top:18px; margin-left: -7px;">
+            <strong> No Data Found</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="property_Detail_new horiLine">
+          <div class="carousel slide article-slide" id="article-photo-carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner cont-slider">
+              <!-- <div class="item active">
+                           <img alt="" title="" src="/assets/images/img_detail1.jpeg">
+                        </div> -->
+              <div ng-class="key==0 ? 'item active':'item'" ng-repeat="(key,image) in userInfo.images">
+                <img alt="" title="" src="{{userImageUrl}}{{image.url}}">
+              </div>
+              <div ng-if="userInfo.images.length<1" class="item active">
+                <img src="assets/images/placeholder.jpg">
+              </div>
+            </div>
+            <!-- Indicators -->
+            <div class="indi">
+              <ol class="carousel-indicators clearfix">
+                <!-- <li class="active" data-slide-to="0" data-target="#article-photo-carousel">
+                           <img alt="" src="/assets/images/img_detail1.jpeg">
+                        </li> -->
+                <li ng-class="key==0 ? 'active': ''" ng-repeat="(key,image) in userInfo.images" data-slide-to="{{key}}"
+                  data-target="#article-photo-carousel">
+                  <img alt="" src="{{userImageUrl}}{{image.url}}">
+                </li>
+                <li ng-if="userInfo.images.length<1" class="active" data-slide-to="0"
+                  data-target="#article-photo-carousel">
+                  <img src="assets/images/placeholder.jpg">
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="profile_property horiLine" ng-if="propertyList && propertyList.length > 0">
+          <!-- <div class="col-lg-12 horiLine">
+            <h5>Properties</h5>
+          </div> -->
+          <div class="main-title marT20 left-pro">
+            <h5>Properties</h5>
+          </div>
+          <div class="">
+            <div class="sort-grid">
+              <div class="dropdown default-oder">
+                <button class="btn btn-secondary dropdown-toggle togle-default" type="button" id="dropdownMenu2"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  By property name
+                  <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item" ng-click="filterBy('name')" type="button">Name</button>
+                  <button class="dropdown-item" ng-click="filterBy('address')" type="button">Address</button>
+                  <!-- <button class="dropdown-item" type="button">Something else here</button> -->
+                </div>
+              </div>
+              <span>
+                <a href="javascript:void(0);" ng-click="showListView();">
+                  <i class="fa fa-bars" aria-hidden="true"></i>
+                </a>
+                <a href="javascript:void(0);" ng-click="showGrideView();">
+                  <i class="fa fa-th" aria-hidden="true"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+          <div ng-if="listView">
+            <div class="row" dir-paginate="property_listing in propertyList| itemsPerPage:6  |orderBy:sortText"
+              current-page="pagination.current">
+              <div class="col-lg-12 col-md-12 marT20">
+                <div class="property_listview shadow-hover">
+                  <div class="img_list">
+                    <a href="/#!/property_details/{{property_listing._id}}" class="property-img1">
+                      <img
+                        ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                        src="{{propertyImage}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                      <img
+                        ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+                        src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                      <img
+                        ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                        src="{{property_listing.image[0].path}}" alt="propimg">
+                      <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg">
+                    </a>
+                  </div>
+                  <div class="property-content_listview">
+                    <div class="property-title">
+                      <h4>
+                        <a href="/#!/property_details/{{property_listing._id}}">{{property_listing.address | limitTo :
+                          50}}{{property_listing.address.length > 50 ? "..." : ""}}</a>
+                      </h4>
+                      <p class="property-address">{{property_listing.description | limitTo :
+                        178}}{{property_listing.description.length > 178 ? "..."
+                        : ""}}
+                      </p>
+                    </div>
+                    <table class="property-details prop-card-view prop-list">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <img src="/assets/images/Bedroom-new.png">{{property_listing.number_bedroom > 0 ?
+                            property_listing.number_bedroom : 0}}</td>
+                          <td>
+                            <img src="/assets/images/Bathroom-new.png">{{property_listing.number_of_bathroom > 0 ?
+                            property_listing.number_of_bathroom : 0}}</td>
+                          <td>
+                            <img src="/assets/images/Garage-new.png">{{property_listing.number_of_parking > 0 ?
+                            property_listing.number_of_parking : 0}}</td>
+                          <td>
+                            <img src="/assets/images/townhouse-new.png">{{property_listing.number_of_townhouse==0 ? "
+                            ":"Townhouse"}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-xs-12">
+              <div ng-if="propertyList.length==0" class="alert alert-info fade in alert-dismissable"
+                style="margin-top:18px;">
+                <strong> No Data Found</strong>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div ng-if="grideView">
+            <div class="row marT20">
+              <div class="col-lg-6 col-md-6 col-xs-12"
+                dir-paginate="property_listing in propertyList| itemsPerPage:2  |orderBy:sortText"
+                current-page="pagination.current">
+                <div class=" property shadow-hover ">
+                  <a href="/#!/property_details/{{property_listing._id}}" class="property-img inspection">
+                    <div class="img-fade "></div>
+                    <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false"
+                      src="{{propertyImageUrl}}{{property_listing.image[0].path}}" alt="Property Image">
+                    <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true"
+                      src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="Property Image">
+                    <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg">
+                    <!-- <div class="fav-heart indentation">
+                      <img src="/assets/images/Heart.svg" alt="Heart">
+                    </div> -->
+                  </a>
+                  <div class="property-content ">
+                    <div class="property-title ">
+                      <h4>
+                        <a href="/#!/property_details/{{property_listing._id}}">{{property_listing.address | limitTo
+                          :50}}{{property_listing.address.length > 50 ? "..." : " "}}</a>
+                      </h4>
+                      <p class="property-address griddes ">{{property_listing.description | limitTo
+                        :231}}{{property_listing.description.length > 231 ? "..."
+                        : " "}}
+                      </p>
+                    </div>
+                    <table class="property-details prop-card-view">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <img src="/assets/images/Bedroom-new.png" />{{property_listing.number_bedroom}}</td>
+                          <td>
+                            <img src="/assets/images/Bathroom-new.png" />{{property_listing.number_of_bathroom}}</td>
+                          <td>
+                            <img src="/assets/images/Garage-new.png" />{{property_listing.number_of_parking}}</td>
+                          <td>
+                            <img
+                              src="/assets/images/townhouse-new.png" />{{property_listing.number_of_townhouse==0?"":"Townhouse"}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-xs-12">
+              <div ng-if="propertyList.length==0" class="alert alert-info fade in alert-dismissable"
+                style="margin-top:18px;">
+                <strong> No Data Found</strong>
+              </div>
+            </div>
+          </div>
+          <nav class="pagination-container">
+            <div class="pagination">
+              <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true"
+                boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+              </dir-pagination-controls>
+            </div>
+          </nav>
+        </div>
+        <!-- active threads section starts here -->
+        <div class="thread-section unread-messages-section">
+          <div class="main-title marT20">
+            <h3>Reviews</h3>
+          </div>
+          <div class="review_overall clearfix">
+            <div class="col-lg-9">
+              <div class="clearfix">
+                <span uib-rating ng-model=createdByRate.data max="5" read-only="true" on-hover="hoveringOver(value)"
+                  on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                <p>{{createdByRate.data}} from {{createdByRate.total_review}} reviews</p>
+              </div>
+            </div>
+            <div class="col-lg-3" ng-show="allow_togive_review == true">
+              <button ng-show="!viewEditBanner" class="btn btn-sub-resp" ng-click="openReviewPopup()">Write a review
+              </button>
+            </div>
+          </div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a ng-click="showReview('all')" ng-class="(isAll==true)?'nav-link active':'nav-link'" id="all-tab"
+                data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="all" aria-selected="true">All</a>
+            </li>
+            <li class="nav-item">
+              <a ng-click="showReview('tenant_review')" ng-class="(tenantReview==true)?'nav-link active':'nav-link'"
+                id="general-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="general"
+                aria-selected="false">Tenant
+                reviews</a>
+            </li>
+            <li class="nav-item">
+              <a ng-click="showReview('owner_review')" ng-class="(ownerReview==true)?'nav-link active':'nav-link'"
+                class="nav-link" id="maintain-tab" data-toggle="tab" href="javascript:void(0)" role="tab"
+                aria-controls="maintain" aria-selected="false">Owner reviews</a>
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div ng-if="isAll" class="tab-pane active" id="all" role="tabpanel" aria-labelledby="all-tab">
+              <!-- post 1 -->
+              <div class="maintain-request-sec">
+                <div ng-repeat="(key,reviews) in allReviewList track by $index"
+                  ng-show="(($index < (vm.page * vm.numRecords)) && ($index >= ((vm.page - 1) * vm.numRecords)))"
+                  class="review_lists">
+                  <div class="review_list col-lg-12">
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                      <div class="rew_img">
+                        <img ng-show="reviews.review_by.image" ng-src="{{imageUrl}}{{reviews.review_by.image}}">
+                        <div ng-show="!reviews.review_by.image || reviews.review_by.image==''" class="default_60P">
+                          {{reviews.review_by.firstname.charAt(0).toUpperCase()}}{{reviews.review_by.lastname.charAt(0).toUpperCase()}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-10 col-md-10 col-lg-10 review">
+                      <div class="contact_info clearfix">
+                        <h5 class="text-capitalize">{{reviews.review_by.firstname}} {{reviews.review_by.lastname}}</h5>
+                        <div class="rating raging-left-align" ng-if="reviews.avg_total">
+                          <span ng-init="jobHistoryReview[key]=reviews.avg_total" uib-rating
+                            ng-model="jobHistoryReview[key]" max="max" read-only="true" on-leave="overStar = null"
+                            titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                          <span style="color: #A1A3B9">{{reviews.createdAt |date}}</span>
+                        </div>
+                        <p>{{reviews.comments}}</p>
+                        <p ng-show="reviews.response.length == 0  && reviews.review_to == logged_in_user_id"
+                          class="text-right"><a href="javascript:void(0);" ng-click="reviews.show=true"
+                            ng-init="reviews.show = false"><i class="fa fa-plus"></i> Send
+                            Reply</a></p>
+                        <div ng-show="reviews.show">
+                          <textarea class="form-control" name="" ng-model="review.response" required></textarea>
+                          <button class="btn btn-property"
+                            ng-click="submitReview(review.response, reviews._id, 'all')">Submit
+                            Response</button>
+                        </div>
+                        <div ng-show="reviews.response.length > 0">
+                          <div class="col-sm-2 col-md-2 col-lg-2">
+                            <div class="rew_img1">
+                              <img ng-show="reviews.response[0].response_by.image"
+                                ng-src="{{imageUrl}}{{reviews.response[0].response_by.image}}">
+                              <div
+                                ng-show="!reviews.response[0].response_by.image || reviews.response[0].response_by.image==''"
+                                class="default_60P">
+                                {{reviews.response[0].response_by.firstname.charAt(0).toUpperCase()}}{{reviews.response[0].response_by.charAt(0).toUpperCase()}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-10 col-md-10 col-lg-10 review"></div>
+                          <h5 class="text-capitalize">{{reviews.response[0].response_by.firstname}}
+                            {{reviews.response[0].response_by.lastname}}
+                          </h5>
+                          <div class="rating raging-left-align">
+                            {{reviews.response[0].createdDate |date}}
+                          </div>
+                          <p>{{reviews.response[0].response}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="allReviewList.length==0" class="alert alert-info fade in alert-dismissable"
+                style="margin-top:18px;">
+                <strong> No Data Found</strong>
+              </div>
+              <div class="review_lists" ng-if="allReviewList.length>5">
+                <a class="loadmore text-center pointer" ng-click="vm.next('all')">load more reviews</a>
+              </div>
+            </div>
+          </div>
+          <div ng-if="tenantReview" class="tab-pane active" id="all" role="tabpanel" aria-labelledby="all-tab">
+            <!-- post 1 -->
+            <div class="maintain-request-sec">
+              <div ng-repeat="(key,reviews) in tenantReviewList track by $index"
+                ng-show="(($index < (vm.page * vm.numRecords)) && ($index >= ((vm.page - 1) * vm.numRecords)))"
+                class="review_lists">
+                <div class="review_list col-lg-12">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="rew_img">
+                      <img ng-show="reviews.review_by.image" ng-src="{{imageUrl}}{{reviews.review_by.image}}">
+                      <div ng-show="!reviews.review_by.image || reviews.review_by.image==''" class="default_60P">
+                        {{reviews.review_by.firstname.charAt(0).toUpperCase()}}{{reviews.review_by.lastname.charAt(0).toUpperCase()}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-10 col-md-10 col-lg-10 review">
+                    <div class="contact_info clearfix">
+
+                      <h5 class="text-capitalize">{{reviews.review_by.firstname}} {{reviews.review_by.lastname}}</h5>
+                      <div class="rating raging-left-align" ng-show="reviews.avg_total">
+                        <span ng-init="jobHistoryReview[key]=reviews.avg_total" uib-rating
+                          ng-model="jobHistoryReview[key]" max="max" read-only="true" on-leave="overStar = null"
+                          titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                        {{reviews.createdAt |date}}
+                      </div>
+                      <p>{{reviews.comments}}</p>
+                      <p ng-show="reviews.response.length == 0  && reviews.review_to == logged_in_user_id"
+                        class="text-right"><a href="javascript:void(0);" ng-click="reviews.show=true"
+                          ng-init="reviews.show = false"><i class="fa fa-plus"></i> Send
+                          Reply</a></p>
+                      <div ng-show="reviews.show">
+                        <textarea class="form-control" name="" ng-model="review.response" required></textarea>
+                        <button class="btn btn-property"
+                          ng-click="submitReview(review.response, reviews._id, 'tanent')">Submit
+                          Response</button>
+                      </div>
+                      <div ng-show="reviews.response.length > 0">
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                          <div class="rew_img1">
+                            <img ng-show="reviews.response[0].response_by.image"
+                              ng-src="{{imageUrl}}{{reviews.response[0].response_by.image}}">
+                            <div
+                              ng-show="!reviews.response[0].response_by.image || reviews.response[0].response_by.image==''"
+                              class="default_60P">
+                              {{reviews.response[0].response_by.firstname.charAt(0).toUpperCase()}}{{reviews.response[0].response_by.charAt(0).toUpperCase()}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-10 col-md-10 col-lg-10 review"></div>
+                        <h5 class="text-capitalize">{{reviews.response[0].response_by.firstname}}
+                          {{reviews.response[0].response_by.lastname}}
+                        </h5>
+                        <div class="rating raging-left-align">
+                          {{reviews.response[0].createdDate |date}}
+                        </div>
+                        <p>{{reviews.response[0].response}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="tenantReviewList.length==0" class="alert alert-info fade in alert-dismissable"
+                style="margin-top:18px;">
+                <strong> No Data Found</strong>
+              </div>
+              <div class="review_lists" ng-if="tenantReviewList.length>5">
+                <a class="loadmore text-center pointer" ng-click="vm.next('tenant')">load more reviews</a>
+              </div>
+            </div>
+          </div>
+          <div ng-if="ownerReview" class="tab-pane active" id="all" role="tabpanel" aria-labelledby="all-tab">
+            <!-- post 1 -->
+            <div class="maintain-request-sec">
+              <div ng-repeat="(key,reviews) in ownerReviewList track by $index"
+                ng-show="(($index < (vm.page * vm.numRecords)) && ($index >= ((vm.page - 1) * vm.numRecords)))"
+                class="review_lists">
+                <div class="review_list col-lg-12">
+                  <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="rew_img">
+                      <img ng-show="reviews.review_by.image" ng-src="{{imageUrl}}{{reviews.review_by.image}}">
+                      <div ng-show="!reviews.review_by.image || reviews.review_by.image==''" class="default_60P">
+                        {{reviews.review_by.firstname.charAt(0).toUpperCase()}}{{reviews.review_by.lastname.charAt(0).toUpperCase()}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-10 col-md-10 col-lg-10 review">
+                    <div class="contact_info clearfix">
+
+                      <h5 class="text-capitalize">{{reviews.review_by.firstname}} {{reviews.review_by.lastname}}</h5>
+                      <div class="rating raging-left-align" ng-if="reviews.avg_total">
+                        <span ng-init="jobHistoryReview[key]=reviews.avg_total" uib-rating
+                          ng-model="jobHistoryReview[key]" max="max" read-only="true" on-leave="overStar = null"
+                          titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                        {{reviews.createdAt |date}}
+                      </div>
+                      <p>{{reviews.comments}}</p>
+                      <p ng-show="reviews.response.length == 0  && reviews.review_to == logged_in_user_id"
+                        class="text-right"><a href="javascript:void(0);" ng-click="reviews.show=true"
+                          ng-init="reviews.show = false"><i class="fa fa-plus"></i> Send
+                          Reply</a></p>
+                      <div ng-show="reviews.show">
+                        <textarea class="form-control" name="" ng-model="review.response" required></textarea>
+                        <button class="btn btn-property"
+                          ng-click="submitReview(review.response, reviews._id, 'owner')">Submit
+                          Response</button>
+                      </div>
+                      <div ng-show="reviews.response.length > 0">
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                          <div class="rew_img1">
+                            <img ng-show="reviews.response[0].response_by.image"
+                              ng-src="{{imageUrl}}{{reviews.response[0].response_by.image}}">
+                            <div
+                              ng-show="!reviews.response[0].response_by.image || reviews.response[0].response_by.image==''"
+                              class="default_60P">
+                              {{reviews.response[0].response_by.firstname.charAt(0).toUpperCase()}}{{reviews.response[0].response_by.charAt(0).toUpperCase()}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-10 col-md-10 col-lg-10 review"></div>
+                        <h5 class="text-capitalize">{{reviews.response[0].response_by.firstname}}
+                          {{reviews.response[0].response_by.lastname}}
+                        </h5>
+                        <div class="rating raging-left-align">
+                          {{reviews.response[0].createdDate |date}}
+                        </div>
+                        <p>{{reviews.response[0].response}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="ownerReviewList.length==0" class="alert alert-info fade in alert-dismissable"
+                style="margin-top:18px;">
+                <strong> No Data Found</strong>
+              </div>
+              <div class="review_lists" ng-if="ownerReviewList.length>5">
+                <a class="loadmore text-center pointer" ng-click="vm.next('owner')">load more reviews</a>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="tab-pane" id="general" role="tabpanel" aria-labelledby="general-tab"></div>
+              <div class="tab-pane" id="maintain" role="tabpanel" aria-labelledby="maintain-tab"></div>
+              <div class="tab-pane" id="dispute" role="tabpanel" aria-labelledby="dispute-tab"></div>
+              <div class="tab-pane" id="inspection" role="tabpanel" aria-labelledby="inspection-tab"></div> -->
+        </div>
+      </div>
+      <!-- active threads section ends here -->
+    </div>
+  </div>
+</div>
+</div>

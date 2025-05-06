@@ -1,0 +1,44 @@
+
+
+<div class="modal-content" style="width: 100%;  background-color: #1a2024;" id="modal">
+    <div class="modal-header" style="background-color: #1a2024;border: 0;height: 64px;">
+        <button class="close" type="button" ng-click="cancel()">
+            <span aria-hidden="true" style="color: white;">×</span>
+        </button>
+    </div>
+    <div class="modal-body" style="border: 0;background-color: #1a2024;">
+    <div class="container-fluid" ng-init="getImages()">
+    <div class="row">
+        <div id="carousel-bounding-box">
+            <div style="height: 305px">
+                <div uib-carousel active="active" interval="myInterval" no-wrap=false>
+                    <div uib-slide ng-repeat="(key,image) in propertyImage" index="key">
+                            <img alt="" ng-if="image.is_from_my_file==false  && image.is_from_csv_file==false" src="{{proImageUrl}}{{image.path}}" style="margin:auto;width: 52%;">
+                            <img ng-if="image.path && image.is_from_my_file==true  && image.is_from_csv_file==false" src="{{proImageUrl}}{{image.path}}" 
+                            alt="propimg" style="margin:auto;width: 52%;">
+                            <img ng-if="image.path && image.is_from_csv_file==true && image.is_from_my_file==false" ng-click="openFullScreenSlider(propertyDetails.image)" src="{{image.path}}" 
+                            alt="propimg" style="margin:auto;width: 52%;">
+                        <!-- <img class='p-details' ng-src="{{proImageUrl}}{{image.path}}" src="/assets/images/placeholder.jpg" style="margin:auto;width: 52%;"> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+
+</div>
+<style>
+    .carousel-control {
+    width: 0%;
+    } 
+    .modal-dialog {width: 1264px;  
+    }
+    .modal-content{
+        height: 554px;
+        background-color: #1a2024;
+    }
+    .modal-dialog {
+    margin-top: -26px;
+}
+</style>

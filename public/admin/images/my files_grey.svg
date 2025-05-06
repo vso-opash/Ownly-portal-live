@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="23px" viewBox="0 0 25 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>my files icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="General---Show-menu" transform="translate(-91.000000, -416.000000)" stroke-width="1.5" stroke="#7F829F">
+            <g id="Menu" transform="translate(-4.000000, 0.000000)">
+                <g transform="translate(73.000000, 311.000000)" id="Normal">
+                    <g transform="translate(21.000000, 0.000000)">
+                        <g id="My-files" transform="translate(2.000000, 106.000000)">
+                            <g id="my-files-icon">
+                                <g id="fol-folder-2">
+                                    <path d="M23.2105263,19.3421053 C23.2105263,20.2572632 22.4683421,21 21.5526316,21 L1.65789474,21 C0.742184211,21 0,20.2572632 0,19.3421053 L0,1.65789474 C0,0.742736842 0.742184211,0 1.65789474,0 L6.07894737,0 C8.84210526,0 7.73684211,2.21052632 10.5,2.21052632 L19.3421053,2.21052632 C20.2578158,2.21052632 21,2.95326316 21,3.86842105 L21,4.42105263" id="Stroke-1"></path>
+                                    <path d="M23.2105263,19.3421053 L23.2105263,6.07894737 C23.2105263,5.16378947 22.4683421,4.42105263 21.5526316,4.42105263 L17.1315789,4.42105263 C14.3684211,4.42105263 15.4736842,6.63157895 12.7105263,6.63157895 L3.86842105,6.63157895 C2.95271053,6.63157895 2.21052632,7.37431579 2.21052632,8.28947368 L2.21052632,21" id="Stroke-3"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

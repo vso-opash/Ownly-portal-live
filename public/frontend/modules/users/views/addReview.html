@@ -1,0 +1,214 @@
+<div class="modal-content" style="width: 100%" id="modal">
+  <div class="modal-header">
+    <button class="close" type="button" ng-click="cancel()">
+      <span aria-hidden="true">×</span>
+    </button>
+    <h3 id="myModalLabel" class="modal-title">
+      <strong>Write a review</strong>
+    </h3>
+  </div>
+  <div class="modal-body">
+    <!-- agreementListing() -->
+    <!-- <form enctype="multipart/form-data" name="createPropertyManagerForm" ng-init="user_submit = false" role="form" novalidate autocomplete="off">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingFName">First Name</label>
+            <input type=" text " name="firstname" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" ng-model="propertyManager.firstname " class="form-control text-capitalize"
+              placeholder="First Name " required>
+            <span class="error-span inner-error ng-binding " ng-show="createPropertyManagerForm.firstname.$error.required && createPropertyManagerForm.firstname.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">First name is Required</font>
+            </span>
+            <span class="error-span inner-error ng-binding" ng-show="createPropertyManagerForm.firstname.$error.pattern" class="error-span inner-error ng-binding">
+              <font color="Red">First Name Must Contain Alphabet</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.firstname.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 25 characters allowed</font>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingLName">Last Name</label>
+            <input type="text " name="lastname" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" ng-model="propertyManager.lastname " class="form-control text-capitalize"
+              placeholder="Last Name " required>
+            <span class="error-span inner-error ng-binding " ng-show="createPropertyManagerForm.lastname.$error.required && createPropertyManagerForm.lastname.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Last name is Required</font>
+            </span>
+            <span class="error-span inner-error ng-binding" ng-show="createPropertyManagerForm.lastname.$error.pattern" class="error-span inner-error ng-binding">
+              <font color="Red">Last Name Must Contain Alphabet</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.lastname.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 25 characters allowed</font>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="product_categorie">Email</label>
+            <input type="text" ng-maxlength="254" name="email " ng-model="propertyManager.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+              class="form-control " placeholder="example@syncitt.com " required>
+            <span ng-show="createPropertyManagerForm.email.$error.maxlength" class="redb">
+              <font color="Red">Max 254 length is allowed.</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.email.$error.pattern" class="redb">
+              <font color="Red">Please Enter valid Email.</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.email.$touched && createPropertyManagerForm.email.$error.required" class="redb">
+              <font color="Red">This field is required.</font>
+            </span>
+          </div>
+        </div>
+ 
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="product_categorie">Phone number</label>
+            <input type="text" name="mobile_no " ng-model="propertyManager.mobile_no " class="form-control " ng-maxlength="14" placeholder="mobile"
+              ng-pattern="/^[0-9]/" min="0" required>
+            <span class="error-span inner-error ng-binding " ng-show="createPropertyManagerForm.phone_number.$error.required && createPropertyManagerForm.phone_number.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Phone number is Required</font>
+            </span>
+            <span class="text-danger" ng-show="createPropertyManagerForm.mobile_no.$error.pattern">
+              <font color="Red">Only positive numbers are allowed.</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.mobile_no.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 14 digits are allowed</font>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="product_categorie">Password</label>
+            <input class="form-control frmInput" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/" name="password"
+              placeholder="Password" ng-model="propertyManager.password" type="password" ng-maxlength="15" required/>
+            <span class="text-danger" ng-show="createPropertyManagerForm.password.$error.pattern">
+              <font color="Red">It has to be a combination of lowercase, uppercase, numeric, and special character.</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.password.$touched && createPropertyManagerForm.password.$error.required" class="redb">
+              <font color="Red">This field is required.</font>
+            </span>
+            <span class="text-danger" ng-show="createPropertyManagerForm.password.$error.maxlength">
+              <font color="Red">Max allowed length is 15.</font>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-savechanges" type="button" ng-disabled="createPropertyManagerForm.$invalid" ng-click="addPropertyManager(propertyManager,check,tenantpasswordStatus)">Save changes</button>
+      </div>
+    </form> -->
+    <form novalidate="" enctype="multipart/form-data" name="reviewForm" ng-init="user_submit = false" role="form"
+      novalidate autocomplete="off">
+      <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4 ">
+          <div class="request_pro clearfix">
+            <div class="contact_info">
+              <div class="img-width inspection">
+                <img ng-if="userInfo.image" ng-src="{{imageUrl}}{{userInfo.image}}" alt="">
+                <div ng-if="!userInfo.image" class="default_100">
+                  {{userInfo.firstname.charAt(0).toUpperCase()}}{{userInfo.lastname.charAt(0).toUpperCase()}}
+              </div>
+              </div>
+              <h5>{{userInfo.firstname}} {{userInfo.lastname}}</h5>
+              <div class="rating">
+                <span ng-if="!isRatingFractional" uib-rating ng-model=userRate max="userMax" read-only="isUserReadonly" on-leave="overStar = null"
+                  titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                  <ul ng-if="isRatingFractional">
+                    <div class="rating_class" ng-repeat="ratingValue in frationalArray track by $index">
+                        <li ng-if="ratingValue=='integer'"><i class="fa fa-star"></i></li>      
+                        <li ng-if="ratingValue=='fractional'"><i class="fa fa-star"></i></li>      
+                        <li ng-if="ratingValue=='fractional'"><i class="fa fa-star-half"></i></li>      
+                    </div>
+                  </ul>
+              </div>
+              <div class="clearfix"></div>
+              <p>{{userRate}} from {{outOFReviewer}} reviews</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-8 col-sm-8 col-md-8 ">
+          <div class="request_rev">
+            <div class="form-group text-left">
+              <label class="control-label" for="product_categorie">Let other know your experience working with <span class="text-capitalize">{{userInfo.firstname}}</span></label>
+              <textarea name="review" ng-maxlength="250" ng-model="reviewData.review_comments"  placeholder="Write a review " class="form-control" rows="4" required></textarea>
+              <span class="error-span inner-error ng-binding " ng-show="reviewForm.review.$error.required && reviewForm.review.$touched "
+                class="error-span inner-error ng-binding ">
+                <font color="Red">Review is Required</font>
+              </span>
+              
+              <span ng-show="reviewForm.review.$error.maxlength" class="error-span inner-error ng-binding">
+                <font color="Red">Max 250 characters allowed</font>
+              </span>
+            </div>
+          </div>
+
+          <div class="req_Rew_Rating marB10">
+            <div class="row">
+              <div class="col-sm-6">
+                <h3>Quality of work</h3>
+              </div>
+              <div class="col-sm-6">
+                <div class="rating">
+                  <span uib-rating ng-model="qualityOfWorkRate" max="qualityOfWorkMax" read-only="isReadonly" on-hover="qualityOfWorkOver(qualityOfWorkRate)"
+                    on-leave="qualityOfWorkOver(qualityOfWorkRate)" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                </div>
+                <p>{{qualityOfWorkLabel}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="req_Rew_Rating marB10">
+            <div class="row">
+              <div class="col-sm-6">
+                <h3>Punctuality</h3>
+              </div>
+              <div class="col-sm-6">
+                <div class="rating">
+                  <span uib-rating ng-model="punctualityRate" max="punctualityMax" read-only="isReadonly" on-hover="punctualityOver(punctualityRate)" on-leave="punctualityOver(punctualityRate)"
+                    titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                </div>
+                <p>{{punctualityLabel}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="req_Rew_Rating marB10">
+            <div class="row">
+              <div class="col-sm-6">
+                <h3>Communication</h3>
+              </div>
+              <div class="col-sm-6">
+                <div class="rating">
+                  <span uib-rating ng-model="communicationRate" max="communicationMax" read-only="isReadonly" on-hover="communicationOver(communicationRate)"
+                    on-leave="communicationOver(communicationRate)" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                </div>
+                <p>{{communicationLabel}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-cancel" ng-click="cancel()">No, thank you</button>
+        <button class="btn btn-savechanges" ladda="loginLoading" data-style="slide-right" ng-disabled="reviewForm.$invalid" ng-click="addReview(reviewData)">Submit review</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- <script>
+    $("#modal .close ").click()
+</script> -->
+<style>
+  .rating_class{
+    display: inline;
+  }
+</style>

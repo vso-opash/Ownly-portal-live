@@ -1,0 +1,36 @@
+<div class="wrapper login " style="background-image: url(/assets/images/bg_login.png);background-size: cover; ">
+<div class="login-box">
+    <div class="login-logo">
+
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body" ng-init='readcookie()'>
+        <p class="login-box-msg"><strong>Administrator Login</strong></p>
+
+        <form action=" " method="post" name="login_form" novalidate>
+            <div class="form-group has-feedback">
+                <input type="email" class="form-control" name="email" placeholder="Email" ng-model="admin.email" ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,50})$/" autocomplete="off" required>
+                <span ng-show="login_form.email.$touched && login_form.email.$invalid || login_form.email.$error.pattern" class="redb"><font color="Red">Please provide valid email .</font></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" ng-enter="login(admin)" class="form-control" placeholder="Password" name="password" autocomplete="off" ng-model="admin.password" maxlength="20" required>
+                <span ng-show="login_form.password.$touched && login_form.password.$invalid" class="redb"><font color="Red">Password field is required</font></span>
+            </div>
+            <div class="col-xs-4 pull-right padding_zero">
+                    <a type="submit" ng-click="login(admin)" ng-disabled="login_form.$invalid" class="btn btn-primary btn-block btn-flat">Sign In</a>
+            </div>
+            <div class="row margin_zero">
+                <div class="col-xs-12 padding_zero marT20">
+                    <div style=" float:left;">
+                         <input id="checkbox5" type="checkbox" ng-click="rememberme(admin)" ng-model="remember">
+                        <label for="checkbox5">Remember Me</label>
+                    </div>
+                    <div class=""><a class="forgot addCursor" ng-click="forgotPasswordLink()">Forgot Password ?</a></div>
+                </div>
+                <!-- /.col -->
+                <!-- /.col -->
+            </div>
+        </form>
+    </div>
+</div>
+</div>

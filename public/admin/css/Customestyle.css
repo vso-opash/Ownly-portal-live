@@ -1,0 +1,127 @@
+.info-box-number {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+}
+
+.action a{
+    margin: 0 5px;
+}
+  .info-box-text {
+  text-transform: uppercase;
+  color: #000;
+}
+  .info-box-content {
+    margin-left: 90px;
+    padding: 5px 10px;
+}
+.bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body {
+    background-color: #f9ea00  !important;
+}
+.bg-red, .bg-yellow, .bg-aqua, .bg-blue, .bg-light-blue, .bg-green, .bg-navy, .bg-teal, .bg-olive, .bg-lime, .bg-orange, .bg-fuchsia, .bg-purple, .bg-maroon, .bg-black, .bg-red-active, .bg-yellow-active, .bg-aqua-active, .bg-blue-active, .bg-light-blue-active, .bg-green-active, .bg-navy-active, .bg-teal-active, .bg-olive-active, .bg-lime-active, .bg-orange-active, .bg-fuchsia-active, .bg-purple-active, .bg-maroon-active, .bg-black-active, .callout.callout-danger, .callout.callout-warning, .callout.callout-info, .callout.callout-success, .alert-success, .alert-danger, .alert-error, .alert-warning, .alert-info, .label-danger, .label-info, .label-warning, .label-primary, .label-success, .modal-primary .modal-body, .modal-primary .modal-header, .modal-primary .modal-footer, .modal-warning .modal-body, .modal-warning .modal-header, .modal-warning .modal-footer, .modal-info .modal-body, .modal-info .modal-header, .modal-info .modal-footer, .modal-success .modal-body, .modal-success .modal-header, .modal-success .modal-footer, .modal-danger .modal-body, .modal-danger .modal-header, .modal-danger .modal-footer {
+    color: #fff !important;
+}
+.info-box {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin-bottom: 15px;
+    min-height: 90px;
+    width: 100%;
+}
+  .info-box-icon {
+    background: rgba(0, 0, 0, 0.2) none repeat scroll 0 0;
+    border-radius: 2px 0 0 2px;
+    display: block;
+    float: left;
+    font-size: 45px;
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    width: 90px;
+}
+
+
+/* Ng table css header*/
+.ng-table thead tr th{
+    background-color : #383838 !important;
+    color: #f9ea00 !important; 
+    font-size: 16px !important;
+    font-weight: 400 !important;
+}
+
+.ng-table tbody tr td{
+        font-size: 14px !important;
+}
+.ng-table-pager{
+    display: none;
+}
+
+
+/* Post Job CSS By Vaibhao */
+
+/*.stepwizard-step p {
+    margin-top: 10px;
+}
+.stepwizard-row {
+    display: table-row;
+}
+.stepwizard {
+    display: table;
+    width: 50%;
+    position: relative;
+}
+.stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.stepwizard-step .btn.btn-primary{
+    background-color: #f9ea00;
+border-color: #f9ea00;
+}
+.stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+}
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+.black-color{
+    color: #000;
+}*/
+
+/* End Post Job CSS */
+
+.fixed-data{
+    height: 69px;
+    overflow: hidden;
+}
+
+.wBg{
+    background-color: white;
+}
+
+.amenities h5{font-size: 18px;color: #162441;font-weight: 600;margin: 30px 0;}
+.amenities  .fa.fa-check-circle {color: #00d6fa;font-size: 24px;margin-right: 10px;margin-bottom: 15px;}
+.amenities span{font-size: 12px;color: #767c8a;font-weight: 400;}

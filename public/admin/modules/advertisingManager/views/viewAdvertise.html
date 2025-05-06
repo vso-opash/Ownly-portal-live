@@ -1,0 +1,207 @@
+<div class="view-animate content-wrapper" ng-init="adDetailView()">
+    <section class="content-header">
+        <h1>
+            Advertising Manager
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a ui-sref="advertisingManager"><i class="fa fa-bullhorn"></i>Advertising Manager</a></li>
+            <li class="active "><a><i class="fa fa-eye fa-eye-breadcrumb"></i>View</a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-user" aria-hidden="true">&nbsp;&nbsp;</i> View Advertise
+                        </h3>
+                        <div class="pull-right"><a ng-click="back()"><i class="fa fa-angle-left margin-r-5"
+                                    aria-hidden="true"></i>
+                                Back</a></div>
+                    </div>
+                    <div class="box-body">
+                        <form role="form" name="updateAdStatus" novalidate=""
+                            class="ng-invalid ng-invalid-required ng-valid-maxlength ng-valid-minlength ng-dirty ng-valid-parse ng-invalid-pattern">
+                            <div class="add-service-form clearfix">
+                                <div class="col-sm-12 col-md-3 col-lg-2">
+                                    <div class="profile-box">
+                                        <div class="profile-picture ">
+                                            <img err-src="./images/no_image.png"
+                                                ng-src="{{imageUrl}}{{advertiseData.file?advertiseData.file:' '}}"
+                                                alt="ADvertise Image" height="100%" width="100%">
+                                        </div>
+                                    </div>
+                                    <span id="star1" class="start-rat-provider"></span>
+                                </div>
+                                <div class="col-sm-12 col-md-9 col-lg-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Ad Name:</span>
+                                                <span class="service-view">{{advertiseData.name}} </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Postcode:</span>
+                                                <span
+                                                    class="service-view">{{advertiseData.postcode ? advertiseData.postcode : '-'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Web URL:</span>
+                                                <span class="service-view">{{advertiseData.url}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">State:</span>
+                                                <span
+                                                    class="service-view">{{advertiseData.state ? advertiseData.state : '-'}}</span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Status:</span>
+                                                <span class="service-view"
+                                                    style="text-transform: capitalize;">{{advertiseData.status}}</span>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Ad Location:</span>
+                                                <span
+                                                    class="service-view color-blue">{{advertiseData.adLocation}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group" style="display: flex;">
+                                                <label for=""
+                                                    style="width: 40%; padding: 20px 20px 2px 5px;">Status:</label>
+                                                <select class="form-control" ng-model="advertiseData.status"
+                                                    name="status" style="width: 60%;  margin: 20px 20px 2px 5px;"
+                                                    required>
+                                                    <option value="active"> Active</option>
+                                                    <option value="paused">Paused</option>
+                                                </select>
+                                            </div>
+                                            <span
+                                                ng-show="addAd.adStatus.$touched &amp;&amp; addAd.adStatus.$error.required"
+                                                class="redb">
+                                                <font color="Red">This field is required.</font>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Comments:</span>
+                                                <span class="service-view">{{advertiseData.comments}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 text-right margin-top-60">
+                                    <button ng-if="!valuePassword" type="button" class="btn btn-primary"
+                                        ng-disabled="updateAdStatus.$invalid"
+                                        ng-click="updateAdvertiseStatus(advertiseData);">UPDATE</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row">
+            <div class="col-sm-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-user" aria-hidden="true">&nbsp;&nbsp;</i> Users Reviews
+                            List</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="box-body box box-warning table-responsive" ng-init="getUserReviewList()">
+                            <table class="table table-bordered  ng-table">
+                                <thead class="">
+                                    <tr>
+                                        <th title="" class="header" style="cursor:default">
+                                            <div class="ng-table-header ">
+                                                <span>Image</span>
+                                            </div>
+
+                                        </th>
+                                        <th title="" class="header  sortable addCursor">
+                                            <div class="ng-table-header " ng-click='sortRecentUserColumn("firstname")'
+                                                ng-class='sortClass("firstname")'>
+                                                <span>First Name</span>
+                                            </div>
+                                        </th>
+                                        <th title="" class="header  sortable addCursor">
+                                            <div class="ng-table-header " ng-click='sortRecentUserColumn("lastname")'
+                                                ng-class='sortClass("lastname")'>
+                                                <span>Last Name</span>
+                                            </div>
+
+                                        </th>
+                                        <th title="" class="header  sortable addCursor">
+                                            <div class="ng-table-header "
+                                                ng-click='sortRecentUserColumn("agency_id.name")'
+                                                ng-class='sortClass("agency_id.name")'>
+                                                <span>Review</span>
+                                            </div>
+                                        </th>
+                                        <th title="" class="header  sortable ">
+                                            <div class="ng-table-header changeCursorType">
+                                                <span>Action</span>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="reviewData in reviewList|orderBy:columnUser:reverseUser| itemsPerPage:10| filter:searchUser"
+                                        class="">
+                                        <td>
+                                            <span class="chat-img pull-left">
+                                                <img class="pointerCursor adminprofileimg"
+                                                    err-src="./images/no_image.png"
+                                                    ng-src="{{imageUrl}}{{reviewData.review_by.image?reviewData.review_by.image:' '}}"
+                                                    width="100px" alt="User Image">
+                                            </span>
+                                        </td>
+                                        <td sortable="'firstname'" class="text-capitalize">
+                                            {{reviewData.review_by.firstname}}</td>
+                                        <td class="text-capitalize">{{reviewData.review_by.firstname}}</td>
+                                        <td>{{reviewData.comments}}</td>
+
+                                        <td data-title="'Actions'" class="actions" data-title-text="Actions"
+                                            align="center">
+                                            <a href="javascript:void(0);" ng-click="deleteReview(reviewData._id)">
+                                                <i class="fa fa-trash" aria-hidden="true" title="Delete user"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-if="userList.length==0" style='color:#605ca8;font-size: 15px;'>
+                                <center>No records found</center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </section>
+</div>
+<style>
+    input[type="email"] {
+        text-transform: lowercase;
+    }
+</style>

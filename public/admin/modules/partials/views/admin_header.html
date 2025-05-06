@@ -1,0 +1,60 @@
+<header class="main-header">
+    <!--  <div ng-include src="'./shared/header.html'"></div>
+ -->
+    <!-- Logo -->
+    <a href="#/home" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span ui-sref="home" class="logo-mini"><b>S</b>It</span>
+        <!-- logo for regular state and mobile devices -->
+        <span ui-sref="home" class="logo-lg"><b>Admin</b> Ownly</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="user-image" ng-if="profileImage != null" ng-src="{{imageUrl}}{{profileImage}}"
+                            alt="" onerror="this.src='/assets/images/admin-img-placeholder.png'">
+                        <img class="user-image" ng-if="profileImage == null"
+                            src="/assets/images/admin-img-placeholder.png" alt=""
+                            onerror="this.src='/assets/images/admin-img-placeholder.png'">
+                        <!-- <img ng-src="{{imageUrl}}{{profileImage}}" class="user-image" alt="User Image" onerror="this.onerror=null;this.src='..../../images/no_image.png';"> -->
+                        <span class="hidden-xs text-capitalize">{{loginUserName}}</span>
+                    </a>
+
+                    <ul class="dropdown-menu" ng-init="userName()">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img class="img-circle" ng-if="profileImage != null" ng-src="{{imageUrl}}{{profileImage}}"
+                                alt="" onerror="this.src='/assets/images/admin-img-placeholder.png'">
+                            <img class="img-circle" ng-if="profileImage == null"
+                                src="/assets/images/admin-img-placeholder.png" alt="">
+                            <p>
+                            <p ng-if="authenticatedUser">{{loginUserName}}</p>
+                            <!-- <small>Member since Nov. 2012</small> -->
+                            </p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a ng-click="adminProfile()" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a ng-click="logOut()" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+            </ul>
+        </div>
+    </nav>
+</header>

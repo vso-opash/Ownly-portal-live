@@ -1,0 +1,229 @@
+<div class="ContentWrap" ng-init="getTenantList();">
+    <div class="ContentHead d-flex">
+        <h2>Tenants</h2>
+        <div class="ml-auto TenanciesButtons" ng-show={{isAgentAgency}}>
+            <button ng-if="userCurrentRold==roles.ownAgency||userCurrentRold==roles.agent" class="btn btn-import mb-1"
+                type="file" ngf-select="uploadCsv($file)" ngf-pattern="'.csv'" accept=".csv" ngf-max-height="1000"
+                ngf-max-size="1MB">Bulk upload</button>
+            <button class="btn btn-property  mb-1" ng-click="openAddTenant()">
+                <i class="fa fa-plus make-circle" aria-hidden="true"></i>New tenant</button>
+            <a ng-if="userCurrentRold==roles.ownAgency||userCurrentRold==roles.agent" class="btn btn-import  mb-1"
+                title="Sample File" href="{{baseUrl_path}}/samples/tenants_add_format.csv" target="_blank"><i
+                    class="fa fa-download" aria-hidden="true"> Sample File</i></a>
+        </div>
+    </div>
+    <div class="RefineResults d-flex">
+        <div class="dropdown default-oder droplist">
+            <button class="btn btn-secondary dropdown-toggle togle-default refine" type="button" ng-click="showPopup()"
+                id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Refine results
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </button>
+            <!-- <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                                            <button class="dropdown-item" type="button">Action</button>
+                                            <button class="dropdown-item" type="button">Another action</button>
+                                            <button class="dropdown-item" type="button">Something else here</button>
+                                        </div> -->
+            <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2" id="tenantSearchPopUp">
+                <div class="row">
+                    <button style="margin-left: 243px;margin-top: 0px;" ng-click="hideSearchFilter()"><i
+                            class="fa fa-close"></i></button>
+                    <div class="col-sm-12 agentList">
+                        <div class="refine_dropdown">
+                            <form enctype="multipart/form-data" name="searchTenantForm" ng-init="user_submit = false"
+                                role="form" novalidate autocomplete="off">
+                                <div class="refinehead horiLine">
+                                    <input ng-model="tenant.name" type="text" name="search" placeholder="Name"
+                                        class="search1">
+                                    <span class="searchico">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="filters">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group text-left">
+                                            <label class="control-label">City</label>
+                                            <input id="locality" type="text" ng-model="tenant.city" name="city"
+                                                class="form-control" ng-maxlength="25">
+                                            <span class="error-span inner-error ng-binding"
+                                                ng-show="searchTenantForm.city.$error.pattern"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Tenant city must contain alphabet
+                                                </font>
+                                            </span>
+                                            <span ng-show="searchTenantForm.city.$error.maxlength"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Max 25 characters allowed</font>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group text-left">
+                                            <label class="control-label">State</label>
+                                            <input id="administrative_area_level_1" type="text" ng-model="tenant.state"
+                                                name="state" class="form-control" ng-maxlength="35">
+                                            <span class="error-span inner-error ng-binding"
+                                                ng-show="searchTenantForm.state.$error.pattern"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Tenant state must contain
+                                                    alphabet</font>
+                                            </span>
+                                            <span ng-show="searchTenantForm.state.$error.maxlength"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Max 35 characters allowed</font>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group text-left">
+                                            <label class="control-label" for="settingLName">Postal
+                                                Code</label>
+                                            <input class="form-control frmInput margin_in text-capitalize"
+                                                name="zipcode" ng-model="tenant.zipCode" placeholder="Postal Code"
+                                                type="text" ng-pattern="/^[0-9]{1,4}$/" ng-maxlength="4">
+                                            <span class="error-span inner-error ng-binding"
+                                                ng-show="searchTenantForm.zipcode.$error.pattern"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Postal Code must be number</font>
+                                            </span>
+                                            <span ng-show="searchTenantForm.zipcode.$error.maxlength"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Max 4 digits allowed</font>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="text-left">
+                                            <a ng-click="clearSearch()" href="javascript:void(0)">Clear
+                                                filters</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <button type="submit" ng-click="tenantSearch(tenant)"
+                                            class="btn btn-property pull-right">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="filtering-recent">
+            <ul>
+                <li ng-click="selected=1" ng-class="selected==1?'active':''">
+                    <a ng-click="getAllTenant()" href="javascript:void(0)">Active tenant</a>
+                </li>
+                <li ng-click="selected=2" ng-class="selected==2?'active':''">
+                    <a ng-click="getFavTenantList()" href="javascript:void(0)">Favorites</a>
+                </li>
+                <!-- <li ng-click="selected=3" ng-class="selected==3?'active':''">
+                                            <a href="javascript:void(0)">Unsuccessful</a>
+                                        </li> -->
+                <li ng-click="selected=4" ng-class="selected==4?'active':''">
+                    <a ng-click="getAllTenantFromDatabase()" href="javascript:void(0)">Database</a>
+                </li>
+            </ul>
+        </div>
+        <div class="sort-grid ml-auto">
+            <div class="dropdown default-oder">
+                <button class="btn btn-secondary dropdown-toggle togle-default" type="button" id="dropdownMenu2"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{filterMatch}}
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button" ng-click="setOrderTenant('firstname')">Name</button>
+                    <button class="dropdown-item" type="button" ng-click="setOrderTenant('city')">City</button>
+                    <button class="dropdown-item" type="button" ng-click="setOrderTenant('address')">Address</button>
+                    <!-- <button class="dropdown-item" type="button">Something else here</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ContentBody">
+        <!-- orderBy:orderTenant -->
+        <!-- | orderBy : -createdDate | date:'MM/dd/yyyy HH:mm:ss'  -->
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" dir-paginate="tenant in tenantList | itemsPerPage:8 "
+                current-page="pagination.current">
+                <div class="agent_profile marT20 clearfix">
+                    <div class="contact_info contact_info-height">
+                        <div class="img-width inspection"><a class="pointer" ng-click="goToTenantProfile(tenant._id);">
+                                <img ng-if="tenant.image" ng-src="{{imageUrl}}{{tenant.image}}" alt="Tenant Profile"
+                                    ng-show="{{tenant.hasOwnProperty('image')==true && tenant.image!=''}}">
+                                <img ng-if="tenant.fav_to_user.image" ng-src="{{imageUrl}}{{tenant.fav_to_user.image}}"
+                                    alt="Tenant Profile"
+                                    ng-show="{{tenant.fav_to_user.hasOwnProperty('image')==true && tenant.fav_to_user.image!=''}}">
+                                <div ng-if="!tenant.fav_to_user.image" ng-show="{{tenant.image==''|| !tenant.image}}"
+                                    class="default_121">
+                                    {{tenant.firstname.charAt(0).toUpperCase()}}{{tenant.lastname.charAt(0).toUpperCase()}}
+                                </div>
+                                <div ng-if="tenant.fav_to_user.image"
+                                    ng-show="{{tenant.fav_to_user.image==''|| !tenant.fav_to_user.image}}"
+                                    class="default_121">
+                                    {{tenant.fav_to_user.firstname.charAt(0).toUpperCase()}}{{tenant.fav_to_user.lastname.charAt(0).toUpperCase()}}
+                                </div>
+                                <span ng-class="tenant.is_online == true ? 'colorGreen_tenant' : 'colorRed'"></span>
+                            </a>
+                        </div>
+                        <h5 class="text-capitalize">{{(tenant.fav_to_user.firstname)?tenant.fav_to_user.firstname:
+                                            tenant.firstname}} {{tenant.lastname}}</h5>
+                        <div class="rating">
+                            <span uib-rating ng-model="tenant.averageRate" max="max" read-only="true"
+                                on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']"
+                                aria-labelledby="default-rating"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="views-from-p">{{tenant.averageRate?tenant.averageRate:0}} from
+                            {{tenant.totalReviewLength?tenant.totalReviewLength:0}} reviews</p>
+                        <p ng-if="tenant.address" class="text-capitalize">{{tenant.address| limitTo
+                                            :35}}{{tenant.address.length > 35 ? "..." : ""}}</p>
+                        <p ng-if="tenant.fav_to_user.address" class="text-capitalize">{{tenant.address| limitTo
+                                            :35}}{{tenant.address.length > 35 ? "..." : ""}}</p>
+                        <div class="send-message-division">
+                            <button class="btn btn-property"
+                                ng-click="openSendMessage(tenant._id,tenant.firstname)">Send
+                                message</button>
+                        </div>
+
+                        <div class="fav-heart_blue">
+                            <a href="javascript:void(0)" ng-class="{{tenant.is_fav==1||selected==2}}?'active':''"
+                                ng-click="addToFav(tenant._id,tenant.is_fav,selected)">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="tenantList.length==0 && isSearchedTenant==false"
+                class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                <strong> No {{tenantMsg}} tenants found to display</strong>
+            </div>
+            <div ng-if="tenantList.length==0 && isSearchedTenant==true"
+                class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                <strong>No results were found!</strong>
+            </div>
+        </div>
+        <nav class="pagination-container">
+            <div class="pagination">
+                <!--<a class="pagination-newer" href="#">PREV</a>-->
+                <!-- <span class="pagination-inner">
+                            <a href="#">1</a>
+                            <a class="pagination-active" href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                        </span>
+                        <a class="pagination-older" href="#">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a> -->
+
+                <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true"
+                    boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+                </dir-pagination-controls>
+            </div>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Ownly</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="bootstrap.min.css">
+
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			font-family: 'Open Sans';
+			box-sizing: border-box;
+		}
+
+		input:focus,
+		button:focus {
+			outline-offset: 0;
+		}
+
+		:focus {
+			outline: 0;
+		}
+
+
+		.subscription-inr-box {
+			max-width: 630px;
+			margin: 0 auto;
+			display: block;
+			border-radius: 10px;
+			position: relative;
+			padding: 54px 0 0;
+		}
+
+		.subscription-inr-box:before {
+			content: '';
+			width: 568px;
+			background: #00D8FF;
+			height: 54px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			border-radius: 10px 10px 0 0;
+		}
+
+		ul.subscription-list:before {
+			content: '';
+			box-shadow: 0 0 15px 0 rgba(0, 0, 0, 1);
+			width: 96%;
+			height: 14px;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			top: 1px;
+			z-index: -1;
+			background: transparent;
+		}
+
+		ul.subscription-list:after {
+			content: '';
+			box-shadow: 0 0 15px 0 rgba(0, 0, 0, 1);
+			width: 96%;
+			height: 14px;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			bottom: 1px;
+			z-index: -1;
+			background: transparent;
+		}
+
+		ul.subscription-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			border-radius: 10px;
+			box-shadow: 0 0 10px 0 rgba(0, 0, 0, .16);
+			position: relative;
+			z-index: 10;
+		}
+
+		ul.subscription-list li:first-child {
+			border-radius: 10px 10px 0 0;
+		}
+
+		ul.subscription-list li:last-child {
+			border-radius: 0 0 10px 10px;
+		}
+
+		ul.subscription-list li {
+			display: block;
+			padding: 15px 46px 15px 28px;
+			min-height: 110px;
+			display: flex;
+			align-items: center;
+			background: #fff;
+		}
+
+		.subscription-list-div {
+			background: url(check.svg) no-repeat 0 0;
+			padding: 0 0 0 40px;
+		}
+
+		.subscription-list-div h3 {
+			display: block;
+			color: #606382;
+			font-size: 16px;
+			font-weight: 700;
+			line-height: 20px;
+			margin: 0;
+			padding: 0;
+		}
+
+		.subscription-list-div h4 {
+			display: block;
+			color: #606382;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 20px;
+			margin: 0;
+			padding: 0;
+		}
+
+		ul.subscription-list li:nth-child(2n+2) {
+			background: rgba(0, 216, 255, .22);
+		}
+
+		ul.subscription-list li.subscription-price-li {
+			background: #fff;
+		}
+
+		.subscription-price {
+			display: block;
+			text-align: center;
+			width: 100%;
+		}
+
+		.subscription-price h5 {
+			margin: 0 0 7px;
+			padding: 0;
+			display: block;
+			font-size: 30px;
+			line-height: 47px;
+			color: #00D8FF;
+			font-weight: 700;
+		}
+
+		.subscription-price h6 {
+			margin: 0 0 15px;
+			padding: 0;
+			display: block;
+			font-size: 20px;
+			line-height: 19px;
+			color: #606382;
+			font-weight: 700;
+		}
+
+		.subscribe-btn-wrap {
+			width: 568px;
+			margin: 0 auto;
+		}
+
+		.subscribe-btn-wrap a {
+			width: 100%;
+			margin: 0;
+			border-radius: 0 0 10px 10px;
+			font-size: 30px;
+			font-weight: 700;
+			line-height: 41px;
+			padding: 30px 0 22px;
+			color: #fff;
+			text-decoration: none;
+			text-decoration: none;
+			text-align: center;
+		}
+
+		.subscribe-btn {
+			background: #00D8FF;
+			display: block;
+		}
+
+		.current-plan {
+			background: #00CE08;
+			display: none;
+		}
+
+		.active .subscribe-btn {
+			display: none;
+		}
+
+		.active .current-plan {
+			display: block;
+		}
+
+		.subscription-update-cancel {
+			display: none;
+			margin: 45px 0;
+		}
+
+		.active .subscription-update-cancel {
+			display: block;
+			text-align: center;
+		}
+
+		.subscription-update-cancel a {
+			font-size: 14px;
+			font-weight: 300;
+			line-height: 18px;
+			margin: 7px 0;
+			text-decoration: none;
+		}
+
+		.subscription-update-cancel a:hover {
+			text-decoration: underline;
+		}
+
+		.subscription-update-cancel a.update-card {
+			color: #00D8FF;
+		}
+
+		.subscription-update-cancel a.cancel-subscribe {
+			color: rgba(127, 130, 158, .5);
+		}
+
+		#subscription-popup .modal-dialog {
+			max-width: 300px;
+			border-radius: 5px;
+			background: #F5F5F5;
+		}
+
+		#subscription-popup .modal-content {
+			border: 0;
+		}
+
+		#subscription-popup .modal-header {
+			position: relative;
+			padding: 0 0 18px;
+			text-align: center;
+			background: #F5F5F7;
+			border-bottom: 1px solid #CCC;
+			margin: 0;
+			flex-direction: column;
+			justify-content: center;
+			text-align: center;
+			align-items: center;
+			border-radius: 5px 5px 0 0;
+		}
+
+		#subscription-popup .modal-header button {
+			opacity: 1;
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			padding: 0;
+			margin: 0;
+		}
+
+		#subscription-popup .modal-header button>span img {
+			width: 20px;
+			height: 20px;
+		}
+
+		#subscription-popup .modal-header .symbol {
+			margin: -36px 0 10px;
+			display: block;
+			text-align: center;
+		}
+
+		#subscription-popup .modal-header .symbol img {
+			width: 72px;
+			height: 72px;
+		}
+
+		#subscription-popup .modal-header h4 {
+			margin: 0 0 2px;
+			padding: 0;
+			display: block;
+			color: #000;
+			font-size: 17px;
+			font-weight: 700;
+			line-height: 21px;
+		}
+
+		#subscription-popup .modal-header h5 {
+			margin: 0;
+			padding: 0;
+			display: block;
+			color: #666666;
+			font-size: 13px;
+			font-weight: 400;
+			line-height: 21px;
+			font-style: italic;
+		}
+
+		#subscription-popup .modal-body {
+			padding: 36px;
+		}
+
+		.subscription-email {
+			position: relative;
+			margin: 0 0 18px;
+			border: 1px solid #CCC;
+			background: #fff;
+			padding: 5px 5px 5px 31px;
+			border-radius: 5px;
+		}
+
+		.subscription-email i {
+			position: absolute;
+			top: 12px;
+			left: 9px;
+			vertical-align: top;
+			line-height: 100%;
+		}
+
+		.subscription-email i img {
+			width: 14px;
+			height: 11px;
+			vertical-align: top;
+		}
+
+		.subscription-email input {
+			border: 0;
+			background: transparent;
+			line-height: 25px;
+			color: #B3B3B3;
+			font-size: 15px;
+			font-weight: 500;
+			font-style: italic;
+		}
+
+		.card-details-wrap {
+			position: relative;
+			margin: 0 0 18px;
+			border: 1px solid #CCC;
+			background: #fff;
+			padding: 50;
+			border-radius: 5px;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		.card-details-wrap input {
+			border: 0;
+			background: transparent;
+			line-height: 26px;
+			color: #B3B3B3;
+			font-size: 15px;
+			font-weight: 500;
+			font-style: italic;
+			width: 100%;
+		}
+
+		.card-details-wrap>div {
+			position: relative;
+			padding: 5px 5px 5px 31px;
+		}
+
+		.card-details-wrap>div i {
+			position: absolute;
+			top: 9px;
+			left: 9px;
+			vertical-align: top;
+			line-height: 100%;
+		}
+
+		.card-number {
+			width: 100%;
+			border-bottom: 1px solid #ccc;
+		}
+
+		.card-number i img {
+			width: 14px;
+			height: 11px;
+		}
+
+		.card-date {
+			width: 50%;
+			float: left;
+		}
+
+		.card-date i img {
+			width: 12px;
+			height: 12px;
+		}
+
+		.card-cvv {
+			width: 50%;
+			float: right;
+			border-left: 1px solid #ccc;
+		}
+
+		.card-cvv i img {
+			width: 11px;
+			height: 12px;
+		}
+
+		.card-rememver input {
+			padding: 0;
+			height: initial;
+			width: initial;
+			margin-bottom: 0;
+			display: none;
+			cursor: pointer;
+		}
+
+		.card-rememver label {
+			cursor: pointer;
+			color: #666;
+			font-size: 15px;
+			margin: 0 0 38px;
+			position: relative;
+			border: 1px solid #CCC;
+			border-radius: 5px;
+			padding: 7px 9px 7px;
+			display: block;
+			font-weight: 400;
+		}
+
+		.card-rememver label:before {
+			content: '';
+			-webkit-appearance: none;
+			background-color: transparent;
+			border: 1px solid #CCC;
+			padding: 6px;
+			display: inline-block;
+			position: relative;
+			vertical-align: top;
+			cursor: pointer;
+			margin: 4px 7px 0 0;
+			border-radius: 3px;
+		}
+
+		.card-rememver input:checked+label:after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 13px;
+			left: 14px;
+			width: 4px;
+			height: 7px;
+			border: solid #0079bf;
+			border-width: 0 1px 1px 0;
+			transform: rotate(45deg);
+		}
+
+		.pay-btn {
+			border: 1px solid #339CE1;
+			width: 100%;
+			text-align: center;
+			color: #FFF;
+			font-size: 17px;
+			font-weight: 700;
+			border-radius: 5px;
+			background: #00d8ff;
+			/* Old browsers */
+			background: -moz-linear-gradient(top, #00d8ff 0%, #2d99dd 100%);
+			/* FF3.6-15 */
+			background: -webkit-linear-gradient(top, #00d8ff 0%, #2d99dd 100%);
+			/* Chrome10-25,Safari5.1-6 */
+			background: linear-gradient(to bottom, #00d8ff 0%, #2d99dd 100%);
+			/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00d8ff', endColorstr='#2d99dd', GradientType=0);
+			/* IE6-9 */
+		}
+
+		.pay-btn button {
+			border: 0;
+			background: transparent;
+			width: 100%;
+			line-height: 35px;
+			display: block;
+			text-align: center;
+			padding: 0 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="subscription-inr-box">
+		<ul class="subscription-list">
+			<li data-toggle="modal" data-target="#subscription-popup">
+				<div class="subscription-list-div">
+					<h3>Quote On Jobs In Your Chosen Postcode</h3>
+					<h4>Whenever a job is posted in your chosen postcode, you receive a notification there is a job to
+						quote on. Just open the app and start chatting to the service seeker.</h4>
+				</div>
+			</li>
+			<li data-toggle="modal" data-target="#subscription-popup">
+				<div class="subscription-list-div">
+					<h3>Completed Jobs Saved To Property Indefinitely</h3>
+					<h4>When you complete a job, your work is saved to the property forever. If the property is bought
+						and sold, you will still be attached and will pop up first for any new service request on that
+						address.</h4>
+				</div>
+			</li>
+			<li data-toggle="modal" data-target="#subscription-popup">
+				<div class="subscription-list-div">
+					<h3>Allow The Community To See Work You’ve Done Locally</h3>
+					<h4>When you complete a job, other job searchers in the area can see you’ve been doing a great job
+						and can hire you. The neighbour, the house across the road. They can all reach out and request
+						your services.</h4>
+				</div>
+			</li>
+			<li data-toggle="modal" data-target="#subscription-popup">
+				<div class="subscription-list-div">
+					<h3>Unlimited Quotes</h3>
+					<h4>Don’t worry about not winning that job. Quote as many times as you like. </h4>
+				</div>
+			</li>
+			<li data-toggle="modal" data-target="#subscription-popup">
+				<div class="subscription-list-div">
+					<h3>Allow The Community To See Work You’ve Done Locally</h3>
+					<h4>When you complete a job, other job searchers in the area can see you’ve been doing a great job
+						and can hire you. The neighbour, the house across the road. They can all reach out and request
+						your services.</h4>
+				</div>
+			</li>
+			<li data-toggle="modal" data-target="#subscription-popup">
+				<div class="subscription-list-div">
+					<h3>Chat Direct To Your Customer</h3>
+					<h4>We encourage service providers to stay on the platform to communicate on the first and
+						subsequent jobs. Our subscription model means we are aligned with you.</h4>
+				</div>
+			</li>
+			<li data-toggle="modal" data-target="#subscription-popup">
+				<div class="subscription-list-div">
+					<h3>Promote Your Business With Premium Listing</h3>
+					<h4>Show the world your work and your reviews. The premium listing lets anyone search you, see your
+						portfolio and contact you.</h4>
+				</div>
+			</li>
+			<li class="subscription-price-li">
+				<div class="subscription-price">
+					<h5>FREE</h5>
+					<!-- Removed required Subscription  -->
+					<!-- <h5>$45 p/m</h5> -->
+					<!--  Removed required Subscription -->
+					<!-- <h6>FREE for the first 3 months </h6> -->
+				</div>
+			</li>
+		</ul>
+		<!--  Removed required Subscription -->
+		<!-- <div class="subscribe-btn-wrap ">
+			<a href="" class="subscribe-btn">SUBSCRIBE</a>
+			<a href="" class="current-plan">Current Plan</a>
+		</div> -->
+		<!-- <div class="subscription-update-cancel">
+			<a href="" class="update-card">Update Credit Card</a> <br />
+			<a href="" class="cancel-subscribe">Cancel Subscription</a>
+		</div> -->
+		<!--  Removed required Subscription -->
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="subscription-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="symbol"><img src="symbol.svg" alt=""></div>
+					<h4>Ownly</h4>
+					<h5>Standard Subscription</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"><img src="close-icon.svg" alt="" /></span></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="subscription-email">
+							<i><img src="envelope.svg" alt=""></i>
+							<input type="text" name="" placeholder="majid@techwitty.com.au">
+						</div>
+						<div class="card-details-wrap">
+							<div class="card-number">
+								<i><img src="envelope.svg" alt=""></i>
+								<input type="text" name="" placeholder="Card number">
+							</div>
+							<div class="card-date">
+								<i><img src="calendar.svg" alt=""></i>
+								<input type="text" name="" placeholder="MM / YY">
+							</div>
+							<div class="card-cvv">
+								<i><img src="lock.svg" alt=""></i>
+								<input type="text" name="" placeholder="">
+							</div>
+						</div>
+						<div class="card-rememver">
+							<input type="checkbox" id="css">
+							<label for="css">Remember me</label>
+						</div>
+						<div class="pay-btn">
+							<button type="submit">Pay $45</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

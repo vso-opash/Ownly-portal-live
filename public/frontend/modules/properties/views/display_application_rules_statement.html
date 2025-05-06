@@ -1,0 +1,56 @@
+<div class="crop-image modal-dialog modal-lg">
+    <div class="modal-content" style="width: 100%;" id="modal">
+        <div class="modal-header">
+            <button class="close" type="button" ng-click="$dismiss('cancel')">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 id="myModalLabel" class="modal-title">
+                <strong>Terms & Conditions</strong>
+            </h3>
+        </div>
+        <div class="modal-body">
+            <p>
+                This is an OPTIONAL connection service to assist you to obtain energy and/or telecommunications services
+                for your new residence. If you are a prospective tenant, your decision whether or not to use this
+                service will not affect your rental application.
+            </p>
+            <br>
+            <p>
+                PropertyComm.com.au’s service provider for connections services Connect Now Pty Ltd ABN 79 097 398 662
+                the “Connections Partner”) will assist PropertyComm.com.au to provide this connection service to you. If
+                you have ticked one of the boxes above, you consent to PropertyComm.com.au and its Connections Partner
+                using your personal information provided by you in this form and your tenant application form (if
+                applicable) in accordance with the Privacy Collection Statement below including using those details to
+                contact you by phone, SMS and email in relation to the selected product(s). We do not charge a fee for
+                use of our Connection services, but you will need to pay any fees or charges in accordance with any
+                agreement you enter into with your new utility provider (e.g. any connection or disconnection fees or
+                ongoing charges). You acknowledge that PropertyComm.com.au and its Connections Partner may receive
+                commissions or fees from your selected retailer(s), that commissions or fees may be paid between
+                PropertyComm.com.au and its Connections Partner, and that your real estate agent may receive commissions
+                or fees from ProperComm.com.au or its Connections Partner, in each case for arranging provision of the
+                requested services. The value of commissions or fees may vary from time to time and differ depending on
+                which retailer is selected.
+            </p>
+            <br>
+            <p>
+                You may prefer to obtain services under different terms and conditions, or from different retailers, to
+                those offered by the Connections Partner. You acknowledge that if you select one of the services offered
+                by the Connections Partner and the relevant retailer agrees to provide that service to you, then you
+                will enter into a contract with that retailer for the provision of that service. Retailers retain
+                discretion in relation to accepting your request for products or services - acceptance may be affected
+                by factors such as a retailer’s credit criteria or ability to supply to your selected address. Connect
+                Now Pty Ltd is part of the AGL Group. Except as otherwise expressly indicated PropertyComm.com.au and
+                its Connections Partner do not guarantee the connection, or disconnection of any other services
+                requested by you, or that any will be by your requested date. You agree that to the maximum extent
+                permitted by law, other than as set out here, PropertyComm.com.au and its Connections Partner will have
+                no liability to you for the provision of the service.
+            </p>
+        </div>
+        <div class="modal-footer" ng-show="myCroppedImage">
+            <button class="btn" ng-click="$dismiss('cancel')">Cancel</button>
+        </div>
+    </div>
+    <script>
+        $("#modal .close ").click()
+    </script>
+</div>

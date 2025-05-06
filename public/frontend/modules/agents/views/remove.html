@@ -1,0 +1,70 @@
+<div class="modal-content" style="width: 645px" id="modal" ng-init="getAgencyProperty();removalInit();">
+    <div class="modal-header">
+        <button class="close" type="button" ng-click="cancel()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h3>Request agent removal</h3>
+    </div>
+    <div class="modal-body clearfix">
+
+        <form novalidate id="removeAgentForm" name="removeAgentForm" autocomplete="off">
+            <div class="row  marT20">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                        <label class="control-label" for="product_categorie">Select property<font color="Red">*</font></label>
+                        <select name="selectProperty" ng-model="agent.property_id" name="created_by" ng-change="getPropertyAgent(agent.property_id)"
+                            class="form-control" required>
+                            <option value="" disabled>Select Property</option>
+                            <option ng-repeat="property in propertyList" value="{{property}}">{{property.address}}</option>
+                        </select>
+                        <span class="error-span inner-error ng-binding " ng-show="removeAgentForm.selectProperty.$error.required && removeAgentForm.selectProperty.$touched "
+                            class="error-span inner-error ng-binding ">
+                            <font color="Red">Select property is required</font>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <form novalidate="">
+                        <label class="control-label" for="product_categorie">Agent to remove<font color="Red">*</font></label>
+                        <div   class="col-xs-12 col-sm-12 col-md-12 role">
+                            <div id="roles-scroll">
+                                <div class="rolelist">
+                                    <label class="check_container text-capitalize">{{agentInfo}}
+                                        <input ng-show="agentInfo.length" name="agent" ng-model="agentCheck" type="checkbox">
+                                        <span ng-show="agentInfo.length" class="checkmark"></span>
+                                    </label>
+                                    <span class="removeAgent" ng-hide="agentInfo.length">Shown after selecting property</span>
+                                    <!-- <span class="error-span inner-error ng-binding " ng-show="removeAgentForm.agent.$error.required && removeAgentForm.agent.$touched "
+                                    class="error-span inner-error ng-binding ">
+                                    <font color="Red">Please check it</font>
+                                </span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                        <label class="control-label" for="product_categorie">Reason for the removal request(optional)</label>
+                        <textarea name="removalRequest" class="form-control" maxlength="500" type="text" ng-model="agent.reason_of_removal_req"
+                            >
+                        </textarea>
+
+                    </div>
+                    <span ng-show="(agent.reason_of_removal_req.length)>499" >
+                            <font color="Red">Max 500 characters allowed</font>
+                        </span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-savechanges" ladda="loginLoading" data-style="slide-right" ng-click="sendRemovalRequest(agent,agentCheck)">Submit request</button>
+            </div>
+        </form>
+    </div>
+
+</div>

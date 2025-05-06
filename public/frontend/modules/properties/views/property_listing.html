@@ -1,0 +1,770 @@
+<div class="container" ng-init="getPropertyListing();propertyLisingInitialize()">
+    <div class="row marT20">
+
+        <div class="setting-section">
+            <div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 s-section-left">
+                    <div class="col-sm-6 project-listing-latest button-padding-zero ">
+                        <h5>Properties</h5>
+                    </div>
+                    <div class="col-sm-6 marT10 text-right button-padding-zero btn-mobile-property">
+                        <button ng-if="roleId==agencyCode||roleId==agentCode" class="btn btn-import" type="file"
+                            ngf-select="uploadCsv($file)" ngf-pattern="'.csv'" accept=".csv" ngf-max-height="1000"
+                            ngf-max-size="1MB">
+                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>Import from CSV</button>
+                        <button ng-show={{isAgentOwnerAgency}} class="btn btn-property" ng-click="goToAddProperty()">
+                            <i class="fa fa-plus make-circle" aria-hidden="true"></i>New property</button>
+                        <!-- <a class="btn btn-import" title="Sample File" href="{{baseUrl}}/samples/Property_sample.csv" target="_blank"><i class="fa fa-download" aria-hidden="true"> Sample</i></a>  -->
+                        <!-- <button class="btn btn-import" title="Sample File" href="{{baseUrl}}/samples/Property_sample.csv" target="_blank"><i class="fa fa-download" aria-hidden="true"></i>Sample</button> -->
+                        <a ng-if="roleId==agencyCode||roleId==agentCode" class="btn btn-import" title="Sample File"
+                            href="{{baseUrl}}/samples/Property_sample.csv" target="_blank">
+                            <i class="fa fa-download" aria-hidden="true"> Sample</i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-12 horiLine RefineResults">
+                    <div class="col-sm-2">
+                        <div>
+                            <div ng-class="advanceSearchClass" ng-init="listingInitialize()">
+                                <button class="btn btn-secondary dropdown-toggle togle-default refine"
+                                    ng-click="openRefineSearch();showPopup()" type="button" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Refine results
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </button>
+                                <div class="dropdown-menu" id="propertySearchPopUp">
+                                    <div class="row">
+                                        <button style="margin-left: 243px;margin-top: 0px;"
+                                            ng-click="hideSearchFilter()">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                        <div class="col-sm-12">
+                                            <div class="refine_dropdown">
+                                                <form enctype="multipart/form-data" name="createPropertyStepTwo"
+                                                    ng-init="user_submit = false" role="form" novalidate
+                                                    autocomplete="off">
+                                                    <div class="refinehead horiLine">
+                                                        <input ng-change="addressInitialize()" googleplace
+                                                            ng-model="property.address" type="text" name="search"
+                                                            placeholder="Name, Address" class="search1">
+                                                        <span class="searchico">
+                                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="filters">
+                                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                                            <div class="form-group text-left">
+                                                                <label class="control-label">State / Province</label>
+                                                                <input id="administrative_area_level_1" type="text"
+                                                                    ng-model="property.state" name="state"
+                                                                    class="form-control">
+                                                                <!-- <span class="error-span inner-error ng-binding" ng-show="createPropertyStepTwo.state.$error.required && createPropertyStepTwo.state.$touched"
+                                                                    class="error-span inner-error ng-binding">
+                                                                    <font color="Red">Property state is Required</font>
+                                                                </span>
+                                                                <span class="text-danger" ng-show="createPropertyStepTwo.state.$error.pattern">
+                                                                    <font color="Red">No special characters are allowed.</font>
+                                                                </span> -->
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                                            <div class="form-group text-left">
+                                                                <label class="control-label">City</label>
+                                                                <input id="locality" type="text"
+                                                                    ng-model="property.city" name="city"
+                                                                    class="form-control">
+                                                                <!-- <span class="error-span inner-error ng-binding" ng-show="createPropertyStepTwo.city.$error.required && createPropertyStepTwo.city.$touched"
+                                                                    class="error-span inner-error ng-binding">
+                                                                    <font color="Red">Property city is Required</font>
+                                                                </span>
+                                                                <span class="text-danger" ng-show="createPropertyStepTwo.city.$error.pattern">
+                                                                    <font color="Red">No special characters are allowed.</font>
+                                                                </span> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                                            <div class="form-group text-left">
+                                                                <label class="control-label">Property Type</label>
+                                                                <select ng-model="property.property_type"
+                                                                    name="property_type" class="form-control" required>
+                                                                    <option value="">Select Property Type</option>
+                                                                    <option ng-repeat="property_type in propertyType"
+                                                                        value="{{property_type.code}}">
+                                                                        {{property_type.name}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                                            <div class="form-group text-left">
+                                                                <label class="control-label"
+                                                                    for="settingFName">Date</label>
+
+                                                                <div type="text" class="form-control" name="dueDate"
+                                                                    uib-datepicker-popup="{{format}}"
+                                                                    ng-model="property.created" is-open="popup1.opened"
+                                                                    datepicker-options="dateOptions" required
+                                                                    close-text="Close"
+                                                                    alt-input-formats="altInputFormats">
+                                                                    {{property.created|date}}</div>
+                                                                <span class="input-group-btn">
+                                                                    <button style="margin-left: 221px;" type="button"
+                                                                        class="btn btn-default maint_calender"
+                                                                        ng-click="open1()">
+                                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                                    </button>
+                                                                </span>
+                                                                <!-- <span class="text-danger" ng-show="createPropertyStepTwo.dueDate.$error.date">
+                                                                    <font color="Red">Not a valid date.</font>
+                                                                </span>
+                                                                <span class="text-danger" ng-show="dateStatus">
+                                                                    <font color="Red">Date should be less then today's date.</font>
+                                                                </span> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <div class="text-left">
+                                                                <a ng-click="clearSearch()"
+                                                                    href="javascript:void(0)">Clear
+                                                                    filters</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                            <button type="submit"
+                                                                ng-click="propertySearch(property,selected)"
+                                                                class="btn btn-property pull-right">Submit</button>
+                                                        </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 clearfix">
+                    <div class="filtering-recent">
+                        <ul>
+                            <li ng-click="selected=1" ng-class="selected==1?'active':''">
+                                <a href="javascript:void(0) " ng-click="getAllProperty()">Mine</a>
+                            </li>
+                            <li ng-click="selected=2" ng-class="selected==2?'active':''">
+                                <a href="javascript:void(0) " ng-click="getFavPropertyList()">Favorites</a>
+                            </li>
+                            <li ng-click="selected=3" ng-class="selected==3?'active':''"
+                                ng-if="roleId==agencyCode||roleId==agentCode">
+                                <a href="javascript:void(0)" ng-click="getPropertySales()">Listings</a>
+                            </li>
+                            <li ng-click="selected=4" ng-class="selected==4?'active':''">
+                                <a href="javascript:void(0)" ng-click="getTenantedProperty()">Tenanted</a>
+                            </li>
+                            <!-- <li ng-click="selected=5" ng-class="selected==5?'active':''">
+                                    <a href="javascript:void(0)" ng-click="getDatabaseProperty()">All</a>
+                                </li> -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 clearfix">
+                    <div class="sort-grid">
+                        <div class="dropdown default-oder">
+                            <button class="btn btn-secondary dropdown-toggle togle-default" type="button"
+                                id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{filterMatch}}
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                                <button class="dropdown-item" ng-click="filterBy('name')" type="button">Name</button>
+                                <button class="dropdown-item" type="button" ng-click="filterBy('city')">City</button>
+                                <button class="dropdown-item" ng-click="filterBy('address')"
+                                    type="button">Address</button>
+                                <!-- <button class="dropdown-item" type="button">Something else here</button> -->
+                            </div>
+                        </div>
+                        <span class="view-as">
+                            <a href="javascript:void(0)" ng-click="showPropertyLocation(selected);">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </a>
+                            <a href="javascript:void(0)" ng-click="showListView();">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                            <a href="javascript:void(0)" ng-click="showGrideView();">
+                                <i class="fa fa-th"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="setting-section">
+        <div class="row" ng-hide="!selected==1" ng-if="selected==1">
+            <div ng-class="listView==true?'col-lg-12 col-md-12 marT20 propertyListingSpace':'col-lg-4 col-md-4 col-xs-12 marT20'"
+                dir-paginate="property_listing in propertyList| itemsPerPage:6 |orderBy:sortText"
+                current-page="pagination.current">
+                <div ng-class="listView==true?'property_listview shadow-hover':'property shadow-hover'">
+                    <div ng-if="listView" class="img_listview">
+                        <div ng-repeat="(key, images) in property_listing.image">
+                            <a ng-if="images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                                class="property-img1 inspection">
+                                <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                    src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                    src="{{images.path}}" alt="propimg">
+                                <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+
+                                <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                    src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                                <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && property_listing.image[0].is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                                <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                                    src="{{property_listing.image[0].path}}" alt="propimg">
+                                <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                            </a>
+                        </div>
+                        <div class="fav-heart_blue">
+                            <a href="javascript:void(0)" ng-class="{{property_listing.is_fav==1}}?'active':''"
+                                ng-click="addToFav(property_listing._id,property_listing.is_fav,selected)">
+                                <!-- <img src="/assets/images/Heart.svg" alt="Heart"> -->
+                            </a>
+                        </div>
+                    </div>
+                    <div ng-repeat="(key, images) in property_listing.image">
+                        <a ng-if="!listView && images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                            class="property-img inspection">
+                            <div class="img-fade "></div>
+                            <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                src="{{images.path}}" alt="propimg">
+                            <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                            <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                            src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                        <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && property_listing.image[0].is_from_csv_file==false"
+                            src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                        <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                            src="{{property_listing.image[0].path}}" alt="propimg">
+                        <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                        </a>
+                    </div>
+                    <!-- <div class="fav-heart_blue">
+                                <a href="javascript:void(0)" class="pointer" ng-class="property_listing.is_fav==2?'active':''" ng-click="addToFav(property_listing._id,property_listing.is_fav,selected)">
+                                 
+                                </a>
+                            </div> -->
+                    <div class="fav-heart_blue">
+                        <a class="pointer" ng-click="addToFav(property_listing._id,property_listing.is_fav,selected)"
+                            ng-class="{{property_listing.is_fav==1}}?'active':''"></a>
+                    </div>
+                    <div ng-class="listView==true?'property-content_listview1':'property-content'">
+                        <div class="property-title">
+                            <h4 class="margin-property-listings">
+                                <a href="/#!/property_details/{{property_listing._id}}">{{property_listing.address |
+                                    limitTo : 50}}{{property_listing.address.length > 50 ? "..."
+                                    : ""}}</a>
+                            </h4>
+                            <p class="property-address">
+                                {{property_listing.description | limitTo : 231 }}{{property_listing.description.length
+                                > 231
+                                ? "..." : ""}}
+                            </p>
+                        </div>
+                        <table class="property-details  prop-card-view prop-list">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="/assets/images/Bedroom-new.png" />{{property_listing.number_bedroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Bathroom-new.png" />{{property_listing.number_of_bathroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Garage-new.png" />{{property_listing.number_of_parking}}
+                                    </td>
+                                    <td>
+                                        <img src="/assets/images/townhouse-new.png" />
+                                        <span class="text-capitalize">{{property_listing.property_type}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <div ng-show="property_listing.save_as_draft">
+                                <span class="right right-height">
+                                    <font color="Black">Saved as draft</font>
+                                </span>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 marT20 propertyListingSpace">
+                <div ng-if="propertyList.length==0 && isSearchedProperty==false"
+                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No property found to display!</strong>
+                </div>
+                <div ng-if="propertyList.length==0 && isSearchedProperty==true"
+                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No searched results were found</strong>
+                </div>
+            </div>
+        </div>
+        <!-- Favorites property -->
+        <div class="row" ng-if="selected==2">
+            <div ng-class="listView==true?'col-lg-12 col-md-12 marT20 propertyListingSpace':'col-lg-4 col-md-4 col-xs-12 marT20'"
+                dir-paginate="property_listing in favPropertyList| itemsPerPage:6 |orderBy:sortText"
+                current-page="pagination.current">
+                <div ng-class="listView==true?'property_listview shadow-hover':'property shadow-hover'">
+                    <div ng-if="listView" class="img_listview">
+                        <div ng-repeat="(key, images) in property_listing.image">
+                            <a ng-if="images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                                class="property-img1 inspection">
+                                <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                    src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                    src="{{images.path}}" alt="propimg">
+                                <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                                <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && property_listing.image[0].is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                                src="{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                            </a>
+                            <div class="fav-heart_blue">
+                                <a href="javascript:void(0)" class="active"
+                                    ng-click="addToFav(property_listing._id,true,selected)">
+                                    <!-- <img src="/assets/images/Heart.svg" alt="Heart"> -->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-repeat="(key, images) in property_listing.image">
+                        <a ng-if="!listView && images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                            class="property-img inspection">
+                            <div class="img-fade "></div>
+                            <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                src="{{images.path}}" alt="propimg">
+                            <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                            <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && property_listing.image[0].is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                                src="{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                        </a>
+                    </div>
+                    <div class="fav-heart_blue">
+                        <a href="javascript:void(0)" class="active"
+                            ng-click="addToFav(property_listing._id,true,selected)">
+                            <!-- <img src="/assets/images/Heart.svg" alt="Heart"> -->
+                        </a>
+                    </div>
+                    <div ng-class="listView==true?'property-content_listview1':'property-content'">
+                        <div class="property-title">
+                            <h4>
+                                <a href="/#!/property_details/{{property_listing._id}}">{{property_listing.address |
+                                    limitTo : 50}}{{property_listing.address.length > 50 ? "..."
+                                    : ""}}</a>
+                            </h4>
+                            <p class="property-address">{{property_listing.description | limitTo : 231
+                                }}{{property_listing.description.length > 231
+                                ? "..." : ""}}</p>
+                        </div>
+                        <table class="property-details  prop-card-view prop-list">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="/assets/images/Bedroom-new.png" />{{property_listing.number_bedroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Bathroom-new.png" />{{property_listing.number_of_bathroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Garage-new.png" />{{property_listing.number_of_parking}}
+                                    </td>
+                                    <td>
+                                        <img src="/assets/images/townhouse-new.png" />
+                                        <span class="text-capitalize">{{property_listing.property_type}}</span>
+                                    </td>
+                                </tr>
+                                <div ng-show="property_listing.save_as_draft">
+                                    <span class="right">
+                                        <font color="Black">Saved as draft</font>
+                                    </span>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 marT20 propertyListingSpace">
+                <div ng-if="favPropertyList.length==0 && isSearchedProperty==false"
+                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No Favorite property found to display</strong>
+                </div>
+                <div ng-if="favPropertyList.length==0 && isSearchedProperty==true"
+                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No searched results were found</strong>
+                </div>
+            </div>
+        </div>
+        <!-- Listing property -->
+        <div class="row" ng-if="selected==3">
+            <div ng-class="listView==true?'col-lg-12 col-md-12 marT20 propertyListingSpace':'col-lg-4 col-md-4 col-xs-12 marT20'"
+                dir-paginate="property_listing in listingProperty| itemsPerPage:6 |orderBy:sortText"
+                current-page="pagination.current">
+                <div ng-class="listView==true?'property_listview shadow-hover':'property shadow-hover'">
+                    <div ng-if="listView" class="img_listview">
+                        <div ng-repeat="(key, images) in property_listing.image">
+                            <a ng-if="images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                                class="property-img1 inspection">
+                                <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                    src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                    src="{{images.path}}" alt="propimg">
+                                <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                                <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                    src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                                <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && property_listing.image[0].is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                                <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                                    src="{{property_listing.image[0].path}}" alt="propimg">
+                                <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                            </a>
+                            <div class="fav-heart_blue">
+                                <a href="javascript:void(0)" ng-class="{{property_listing.is_fav==1}}?'active':''"
+                                    ng-click="addToFav(property_listing._id,property_listing.is_fav,selected)">
+                                    <!-- <img src="/assets/images/Heart.svg" alt="Heart"> -->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-repeat="(key, images) in property_listing.image">
+                        <a ng-if="!listView && images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                            class="property-img inspection">
+                            <div class="img-fade "></div>
+                            <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                src="{{images.path}}" alt="propimg">
+                            <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                            <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true"
+                                src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                        </a>
+                    </div>
+                    <div class="fav-heart_blue">
+                        <a href="javascript:void(0)" ng-class="{{property_listing.is_fav==1}}?'active':''"
+                            ng-click="addToFav(property_listing._id,property_listing.is_fav,selected)">
+                            <!-- <img src="/assets/images/Heart.svg" alt="Heart"> -->
+                        </a>
+                    </div>
+                    <div ng-class="listView==true?'property-content_listview1':'property-content'">
+                        <div class="property-title">
+                            <h4>
+                                <a href="/#!/property_details/{{property_listing._id}}">{{property_listing.address |
+                                    limitTo : 50}}{{property_listing.address.length > 50 ? "..."
+                                    : ""}}</a>
+                            </h4>
+                            <p class="property-address">{{property_listing.description | limitTo :
+                                231}}{{property_listing.description.length > 231
+                                ? "..." : ""}}</p>
+                        </div>
+                        <table class="property-details  prop-card-view prop-list">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="/assets/images/Bedroom-new.png" />{{property_listing.number_bedroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Bathroom-new.png" />{{property_listing.number_of_bathroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Garage-new.png" />{{property_listing.number_of_parking}}
+                                    </td>
+                                    <td>
+                                        <img src="/assets/images/townhouse-new.png" />
+                                        <span class="text-capitalize">{{property_listing.property_type}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <div ng-show="property_listing.save_as_draft">
+                                <span class="right">
+                                    <font color="Black">Saved as draft</font>
+                                </span>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 marT20 propertyListingSpace">
+                <div ng-if="listingProperty.length==0 && isSearchedProperty==false"
+                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No Listing property found to display!</strong>
+                </div>
+                <div ng-if="listingProperty.length==0 && isSearchedProperty==true"
+                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No searched results were found</strong>
+                </div>
+            </div>
+        </div>
+        <!-- Tenanted property -->
+        <div class="row" ng-if="selected==4">
+            <div ng-class="listView==true?'col-lg-12 col-md-12 marT20 propertyListingSpace':'col-lg-4 col-md-4 col-xs-12 marT20'"
+                dir-paginate="property_listing in TenantedPropertyList| itemsPerPage:6 |orderBy:sortText"
+                current-page="pagination.current">
+                <div ng-class="listView==true?'property_listview shadow-hover':'property shadow-hover'">
+                    <div ng-if="listView" class="img_listview">
+                        <div ng-repeat="(key, images) in property_listing.image">
+                            <a ng-if="images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                                class="property-img1 inspection">
+                                <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                    src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                    src="{{images.path}}" alt="propimg">
+                                <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                                <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                    src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                                <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && property_listing.image[0].is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                                <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                                    src="{{property_listing.image[0].path}}" alt="propimg">
+                                <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                            </a>
+                            <div class="fav-heart_blue">
+                                <a class="pointer"
+                                    ng-click="addToFav(property_listing._id,property_listing.is_fav,selected)"
+                                    ng-class="{{property_listing.is_fav==1}}?'active':''"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-repeat="(key, images) in property_listing.image">
+                        <a ng-if="!listView && images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                            class="property-img inspection">
+                            <div class="img-fade "></div>
+                            <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                src="{{images.path}}" alt="propimg">
+                            <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                            <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && property_listing.image[0].is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                                src="{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                        </a>
+                    </div>
+                    <div class="fav-heart_blue">
+                        <a href="javascript:void(0)" ng-class="{{property_listing.is_fav==1}}?'active':''"
+                            ng-click="addToFav(property_listing._id,property_listing.is_fav,selected)">
+                            <!-- <img src="/assets/images/Heart.svg" alt="Heart"> -->
+                        </a>
+                    </div>
+                    <div ng-class="listView==true?'property-content_listview1':'property-content'">
+                        <div class="property-title">
+                            <h4>
+                                <a href="/#!/property_details/{{property_listing._id}}">{{property_listing.address |
+                                    limitTo : 50}}{{property_listing.address.length > 50 ? "..."
+                                    : ""}}</a>
+                            </h4>
+                            <p class="property-address">{{property_listing.description | limitTo :
+                                231}}{{property_listing.description.length > 231
+                                ? "..." : ""}}</p>
+                        </div>
+                        <table class="property-details  prop-card-view prop-list">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="/assets/images/Bedroom-new.png" />{{property_listing.number_bedroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Bathroom-new.png" />{{property_listing.number_of_bathroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Garage-new.png" />{{property_listing.number_of_parking}}
+                                    </td>
+                                    <td>
+                                        <img src="/assets/images/townhouse-new.png" />
+                                        <span class="text-capitalize">{{property_listing.property_type}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <div ng-show="property_listing.save_as_draft">
+                                <span class="right">
+                                    <font color="Black">Saved as draft</font>
+                                </span>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 marT20 propertyListingSpace">
+                <div ng-if="TenantedPropertyList.length==0 && isSearchedProperty==false"
+                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No Tenanted property found to display</strong>
+                </div>
+                <div ng-if="TenantedPropertyList.length==0 && isSearchedProperty==true"
+                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                    <strong>No searched results were found</strong>
+                </div>
+            </div>
+        </div>
+        <!-- Database property -->
+        <div class="row" ng-if="selected==5">
+            <div ng-class="listView==true?'col-lg-12 col-md-12 marT20 propertyListingSpace':'col-lg-4 col-md-4 col-xs-12 marT20'"
+                dir-paginate="property_listing in databasePropertyList| itemsPerPage:6 |orderBy:sortText"
+                current-page="pagination.current">
+                <div ng-class="listView==true?'property_listview shadow-hover':'property shadow-hover'">
+                    <div ng-if="listView" ng-class="listView==true?'img_listview':''">
+                        <div ng-repeat="(key, images) in property_listing.image">
+                            <a ng-if="images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                                ng-class="listView==true?'property-img1 inspection':'property-img inspection'">
+                                <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                    src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                    src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                                <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                    src="{{images.path}}" alt="propimg">
+                                <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+
+                                <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && property_listing.image[0].is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                                src="{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                            </a>
+                        </div>
+                        <div class="fav-heart_blue">
+                            <a href="javascript:void(0)" ng-class="{{property_listing.is_fav==1}}?'active':''"
+                                ng-click="addToFav(property_listing._id,property_listing.is_fav,selected)">
+                                <!-- <img src="/assets/images/Heart.svg" alt="Heart"> -->
+                            </a>
+                        </div>
+                    </div>
+                    <div ng-repeat="(key, images) in property_listing.image">
+                        <a ng-if="!listView && images.isFeatured" href="/#!/property_details/{{property_listing._id}}"
+                            class="property-img inspection">
+                            <div class="img-fade "></div>
+                            <img ng-if="images.path && images.is_from_my_file==false && images.is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_my_file==true  && images.is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{images.path}}" alt="propimg">
+                            <img ng-if="images.path && images.is_from_csv_file==true && images.is_from_my_file==false"
+                                src="{{images.path}}" alt="propimg">
+                            <img ng-if="!images.path" src="assets/images/placeholder.jpg">
+                            <!-- <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==false && property_listing.image[0].is_from_csv_file==false"
+                                src="{{imageUrl}}thumb/{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_my_file==true  && property_listing.image[0].is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="property_listing.image[0].path && property_listing.image[0].is_from_csv_file==true && property_listing.image[0].is_from_my_file==false"
+                                src="{{property_listing.image[0].path}}" alt="propimg">
+                            <img ng-if="!property_listing.image[0].path" src="assets/images/placeholder.jpg"> -->
+                        </a>
+                    </div>
+                    <div class="fav-heart_blue">
+                        <a href="javascript:void(0)" ng-class="{{property_listing.is_fav==1}}?'active':''"
+                            ng-click="addToFav(property_listing._id,property_listing.is_fav,selected)">
+                            <!-- <img src="/assets/images/Heart.svg" alt="Heart"> -->
+                        </a>
+                    </div>
+                    <div ng-class="listView==true?'property-content_listview1':'property-content'">
+                        <div class="property-title">
+                            <h4>
+                                <a href="/#!/property_details/{{property_listing._id}}">{{property_listing.address |
+                                    limitTo : 50}}{{property_listing.address.length > 50 ? "..."
+                                    : ""}}</a>
+                            </h4>
+                            <p class="property-address">{{property_listing.description | limitTo :
+                                231}}{{property_listing.description.length > 231
+                                ? "..." : ""}}</p>
+                        </div>
+                        <table class="property-details  prop-card-view prop-list">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="/assets/images/Bedroom-new.png" />{{property_listing.number_bedroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Bathroom-new.png" />{{property_listing.number_of_bathroom}}
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="/assets/images/Garage-new.png" />{{property_listing.number_of_parking}}
+                                    </td>
+                                    <td>
+                                        <img src="/assets/images/townhouse-new.png" />
+                                        <span class="text-capitalize">{{property_listing.property_type}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <div ng-show="property_listing.save_as_draft">
+                                <span class="right">
+                                    <font color="Black">Saved as draft</font>
+                                </span>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 marT20 propertyListingSpace">
+            <div ng-if="databasePropertyList.length==0  && isSearchedProperty==false"
+                class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                <strong>No Database property found to display</strong>
+            </div>
+            <div ng-if="databasePropertyList.length==0 && isSearchedProperty==true"
+                class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                <strong>No searched results were found</strong>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<nav class="pagination-container">
+    <div class="pagination">
+        <dir-pagination-controls max-size="10" class="pagination-newer clearfix" direction-links="true"
+            boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+        </dir-pagination-controls>
+    </div>
+</nav>
+</div>
+</div>

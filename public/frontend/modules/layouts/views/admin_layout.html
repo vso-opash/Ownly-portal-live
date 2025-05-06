@@ -1,0 +1,233 @@
+<!-- header start -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Ownly-Admin Panel</title>
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="/admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/admin/css/_all-skins.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/admin/css/AdminLTE.css">
+    <link rel="stylesheet" href="/admin/css/admin-custom.css">
+    <link rel="icon" type="image/x-icon" href="/admin/images/favicon.png">
+    <!-- <link rel="stylesheet" href="/admin/css/toastr.min.css"> -->
+    <link rel="stylesheet" href="/admin/css/loading-bar.min.css">
+    <link rel="stylesheet" href="/admin/css/sweetalert.min.css">
+    <link rel="stylesheet" href="/admin/css/ngtable.css">
+    <!-- <link href="/admin/css/angular-chart.css" rel="stylesheet"> -->
+    <link href="/admin/css/isteven-multi-select.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/admin/css/daterangepicker.css">
+    <!-- jquery, moment, and angular have to get included before fullcalendar -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/libs/angular.js/moment.min.js"></script>
+    <script type="text/javascript" src="/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="/bower_components/fullcalendar/dist/gcal.js"></script>
+    <script src="/admin/javascripts/bootbox.min.js"></script>
+
+    <script src="/admin/javascripts/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <!-- prashant end -->
+    <!-- AdminLTE dashboard demo (This is only for demo purposes)  
+           <script src="/admin/javascripts/AdminLTE/dashboard.js" type="text/javascript"></script>-->
+</head>
+
+<body ng-init="checkLogin()" ng-app='TSM_ADMIN' class="skin-purple sidebar-mini hold-transition"
+    ng-controller="SuperCntrl" ng-cloak>
+    <!-- Angular js-->
+    <div class="wrapper">
+        <script src="/assets/javascripts/angular1.4.6.js"></script>
+        <script src="/assets/javascripts/angular-strap.min.js"></script>
+        <script src="/assets/javascripts/angular-strap.tpl.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap.min.js"></script>
+        <script src="/assets/javascripts/angular-animate.min.js"></script>
+        <script src="https://almsaeedstudio.com/themes/AdminLTE/dist/js/app.min.js"></script>
+        <!-- Satellizer CDN -->
+        <script src="https://cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script>
+
+        <!-- <h1>Loading ....</h1> -->
+        <!-- <div class="view-animate-container"> -->
+        <!-- banner secion start-->
+        <div id="ngHeaderView" ui-view="header" ng-if="userlogin"></div>
+        <!-- banner secion end-->
+        <!-- content secion start-->
+        <aside class="main-sidebar" ng-if="userlogin">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <aside class="main-sidebar" ng-if="userlogin">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar" style="height: auto;">
+                    <!-- Sidebar user panel -->
+                    <div class="user-panel" ng-init="userName()">
+                        <div class="pull-left image">
+                            <img class="img-circle" ng-if="profileImage != null" ng-src="{{imageUrl}}{{profileImage}}"
+                                alt="" onerror="this.src='/assets/images/admin-img-placeholder.png'">
+                            <img class="img-circle" ng-if="profileImage == null"
+                                src="/assets/images/admin-img-placeholder.png" alt="">
+                            <!-- <img ng-src="{{imageUrl}}{{profileImage}}" class="img-circle" alt="User Image"> -->
+                        </div>
+                        <div class="pull-left info text-capitalize">
+                            <p class="pointerCursor">{{loginUserName}}</p>
+                            <a class="pointerCursor"> Administrator</a>
+                        </div>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="header">MAIN NAVIGATION</li>
+                        <li class="{{dashboardStatus}}">
+                            <a ui-sref="home">
+                                <i class="fa fa-dashboard {{dashboardActive}}"></i>
+                                <span class="{{dashboardActive}}">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="{{agencyStatus}}">
+                            <a ui-sref="agencyStatus" href="javascript:void(0)">
+                                <i class="fa fa-user-secret {{agencyManagementActive}}"></i>
+                                <span class="{{agencyManagementActive}}">Agency Management</span>
+                            </a>
+                        </li>
+                        <li class="{{userStatus}}" ng-click="setUserCounter()"><a ui-sref="userManagement"
+                                href="javascript:void(0)">
+                                <i class="fa fa-user-secret {{userStatus}}"></i>
+                                <span class="{{userStatus}}">User Management</span>
+                            </a>
+                        </li>
+                        <li class="{{traderUserStatus}}" ng-click="setTraderCounter()">
+                            <a ui-sref="traderManagement" href="javascript:void(0)">
+                                <img class="drill-icon" ng-if="traderUserStatus == 'active'"
+                                    src="./images/trader-mo.png">
+                                <img class="drill-icon-active" ng-if="traderUserStatus == ''" src="./images/trader.png">
+                                <!-- <i class="fa fa-user-secret {{traderUserStatus}}"></i> -->
+                                <span class="{{traderUserStatus}}">Trader Management</span>
+                            </a>
+                        </li>
+                        <li class="{{proepertyStatus}}"><a ui-sref="propertyManagement" href="javascript:void(0)">
+                                <i class="fa fa-home {{propertyManagementActive}}"></i>
+                                <span class="{{propertyManagementActive}}">Property Management</span>
+                            </a>
+                        </li>
+                        <li class="{{profileStatus}}"><a ui-sref="profileEdit" href="javascript:void(0)">
+                                <i class="fa fa-user {{profileActive}}"></i>
+                                <span class="{{profileActive}}">My Profile</span>
+                            </a>
+                        </li>
+                        <li class="{{advertisingStatus}}">
+                            <a ui-sref="advertisingManager" href="javascript:void(0)">
+                                <i class="fa fa-bullhorn {{advertisingStatus}}"></i>
+                                <span class="{{advertisingStatus}}">Advertising Manager</span>
+                            </a>
+                        </li>
+                        <li class="{{maintenanceStatus}}">
+                            <a ui-sref="maintenanceManagement" href="javascript:void(0)">
+                                <img class="drill-icon" ng-if="maintenanceStatus == 'active'" src="./images/tools-a.png"
+                                    style="height: 15px;">
+                                <img class="drill-icon-active" ng-if="maintenanceStatus != 'active'"
+                                    src="./images/tools.png" style="height: 15px;">
+                                <span class="{{maintenanceStatus}}">Maintenenance Requests</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+            <!-- /.sidebar -->
+        </aside>
+        <div id="ngContentView" ui-view="content"></div>
+        <!-- content secion end-->
+        <div ui-view="footer"></div>
+
+        <!-- </div> -->
+        <script src="/admin/javascripts/ui-bootstrap-tpls-1.3.2.js"></script>
+        <script src="/admin/javascripts/angular-cookies.min.js" type="text/javascript"></script>
+        <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="/admin/javascripts/ngStorage.min.js" type="text/javascript"></script>
+        <script src="/admin/javascripts/constants.js" type="text/javascript"></script>
+        <script src="/admin/javascripts/Chart.min.js"></script>
+        <!-- Google autocomplete -->
+        <script async="" type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGWZqTcVNj2IeuAud3EsdL3ewktb0yCFo&libraries=places"></script>
+        <script type="text/javascript"
+            src="/bower_components/vsGoogleAutocomplete-master/dist/vs-google-autocomplete.min.js"></script>
+        <script type="text/javascript"
+            src="/bower_components/vsGoogleAutocomplete-master/dist/vs-autocomplete-validator.min.js"></script>
+        <script type="text/javascript" src="/bower_components/tinymce/tinymce.js"></script>
+        <script type="text/javascript" src="/bower_components/angular-ui-tinymce/src/tinymce.js"></script>
+        <script type="text/javascript" src="/bower_components/tinymce/plugins/spellchecker/plugin.js"></script>
+        <!-- <script src="/admin/javascripts/angular-chart.js"></script>
+        <script src="/admin/javascripts/angular-chart.min.js.map"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"
+            type="text/javascript"></script>
+        <script src="/admin/javascripts/angular-resource.min.js" type="text/javascript"></script>
+        <script src="/admin/javascripts/admin_ng-table.min.js"></script>
+        <script src="/admin/javascripts/isteven-multi-select.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/libs/angular.js/moment.min.js"></script>
+        <script type="text/javascript" src="/bower_components/angular-messages/angular-messages.js"></script>
+        <script type="text/javascript" src="/bower_components/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+        <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
+        <link rel="stylesheet" href="/admin/css/admindeveloper.css" />
+        <script type="text/javascript" src="/bower_components/angular-fcsa-number/src/fcsaNumber.js"></script>
+        <script src="/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+        <script src="/assets/javascripts/angular-route.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-mask/1.4.6/mask.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+        <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+        <script src="/assets/javascripts/libs/angular.js/angular-sanitize.js"></script>
+
+        <script src="/admin/javascripts/ngtable.js"></script>
+        <script src="/assets/javascripts/libs/angular.js/angular-touch.min.js"></script>
+        <script src="/assets/javascripts/libs/anguler-datepicker/angular-datepicker.js"></script>
+        <script src="/assets/javascripts/libs/anguler-datepicker/anguler_dateicon_configuration.js"></script>
+        <link rel="stylesheet" href="/bower_components/angular-block-ui/dist/angular-block-ui.min.css" />
+        <script src="/bower_components/angular-block-ui/dist/angular-block-ui.min.js"></script>
+        <script src="/bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+        <script src="/bower_components/fullcalendar/dist/gcal.js"></script>
+        <script src="/assets/javascripts/angular-local-storage.js"></script>
+        <script src=" https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+        <script src="/assets/javascripts/libs/angular.js/angular-sanitize.js"></script>
+        <script src="/assets/javascripts/dirpagination.js"></script>
+        <script src="/bower_components/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
+        <script src="/assets/javascripts/ngStorage.min.js" type="text/javascript"></script>
+        <script src="/admin/ng_app.js"></script>
+        <script src="/admin/javascripts/directives.js"></script>
+        <script src="/admin/modules/controllers/controllers.js"></script>
+        <script src="/admin/javascripts/communication.js"></script>
+        <script src="/admin/javascripts/constants.js"></script>
+        <!--Dashobard section-->
+        <script src="/admin/modules/partials/dashboard_ng_controller.js"></script>
+        <script src="/admin/modules/dashboard/services/services.js"></script>
+        <!--User section-->
+        <script src="/admin/modules/users/usercontroller.js"></script>
+        <script src="/admin/modules/users/services/service.js"></script>
+        <!--Trader section-->
+        <script src="/admin/modules/trader/tradercontroller.js"></script>
+        <script src="/admin/modules/trader/services/service.js"></script>
+        <!-- Agency section -->
+        <script src="/admin/modules/agency/agencycontroller.js"></script>
+        <script src="/admin/modules/agency/services/service.js"></script>
+        <!--Property section-->
+        <script src="/admin/modules/properties/propertyController.js"></script>
+        <script src="/admin/modules/properties/services/service.js"></script>
+        <!-- Maintenance section -->
+        <script src="/admin/modules/maintenance/maintenancecontroller.js"></script>
+        <script src="/admin/modules/maintenance/services/service.js"></script>
+        <!-- Advertisig Manager -->
+        <script src="/admin/modules/advertisingManager/advertisingController.js"></script>
+        <script src="/admin/modules/advertisingManager/services/service.js"></script>
+        <!-- Auth Section -->
+        <script src="/admin/modules/auth/auth_ng_controller.js"></script>
+        <script src="/admin/modules/auth/services/services.js"></script>
+        <!-- for no html5 browsers support -->
+        <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+        <script src="/assets/javascripts/cookies.js" type="text/javascript"></script>
+    </div>
+</body>
+
+</html>

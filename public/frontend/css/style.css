@@ -1,0 +1,712 @@
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-Regular.eot');
+    src: url('../fonts/SFUIText-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-Regular.woff') format('woff'),
+        url('../fonts/SFUIText-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Display';
+    src: url('../fonts/SFUIDisplay-Medium.eot');
+    src: url('../fonts/SFUIDisplay-Medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIDisplay-Medium.woff') format('woff'),
+        url('../fonts/SFUIDisplay-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-BoldItalic.eot');
+    src: url('../fonts/SFMono-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-BoldItalic.woff') format('woff'),
+        url('../fonts/SFMono-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-HeavyItalic.eot');
+    src: url('../fonts/SFMono-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-HeavyItalic.woff') format('woff'),
+        url('../fonts/SFMono-HeavyItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Display';
+    src: url('../fonts/SFUIDisplay-Thin.eot');
+    src: url('../fonts/SFUIDisplay-Thin.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIDisplay-Thin.woff') format('woff'),
+        url('../fonts/SFUIDisplay-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-HeavyItalic.eot');
+    src: url('../fonts/SFUIText-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-HeavyItalic.woff') format('woff'),
+        url('../fonts/SFUIText-HeavyItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-Medium.eot');
+    src: url('../fonts/SFMono-Medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-Medium.woff') format('woff'),
+        url('../fonts/SFMono-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Display';
+    src: url('../fonts/SFUIDisplay-Semibold.eot');
+    src: url('../fonts/SFUIDisplay-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIDisplay-Semibold.woff') format('woff'),
+        url('../fonts/SFUIDisplay-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Display';
+    src: url('../fonts/SFUIDisplay-Black.eot');
+    src: url('../fonts/SFUIDisplay-Black.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIDisplay-Black.woff') format('woff'),
+        url('../fonts/SFUIDisplay-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-MediumItalic.eot');
+    src: url('../fonts/SFMono-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-MediumItalic.woff') format('woff'),
+        url('../fonts/SFMono-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Display';
+    src: url('../fonts/SFUIDisplay-Regular.eot');
+    src: url('../fonts/SFUIDisplay-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIDisplay-Regular.woff') format('woff'),
+        url('../fonts/SFUIDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-UltralightItalic.eot');
+    src: url('../fonts/SFUIText-UltralightItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-UltralightItalic.woff') format('woff'),
+        url('../fonts/SFUIText-UltralightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-Light.eot');
+    src: url('../fonts/SFUIText-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-Light.woff') format('woff'),
+        url('../fonts/SFUIText-Light.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-MediumItalic.eot');
+    src: url('../fonts/SFUIText-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-MediumItalic.woff') format('woff'),
+        url('../fonts/SFUIText-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Display';
+    src: url('../fonts/SFUIDisplay-Heavy.eot');
+    src: url('../fonts/SFUIDisplay-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIDisplay-Heavy.woff') format('woff'),
+        url('../fonts/SFUIDisplay-Heavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Display';
+    src: url('../fonts/SFUIDisplay-Ultralight.eot');
+    src: url('../fonts/SFUIDisplay-Ultralight.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIDisplay-Ultralight.woff') format('woff'),
+        url('../fonts/SFUIDisplay-Ultralight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-Heavy.eot');
+    src: url('../fonts/SFUIText-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-Heavy.woff') format('woff'),
+        url('../fonts/SFUIText-Heavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-LightItalic.eot');
+    src: url('../fonts/SFUIText-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-LightItalic.woff') format('woff'),
+        url('../fonts/SFUIText-LightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-SemiboldItalic.eot');
+    src: url('../fonts/SFUIText-SemiboldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-SemiboldItalic.woff') format('woff'),
+        url('../fonts/SFUIText-SemiboldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-Semibold.eot');
+    src: url('../fonts/SFUIText-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-Semibold.woff') format('woff'),
+        url('../fonts/SFUIText-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-Light.eot');
+    src: url('../fonts/SFMono-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-Light.woff') format('woff'),
+        url('../fonts/SFMono-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-BoldItalic.eot');
+    src: url('../fonts/SFUIText-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-BoldItalic.woff') format('woff'),
+        url('../fonts/SFUIText-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-Heavy.eot');
+    src: url('../fonts/SFMono-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-Heavy.woff') format('woff'),
+        url('../fonts/SFMono-Heavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-Medium.eot');
+    src: url('../fonts/SFUIText-Medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-Medium.woff') format('woff'),
+        url('../fonts/SFUIText-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-Regular_1.eot');
+    src: url('../fonts/SFUIText-Regular_1.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-Regular_1.woff') format('woff'),
+        url('../fonts/SFUIText-Regular_1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-Regular.eot');
+    src: url('../fonts/SFMono-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-Regular.woff') format('woff'),
+        url('../fonts/SFMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-RegularItalic.eot');
+    src: url('../fonts/SFUIText-RegularItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-RegularItalic.woff') format('woff'),
+        url('../fonts/SFUIText-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-Ultralight.eot');
+    src: url('../fonts/SFUIText-Ultralight.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-Ultralight.woff') format('woff'),
+        url('../fonts/SFUIText-Ultralight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Text';
+    src: url('../fonts/SFUIText-Bold.eot');
+    src: url('../fonts/SFUIText-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIText-Bold.woff') format('woff'),
+        url('../fonts/SFUIText-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-Bold.eot');
+    src: url('../fonts/SFMono-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-Bold.woff') format('woff'),
+        url('../fonts/SFMono-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-Semibold.eot');
+    src: url('../fonts/SFMono-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-Semibold.woff') format('woff'),
+        url('../fonts/SFMono-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('../fonts/SFMono-RegularItalic.eot');
+    src: url('../fonts/SFMono-RegularItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFMono-RegularItalic.woff') format('woff'),
+        url('../fonts/SFMono-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF UI Display';
+    src: url('../fonts/SFUIDisplay-Light.eot');
+    src: url('../fonts/SFUIDisplay-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIDisplay-Light.woff') format('woff'),
+        url('../fonts/SFUIDisplay-Light.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF UI Display';
+    src: url('../fonts/SFUIDisplay-Bold.eot');
+    src: url('../fonts/SFUIDisplay-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SFUIDisplay-Bold.woff') format('woff'),
+        url('../fonts/SFUIDisplay-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+html, body {
+	font-family: 'SF UI Text';
+	-webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 419px) {
+html, body {
+    font-size: 12px;
+    font-family: 'SF UI Text';
+}
+}
+body{  font-family: 'SF UI Text';
+    background-image: url('../images/bg_login.png') ; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+.bg{background-image: url('../images/bg_login.png')}
+.bg_reg{background-image: url('../images/bg_register.png')}
+
+/* Form */
+.newlogo {width: 10%; margin: 50px auto 0 auto;}
+.newlogo img {height: 70px;}
+form {
+  margin: 30px auto 30px;
+  padding: 15px 30px 38px 30px;
+  color: #FFFFFF;
+  width: 35%;
+  border: 1px solid #40447A;
+  border-radius: 4px;
+  background-color: #373A65;
+  box-shadow: 0 0 14px 0 rgba(148,153,226,0.12), 0 4px 10px 0 rgba(26,28,60,0.6);
+}
+
+.form h1{font-size: 24px;
+font-weight: 500;
+margin-bottom: 30px;
+text-align: center;
+}
+
+.form a{float: right; font-weight: bold;color:#00cfff; text-decoration:none;font-size: 18px;}
+
+.form label{text-align: left;font-weight: 500;font-size: 15px;padding: 0;margin: 0}
+
+.form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 5px 0 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+.form button {
+  outline: 0;
+  background: #00d7fc;
+  width: 50%;
+  border: 0;
+  padding: 15px;
+  border-radius: 30px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+	font-weight: 700;
+  
+}
+ .message1 {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 14px;
+	 text-align: center; 
+   font-weight: 700;
+}
+ .message1 a {
+  color: #00d7fc;
+  text-decoration: none;
+}
+.marB20{margin-bottom: 20px;}
+
+.text_center{text-align: center;}
+
+.form .checkbox  input{   outline: 0;
+    background: #f2f2f2;
+    width: auto;
+    border: 0;
+    margin-top: 5px;
+    padding: 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;}
+/* END Form */
+
+
+/*Registrayion*/
+.box {
+  width: 40%;
+  text-align: left;
+   background: #373963;
+  margin: 0px auto;
+  padding: 30px 40px;
+  color: #FFFFFF; 
+	border: 1px solid #40447A;
+    border-radius: 4px;
+    background-color: #373A65;
+    box-shadow: 0 0 14px 0 rgba(148,153,226,0.12), 0 4px 10px 0 rgba(26,28,60,0.6);
+}
+
+
+/*****
+ *
+ * Radio checked style related
+ * the fun part starts here
+ *
+ */
+input[type=radio] {
+  display: none;
+}
+
+/**
+ * How it should look when hovered
+ */
+.regis .active-label, label:focus, label:hover, label:active, input:checked + label {
+  color: #fff;
+  outline: 0!important;
+}
+.regis .active-label:before, label:focus:before, label:hover:before, label:active:before, input:checked + label:before {
+  background: white;
+  border-color: #323460;
+}
+
+/**
+ * Make those labels sexy
+ */
+.regis label {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  display: block;
+  padding:15px 30px 15px 45px;
+  position: relative;
+ border: 1px solid rgba(45, 47, 90, 1);
+  background:#323460;
+  whitespace: no-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-transition: all .15s ease;
+  transition: all .15s ease;
+  margin-bottom: 10px;
+  /**
+   * This is the radio fake dot basically
+   */
+}
+.regis label:first-of-type {
+  border: 0;
+}
+.regis label:before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 1.5rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: .2rem solid #fff;
+  background: white;
+}
+
+/**
+ * How it should look when checked
+ */
+.regis input:checked + label:before {
+  border-color: white;
+  background: #00b396;
+}
+.regis input:checked + label
+{
+  background: #444677;
+}
+/**
+ * How it should look when disabled
+ */
+.regis input:disabled + label {
+  background: #efefef;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: not-allowed;
+}
+input:disabled + label:hover {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+input:disabled + label:before {
+  border-color: white;
+  background: white;
+}
+
+
+.regis h1{font-size: 26px;
+font-weight: 500;
+margin-bottom: 30px;
+text-align: center;
+color: #ffffff;
+}
+
+.regis button {
+  outline: 0;
+  background: #00d7fc;
+  width: 50%;
+  border: 0;
+  padding: 15px;
+  border-radius: 30px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+	font-weight: 700;
+	margin:20px;
+  
+}
+ .regis h3{
+   font-size: 18px;
+font-weight: 500;
+color: #ffffff;
+margin-bottom: 20px;
+ }
+
+.reg_box form{
+ width: 60%;
+  text-align: left;
+   margin: 30px auto 30px;
+  padding: 15px 80px 38px 80px;
+  color: #FFFFFF; 
+	    border: 1px solid #40447A;
+    border-radius: 4px;
+    background-color: #373A65;
+    box-shadow: 0 0 14px 0 rgba(148,153,226,0.12), 0 4px 10px 0 rgba(26,28,60,0.6);
+}
+
+
+
+.reg_box label{text-align: left;font-weight: 400;}
+
+.reg_box input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 10px 0 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 18px;
+	
+}
+.reg_box button {
+  outline: 0;
+  background: #00d7fc;
+  width: 50%;
+  border: 0;
+  padding: 15px;
+  border-radius: 30px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+	font-weight: 700;
+  
+}
+.reg_box h1 {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #ffffff;
+}
+.reg_box label {font-weight: 500; font-size: 18px;     outline-style: none !important;
+    box-shadow: none;
+    border-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+.form button[disabled], html input[disabled]{background: #eee;color: #333333;}
+.reg_box button[disabled], html input[disabled]{background: #eee;color: #333333;}
+.checkbox h3{    font-family:"SF UI Text";
+    font-size: 16px;
+    font-weight: 500;
+}
+.reg_box .checkbox input{width: auto; margin-top: 4px;}
+.checkbox span{color:#00d7fc;}
+.reg_box input{color:#243045;}
+
+input[type="checkbox"]:checked { background:#00d7fc;}
+/*end*/
+
+.checkbox-custom, .radio-custom {
+    opacity: 0;
+    position: absolute;   
+}
+
+.checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.checkbox-custom-label, .radio-custom-label {
+    position: relative;
+	padding-left: 0;
+}
+
+.checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before {
+        content: '';
+    background: #fff;
+    border: 0;
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.checkbox-custom:checked + .checkbox-custom-label:before {
+    content: "\f00c";
+    font-family: 'FontAwesome';
+    background: #00d7fc;
+    color: #fff;
+}
+
+.radio-custom + .radio-custom-label:before {
+    border-radius: 50%;
+}
+
+.radio-custom:checked + .radio-custom-label:before {
+    content: "\f00c";
+    font-family: 'FontAwesome';
+    color: #bbb;
+}
+
+.checkbox-custom:focus + .checkbox-custom-label, .radio-custom:focus + .radio-custom-label {
+  outline: 1px solid #ddd; /* focus style */
+}
+.logo {
+    text-align: center;
+    height: 75px;
+    width: 175px;
+    /* background-image: url('../images/logo.png'); */
+    background-image: url(../images/logo-public-home.png);
+    background-size: 175px 70px;
+    margin: 20px auto 0 auto;
+    background-repeat: no-repeat;
+}
+.frgtpass label {
+    color: #ffffff;
+}
+
+@media screen and (max-width:767px){
+    .form button {width: 100%;}
+    .box{width: auto;}
+    .box button {width: 100%;}
+    .reg_box{ width: auto; }
+    .reg_box button { width: 100%;}
+    form {max-width: 320px;}
+    
+
+}
+
+
+

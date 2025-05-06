@@ -1,0 +1,55 @@
+<div class="view-animate content-wrapper" ng-init='userDetailViewForMail()'>
+    <!-- <section class="content-header" >
+        <h1>
+            Dashboard
+            <small>Control panel</small>
+        </h1>
+    </section> -->
+    <section class="content-header">
+        <h1>
+            User Management
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">
+                    <i class="fa fa-dashboard"></i> Dashboard</a>
+            </li>
+            <li>
+                <li><a ui-sref="userManagement"><i class="fa fa-user-secret"></i>User Management</a></li> 
+            </li>
+            <li class="active"><a><i class="fa fa-send-o"></i></a>Send Email</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Email Sent To:- {{user[0].email}}</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="col-sm-12 marB30">
+                        <label class="lableEmailTemplate">Email Template</label>
+                        <textarea id='my_editor1' ui-tinymce="tinymceOptions" ng-model="emailTemplate">                                       
+                      </textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1 pull-right">
+                <button type="button" class="btn btn-primary btn-block btn-flat emailTemplate" ng-click="sendEmailToUser(user[0]._id,user[0].email)"
+                   >Send</button>
+            </div>
+    </section>
+    </div>

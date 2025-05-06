@@ -1,0 +1,861 @@
+<div id="mycontroller" class="container" ng-init="maintenanceDetail();chatInitialize();">
+    <div class="row marT20">
+        <div class="setting-section">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 horiLine">
+                <ol class="breadcrumb mr_crumbs" ng-if="!selected_trader_id">
+                    <li>
+                        <a class="text-capitalize pointer" ui-sref="maintance_listing">Requests</a>
+                    </li>
+                    <li>
+                        <a class="active text-capitalize "> {{detail.request_overview | limitTo:200}}
+                            {{detail.request_overview > 200 ? "..." : ""}}</a>
+                    </li>
+                </ol>
+                <ol class="breadcrumb mr_crumbs" ng-if="selected_trader_id">
+                    <li>
+                        <a class="text-capitalize pointer" ui-sref="maintance_listing">MAINTENANCE</a>
+                    </li>
+                    <li>
+                        <a class="text-capitalize pointer" ui-sref="maintance_listing">QUOTES</a>
+                    </li>
+                    <li>
+                        <a class="active text-capitalize "> {{detail.request_overview | limitTo:200}}
+                            {{detail.request_overview > 200 ? "..." : ""}}</a>
+                    </li>
+                </ol>
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 main_detail marB20">
+                        <h5 class="text-capitalize">{{detail.request_overview}}</h5>
+                        <div>
+                            <img src="assets/images/map-marker.svg" alt="mapmarker" class="marker">
+                            <span ng-if="detail.request_type == 1 && detail.req_status == 1">{{detail.suburb}}</span>
+                            <span
+                                ng-if="(detail.request_type == 0) || (detail.request_type == 1 && (detail.req_status == 2 || detail.req_status == 3 || req_status.req_status == 4 || detail.req_status == 5 || detail.req_status == 6))">{{detail.address}}</span>
+                            <img src="assets/images/Traders_grey.svg" alt="trader" class="tradimg"
+                                ng-if="detail.trader_id.firstname">
+                            <span class="text-capitalize">{{detail.trader_id.firstname}}
+                                {{detail.trader_id.lastname}}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 marT10 text-right clearfix accept-apply-btn">
+                        <button
+                            ng-if="(!selected_trader_id && traderBtn==true && detail.trader_id  && detail.req_status == 1) ||
+                            ((agentBtn == true || ownerBtn == true) && lastCounterProposalCreatedBy != '' && lastCounterProposalCreatedBy != loggedInUserId && detail.trader_id  && detail.req_status == 1)"
+                            class="btn btn-property" ng-click="acceptRejectOnDetailPage(detail._id,2)">Accept</button>
+
+                        <button
+                            ng-if="!selected_trader_id && detail.trader_id && detail.req_status ==  1 && detail.created_by && detail.created_by._id===loggedInUserId && (userRoleId==roleId.agent || userRoleId == roleId.ownAgency || userRoleId==roleId.owner || userRoleId==roleId.tenant)"
+                            ng-click="cancelMaintenanceRequest()" class="btn btn-cancl_req">Cancel request</button>
+
+
+                        <button
+                            ng-if="!selected_trader_id && traderBtn==true && detail.trader_id  && (detail.req_status == 3 && detail.req_status != 1 &&  detail.req_status != 5 && detail.job_close_confirmation!=2)"
+                            class="btn btn-property" ng-click="jobCompleted(detail._id)">Mark as Complete</button>
+
+                        <button
+                            ng-if="!selected_trader_id && (agentBtn==true || ownerBtn==true || tenantBtn==true) && detail.trader_id  && detail.req_status == 2 && (userRoleId==roleId.agent || userRoleId == roleId.ownAgency || userRoleId==roleId.owner || userRoleId==roleId.tenant)"
+                            class="btn btn-property" ng-click="acceptRejectOnDetailPage(detail._id,3)">Book</button>
+
+                        <button
+                            ng-if="(!trader_mr_status || trader_mr_status == 2) &&  selected_trader_id && (detail.created_by._id == loggedInUserId || (loggedin_agency_id && loggedin_agency_id == detail.agency_id && !traderBtn)) && detail.req_status == 1"
+                            class="btn btn-property"
+                            ng-click="hire_decline_trader(detail._id,1, selected_trader_id)">Hire</button>
+
+                        <button
+                            ng-if="(!trader_mr_status || trader_mr_status == 1) && (agentBtn == true || ownerBtn == true || tenantBtn == true) && detail.original_date && (detail.created_by._id == loggedInUserId || (loggedin_agency_id && loggedin_agency_id == detail.agency_id)) && (detail.req_status == 1 || detail.req_status == 2) && detail.request_type == 1"
+                            class="btn btn-cancl_req"
+                            ng-click="hire_decline_trader(detail._id,2, selected_trader_id)">Decline
+                            request</button>
+
+                        <button
+                            ng-if="applied && applied == 'no' && traderBtn==true && detail.req_status == 1 && detail.request_type == 1"
+                            class="btn btn-property" ng-click="applyJob(detail._id, detail.suburb)">Apply to reveal
+                            mobile</button>
+
+                        <!-- <button
+                            ng-if="detail.trader_id && ( detail.created_by._id == loggedInUserId || detail.property_id.owned_by == loggedInUserId || agentBtn==true) && detail.req_status ==  1 && (userRoleId==roleId.agent || userRoleId == roleId.ownAgency || userRoleId==roleId.owner)"
+                            ng-click="cancelMaintenanceRequest()" class="btn btn-cancl_req">Cancel request</button> -->
+                        <!-- <button
+                            ng-if="detail.trader_id && (( (detail.property_id.owned_by == detail.created_by._id && detail.created_by._id == loggedInUserId) || (agentBtn==true && userRoleId==roleId.agent) || (ownerBtn==true && userRoleId==roleId.owner)) && detail.req_status ==  1) || (traderBtn==true && detail.req_status ==  1)"
+                            class="btn btn-property" ng-click="acceptRejectOnDetailPage(detail._id,2)">Accept</button> -->
+
+                        <!-- <button
+                            ng-if="detail.trader_id && (traderBtn==true || detail.property_id.owned_by == loggedInUserId || agentView == true) && detail.req_status == 1 && detail.trader_id"
+                            class="btn btn-cancl_req" ng-click="acceptRejectOnDetailPage(detail._id,7)">Decline
+                            request</button> -->
+                        <!-- <button ng-if="detail.trader_id && traderBtn==true && detail.req_status == 1"
+                            class="btn btn-cancl_req" ng-click="acceptRejectOnDetailPage(detail._id,7)">Decline
+                            request</button> -->
+
+                        <!-- <button
+                            ng-if="userRoleId!=roleId.trader && detail.trader_id && (traderBtn==true || detail.property_id.owned_by == loggedInUserId || agentBtn==true || detail.created_by._id == loggedInUserId) && (detail.req_status != 1 &&  detail.req_status != 5 && detail.job_close_confirmation!=2)"
+                            class="btn btn-property" ng-click="openReviewPopup(detail._id, detail.trader_id._id)">Mark
+                            as
+                            Complete</button>
+                        <button
+                            ng-if="userRoleId==roleId.trader && detail.trader_id && (traderBtn==true || detail.property_id.owned_by == loggedInUserId || agentBtn==true) && (detail.req_status != 1 &&  detail.req_status != 5 && detail.job_close_confirmation!=2)"
+                            class="btn btn-property" ng-click="jobCompleted(detail._id)">Mark as Complete</button> -->
+                        <!-- <button
+                            ng-if="userRoleId!=roleId.trader && detail.trader_id && traderBtn==true && (detail.req_status != 1 &&  detail.req_status != 5 && detail.job_close_confirmation!=2)"
+                            class="btn btn-property" ng-click="openReviewPopup(detail._id, detail.trader_id._id)">Mark
+                            as
+                            Complete</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="setting-section">
+
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="board marT20">
+                        <div class="board-inner horiLine">
+                            <ul class="nav nav-tabs marB20" id="myTab">
+                                <li ng-class="detail.req_status == 1? 'active' : ''">
+                                    <a href="javascript:void(0)" aria-controls="home" role="tab">
+                                        <span class="round-tabs one disableClass">
+                                            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    Sent
+                                    <p>
+                                </li>
+
+                                <li ng-class="detail.req_status == 2 ? 'active' : ''">
+                                    <!-- && detail.difference>0 -->
+                                    <a href="javascript:void(0)" aria-controls="profile" role="tab">
+                                        <span class="round-tabs two disableClass">
+                                            <!-- <img src="assets/images/Tag accepted.svg"> -->
+                                            <i class="fa fa-ticket" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    Accepted
+                                    <!-- <p>July 17, 2017 12:00</p> -->
+                                </li>
+                                <li ng-class="detail.req_status ==  3 ? 'active' : ''">
+                                    <a href="javascript:void(0)" aria-controls="prototyping" role="tab">
+                                        <span class="round-tabs three disableClass">
+                                            <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    Booked
+                                    <!-- <p>July 20, 2017 12:00</p> -->
+                                </li>
+
+                                <li ng-class="detail.req_status == 5? 'active' : ''">
+                                    <a href="javascript:void(0)" aria-controls="uidesign" role="tab">
+                                        <span class="round-tabs four disableClass">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    Completed
+                                </li>
+
+                                <li ng-class="detail.req_status == 4? 'active' : ''">
+                                    <a href="javascript:void(0)" aria-controls="doner" role="tab">
+                                        <span class="round-tabs five disableClass">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    <!-- removed for now -->
+                                    <!-- Confirmed -->
+                                    <!-- removed for now -->
+                                    Closed
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="request_det horiLine">
+                        <h5>Request details</h5>
+                        <p ng-text-truncate="detail.request_detail" ng-tt-chars-threshold="400"
+                            ng-tt-more-label="Show more" ng-tt-less-label="Hide"></p>
+                        <div ng-if="detail.request_detail.length==0">No record to display</div>
+                    </div>
+                    <div class="attchment">
+                        <h5>Attachments</h5>
+                        <ul>
+                            <li ng-repeat="image in detail.images">
+                                <div class="atch_img">
+                                    <img class="pointer" ng-if="!image.document_type" ng-click="openImages(image.path)"
+                                        ng-src="{{maintenanceImageUrl}}{{image.path}}" src="assets/images/doc.jpg"
+                                        alt="atch1" onerror="this.src='assets/images/doc.jpg'">
+                                    <img ng-if="image.document_type=='excel'" src="assets/images/xls.png"
+                                        class="img-responsive disable agreeAttch" alt="atch1"
+                                        onerror="this.src='assets/images/doc.jpg'">
+                                    <img ng-if="image.document_type=='doc'" src="assets/images/word.png"
+                                        class="img-responsive disable agreeAttch" alt="atch1"
+                                        onerror="this.src='assets/images/word.png'">
+                                    <img ng-if="image.document_type=='pdf'" src="assets/images/pdf.png"
+                                        class="img-responsive disable agreeAttch" alt="atch1"
+                                        onerror="this.src='assets/images/pdf.png'">
+                                    <img ng-if="image.document_type=='ppt'" src="assets/images/ppt.png"
+                                        class="img-responsive disable agreeAttch" alt="atch1"
+                                        onerror="this.src='assets/images/ppt.png'">
+                                </div>
+                                <div class="attchment-name alignMaint">
+                                    {{image.path}}
+                                </div>
+                                <div class="text-right action_popup">
+                                    <a ng-click="showFilePopup($index)">
+                                        <i class="fa fa-ellipsis-v" aria-hidden="true" title="Option"></i>
+                                    </a>
+                                </div>
+                                <div ng-class="filePopup[$index]==true?'file_popup active':'file_popup'"
+                                    class="file_popup pull-right maintDownload">
+                                    <ul>
+                                        <a href="{{maintenanceImageUrl}}{{image.path}}" target="_blank">
+                                            <i title="DownLoad Now" class="fa fa-cloud-download downIcon"
+                                                aria-hidden="true"></i>
+                                        </a>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="maintAtt" ng-if="detail.images.length==0">
+                            <i class="fa fa-paperclip mainattIcon"></i>No record to display</i>
+                        </div>
+                    </div>
+                    <div class="horiLine marT20"></div>
+                    <!-- {{privateMessage}} -->
+                    <div class="conversation conversation-height conversation marT30">
+                        <div ng-if="canChat == true"
+                            class="row message conversation-height scrollBar maitenance-chat-window" id="conversation">
+                            <!-- ************************ -->
+                            <!-- <div class="scrollbar_maint_msg" id="style-2">
+                            <div class="force-overflow"> -->
+                            <div ng-repeat="message in privateMessage">
+                                <!-- <div class="row message-body"
+                                    ng-if="message.from._id!=loggedInUserId && !message.proposal_id && message.msg!= 'Sent' && message.msg!= 'maintenance_decline' && message.msg!='maintenance_accept' && message.msg!='Booked' && message.msg!='Job completed' && message.msg!='Counter Proposal Accepted' && message.msg!='Counter Proposal Declined' && message.msg!='Confirmation Approved' && message.msg!='Confirmation Declined' && message.msg!='Request Cancelled'"> -->
+                                <div class="row message-body"
+                                    ng-if="message.from._id!=loggedInUserId && !message.proposal_id && message.is_status == false && ((detail.request_type == 1 && message.from._id &&  message.to._id && (message.from._id == loggedInUserId || message.to._id == loggedInUserId)) || detail.request_type == 0)">
+                                    <div class="col-sm-2 col-xs-2 text-center">
+                                        <div class="maitenance-chat-img">
+                                            <img height="50px" width="50px" class="img-circle"
+                                                ng-src="{{userImageUrl}}{{message.from.image}}"
+                                                src="assets/images/george.png">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10 col-xs-10 message-main-receiver">
+                                        <div class="receiver" ng-if="!message.is_file">
+                                            <div class="message-text">
+                                                {{message.msg}}
+                                            </div>
+                                            <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                                                <a href="{{baseUrl}}{{message.document_path}}"
+                                                    target="_blank">{{message.msg}}</a>
+                                                <p>{{message.size}} kb</p>
+                                                <p>
+                                                    <i class="fa fa-file"></i> File</p>
+                                                <div class="horiLine"></div>
+                                                <div class="text-center">
+                                                    <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                                                        <span>Open</span>
+                                                    </a>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div ng-if="message.is_file" class="chat_img">
+                                            <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                                                <img src="{{baseUrl}}{{message.document_path}}">
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <span class="message-time pull-left"> {{message.time}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <div class="row message-body"
+                                    ng-if="message.from._id==loggedInUserId && !message.proposal_id && message.msg!= 'Sent' && message.msg!= 'maintenance_decline' && message.msg!='maintenance_accept' && message.msg!='Booked' && message.msg!='Job completed' && message.msg!='Counter Proposal Accepted' && message.msg!='Counter Proposal Declined' && message.msg!='Confirmation Approved' && message.msg!='Confirmation Declined' && message.msg!='Request Cancelled'"> -->
+                                <!-- <div class="row message-body"
+                                    ng-if="message.from._id==loggedInUserId && !message.proposal_id && message.is_status == false && ((detail.request_type == 1 && message.from._id &&  message.to._id && (message.from._id == loggedInUserId || message.to._id == loggedInUserId)) || detail.request_type == 0)"> -->
+                                <div class="row message-body"
+                                ng-if="!message.proposal_id &&
+                                !message.is_status &&
+                                (
+                                    (message.from._id == loggedInUserId && message.to._id == selectedTraderId) ||
+                                    (message.to._id == loggedInUserId && message.from._id == selectedTraderId)
+                                ) &&
+                                (detail.request_type == 1 || detail.request_type == 0)"
+                         >
+                                    <div class="col-sm-2 col-xs-2 pull-right  text-center">
+                                        <div class="maitenance-chat-img">
+                                            <img height="50px" width="50px" src="assets/images/george.png"
+                                                class="img-circle" ng-src="{{userImageUrl}}{{message.from.image}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10 col-xs-10 message-main-sender">
+                                        <div class="sender" ng-if="!message.is_file">
+                                            <div class="message-text">
+                                                {{message.msg}}
+                                            </div>
+                                            <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                                                <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                                                    {{message.msg}}</a>
+                                                <p>{{message.size}} kb</p>
+                                                <p>
+                                                    <i class="fa fa-file"></i> File </p>
+                                                <div class="horiLine"></div>
+                                                <div class="text-center">
+                                                    <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                                                        <span>Open</span>
+                                                    </a>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div ng-if="message.is_file" class="chat_img">
+                                            <a target="_blank" href="{{baseUrl}}{{message.document_path}}"><img
+                                                    src="{{baseUrl}}{{message.document_path}}"></a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <span class="message-time">{{message.time}}</span>
+                                    </div>
+                                </div>
+                                <div class="row message-body status-tag" ng-if="message.proposal_id">
+                                    <!--  && message.from._id!=loggedInUserId && (userRoleId== roleId.agent||userRoleId == roleId.ownAgency || userRoleId== roleId.owner) -->
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver"
+                                        ng-if="message.proposal_id.proposal_type == 'apply' && message.msg == 'Quote Approved' && (
+                                        (traderBtn == true && (message.from._id == loggedInUserId || message.to._id == loggedInUserId)) || ((agentBtn == true || ownerBtn == true) && (selected_trader_id == message.proposal_id.proposal_created_by || (detail.trader_id && detail.trader_id._id &&  detail.trader_id._id == message.proposal_id.proposal_created_by))))">
+                                        <div class="counter-Proposal text-center">
+                                            <p>Quote Approved</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver"
+                                        ng-if="message.proposal_id.proposal_type == 'apply' && message.msg == 'Quote Declined' && (
+                                        (traderBtn == true && (message.from._id == loggedInUserId || message.to._id == loggedInUserId)) || ((agentBtn == true || ownerBtn == true) && (selected_trader_id == message.proposal_id.proposal_created_by || (detail.trader_id && detail.trader_id._id &&  detail.trader_id._id == message.proposal_id.proposal_created_by))))">
+                                        <div class="counter-Proposal text-center">
+                                            <p>Quote Declined</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver"
+                                        ng-if="message.proposal_id.proposal_type == 'apply' && message.msg == 'Quote Sent' && (
+                                            (traderBtn == true && (message.from._id == loggedInUserId || message.to._id == loggedInUserId)) || ((agentBtn == true || ownerBtn == true) && (selected_trader_id == message.proposal_id.proposal_created_by || (detail.trader_id && detail.trader_id._id &&  detail.trader_id._id == message.proposal_id.proposal_created_by))))">
+                                        <div class="counter-Proposal text-center">
+                                            <p>Quote Sent</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                        <div class="receiver">
+                                            <div class="message-text message-txt-new clearfix">
+                                                <p class="counter-proposal">
+                                                    <span>{{message.from.first_name}} {{message.from.last_name}}</span>
+                                                    Apply For Quote
+                                                </p>
+                                                <span class="Proposed">Quote Price:
+                                                    {{message.proposal_id.proposed_price |currency}}</span>
+                                                <br>
+                                                <span class="Proposed">Quote Delivery time:
+                                                    {{message.proposal_id.proposed_date |date : "MMM d, yyyy
+                                                    H:mm"}}</span>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <!-- <p class="customer-name">Hi</p> -->
+                                                <p>{{message.proposal_id.message}}</p>
+                                            </div>
+
+                                            <div ng-repeat="proposalImages in message.proposal_id.images">
+                                                <img alt="image not found"
+                                                    src="{{proposalfileImageUrl}}{{proposalImages.path}}" alt=""
+                                                    style="width: 150px; height: 150px; float: left; padding: 8px">
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <!-- <div ng-if="message.proposal_id.is_proposal_accept==true"
+                                            class="counter-Proposal text-center">
+                                            <p>Proposal Approved</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.proposal_id.updatedAt |date : "MMM d, yyyy H:mm"}}
+                                        </div> -->
+                                    </div>
+                                    <!-- traderBtn == true && -->
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver"
+                                        ng-if="message.proposal_id.proposal_type == 'counter_proposal' && (( (message.from._id == loggedInUserId || message.to._id == loggedInUserId || message.proposal_id.proposal_created_by == loggedInUserId || detail.request_type == 0)) || ((agentBtn == true || ownerBtn == true) && (((message.proposal_id.proposal_created_by == loggedInUserId || selected_trader_id == message.proposal_id.proposal_created_by) && (message.to._id == loggedInUserId || loggedin_agency_id && loggedin_agency_id == detail.agency_id)) ||
+                                    (detail.trader_id && detail.trader_id._id &&  detail.trader_id._id ==  message.proposal_id.proposal_created_by && (message.to._id == loggedInUserId || loggedin_agency_id && loggedin_agency_id == detail.agency_id)))))">
+                                        <div class="counter-Proposal text-center">
+                                            <p>Counter Proposal</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                        <div class="receiver">
+                                            <div class="message-text message-txt-new clearfix">
+                                                <p class="counter-proposal">
+                                                    <span>{{message.from.first_name}} {{message.from.last_name}}</span>
+                                                    Counter
+                                                    proposal
+                                                </p>
+                                                <span class="Proposed">Proposed Price:
+                                                    {{message.proposal_id.proposed_price | currency}}</span>
+                                                <br>
+                                                <span class="Proposed">Proposed Delivery time:
+                                                    {{message.proposal_id.proposed_date |date : "MMM d, yyyy
+                                                    H:mm"}}</span>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <!-- <p class="customer-name">Hi</p> -->
+                                                <p>{{message.proposal_id.message}}</p>
+                                                <div ng-repeat="proposalImages in message.proposal_id.images">
+                                                    <img alt="image not found"
+                                                        src="{{proposalfileImageUrl}}{{proposalImages.path}}" alt=""
+                                                        style="width: 150px; height: 150px; float: left; padding: 8px">
+                                                </div>
+                                            </div>
+
+                                            <div style="border-top: 1px #ccc solid; padding: 14px 0px;"
+                                                ng-if="(( (agentBtn == true || ownerBtn == true) && message.proposal_id.proposal_created_by != loggedInUserId ) || (traderBtn == true && message.proposal_id.proposal_created_by != loggedInUserId)  ) && detail.req_status == 1 ">
+                                                <div class="reply-send reply-send-btn">
+                                                    <button
+                                                        ng-click="approveCounterProposal(message.proposal_id._id, message.proposal_id.proposed_price, message.maintenance_id._id, message.proposal_id.proposed_date)"
+                                                        type="submit" class="btn btn-property bg-color">Approve
+                                                        Proposal</button>
+                                                    <button
+                                                        ng-click="declineCounterProposal(message.proposal_id._id, message.maintenance_id._id)"
+                                                        type="submit" class="btn btn-property white-bg">Decline
+                                                        Proposal</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <!-- <div ng-if="message.proposal_id.is_proposal_accept==true"
+                                            class="counter-Proposal text-center">
+                                            <p>Proposal Approved</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.proposal_id.updatedAt |date : "MMM d, yyyy H:mm"}}
+                                        </div> -->
+                                    </div>
+                                </div>
+
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg=='Booked' && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Booked</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg=='Counter Proposal Accepted' && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Counter Proposal Accepted</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg=='Counter Proposal Declined' && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Counter Proposal Declined</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg=='Confirmation Approved' && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Confirmation Approved</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg=='Confirmation Declined' && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Confirmation Declined</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg=='Request Cancelled' && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Request Cancelled</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg=='Job completed' && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Completed</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body status-tag" ng-if="message.msg=='Job completed'">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="receiver mb-0">
+                                            <div class="message-text message-txt-new clearfix">
+                                                <p class="counter-proposal">
+                                                    <!-- <span></span> You marked this request as
+                                                    <b>Complete</b> -->
+                                                    This job has been <b>Completed.</b> Please see attached invoice and
+                                                    rate
+                                                    and review your Ownly tradie
+                                                </p>
+                                                <!-- <span class="Proposed">Hi {{first_namefirst_name}} {{last_name}},</span> -->
+                                                <br>
+                                                <div class="Proposed">{{detail.req_complete_message}}
+                                                </div>
+                                                <p>Thank you</p>
+                                                <div
+                                                    ng-repeat="maintenanceImages in message.maintenance_id.complete_images">
+                                                    <img alt="image not found"
+                                                        src="{{fileImageUrl}}{{maintenanceImages.path}}" alt=""
+                                                        style="width: 150px; height: 150px; float: left; padding: 8px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="complete-confirm-btns-section text-center">
+                                            <div class="text-center"
+                                                ng-if="message.maintenance_id.job_close_confirmation==1 && detail.req_status == 5 && (agentBtn == true || (ownerBtn == true && detail.created_by._id == loggedInUserId) || detail.created_by._id == loggedInUserId)">
+                                                <div class="col-sm-6 col-xs-12 reply-send text-right">
+                                                    <!-- ng-click="approveJobConfirmation(message.maintenance_id._id)" -->
+                                                    <button
+                                                        ng-click="openReviewPopup(message.maintenance_id._id, detail.trader_id._id, 'yes')"
+                                                        type="submit"
+                                                        class="btn btn-property complete-confirm">Confirm</button>
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12 reply-send text-left">
+                                                    <button
+                                                        ng-click="declineJobConfirmation(message.maintenance_id._id)"
+                                                        type="submit"
+                                                        class="btn btn-property complete-decline">Decline</button>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <span class="message-time pull-left left-time-set">
+                                            {{message.time}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg=='Sent' && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Sent</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+
+                                <!-- for trader side accept decline-->
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg=='maintenance_accept' && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Accepted</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+                                <div class="row message-body status-tag"
+                                    ng-if="message.msg== 'maintenance_decline'  && message.is_status == true">
+                                    <div class="col-sm-12 col-xs-12 message-main-receiver">
+                                        <div class="clearfix"></div>
+                                        <div class="counter-Proposal text-center">
+                                            <p>Declined</p>
+                                        </div>
+                                        <div class="text-center date-and-time">
+                                            {{message.time}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row message-body">
+                                <div ng-if="privateprivateMessage.length==0"
+                                    style="margin-top:25%;text-align:center;margin-right:1%;margin-left:1%"
+                                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                    <strong>No Chat initaited Yet!</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row reply" ng-if="canChat == true">
+                            <div class="col-sm-10 col-xs-12 reply-main">
+                                <textarea rows="1" id="comment" class="form-control text-message" rows="1"
+                                    ng-model="chat.generalMsg" placeholder="Type message"
+                                    enter-submit="send_message(chat.generalMsg);"></textarea>
+                                <!-- <textarea id="example1" ng-model="chat.generalMsg" class="form-control" rows="1"
+                                    id="comment" placeholder="Type your message"></textarea> -->
+                                <div class="reply-emojis">
+                                    <button class="btn btn-pic" type="file" ngf-select="uploadFile($file)">
+                                        <!-- ngf-max-height="1000" ngf-max-size="1MB" -->
+                                        <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 col-xs-12 reply-send">
+                                <button id="sendMsg" ng-click="send_message(chat.generalMsg);" type="submit"
+                                    class="btn btn-property">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marT20">
+                    <div class="amnt">
+                        <div class="amnt-container">
+                            <div class="price"> $
+                                <span ng-if="trader_price">{{trader_price}}</span>
+                                <span ng-if="!trader_price">{{detail.budget}}</span>
+                            </div>
+                            <!-- <span class="pull-right" ng-if="trader_date_difference"> in
+                                {{trader_date_difference | positive}} days</span> -->
+                            <!-- <span class="pull-right" ng-if="!trader_date_difference"> in
+                                {{detail.difference | positive}} days</span> -->
+                            <span class="pull-right">{{detail.due_date | date}}</span>
+
+                        </div>
+                        <!-- <div class="amnt-container">
+                            <span class="pull-right">{{detail.due_date | date}}</span>
+                        </div> -->
+                        <!-- <button
+                            ng-show="(agentBtn == true || ownerBtn == true || traderBtn==true) && detail.req_status == 1 && detail.trader_id"
+                            class="btn maintCounter btn-property" ng-click="sendProposal(detail._id)">Counter
+                            Proposal</button> -->
+                        <!-- ng-show="detail.req_status == 1 && detail.trader_id && (agentBtn == true || ownerBtn == true || traderBtn == true) && (lastCounterProposalCreatedBy == '' || lastCounterProposalCreatedBy != loggedInUserId)" -->
+                        <!-- {{lastCounterProposalCreatedBy +" == "+ loggedInUserId}} -->
+                        <!-- {{ agentBtn  + "  == " + ownerBtn   + "  == " +  lastCounterProposalCreatedBy   + "  == " +  loggedInUserId }} -->
+                        <!-- <button
+                            ng-show="detail.req_status == 1 && detail.trader_id && (((agentBtn == true || ownerBtn == true) && lastCounterProposalCreatedBy != '' && lastCounterProposalCreatedBy != loggedInUserId) || (traderBtn == true &&  ( lastCounterProposalCreatedBy == '' ||  (lastCounterProposalCreatedBy != '' && lastCounterProposalCreatedBy != loggedInUserId))))"
+                            class="btn maintCounter btn-property" ng-click="sendProposal(detail._id)">Counter
+                            Proposal</button> -->
+                        <button
+                            ng-show="(detail.req_status == 1 && detail.trader_id && (((agentBtn == true || ownerBtn == true) && lastCounterProposalCreatedBy != '' && lastCounterProposalCreatedBy != loggedInUserId) || (traderBtn == true &&  ( lastCounterProposalCreatedBy == '' ||  (lastCounterProposalCreatedBy != '' && lastCounterProposalCreatedBy != loggedInUserId))))) || (detail.req_status == 1 && selected_trader_id && (((agentBtn == true || ownerBtn == true) && ((lastCounterProposalCreatedBy != '' && lastCounterProposalCreatedBy != loggedInUserId) || (lastCounterProposalCreatedBy == ''))) || (detail.request_type == 0 && traderBtn == true && detail.trader_id && detail.trader_id._id && detail.trader_id._id == loggedInUserId && (lastCounterProposalCreatedBy != '' && lastCounterProposalCreatedBy != loggedInUserId))))"
+                            class="btn maintCounter btn-property" ng-click="sendProposal(detail._id)">Counter
+                            Proposal</button>
+                        <!-- {{lastCounterProposalCreatedBy + "    " + loggedInUserId}} -->
+                    </div>
+
+                    <!-- Viewed to other users other than trader -->
+                    <div ng-show="(agentBtn==true || ownerBtn==true || tenantBtn == true) && detail.trader_id"
+                        class="agent_profile marT20 clearfix">
+                        <div class="contact_info">
+                            <a class="pointer" ng-click="goToTraderProfile(detail.trader_id._id);">
+                                <div class="inspection mr_user_profile">
+                                    <img ng-src="{{userImageUrl}}{{detail.trader_id.image}}" alt=""
+                                        ng-show="detail.trader_id.image.length>0">
+                                    <span
+                                        ng-class="detail.trader_id.is_online == true ? 'colorGreen_tenant' : 'colorRed'"></span>
+                                    <div ng-show="!detail.trader_id.image.length>0 || !detail.trader_id.image"
+                                        class="default_118 margin-left-img">
+                                        {{detail.trader_id.firstname.charAt(0).toUpperCase()}}{{detail.trader_id.lastname.charAt(0).toUpperCase()}}
+                                    </div>
+                                </div>
+                                <h5 class="format_text">{{detail.trader_id.firstname}}
+                                    {{detail.trader_id.lastname}}</h5>
+                            </a>
+                            <div class="rating">
+                                <span uib-rating ng-model=createdByRate.data max="max" read-only="true"
+                                    on-hover="hoveringOver(value)" on-leave="overStar = null"
+                                    titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p> {{createdByRate.data}} from {{createdByRate.total_review}} reviews</p>
+                            <!-- <button ng-class="!(detail.req_status == 4) ? 'btn btn-property' : 'btn sent_btn_maint' "
+                                ng-click="openSendMessage(detail.trader_id._id)">Contact Trader</button> -->
+                            <br>
+                            <br>
+                            <!-- <button class="btn btn-import "
+                                ng-if="detail.req_status == 4 && detail.job_close_confirmation == 2"
+                                ng-click="openReviewPopup(detail._id, detail.trader_id._id, 'no')">Write a
+                                Review</button><br> -->
+                            <div class="clearfix"></div>
+                        </div>
+                        <table class="location-table">
+                            <tr ng-if="detail.trader_id.address">
+                                <td>Location</td>
+                                <td class="text-right">
+                                    {{detail.trader_id.city + ", " +detail.trader_id.state + ", " +
+                                    detail.trader_id.zipCode }}
+                                    <!-- {{detail.trader_id.city + " " +detail.trader_id.zipCode + ", " + detail.trader_id.state + " Australia"}} -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phone number</td>
+                                <td class="text-right">{{detail.trader_id.mobile_no}}</td>
+                            </tr>
+                            <tr>
+                                <td>Joined</td>
+                                <td class="text-right">{{detail.trader_id.createdAt | date}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div ng-show="(agentBtn==true || ownerBtn==true || tenantBtn == true) && !detail.trader_id && selected_trader_details"
+                        class="agent_profile marT20 clearfix">
+                        <div class="contact_info">
+                            <a class="pointer" ng-click="goToTraderProfile(selected_trader_details._id);">
+                                <div class="inspection mr_user_profile">
+                                    <img ng-src="{{userImageUrl}}{{selected_trader_details.image}}" alt=""
+                                        ng-show="selected_trader_details.image.length>0">
+                                    <span
+                                        ng-class="selected_trader_details.is_online == true ? 'colorGreen_tenant' : 'colorRed'"></span>
+                                    <div ng-show="!selected_trader_details.image.length>0 || !selected_trader_details.image"
+                                        class="default_118 margin-left-img">
+                                        {{selected_trader_details.firstname.charAt(0).toUpperCase()}}
+                                        {{selected_trader_details.lastname.charAt(0).toUpperCase()}}
+                                    </div>
+                                </div>
+                                <h5 class="format_text">{{selected_trader_details.firstname}}
+                                    {{selected_trader_details.lastname}}</h5>
+                            </a>
+                            <div class="rating">
+                                <span uib-rating ng-model=createdByRate.data max="max" read-only="true"
+                                    on-hover="hoveringOver(value)" on-leave="overStar = null"
+                                    titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p> {{createdByRate.data}} from {{createdByRate.total_review}} reviews</p>
+                            <button ng-class="!(detail.req_status == 4) ? 'btn btn-property' : 'btn sent_btn_maint' "
+                                ng-click="openSendMessage(selected_trader_details._id)">Contact Trader</button>
+                            <br>
+                            <br>
+                            <!-- <button class="btn btn-import "
+                                ng-if="detail.req_status == 4 && detail.job_close_confirmation == 2"
+                                ng-click="openReviewPopup(detail._id, selected_trader_details._id, 'no')">Write a
+                                Review</button><br> -->
+                            <div class="clearfix"></div>
+                        </div>
+                        <table class="location-table">
+                            <tr ng-if="selected_trader_details.address">
+                                <td>Location</td>
+                                <td class="text-right">
+                                    {{selected_trader_details.city + ", " +selected_trader_details.state + ", " +
+                                    selected_trader_details.zipCode }}
+                                    <!-- {{selected_trader_details.city + " " +selected_trader_details.zipCode + ", " + selected_trader_details.state + " Australia"}} -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phone number</td>
+                                <td class="text-right">{{selected_trader_details.mobile_no}}</td>
+                            </tr>
+                            <tr>
+                                <td>Joined</td>
+                                <td class="text-right">{{selected_trader_details.createdAt | date}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- Viewed to trader -->
+                    <div ng-if="userRoleId==roleId.trader" class="agent_profile marT20 clearfix">
+                        <div class="contact_info">
+                            <a class="pointer" ng-click="goToCreatorProfile(detail.created_by._id);">
+                                <div class="inspection mr_user_profile">
+                                    <img ng-src="{{userImageUrl}}{{detail.created_by.image}}" alt=""
+                                        ng-show="detail.created_by.image.length>0">
+                                    <span
+                                        ng-class="detail.created_by.is_online == true ? 'colorGreen_tenant' : 'colorRed'"></span>
+                                    <div ng-show="!detail.created_by.image.length>0 || !detail.created_by.image"
+                                        class="default_118 margin-left-img">
+                                        {{detail.created_by.firstname.charAt(0).toUpperCase()}}{{detail.created_by.lastname.charAt(0).toUpperCase()}}
+                                    </div>
+                                </div>
+                                <h5 class="format_text">{{detail.created_by.firstname}}
+                                    {{detail.created_by.lastname}}</h5>
+                            </a>
+                            <div class="rating">
+                                <span uib-rating ng-model=createdByRate.data max="max" read-only="true"
+                                    on-hover="hoveringOver(value)" on-leave="overStar = null"
+                                    titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p> {{createdByRate.data}} from {{createdByRate.total_review}} reviews</p>
+                            <!-- <button ng-class="!(detail.req_status == 4) ? 'btn btn-property' : 'btn sent_btn_maint' "
+                                ng-click="openSendMessage(detail.created_by._id)">
+                                {{roleId.agent == detail.created_by_role._id ? 'Contact Agent' : (roleId.tenant == detail.created_by_role._id) ? 'Contact Tenant' : (roleId.owner == detail.created_by_role._id) ? 'Contact Owner' : 'Contact' }}
+                            </button> -->
+                        </div>
+                        <div class="contact_info">
+                            <br>
+                            <button ng-show="detail.req_status == 4"
+                                ng-click="openReviewPopupForAgent(detail.created_by,createdByRate)"
+                                class="btn btn-import review_btn_maint">Write a review</button>
+                        </div>
+                        <table class="location-table">
+                            <tr ng-if="detail.created_by.address">
+                                <td>Location</td>
+                                <!-- <td>{{detail.created_by.address}}</td> -->
+                                <td class="text-right">
+                                    {{detail.created_by.city + ", " +detail.created_by.state + ", " +
+                                    detail.created_by.zipCode }}
+                                    <!-- {{detail.created_by.city + " " +detail.created_by.zipCode + ", " + detail.created_by.state + " Australia"}} -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phone number</td>
+                                <td class="text-right">{{detail.created_by.mobile_no}}</td>
+                            </tr>
+                            <tr>
+                                <td>Joined</td>
+                                <td class="text-right">{{detail.created_by.createdAt | date}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="Watches marT20" ng-if="detail.watchers_list && detail.watchers_list.length > 0">
+                        <h5>Watchers</h5>
+                        <ul>
+                            <li ng-repeat="watch in detail.watchers_list">
+                                <img ng-src="{{userImageUrl}}{{watch.users_id.image}}" src="assets/images/no_image.png"
+                                    alt="img">
+                                <span class="text-capitalize">{{watch.users_id.firstname}}
+                                    {{watch.users_id.lastname}}</span>
+                                <a href="javascript:void(0);" ng-click="removeWatcher(watch.users_id._id)"><i
+                                        class="fa fa-times" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                        <!-- <p class="maintWatcher" ng-if="detail.watchers_list.length==0">No record to display</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            $("#example1").emojioneArea();
+        }, 1000);
+    });
+    $('#sendMsg').click(function () {
+        $('.emojionearea-editor').empty();
+    });
+</script>

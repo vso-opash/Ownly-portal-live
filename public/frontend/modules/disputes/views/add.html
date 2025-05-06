@@ -1,0 +1,207 @@
+<!-- <div id="newRequest" class="modal newRequest"> -->
+<!-- Modal content -->
+<div class="modal-content main_newReq" style="width: 100%" ng-init="disputesInitialize();watcherInfo();">
+  <div class="modal-header">
+    <span class="close" ng-click="cancel()">&times;</span>
+    <h3>Submit Dispute</h3>
+  </div>
+  <div class="modal-body clearfix" ng-init="disputesInit()">
+    <form enctype="multipart/form-data" name="createdisputesForm" id="createdisputesForm" role="form" novalidate
+      autocomplete="off">
+      <div class="row  marT20">
+        <div class="col-xs-12 col-sm-12 col-md-12" ng-init="getAgencyProperty()">
+          <div class="form-group text-left" ng-if="userRoleId==agent|| userRoleId==agency">
+            <label class="control-label" for="product_categorie">Select property
+              <font color="Red">*</font>
+            </label>
+            <select name="selectProperty" ng-change="selectProperty(disputes.key)" ng-model="disputes.key"
+              name="created_by" class="form-control" required>
+              <option value="" disabled>Select Property </option>
+              <option ng-repeat="(key,property) in propertyList" value="{{key}}">{{property.address}}</option>
+            </select>
+
+            <!-- *********************** -->
+            <!-- <ui-select ng-model="disputes.key" ng-required="true" ng-change="selectProperty(disputes.key)">
+              <ui-select-match placeholder="Select property">
+                {{$select.selected.address | limitTo:80}} {{$select.selected.address.length>80?"...":""}}
+              </ui-select-match>
+              <ui-select-choices repeat="item in propertyList">
+                <div class="row">
+                  <div class="col-sm-1">
+                    <img class="img-circle drop_down_agree"
+                      ng-if="item.image[0].path && item.image[0].is_from_my_file==false && item.image[0].is_from_csv_file==false"
+                      src="{{imageUrl}}thumb/{{item.image[0].path}}" alt="propimg">
+                    <img class="img-circle drop_down_agree"
+                      ng-if="item.image[0].path && item.image[0].is_from_my_file==true  && item.image[0].is_from_csv_file==false"
+                      src="{{fileImageUrl}}{{item.image[0].path}}" alt="propimg">
+                    <img class="img-circle drop_down_agree"
+                      ng-if="item.image[0].path && item.image[0].is_from_csv_file==true && item.image[0].is_from_my_file==false"
+                      src="{{item.image[0].path}}" alt="propimg">
+                    <img class="img-circle drop_down_agree" ng-if="!item.image[0].path"
+                      src="assets/images/placeholder.jpg">
+                  </div>
+                  <div class="col-sm-4">
+                    <div ng-bind-html="item.address " class="select_user_drop"></div>
+                    <small>Property Id: {{item.property_id}}</small>
+                  </div>
+                </div>
+              </ui-select-choices>
+            </ui-select> -->
+
+
+            <!-- ********************************* -->
+
+
+
+
+
+
+            <span class="error-span inner-error ng-binding "
+              ng-show="createdisputesForm.selectProperty.$error.required && createdisputesForm.selectProperty.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Select property is required</font>
+            </span>
+          </div>
+          <div class="form-group text-left" ng-if="userRoleId==tenant">
+            <label class="control-label" for="product_categorie">Property
+              <font color="Red">*</font>
+            </label>
+            <!-- <select name="selectProperty" ng-model="disputes.property_id" name="created_by" class="form-control" required>
+              <option value="" disabled>Select Property </option>
+              <option ng-repeat="property in propertyList" value="{{property._id}}">{{property.address}}</option>
+            </select> -->
+
+            <!-- *********************** -->
+            <ui-select ng-model="disputes.property_id" ng-required="true">
+              <ui-select-match placeholder="Select property">
+                {{$select.selected.address | limitTo:80}} {{$select.selected.address.length>80?"...":""}}
+              </ui-select-match>
+              <ui-select-choices repeat="item._id as item in propertyList">
+                <div class="row">
+                  <div class="col-sm-1">
+                    <img class="img-circle drop_down_agree"
+                      ng-if="item.image[0].path && item.image[0].is_from_my_file==false && item.image[0].is_from_csv_file==false"
+                      src="{{imageUrl}}thumb/{{item.image[0].path}}" alt="propimg">
+                    <img class="img-circle drop_down_agree"
+                      ng-if="item.image[0].path && item.image[0].is_from_my_file==true  && item.image[0].is_from_csv_file==false"
+                      src="{{fileImageUrl}}{{item.image[0].path}}" alt="propimg">
+                    <img class="img-circle drop_down_agree"
+                      ng-if="item.image[0].path && item.image[0].is_from_csv_file==true && item.image[0].is_from_my_file==false"
+                      src="{{item.image[0].path}}" alt="propimg">
+                    <img class="img-circle drop_down_agree" ng-if="!item.image[0].path"
+                      src="assets/images/placeholder.jpg">
+                  </div>
+                  <div class="col-sm-4">
+                    <div ng-bind-html="item.address " class="select_user_drop"></div>
+                    <small>Property Id: {{item.property_id}}</small>
+                  </div>
+                </div>
+              </ui-select-choices>
+            </ui-select>
+
+
+            <!-- ********************************* -->
+
+            <span class="error-span inner-error ng-binding "
+              ng-show="createdisputesForm.selectProperty.$error.required && createdisputesForm.selectProperty.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Select property is required</font>
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12" ng-if="userRoleId==agent||userRoleId==agency">
+          <div class="form-group text-leftp inspection">
+            <label class="control-label" for="product_categorie">Tenant
+              <!-- <font color="Red">*</font> -->
+            </label>
+            <input readonly type="text" name="tenant" ng-model="disputes.tenant" class="form-control"
+              typeahead-no-results="noResults" required>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="form-group text-leftp inspection">
+            <label class="control-label" for="product_categorie">Agent
+              <!-- <font color="Red">*</font> -->
+            </label>
+            <input readonly type="text" name="agent" ng-model="disputes.agent" class="form-control"
+              typeahead-no-results="noResults" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingFName">Owner
+              <!-- <font color="Red">*</font> -->
+            </label>
+            <input readonly type="text" name="owner" ng-model="disputes.owner" class="form-control"
+              typeahead-no-results="noResults" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingFName">Subject
+              <font color="Red">*</font>
+            </label>
+            <input type="text" name="subject" ng-model="disputes.subject" class="form-control"
+              typeahead-no-results="noResults" ng-maxlength="100" required>
+            <span class="error-span inner-error ng-binding "
+              ng-show="createdisputesForm.subject.$error.required && createdisputesForm.subject.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Subject is required</font>
+            </span>
+            <span ng-show="createdisputesForm.subject.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 100 characters allowed</font>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingFName">Message
+              <font color="Red">*</font>
+            </label>
+            <textarea name="message" ng-maxlength="500" ng-model="disputes.message" class="form-control" type="text"
+              required></textarea>
+            <span class="error-span inner-error ng-binding "
+              ng-show="createdisputesForm.message.$error.required && createdisputesForm.message.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Message is required</font>
+            </span>
+            <span ng-show="createdisputesForm.message.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 500 characters allowed</font>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <!-- <div class="form-group text-left">
+            <label class="control-label" for="settingFName">Date raised
+              <font color="Red">*</font>
+            </label>
+            <div type="text" class="form-control" name="dueDate" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened"
+              datepicker-options="dateOptions" required close-text="Close" alt-input-formats="altInputFormats">{{dt|date}}</div>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default maint_calender" ng-click="open1()">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+            <span class="error-span inner-error ng-binding " ng-show="createdisputesForm.dueDate.$error.required && createdisputesForm.dueDate.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Date raised is Required</font>
+            </span>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button ng-if="userRoleId==agent|| userRoleId==agency" ng-disabled="createdisputesForm.$invalid"
+            class="btn btn-savechanges" ng-click="addAgentDisputes(disputes)">Submit request</button>
+          <button ng-if="userRoleId==tenant" ng-disabled="createdisputesForm.$invalid" class="btn btn-savechanges"
+            ng-click="addDisputes(disputes)">Submit request</button>
+        </div>
+    </form>
+  </div>
+</div>
+<!-- </div> -->

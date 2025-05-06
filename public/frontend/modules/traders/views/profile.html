@@ -1,0 +1,934 @@
+<div class="profile-new-header container" ng-init="initailize()">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="cover-photo">
+        <img
+          ng-show="userInfo.bannerImage"
+          ng-src="{{imageUrl}}{{userInfo.bannerImage}}"
+          alt="Trader Banner Image"
+        />
+        <img
+          ng-show="!userInfo.bannerImage|| userInfo.bannerImage==''"
+          src="assets/images/banner.png"
+          alt="profile"
+        />
+        <!-- <img ng-show="userInfo.bannerImage" err-src="assets/images/no_image.png" ng-src="{{imageUrl}}{{userInfo.bannerImage}}" alt="profile">
+                  <img ng-show="!userInfo.bannerImage" src="https://spark.adobe.com/images/landing/examples/hiking-fb-cover.jpg"  alt="profile"> -->
+        <div class="profile_btn" ng-show="viewEditBanner">
+          <button
+            class="btn profileImgBtn"
+            aria-hidden="true"
+            id="fileInput"
+            name="file"
+            ngf-max-size="15MB"
+            ngf-drop
+            ngf-select
+            ng-model="userInfo.files"
+            class="drop-box"
+            ngf-change="openCropBanner($event)"
+            ngf-drag-over-class="'dragover'"
+            ngf-multiple="true"
+            ngf-allow-dir="true"
+            accept="image/*"
+          >
+            <i class="fa fa-pencil" title="Edit banner image"></i>Edit
+          </button>
+          <!-- ngf-change="uploadBanner(userInfo.files)" -->
+          <!-- ngf-change="openCropBanner($event)" -->
+        </div>
+      </div>
+    </div>
+    <div class="row profile-info" id="trader-prof">
+      <div class="profile-info-header">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 profile-pic">
+          <div class="traderimg-width inspection">
+            <img
+              ng-show="userInfo.image"
+              alt="Trader Profile"
+              ng-src="{{imageUrl}}{{userInfo.image}}"
+            />
+            <img
+              ng-show="!userInfo.image.length>0 || !userInfo.image"
+              src="assets/images/no_image.png"
+            />
+            <span
+              ng-class="userInfo.is_online == true ? 'colorGreen_agentOwner' : 'colorRed trader_rate_ball'"
+            ></span>
+          </div>
+          <div class="profile_det">
+            <h2 class="text-capitalize">
+              {{userInfo.firstname}} {{userInfo.lastname}}
+            </h2>
+            <div class="rating-new clearfix rate_ball">
+              <span
+                ng-if="!isRatingFractional"
+                uib-rating
+                ng-model="userRate"
+                max="userMax"
+                read-only="true"
+                on-leave="overStar = null"
+                titles="['one','two','three']"
+                aria-labelledby="default-rating"
+              ></span>
+              <ul ng-if="isRatingFractional">
+                <div
+                  class="rating_class"
+                  ng-repeat="ratingValue in frationalArray track by $index"
+                >
+                  <li ng-if="ratingValue=='integer'">
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li ng-if="ratingValue=='fractional'">
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li ng-if="ratingValue=='fractional'">
+                    <i class="fa fa-star-half"></i>
+                  </li>
+                </div>
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+            <p>{{userRate}} from {{outOFReviewer}} reviews</p>
+          </div>
+        </div>
+        <div
+          class="col-lg-5 col-md-6 col-sm-6 col-xs-12 profile_inspection_detail"
+        >
+          <ul>
+            <li ng-if="userInfo.city && userInfo.state">
+              <small>Location</small>
+              <strong>{{userInfo.city}}, {{userInfo.state}}</strong>
+            </li>
+            <li ng-if="userInfo._id != logged_in_user_id">
+              <small>Mobile number</small>
+              <span
+                ng-if="userInfo.mobile_no && userInfo.mobile_no != '' && display_less_number == true"
+              >
+                <strong class="teaser"
+                  >****** {{ userInfo.mobile_no | limitTo:-4 }}</strong
+                >
+                <a class="show_number_link" ng-click="show_full_number()"
+                  >SHOW NUMBER</a
+                >
+              </span>
+              <span
+                ng-if="userInfo.mobile_no && userInfo.mobile_no != '' && display_less_number == false"
+              >
+                <strong>{{ userInfo.mobile_no}}</strong>
+              </span>
+            </li>
+            <li ng-if="userInfo._id == logged_in_user_id">
+              <small>Mobile number</small>
+              <span>
+                <strong>{{ userInfo.mobile_no}}</strong>
+              </span>
+            </li>
+            <li>
+              <small>Email</small>
+              <strong>{{userInfo.email}}</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div
+          class="col-lg-3 col-md-12 col-sm-12 col-xs-12 marT20 right-side-btns"
+        >
+          <button
+            ng-click="openReviewPopup()"
+            ng-show="!viewEditBanner && allow_togive_review == true"
+            class="btn btn-import"
+          >
+            Write a review
+          </button>
+          <!-- <a class="btn btn-import" href="{{signup_link}}">Add Property Owners</a> -->
+          <button
+            class="btn btn-property"
+            ng-show="!viewEditBanner"
+            ng-click="openSendMessage(userInfo._id, userInfo.firstname)"
+          >
+            Send message
+          </button>
+          <!-- <br><br> -->
+          <button
+            ng-if="tenantView || agentView || ownerView"
+            ng-click="openAddMaintenance(userInfo._id)"
+            class="btn btn-import req_btn marT20"
+          >
+            <img
+              src="assets/images/Tag accepted-white.svg"
+              class="req_icon"
+            />Request Maintenance
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container profile-content">
+  <div class="row">
+    <div class="setting-section">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="about-andy">
+          <h3 class="text-capitalize">
+            About {{userInfo.firstname}} {{userInfo.lastname}}
+          </h3>
+          <p
+            ng-if="userInfo.groups.about_user"
+            ng-text-truncate="userInfo.groups.about_user"
+            ng-tt-chars-threshold="250"
+            ng-tt-more-label="Show more"
+            ng-tt-less-label="Show less"
+          ></p>
+          <div
+            ng-show="!userInfo.groups.about_user"
+            class="alert alert-info fade in alert-dismissable"
+            style="margin-top: 18px"
+          >
+            <strong> No About found to display</strong>
+          </div>
+        </div>
+        <!-- ng-show="userInfo.availability" -->
+        <div class="availability">
+          <input
+            type="hidden"
+            name="avail_status"
+            id="avail_status"
+            value="{{userInfo.availability.status}}"
+          />
+          <input
+            type="hidden"
+            name="avail_option"
+            id="avail_option"
+            value="{{userInfo.availability.option}}"
+          />
+          <input
+            type="hidden"
+            name="avail_days"
+            id="avail_days"
+            value="{{userInfo.availability.days.toString()}}"
+          />
+          <h3 ng-if="userInfo.availability.status == 1">Availability</h3>
+          <!-- <h3 ng-if="userInfo.availability.status == 2">No Available</h3> -->
+          <div class="dashboard-calendar-sec">
+            <!-- ng-if="userInfo.availability.status == 1" -->
+            <div
+              class="calendarCursor"
+              ui-calendar="uiConfig.calendar"
+              ng-model="eventSources2"
+              ui-config="calendar"
+              id="calendar"
+            ></div>
+          </div>
+        </div>
+        <span class="available_days_icon">Available Days</span>
+      </div>
+
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="overview overview-padding">
+          <div class="row">
+            <h5>Overview</h5>
+            <div>
+              <p ng-if="userInfo.groups.about_user">
+                {{userInfo.groups.about_user}}
+              </p>
+              <div
+                ng-show="!userInfo.groups.about_user"
+                class="alert alert-info fade in alert-dismissable"
+                style="margin-top: 18px; margin-left: -7px"
+              >
+                <strong> No Overview found to display</strong>
+              </div>
+            </div>
+
+            <div class="row" style="margin-left: 4px">
+              <h5>Services / Skills</h5>
+              <!-- <ul ng-if="userInfo.categories_id" class="ser_cate ser_cate-padding">
+                <li ng-repeat="category in userInfo.categories_id">
+                  <a href="javascript:void(0);">{{category.name}}</a>
+                </li>
+              </ul> -->
+              <ul ng-if="newArray2" class="ser_cate ser_cate-padding">
+                <li ng-repeat="category in newArray2">
+                  <a href="javascript:void(0);">{{category.name}}</a>
+                </li>
+              </ul>
+              <div
+                ng-show="userInfo.categories_id.length==0"
+                class="alert alert-info fade in alert-dismissable"
+                style="margin-top: 18px"
+              >
+                <strong> No Services / Skills found to display</strong>
+              </div>
+            </div>
+
+            <div
+              class="row portfolio portfolio-images"
+              style="margin-left: 4px"
+            >
+              <h5>Portfolio</h5>
+              <ul ng-if="userInfo.images">
+                <li ng-repeat="(key,image) in userInfo.images">
+                  <img src="{{userImageUrl}}{{image.url}}" alt="" />
+                </li>
+              </ul>
+            </div>
+            <div
+              ng-show="userInfo.images.length==0"
+              class="alert alert-info fade in alert-dismissable"
+              style="margin-top: 18px"
+            >
+              <strong> No Portfolio found to display</strong>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="profile_property clearfix"
+          ng-init="getTraderJobHistory()"
+          style="border-top: #eee solid 1px"
+        >
+          <h5 style="color: #a1a3b9">Job history</h5>
+          <div class="" ng-if="jobHistory">
+            <div class="row">
+              <div
+                class="col-lg-12 col-md-12 marT10"
+                ng-repeat="(key,job_history) in jobHistory | orderBy: '-createdAt' | limitTo:10"
+              >
+                <div
+                  class="trad_jobHis clearfix"
+                  ng-click="goToMaintDetail(job_history._id)"
+                >
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                    <div class="histitle">
+                      <h4>
+                        <a href="javascript:void(0);"
+                          >{{job_history.request_overview}}</a
+                        >
+                      </h4>
+                      <p>{{job_history.request_detail}}</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-md-5 col-sm-5 col-xs-6">
+                    <div class="rating" ng-if="job_history.reviews.length>0">
+                      <span
+                        ng-init="jobHistoryReview[key]=job_history.reviews[0].avg_total"
+                        uib-rating
+                        ng-model="jobHistoryReview[key]"
+                        max="max"
+                        read-only="jobHistoryReadOnly"
+                        on-leave="overStar = null"
+                        titles="['one','two','three']"
+                        aria-labelledby="default-rating"
+                      ></span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-5 col-sm-5 col-xs-6">
+                    <div class="price">
+                      <h4>{{job_history.budget | currency}}</h4>
+                    </div>
+                    <div class="days">
+                      {{job_history.createdAt | date :"d MMMM yyyy"}}
+                    </div>
+                    <!-- <div class="days" ng-if="job_history.difference==1">in {{job_history.difference}} day</div>
+                  <div class="days" ng-if="job_history.difference>1">in {{job_history.difference}} days</div> -->
+                  </div>
+                </div>
+              </div>
+              <div
+                ng-show="jobHistory.length==0"
+                class="alert alert-info fade in alert-dismissable"
+                style="margin-top: 18px"
+              >
+                <strong> No Job history found to display</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- active threads section starts here -->
+        <div class="thread-section unread-messages-section" id="review_section">
+          <div class="main-title marT20">
+            <h3>Reviews</h3>
+          </div>
+
+          <div class="review_overall clearfix">
+            <div class="col-lg-9">
+              <div class="clearfix">
+                <span
+                  ng-if="!isRatingFractional"
+                  uib-rating
+                  ng-model="userRate"
+                  max="userMax"
+                  read-only="true"
+                  on-leave="overStar = null"
+                  titles="['one','two','three']"
+                  aria-labelledby="default-rating"
+                >
+                </span>
+                <ul ng-if="isRatingFractional">
+                  <div
+                    class="rating_class"
+                    ng-repeat="ratingValue in frationalArray track by $index"
+                  >
+                    <li ng-if="ratingValue=='integer'">
+                      <i class="fa fa-star"></i>
+                    </li>
+                    <li ng-if="ratingValue=='fractional'">
+                      <i class="fa fa-star"></i>
+                    </li>
+                    <li ng-if="ratingValue=='fractional'">
+                      <i class="fa fa-star-half"></i>
+                    </li>
+                  </div>
+                </ul>
+                {{userRate}} from {{outOFReviewer}} reviews
+              </div>
+            </div>
+            <div class="col-lg-3" ng-show="allow_togive_review == true">
+              <button
+                ng-show="!viewEditBanner"
+                ng-click="openReviewPopup()"
+                class="btn btn-sub-resp"
+              >
+                Write a review
+              </button>
+            </div>
+          </div>
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a
+                ng-click="showReview('all')"
+                ng-class="(isAll==true)?'nav-link active':'nav-link'"
+                id="all-tab"
+                data-toggle="tab"
+                href="javascript:void(0)"
+                role="tab"
+                aria-controls="all"
+                aria-selected="true"
+                >All</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                ng-click="showReview('tenant_review')"
+                ng-class="(tenantReview==true)?'nav-link active':'nav-link'"
+                id="general-tab"
+                data-toggle="tab"
+                href="javascript:void(0)"
+                role="tab"
+                aria-controls="general"
+                aria-selected="false"
+                >Tenant reviews</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                ng-click="showReview('owner_review')"
+                ng-class="(ownerReview==true)?'nav-link active':'nav-link'"
+                class="nav-link"
+                id="maintain-tab"
+                data-toggle="tab"
+                href="javascript:void(0)"
+                role="tab"
+                aria-controls="maintain"
+                aria-selected="false"
+                >Owner reviews</a
+              >
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div
+              ng-if="isAll"
+              class="tab-pane active"
+              id="all"
+              role="tabpanel"
+              aria-labelledby="all-tab"
+            >
+              <!-- post 1 -->
+              <div class="maintain-request-sec">
+                <div
+                  ng-repeat="(key,reviews) in allReviewList track by $index"
+                  ng-show="(($index < (vm.page * vm.numRecords)) && ($index >= ((vm.page - 1) * vm.numRecords)))"
+                  class="review_lists"
+                >
+                  <div class="review_list col-lg-12">
+                    <div class="col-sm-2 col-md-2 col-lg-2 col-xs-3">
+                      <div class="rew_img">
+                        <!-- <img src="assets/images/ryan.png" ng-src="{{imageUrl}}{{reviews.review_by.image}}"> -->
+                        <img
+                          ng-show="reviews.review_by.image && reviews.review_by.image.length"
+                          ng-src="{{imageUrl}}{{reviews.review_by.image}}"
+                        />
+                        <div
+                          ng-show="!reviews.review_by.image || reviews.review_by.image==''"
+                          class="default_60P"
+                        >
+                          {{reviews.review_by.firstname.charAt(0).toUpperCase()}}{{reviews.review_by.lastname.charAt(0).toUpperCase()}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-10 col-md-10 col-lg-10 col-xs-9 review">
+                      <div class="contact_info clearfix">
+                        <h5>
+                          {{reviews.review_by.firstname}}
+                          {{reviews.review_by.lastname}}
+                        </h5>
+                        <div
+                          class="rating raging-left-align"
+                          ng-if="reviews.avg_total"
+                        >
+                          <span
+                            ng-init="jobHistoryReview[key]=reviews.avg_total"
+                            uib-rating
+                            ng-model="jobHistoryReview[key]"
+                            max="max"
+                            read-only="jobHistoryReadOnly"
+                            on-leave="overStar = null"
+                            titles="['one','two','three']"
+                            aria-labelledby="default-rating"
+                          ></span>
+                          <span style="color: #a1a3b9"
+                            >{{reviews.createdAt |date}}</span
+                          >
+                        </div>
+                        <p>{{reviews.comments}}</p>
+                        <p
+                          ng-show="reviews.response.length == 0  && reviews.review_to == logged_in_user_id"
+                          class="text-right"
+                        >
+                          <a
+                            href="javascript:void(0);"
+                            ng-click="reviews.show=true"
+                            ng-init="reviews.show = false"
+                            ><i class="fa fa-plus"></i> Send Reply</a
+                          >
+                        </p>
+                        <div ng-show="reviews.show">
+                          <textarea
+                            class="form-control"
+                            name=""
+                            ng-model="review.response"
+                          ></textarea>
+                          <button
+                            class="btn btn-property"
+                            ng-click="submitReview(review.response, reviews._id, 'all')"
+                          >
+                            Submit Response
+                          </button>
+                        </div>
+                        <div ng-show="reviews.response.length > 0">
+                          <div class="col-sm-2 col-md-2 col-lg-2">
+                            <div class="rew_img1">
+                              <img
+                                ng-show="reviews.response[0].response_by.image"
+                                ng-src="{{imageUrl}}{{reviews.response[0].response_by.image}}"
+                              />
+                              <div
+                                ng-show="!reviews.response[0].response_by.image || reviews.response[0].response_by.image==''"
+                                class="default_60P"
+                              >
+                                {{reviews.response[0].response_by.firstname.charAt(0).toUpperCase()}}{{reviews.response[0].response_by.charAt(0).toUpperCase()}}
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-sm-10 col-md-10 col-lg-10 review"
+                          ></div>
+                          <h5 class="text-capitalize">
+                            {{reviews.response[0].response_by.firstname}}
+                            {{reviews.response[0].response_by.lastname}}
+                          </h5>
+                          <div class="rating raging-left-align">
+                            {{reviews.response[0].createdDate |date}}
+                          </div>
+                          <p>{{reviews.response[0].response}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  ng-show="allReviewList.length==0"
+                  class="alert alert-info fade in alert-dismissable"
+                  style="margin-top: 18px"
+                >
+                  <strong> No All reviews found to display</strong>
+                </div>
+                <div class="review_lists" ng-if="allReviewList.length>5">
+                  <a
+                    class="loadmore text-center pointer"
+                    ng-click="vm.next('all')"
+                    >load more reviews</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              ng-if="tenantReview"
+              class="tab-pane active"
+              id="all"
+              role="tabpanel"
+              aria-labelledby="all-tab"
+            >
+              <!-- post 1 -->
+              <div class="maintain-request-sec">
+                <div
+                  ng-repeat="(key,reviews) in tenantReviewList track by $index"
+                  ng-show="(($index < (vm.page * vm.numRecords)) && ($index >= ((vm.page - 1) * vm.numRecords)))"
+                  class="review_lists"
+                >
+                  <div class="review_list col-lg-12">
+                    <div class="col-sm-2 col-md-2 col-lg-2 col-xs-3">
+                      <div class="rew_img">
+                        <!-- <img src="assets/images/ryan.png" ng-src="{{imageUrl}}{{reviews.review_by.image}}"> -->
+                        <img
+                          ng-show="reviews.review_by.image && reviews.review_by.image.length>0}}"
+                          ng-src="{{imageUrl}}{{reviews.review_by.image}}"
+                        />
+                        <div
+                          ng-show="!reviews.review_by.image || reviews.review_by.image==''"
+                          class="default_60P"
+                        >
+                          {{reviews.review_by.firstname.charAt(0).toUpperCase()}}{{reviews.review_by.lastname.charAt(0).toUpperCase()}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-10 col-md-10 col-lg-10 review col-xs-9">
+                      <div class="contact_info clearfix">
+                        <h5 class="text-capitalize">
+                          {{reviews.review_by.firstname}}
+                          {{reviews.review_by.lastname}}
+                        </h5>
+
+                        <div
+                          class="rating raging-left-align"
+                          ng-if="reviews.avg_total"
+                        >
+                          <span
+                            ng-init="jobHistoryReview[key]=reviews.avg_total"
+                            uib-rating
+                            ng-model="jobHistoryReview[key]"
+                            max="max"
+                            read-only="jobHistoryReadOnly"
+                            on-leave="overStar = null"
+                            titles="['one','two','three']"
+                            aria-labelledby="default-rating"
+                          ></span>
+                          <span style="color: #a1a3b9"
+                            >{{reviews.createdAt |date}}</span
+                          >
+                        </div>
+                        <p>{{reviews.comments}}</p>
+                        <p
+                          ng-show="reviews.response.length == 0  && reviews.review_to == logged_in_user_id"
+                          class="text-right"
+                        >
+                          <a
+                            href="javascript:void(0);"
+                            ng-click="reviews.show=true"
+                            ng-init="reviews.show = false"
+                            ><i class="fa fa-plus"></i> Send Reply</a
+                          >
+                        </p>
+                        <div ng-show="reviews.show">
+                          <textarea
+                            class="form-control"
+                            name=""
+                            ng-model="review.response"
+                          ></textarea>
+                          <button
+                            class="btn btn-property"
+                            ng-click="submitReview(review.response, reviews._id, 'tanent')"
+                          >
+                            Submit Response
+                          </button>
+                        </div>
+                        <div ng-show="reviews.response.length > 0">
+                          <div class="col-sm-2 col-md-2 col-lg-2">
+                            <div class="rew_img1">
+                              <img
+                                ng-show="reviews.response[0].response_by.image"
+                                ng-src="{{imageUrl}}{{reviews.response[0].response_by.image}}"
+                              />
+                              <div
+                                ng-show="!reviews.response[0].response_by.image || reviews.response[0].response_by.image==''"
+                                class="default_60P"
+                              >
+                                {{reviews.response[0].response_by.firstname.charAt(0).toUpperCase()}}{{reviews.response[0].response_by.charAt(0).toUpperCase()}}
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-sm-10 col-md-10 col-lg-10 review"
+                          ></div>
+                          <h5 class="text-capitalize">
+                            {{reviews.response[0].response_by.firstname}}
+                            {{reviews.response[0].response_by.lastname}}
+                          </h5>
+                          <div class="rating raging-left-align">
+                            {{reviews.response[0].createdDate |date}}
+                          </div>
+                          <p>{{reviews.response[0].response}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  ng-show="tenantReviewList.length==0"
+                  class="alert alert-info fade in alert-dismissable"
+                  style="margin-top: 18px"
+                >
+                  <strong>No Tenant reviews found to display</strong>
+                </div>
+                <div class="review_lists" ng-if="tenantReviewList.length>5">
+                  <a
+                    class="loadmore text-center pointer"
+                    ng-click="vm.next('tenant')"
+                    >load more reviews</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              ng-if="ownerReview"
+              class="tab-pane active"
+              id="all"
+              role="tabpanel"
+              aria-labelledby="all-tab"
+            >
+              <!-- post 1 -->
+              <div class="maintain-request-sec">
+                <div
+                  ng-repeat="(key,reviews) in ownerReviewList track by $index"
+                  ng-show="(($index < (vm.page * vm.numRecords)) && ($index >= ((vm.page - 1) * vm.numRecords)))"
+                  class="review_lists"
+                >
+                  <div class="review_list col-lg-12">
+                    <div class="col-sm-2 col-md-2 col-lg-2 col-xs-3">
+                      <div class="rew_img">
+                        <!-- <img src="assets/images/ryan.png" ng-src="{{imageUrl}}{{reviews.review_by.image}}"> -->
+                        <img
+                          ng-show="reviews.review_by.image && reviews.review_by.image.length>0"
+                          ng-src="{{imageUrl}}{{reviews.review_by.image}}"
+                        />
+                        <div
+                          ng-show="!reviews.review_by.image || reviews.review_by.image==''"
+                          class="default_60P"
+                        >
+                          {{reviews.review_by.firstname.charAt(0).toUpperCase()}}{{reviews.review_by.lastname.charAt(0).toUpperCase()}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-10 col-md-10 col-lg-10 review col-xs-9">
+                      <div class="contact_info clearfix">
+                        <h5>
+                          {{reviews.review_by.firstname}}
+                          {{reviews.review_by.lastname}}
+                        </h5>
+
+                        <div
+                          class="rating raging-left-align"
+                          ng-if="reviews.avg_total"
+                        >
+                          <span
+                            ng-init="jobHistoryReview[key]=reviews.avg_total"
+                            uib-rating
+                            ng-model="jobHistoryReview[key]"
+                            max="max"
+                            read-only="jobHistoryReadOnly"
+                            on-leave="overStar = null"
+                            titles="['one','two','three']"
+                            aria-labelledby="default-rating"
+                          ></span>
+                          {{reviews.createdAt |date}}
+                        </div>
+                        <p>{{reviews.comments}}</p>
+                        <p
+                          ng-show="reviews.response.length == 0  && reviews.review_to == logged_in_user_id"
+                          class="text-right"
+                        >
+                          <a
+                            href="javascript:void(0);"
+                            ng-click="reviews.show=true"
+                            ng-init="reviews.show = false"
+                            ><i class="fa fa-plus"></i> Send Reply</a
+                          >
+                        </p>
+                        <div ng-show="reviews.show">
+                          <textarea
+                            class="form-control"
+                            name=""
+                            ng-model="review.response"
+                          ></textarea>
+                          <button
+                            class="btn btn-property"
+                            ng-click="submitReview(review.response, reviews._id, 'owner')"
+                          >
+                            Submit Response
+                          </button>
+                        </div>
+                        <div ng-show="reviews.response.length > 0">
+                          <div class="col-sm-2 col-md-2 col-lg-2">
+                            <div class="rew_img1">
+                              <img
+                                ng-show="reviews.response[0].response_by.image"
+                                ng-src="{{imageUrl}}{{reviews.response[0].response_by.image}}"
+                              />
+                              <div
+                                ng-show="!reviews.response[0].response_by.image || reviews.response[0].response_by.image==''"
+                                class="default_60P"
+                              >
+                                {{reviews.response[0].response_by.firstname.charAt(0).toUpperCase()}}{{reviews.response[0].response_by.charAt(0).toUpperCase()}}
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="col-sm-10 col-md-10 col-lg-10 review"
+                          ></div>
+                          <h5 class="text-capitalize">
+                            {{reviews.response[0].response_by.firstname}}
+                            {{reviews.response[0].response_by.lastname}}
+                          </h5>
+                          <div class="rating raging-left-align">
+                            {{reviews.response[0].createdDate |date}}
+                          </div>
+                          <p>{{reviews.response[0].response}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  ng-show="ownerReviewList.length==0"
+                  class="alert alert-info fade in alert-dismissable"
+                  style="margin-top: 18px"
+                >
+                  <strong>No Owner reviews found to display</strong>
+                </div>
+                <div class="review_lists" ng-if="ownerReviewList.length>5">
+                  <a
+                    class="loadmore text-center pointer"
+                    ng-click="vm.next('owner')"
+                    >load more reviews</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- active threads section ends here -->
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    hightlight_days();
+    $(document).find(".fc-row.fc-week.fc-widget-content").last().remove();
+    $(document)
+      .find(".fc-day-grid-container")
+      .css("height", "245px !important");
+  });
+
+  function hightlight_days() {
+    setTimeout(() => {
+      $(document)
+        .find(".fc-widget-content")
+        .removeClass("highlight-availability");
+      $(document).find(".fc-today-button").trigger("click");
+      var avail_status = $(document).find("#avail_status").val();
+      var avail_option = $(document).find("#avail_option").val();
+      var avail_days = $(document).find("#avail_days").val();
+      console.log("option    ", avail_status, "    ", avail_option);
+      if (avail_status == "1") {
+        if (avail_option == "0") {
+          $(document)
+            .find(
+              ".fc-widget-content .fc-sun, .fc-widget-content .fc-mon, .fc-widget-content .fc-tue, .fc-widget-content .fc-wed, .fc-widget-content .fc-thu, .fc-widget-content .fc-fri, .fc-widget-content .fc-sat"
+            )
+            .addClass("highlight-availability");
+        } else if (avail_option == "1") {
+          $(document)
+            .find(
+              ".fc-widget-content .fc-mon, .fc-widget-content .fc-tue, .fc-widget-content .fc-wed, .fc-widget-content .fc-thu, .fc-widget-content .fc-fri"
+            )
+            .addClass("highlight-availability");
+        } else if (avail_option == "2") {
+          $(document)
+            .find(".fc-widget-content .fc-sun, .fc-widget-content .fc-sat")
+            .addClass("highlight-availability");
+        } else if (avail_option == "3") {
+          var days_arr = avail_days.split(",");
+          if (jQuery.inArray("0", days_arr) == -1)
+            $(document)
+              .find(".fc-widget-content .fc-sun")
+              .addClass("highlight-availability");
+          if (jQuery.inArray("1", days_arr) == -1)
+            $(document)
+              .find(".fc-widget-content .fc-mon")
+              .addClass("highlight-availability");
+          if (jQuery.inArray("2", days_arr) == -1)
+            $(document)
+              .find(".fc-widget-content .fc-tue")
+              .addClass("highlight-availability");
+          if (jQuery.inArray("3", days_arr) == -1)
+            $(document)
+              .find(".fc-widget-content .fc-wed")
+              .addClass("highlight-availability");
+          if (jQuery.inArray("4", days_arr) == -1)
+            $(document)
+              .find(".fc-widget-content .fc-thu")
+              .addClass("highlight-availability");
+          if (jQuery.inArray("5", days_arr) == -1)
+            $(document)
+              .find(".fc-widget-content .fc-fri")
+              .addClass("highlight-availability");
+          if (jQuery.inArray("6", days_arr) == -1)
+            $(document)
+              .find(".fc-widget-content .fc-sat")
+              .addClass("highlight-availability");
+        }
+      }
+      $(document).find(".fc-today-button").hide();
+      $(document).find(".fc-unthemed.fc-today").hide();
+      $(document).find(".fc-prev-button").hide();
+      $(document).find(".fc-next-button").hide();
+      // $(document).find(".fc-other-month").hide();
+      $(document).find(".fc-head").hide();
+      $(document)
+        .find("tbody.fc-body")
+        .after(
+          '<tfooter class="fc-footer"><tr><td class="fc-head-container fc-widget-footer"><div class="fc-row fc-widget-footer"><table><thead><tr><th class="fc-day-footer fc-widget-footer fc-sun">S</th><th class="fc-day-footer fc-widget-footer fc-mon">M</th><th class="fc-day-footer fc-widget-footer fc-tue">T</th><th class="fc-day-footer fc-widget-footer fc-wed">W</th><th class="fc-day-footer fc-widget-footer fc-thu">T</th><th class="fc-day-footer fc-widget-footer fc-fri">F</th><th class="fc-day-footer fc-widget-footer fc-sat">S</th></tr></thead></table></div></td></tr></tfooter>'
+        );
+      $(document)
+        .find(".fc-day-number.highlight-availability")
+        .append("<span></span>");
+
+      var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+      var a = new Date();
+      console.log(weekday[a.getDay()]);
+      $(document)
+        .find(".fc-today")
+        .append("<small>" + weekday[a.getDay()] + "</small>");
+
+      $(document).find(".fc-other-month").css({
+        color: "#FFF",
+        background: "#FFF",
+      });
+      $(document).find(".fc-other-month span").css({
+        background: "#FFF",
+      });
+    }, 3000);
+  }
+
+  // $(document).find(".fc-prev-button").on("click", function () {
+  //   hightlight_days();
+  // });
+  // $(document).find(".fc-next-button").on("click", function () {
+  //   hightlight_days();
+  // });
+</script>

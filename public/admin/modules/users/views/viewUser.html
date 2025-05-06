@@ -1,0 +1,364 @@
+<div class="view-animate content-wrapper" ng-init="userDetailView()">
+    <section class="content-header">
+        <h1>
+            User Management
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a ui-sref="userManagement"><i class="fa fa-user-secret"></i>User Management</a></li>
+            <li class="active "><a><i class="fa fa-eye fa-eye-breadcrumb"></i>View</a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-user" aria-hidden="true">&nbsp;&nbsp;</i> View User </h3>
+                        <div class="pull-right"><a ng-click="back()"><i class="fa fa-angle-left margin-r-5"
+                                    aria-hidden="true"></i>
+                                Back</a></div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form role="form" name="updateUserForm" class="ng-pristine ng-valid">
+                            <div class="add-service-form clearfix">
+                                <div class="col-sm-12 col-md-3 col-lg-2">
+                                    <div class="profile-box">
+                                        <div class="profile-picture ">
+                                            <img err-src="./images/no_image.png"
+                                                ng-src="{{imageUrl}}{{user[0].image?user[0].image:' '}}"
+                                                alt="User Profile Image" height="100%" width="100%">
+                                        </div>
+                                    </div>
+                                    <span id="star1" class="start-rat-provider"></span>
+                                </div>
+                                <div class="col-sm-12 col-md-9 col-lg-10">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="sub-service-title">
+                                                <h3><span>Personal Details</span></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">First Name:</span>
+                                                <span class="service-view">{{user[0].firstname}} </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Last Name:</span>
+                                                <span class="service-view">{{user[0].lastname}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Email:</span>
+                                                <span class="service-view">{{user[0].email}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Mobile Number:</span>
+                                                <span class="service-view">{{user[0].mobile_no}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">About User:</span>
+                                                <span class="service-view color-blue">{{user[0].about_user}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">User Since:</span>
+                                                <span class="service-view">{{user[0].createdDate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" ng-if="!(user[0].is_active)">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Activation:</span>
+                                                <span ng-if="currentURL === 'portal.ownly.com.au'"
+                                                    class="service-view color-blue">
+                                                    https://ownly.com.au/trader_account_activation/{{user[0].activation_code}}
+                                                </span>
+                                                <span ng-if="currentURL != 'portal.ownly.com.au'"
+                                                    class="service-view color-blue">
+                                                    http://syncitt.world/trader_account_activation/{{user[0].activation_code}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" ng-if="isTraderUser">
+                                            <div class="form-group" style="display: flex;">
+                                                <label for="" style="width: 40%; padding: 20px 20px 2px 5px;">Profile
+                                                    Level:</label>
+                                                <select class="form-control" ng-model="user[0].profileTiers"
+                                                    name="property" style="width: 60%;  margin: 20px 20px 2px 5px;"
+                                                    required>
+                                                    <option value="basic"> Basic</option>
+                                                    <option value="premium">Premium</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="sub-service-title">
+                                                <h3><span>Contact Details</span></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Address</span>
+                                                <span class="service-view">{{user[0].address}}</span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-6">
+                                        <div class="subservice-row">
+                                            <span class="service-title">Address Line 2:</span>
+                                            <span class="service-view ng-hide" ng-show="admin.address_line_2"></span>
+                                            <span class="service-view" ng-show="!admin.address_line_2"></span>
+                                        </div>
+                                    </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">City:</span>
+                                                <span class="service-view">{{user[0].city}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Province:</span>
+                                                <span class="service-view">{{user[0].state}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Zipcode:</span>
+                                                <span class="service-view">{{user[0].zipCode}} </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="subservice-row">
+                                                <span class="service-title">Country:</span>
+                                                <span class="service-view">{{user[0].country}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-sm-12 text-right marT20">
+                                    <button ng-if="isTraderUser" type="button" class="btn btn-primary"
+                                        ng-disabled="updateUserForm.$invalid"
+                                        ng-click="updateUserProperty(user[0]);">UPDATE</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-user" aria-hidden="true">&nbsp;&nbsp;</i>
+                            Users Reviews List
+                        </h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="box-body box box-warning table-responsive" ng-init="getUserReviewList()">
+                            <table class="table table-bordered  ng-table">
+                                <thead class="">
+                                    <tr>
+                                        <th title="" class="header" style="cursor:default">
+                                            <div class="ng-table-header ">
+                                                <span>Image</span>
+                                            </div>
+
+                                        </th>
+                                        <th title="" class="header  sortable addCursor">
+                                            <div class="ng-table-header " ng-click='sortRecentUserColumn("firstname")'
+                                                ng-class='sortClass("firstname")'>
+                                                <span>First Name</span>
+                                            </div>
+                                        </th>
+                                        <th title="" class="header  sortable addCursor">
+                                            <div class="ng-table-header " ng-click='sortRecentUserColumn("lastname")'
+                                                ng-class='sortClass("lastname")'>
+                                                <span>Last Name</span>
+                                            </div>
+
+                                        </th>
+                                        <th title="" class="header  sortable addCursor">
+                                            <div class="ng-table-header "
+                                                ng-click='sortRecentUserColumn("agency_id.name")'
+                                                ng-class='sortClass("agency_id.name")'>
+                                                <span>Review</span>
+                                            </div>
+                                        </th>
+                                        <th title="" class="header  sortable ">
+                                            <div class="ng-table-header changeCursorType">
+                                                <span>Action</span>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="reviewData in reviewList|orderBy:columnUser:reverseUser| itemsPerPage:10| filter:searchUser"
+                                        class="">
+                                        <td>
+                                            <span class="chat-img pull-left">
+                                                <img class="pointerCursor adminprofileimg"
+                                                    err-src="./images/no_image.png"
+                                                    ng-src="{{imageUrl}}{{reviewData.review_by.image?reviewData.review_by.image:' '}}"
+                                                    width="100px" alt="User Image">
+                                            </span>
+                                        </td>
+                                        <td sortable="'firstname'" class="text-capitalize">
+                                            {{reviewData.review_by.firstname}}</td>
+                                        <td class="text-capitalize">{{reviewData.review_by.firstname}}</td>
+                                        <td>{{reviewData.comments}}</td>
+
+                                        <td data-title="'Actions'" class="actions" data-title-text="Actions"
+                                            align="center">
+                                            <a href="javascript:void(0);" ng-click="deleteReview(reviewData._id)">
+                                                <i class="fa fa-trash" aria-hidden="true" title="Delete user"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-if="userList.length==0" style='color:#605ca8;font-size: 15px;'>
+                                <center>No records found</center>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+
+        <!-- {{isAgencyOwn}} -->
+        <!-- Agent List -->
+        <div class="row" ng-if="isAgencyOwn">
+            <div class="col-sm-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-user" aria-hidden="true">&nbsp;&nbsp;</i>
+                            Agents List
+                        </h3>
+                        <div class="text-right">
+                            <button class="btn btn-import ng-scope" ngf-max-height="1000" href="javascript:void(0)"
+                                ng-click="openCSVDilogue()">
+                                Bulk Import Agents</button>
+                            <a class="btn btn-import ng-scope" title="Sample File"
+                                href="{{baseUrl_path}}/samples/agent_add_format.csv" target="_blank"><i
+                                    class="fa fa-download" aria-hidden="true"> Sample File</i></a>
+                        </div>
+
+                    </div>
+                    <div class="box-body">
+                        <div class="box-body box box-warning table-responsive">
+                            <table class="table table-bordered  ng-table">
+                                <thead class="">
+                                    <tr>
+                                        <th title="" class="header" style="cursor:default">
+                                            <div class="ng-table-header ">
+                                                <span>Image</span>
+                                            </div>
+                                        </th>
+                                        <th title="" class="header sortable addCursor">
+                                            <div class="ng-table-header">
+                                                <!-- ng-click='sortRecentUserColumn("firstname")'
+                                                ng-class='sortClass("firstname")' -->
+                                                <span>First Name</span>
+                                            </div>
+                                        </th>
+                                        <th title="" class="header sortable addCursor">
+                                            <div class="ng-table-header">
+                                                <!-- ng-click='sortRecentUserColumn("lastname")'
+                                                ng-class='sortClass("lastname")' -->
+                                                <span>Last Name</span>
+                                            </div>
+
+                                        </th>
+                                        <th title="" class="header sortable addCursor" style="width: 80%;">
+                                            <div class="ng-table-header">
+                                                <!-- ng-click='sortRecentUserColumn("agency_id.name")'
+                                                ng-class='sortClass("agency_id.name")' -->
+                                                <span>About</span>
+                                            </div>
+                                        </th>
+                                        <!-- <th title="" class="header  sortable ">
+                                            <div class="ng-table-header changeCursorType">
+                                                <span>Action</span>
+                                            </div>
+                                        </th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="agent in agentList|itemsPerPage:10" class="">
+                                        <!-- dir-paginate="agent in agentList|orderBy:columnUser:reverseUser| itemsPerPage:10| filter:searchUser" -->
+                                        <td>
+                                            <span class="chat-img pull-left">
+                                                <img class="pointerCursor adminprofileimg"
+                                                    err-src="./images/no_image.png"
+                                                    ng-src="{{imageUrl}}{{agent.image?agent.image:' '}}" width="100px"
+                                                    alt="User Image">
+                                            </span>
+                                        </td>
+                                        <td class="text-capitalize">
+                                            <!-- sortable="'firstname'" -->
+                                            {{agent.firstname}}</td>
+                                        <td class="text-capitalize">{{agent.lastname}}</td>
+                                        <td>{{agent.about_user}}</td>
+
+                                        <!-- <td data-title="'Actions'" class="actions" data-title-text="Actions"
+                                            align="center">
+                                            <a href="javascript:void(0);" ng-click="deleteReview(agent._id)">
+                                                <i class="fa fa-trash" aria-hidden="true" title="Delete user"></i>
+                                            </a>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-if="agentList.length==0" style='color:#605ca8;font-size: 15px;'>
+                                <center>No records found</center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Agent List -->
+
+    </section>
+</div>
+<style>
+    /* input[type="email"] {
+        text-transform: lowercase;
+    } */
+</style>

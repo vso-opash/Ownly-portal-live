@@ -1,0 +1,605 @@
+<!-- tabs -->
+<div id="mycontroller" class="container" ng-init="detailInit();getAgreementDetail();chatInitialize();">
+    <div ng-if="scollOnChat == 1" ng-init="scrollTo('agreement_general_communicaltion');"></div>
+    <div class="row marT20">
+        <div class="setting-section">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 horiLine">
+                <ol class="breadcrumb">
+                    <li><a class="text-capitalize pointer" ui-sref="agreementListing">Agreements</a></li>
+                    <li><a class="active text-capitalize ">
+                            <!-- {{agreementDetail.propertyData.property_id.address | limitTo:200}}
+                            {{agreementDetail.propertyData.property_id.address > 200 ? "..." : ""}} -->
+
+                            {{agreementDetail.propertyData.property_address | limitTo:200}}
+                            {{agreementDetail.propertyData.property_address > 200 ? "..." : ""}}
+                        </a></li>
+                </ol>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 main_detail marB20">
+                    <h5 class="text-capitalize">
+                        <!-- {{agreementDetail.propertyData.property_id.address}} -->
+                        {{agreementDetail.propertyData.property_address}}
+                    </h5>
+                    <div>
+                        <img src="assets/images/property-id.svg" alt="property id" class="marker">
+                        <span class="text-capitalize">
+                            <!-- {{agreementDetail.propertyData.property_id.address}} -->
+                            {{agreementDetail.propertyData.property_address}}
+                        </span>
+                        <img src="assets/images/calendar.png" alt="calendar" class="tradimg">
+                        <span>{{agreementDetail.propertyData.property_id.created|date}}</span>
+                    </div>
+                </div>
+                <div ng-show="loggedUser == agreementDetail.propertyData.created_by._id || userData.agency_id == agreementDetail.propertyData.agency_id"
+                    class="col-lg-5 col-md-5 col-sm-5 col-xs-7 marT10 text-right clearfix">
+
+                    <button class="btn upload_doc"
+                        ng-click="openDilogue(agreementDetail.propertyData._id,agreementDetail.propertyData.created_by._id);">
+                        <i class="fa fa-cloud-upload" aria-hidden="true"></i>Upload document</button>
+
+                    <button class="btn agree_action dropdown-toggle" type="button" data-toggle="dropdown">Action
+                        <b class="caret"></b>
+                    </button>
+                    <ul class="dropdown-menu agree_action_templ">
+                        <li>
+                            <a ng-click="goToeditAgreement(agreementDetail.propertyData._id)"
+                                href="javascript:void(0)">Edit</a>
+                        </li>
+                        <!-- <li>
+                                    <a ng-click="openAddTenant(agreementDetail.propertyData.property_id._id,agreementDetail.propertyData._id)" href="javascript:void(0)">New Tenant</a>
+                                </li> -->
+                        <li>
+                            <!-- ng-click="openAddMaintenance(agreementDetail.propertyData.property_id._id)" -->
+                            <a ng-click="openAddMaintenance(agreementDetail.propertyData.property_address)"
+                                href="javascript:void(0)">New maintenance request</a>
+                        </li>
+                    </ul>
+
+                </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="setting-section">
+
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="hilight marT20 clearfix">
+                        <h5>Highlights</h5>
+                        <div class="row marT20">
+                            <div class="col-sm-3">
+                                <p>Tenancy Start Date</p>
+                                <p>
+                                    <span>{{agreementDetail.propertyData.tenancy_start_date?agreementDetail.propertyData.tenancy_start_date:'-'|date}}</span>
+                                </p>
+                                <p>Tenancy End Date</p>
+                                <p>
+                                    <span>{{agreementDetail.propertyData.tenancy_length? agreementDetail.propertyData.tenancy_length:
+                                        '-'|date}}</span>
+                                </p>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-3">
+                                <p>Tenancy Length</p>
+                                <p>
+                                    <span>{{agreementDetail.propertyData.agreement_length?agreementDetail.propertyData.agreement_length:'-'}}</span>
+                                </p>
+                                <p>Payment Frequency</p>
+                                <p>
+                                    <span ng-show="agreementDetail.propertyData.rental_period==1">Monthly</span>
+                                    <span ng-show="agreementDetail.propertyData.rental_period==2">Yearly</span>
+                                    <span ng-show="!agreementDetail.propertyData.rental_period">-</span>
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>Contact for Lease Renewal</p>
+                                <p>
+                                    <span class="clrRed" ng-show="agreementDetail.propertyData.terms==1">Monthly</span>
+                                    <span class="clrRed" ng-show="agreementDetail.propertyData.terms==2">Yearly</span>
+                                    <span class="clrRed" ng-show="!agreementDetail.propertyData.terms">-</span>
+                                </p>
+                                <p ng-show="agreementDetail.propertyData.rental_period==1">Rent per week</p>
+                                <p>
+                                    <span
+                                        ng-show="agreementDetail.propertyData.rental_period==1">{{agreementDetail.propertyData.rent_price/4 | currency: "$" : 0}}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="horiLine marT20 clearfix"></div>
+
+                    <div class="request_det agree_detail horiLine">
+                        <h5>Agreement details</h5>
+                        <p ng-bind-html="agreementDetail.propertyData.detail">{{agreementDetail.propertyData.detail}}
+                        </p>
+                        <div ng-if="!agreementDetail.propertyData.detail"
+                            class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                            <strong>
+                                <center>No record to display</center>
+                            </strong>
+                        </div>
+                    </div>
+
+                    <!-- <div class="horiLine marT20 clearfix"></div> -->
+
+                    <!-- <div class="request_det horiLine">
+                        <h5>Tenancy inclusions</h5>
+                        <p ng-model="agreementDetail.propertyData.tenancy_inclusion">
+                            {{agreementDetail.propertyData.tenancy_inclusion}}</p>
+                        <div ng-if="!agreementDetail.propertyData.tenancy_inclusion"
+                            class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                            <strong>
+                                <center>No record to display</center>
+                            </strong>
+                        </div>
+                    </div> -->
+
+                    <div class="rental_det_mainreq marT20">
+                        <h5>Maintenance requests</h5>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="agnt_list  marT10"
+                                    ng-repeat="maintenance in maintenanceDetail.maintenanceData" style="clear: both">
+                                    <div class="col-sm-3 col-xs-12 agnt_mainImg clearfix img-margin-bottom-set">
+                                        <!-- <img class="pointer" ng-click="goToMaintenceDetail(maintenance._id)"
+                                            ng-src="{{propertyImageUrl}}{{agreementDetail.propertyData.property_id.image[0].path}}"
+                                            src="assets/images/placeholder.jpg"> -->
+                                        <a ng-if="maintenance.request_type == 0 || (maintenance.request_type == 1 && maintenance.trader_id)"
+                                            class="pointer" ng-click="goToMaintenceDetail(maintenance._id)">
+                                            <img class="pointer" ng-if="!maintenance.images[0].document_type"
+                                                ng-src="{{maintenanceImageUrl}}{{maintenance.images[0].path}}"
+                                                src="assets/images/placeholder.jpg" onerror="this.src='assets/images/placeholder.jpg'">
+                                            <img ng-if="maintenance.images[0].document_type=='excel'"
+                                                src="assets/images/xls.png" class="img-responsive pointer agreeAttch"
+                                                alt="atch1" onerror="this.src='assets/images/xls.png'">
+                                            <img ng-if="maintenance.images[0].document_type=='doc'"
+                                                src="assets/images/word.png" class="img-responsive pointer agreeAttch"
+                                                alt="atch1" onerror="this.src='assets/images/word.png'">
+                                            <img ng-if="maintenance.images[0].document_type=='pdf'"
+                                                src="assets/images/pdf.png" class="img-responsive pointer agreeAttch"
+                                                alt="atch1" onerror="this.src='assets/images/pdf.png'">
+                                            <img ng-if="maintenance.images[0].document_type=='ppt'"
+                                                src="assets/images/ppt.png" class="img-responsive pointer agreeAttch"
+                                                alt="atch1" onerror="this.src='assets/images/ppt.png'">
+                                        </a>
+                                        <a ng-if="maintenance.request_type == 1 && !maintenance.trader_id"
+                                            class="pointer" ng-click="goToMaintenceDetail(maintenance._id)">
+                                            <img class="pointer" ng-if="!maintenance.images[0].document_type"
+                                                ng-src="{{maintenanceImageUrl}}{{maintenance.images[0].path}}"
+                                                src="assets/images/placeholder.jpg" onerror="this.src='assets/images/placeholder.jpg'">
+                                            <img ng-if="maintenance.images[0].document_type=='excel'"
+                                                src="assets/images/xls.png" class="img-responsive pointer agreeAttch"
+                                                alt="atch1">
+                                            <img ng-if="maintenance.images[0].document_type=='doc'"
+                                                src="assets/images/word.png" class="img-responsive pointer agreeAttch"
+                                                alt="atch1">
+                                            <img ng-if="maintenance.images[0].document_type=='pdf'"
+                                                src="assets/images/pdf.png" class="img-responsive pointer agreeAttch"
+                                                alt="atch1">
+                                            <img ng-if="maintenance.images[0].document_type=='ppt'"
+                                                src="assets/images/ppt.png" class="img-responsive pointer agreeAttch"
+                                                alt="atch1">
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-1 col-xs-2 text-center agntprofile detail clearfix">
+                                        <a class="pointer" href="/#!/trader_profile/{{maintenance.trader_id._id}}">
+                                            <img class="maintenanceUserImg"
+                                                ng-src="{{userImageUrl}}{{maintenance.trader_id.image}}"
+                                                src="assets/images/no_image.png" onerror="this.src='assets/images/no_image.png'">
+                                        </a>
+                                    </div>
+                                    <!-- <div class="col-sm-1 col-xs-2 text-center agntprofile detail clearfix">
+                                        <a class="pointer"
+                                            ng-click="goToCreatorProfile(maintenance.created_by,maintenance.created_by_role)">
+                                            <img class="maintenanceUserImg"
+                                                ng-src="{{userImageUrl}}{{maintenance.created_by.image}}"
+                                                src="assets/images/no_image.png">
+                                        </a>
+                                    </div> -->
+                                    <div class="col-sm-5  col-xs-8 detail apt-list clearfix">
+                                        <h5 class="text-capitalize" style="cursor: pointer;" ng-click="goToMaintenceDetail(maintenance._id)">{{maintenance.request_overview}}</h5>
+                                        <div class="cat_id">
+                                            <p>
+                                                <span>
+                                                    <img src="assets/images/property-id.svg" alt="id">Requested ID :
+                                                    {{maintenance.request_id}} </span>
+                                            </p>
+                                            <p>
+                                                <span>
+                                                    <img src="assets/images/hashtag.svg" alt="id">Category name </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1 col-xs-2 detail">
+                                        <i class="fa fa-bell notibck" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-2 col-md-1 col-lg-2 price-sec clearfix detail">
+                                        <div class="price">
+                                            <h4>{{maintenance.budget | currency: "$" : 0}}</h4>
+                                        </div>
+                                        <div class="days">in {{maintenance.difference | positive}} days</div>
+                                        <div ng-show="maintenance.req_status == 1 && maintenance.difference>0"
+                                            class="sent1">Sent</div>
+                                        <div ng-show="maintenance.req_status == 2 && maintenance.difference>0"
+                                            class="accepted1">Accepted</div>
+                                        <div ng-show="maintenance.req_status == 3 && maintenance.difference>0"
+                                            class="booked1">Booked</div>
+                                        <div ng-show="maintenance.req_status == 5 && maintenance.difference>0"
+                                            class="completed1">Completed</div>
+                                        <div ng-show="maintenance.difference < 0" class="overdue1">Over Due</div>
+                                        <div ng-show="maintenance.req_status == 4 && maintenance.difference>0"
+                                            class="overdue1">Closed</div>
+                                    </div>
+                                </div>
+                                <div ng-if="maintenanceDetail.maintenanceData.length==0"
+                                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                    <strong>
+                                        <center>No record to display</center>
+                                    </strong>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="genral_commnitn marT20">
+                        <h5 id="agreement_general_communicaltion">General communication</h5>
+                        <div class=" marT20"></div>
+                        <div class="conversation conversation-height">
+                            <!-- <div class="row heading">
+                                <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                                    <div class="heading-avatar-icon inspection">
+                                        <img src="assets/images/george.png" ng-src="{{userImageUrl}}{{userData.image}}">
+                                        <span class="colorGreen"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-xs-7 heading-name">
+                                    <a class="heading-name-meta">{{userData.firstname}} {{userData.lastname}} </a>
+                                    <p ng-if="roles.agent==userCurrentRold"> Agent | Agreement ID : {{agreementDetail.propertyData.agreement_id}}</p>
+                                    <p ng-if="roles.ownAgency==userCurrentRold"> Agency | Agreement ID : {{agreementDetail.propertyData.agreement_id}}</p>
+                                    <p ng-if="roles.tenant==userCurrentRold"> Tenant | Agreement ID : {{agreementDetail.propertyData.agreement_id}}</p>
+                                    <p ng-if="roles.owner==userCurrentRold"> Owner | Agreement ID : {{agreementDetail.propertyData.agreement_id}}</p>
+                                    <p ng-if="roles.trader==userCurrentRold"> Trader | Agreement ID : {{agreementDetail.propertyData.agreement_id}}</p>
+                                </div>
+                            </div> -->
+                            <div class="row message conversation-height" id="conversation">
+                                <div ng-repeat="message in privateMessage">
+                                    <div class="row message-body" ng-if="message.from._id!=loggedInUserId">
+                                        <div class="col-sm-2 col-xs-2 text-center">
+                                            <div class="">
+                                                <img height="50px" width="50px" class="img-circle"
+                                                    ng-src="{{userImageUrl}}{{message.from.image}}"
+                                                    src="assets/images/george.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-xs-10 message-main-receiver">
+                                            <div class="receiver" ng-if="!message.is_file">
+                                                <div class="message-text">
+                                                    {{message.msg}}
+                                                </div>
+                                                <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                                                    <a href="{{baseUrl}}{{message.document_path}}"
+                                                        target="_blank">{{message.msg}}</a>
+                                                    <p>{{message.size}} kb</p>
+                                                    <p><i class="fa fa-file"></i> File</p>
+                                                    <div class="horiLine"></div>
+                                                    <div class="text-center"><a target="_blank"
+                                                            href="{{baseUrl}}{{message.document_path}}"><span>Open</span></a>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <div ng-if="message.is_file" class="chat_img">
+                                                <a target="_blank" href="{{baseUrl}}{{message.document_path}}"><img
+                                                        src="{{baseUrl}}{{message.document_path}}"></a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <span class="message-time pull-left"> {{message.time|date}} </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row message-body" ng-if="message.from._id==loggedInUserId">
+                                        <div class="col-sm-2 col-xs-2 pull-right  text-center">
+                                            <div class="">
+                                                <img height="50px" width="50px" src="assets/images/george.png"
+                                                    class="img-circle" ng-src="{{userImageUrl}}{{message.from.image}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-xs-10 message-main-sender">
+                                            <div class="sender" ng-if="!message.is_file">
+                                                <div class="message-text">
+                                                    {{message.msg}}
+                                                </div>
+                                                <!-- <div ng-if="message.is_file" class="file_msg message-text">
+                                                    <a target="_blank">{{message.msg}}</a>
+                                                    <p>{{message.size}} kb</p>
+                                                    <p><i class="fa fa-file"></i> File </p>
+                                                    <div class="horiLine"></div>
+                                                    <div class="text-center"><a target="_blank"
+                                                            href="{{baseUrl}}{{message.document_path}}"><span>Open</span></a>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <div ng-if="message.is_file" class="chat_img">
+                                                <a target="_blank" href="{{baseUrl}}{{message.document_path}}">
+                                                    <img src="{{baseUrl}}{{message.document_path}}"></a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <span class="message-time"> {{message.time|date}} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row message-body">
+                                    <div ng-if="privateMessage.length==0"
+                                        style="margin-top:25%;text-align:center;margin-right:1%;margin-left:1%"
+                                        class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                        <strong>No Chat initaited Yet!</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row reply">
+                                <form id="sendMsgForm" name="sendMsgForm" ng-submit="send_message(chat.generalMsg)">
+                                    <div class="col-sm-10 col-xs-12 reply-main">
+                                        <textarea id="example1" ng-model="chat.generalMsg" class="form-control" rows="1"
+                                            placeholder="Type your message"
+                                            enter-submit="send_message(chat.generalMsg)"></textarea>
+                                        <!-- <div class="reply-emojis">
+                                        <i class="fa fa-smile-o fa-2x"></i>
+                                    </div> -->
+                                        <div class="reply-emojis">
+                                            <button class="btn btn-pic" type="file" ngf-select="uploadFile($file)">
+                                                <!-- ngf-max-height="1000" ngf-max-size="1MB" -->
+                                                <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 col-xs-12 reply-send">
+                                        <!-- ng-click="send_message(chat.generalMsg);" -->
+                                        <button id="sendMsg" type="submit" class="btn btn-property">Send</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="rental_disputes marT20">
+                        <h5>Disputes</h5>
+                        <div class=" marT20"></div>
+                        <div class="conversation">
+                            <div class="row heading">
+                                <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+                                    <div class="heading-avatar-icon inspection">
+                                        <img src="assets/images/george.png">
+                                        <span class="colorGreen"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-xs-7 heading-name">
+                                    <a class="heading-name-meta">John Doe </a>
+                                    <p> Tenant | Property ID : 10025111</p>
+                                </div>
+
+                            </div>
+
+                            <div class="row message" id="conversation">
+
+
+                                <div class="row message-body">
+                                    <div class="col-sm-2 col-xs-2">
+                                        <div class="">
+                                            <img src="assets/images/george.png">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-10 message-main-receiver">
+                                        <div class="receiver">
+                                            <div class="message-text">
+                                                Hi, what are you doing?!
+                                            </div>
+                                        </div>
+                                        <div class="receiver_nrml">
+                                            <div class="message-text">
+                                                Hi, what are you doing?!
+                                            </div>
+                                        </div>
+
+                                        <span class="message-time pull-left"> 11:22 AM </span>
+                                    </div>
+                                </div>
+
+                                <div class="status">
+                                    <h2>
+                                        <span>Today</span>
+                                    </h2>
+                                </div>
+
+                                <div class="row message-body">
+                                    <div class="col-sm-2 col-xs-2 pull-right">
+                                        <div class="">
+                                            <img src="assets/images/george.png">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-10 message-main-sender">
+                                        <div class="sender">
+                                            <div class="message-text">
+                                                I am doing nothing man!
+                                            </div>
+                                        </div>
+                                        <span class="message-time"> 11:22 AM </span>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row reply">
+                                <div class="col-sm-10 col-xs-12 reply-main">
+                                    <textarea class="form-control" rows="1" id="comment" placeholder="Type your message"></textarea>
+                                    <div class="reply-emojis">
+                                        <i class="fa fa-smile-o fa-2x"></i>
+                                    </div>
+                                    <div class="reply-emojis-pic">
+                                        <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2 col-xs-12 reply-send">
+                                    <button type="submit" class="btn btn-property">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                    <div class="attchment marT20" id="fileAttached">
+                        <h5>Files Attached</h5>
+                        <div class="row marB30 marT20 file_grid">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 marB20"
+                                ng-repeat="image in agreementDetail.propertyData.images">
+                                <div class="atch_img Inspections">
+                                    <div class="over">
+                                        <img ng-if="!image.document_type" ng-src="{{agreementImageUrl}}{{image.path}}"
+                                            class="img-responsive pointer agreeAttch" ng-click="openImages(image.path)"
+                                            alt="atch1">
+                                        <img ng-if="image.document_type=='excel'" src="assets/images/xls.png"
+                                            class="img-responsive disable agreeAttch" alt="atch1">
+                                        <img ng-if="image.document_type=='doc'" src="assets/images/word.png"
+                                            class="img-responsive disable agreeAttch" alt="atch1">
+                                        <img ng-if="image.document_type=='pdf'" src="assets/images/pdf.png"
+                                            class="img-responsive disable agreeAttch" alt="atch1">
+                                        <img ng-if="image.document_type=='ppt'" src="assets/images/ppt.png"
+                                            class="img-responsive disable agreeAttch" alt="atch1">
+                                    </div>
+                                    <!-- <div class="fav-heart_blue">
+                                        <a id="" href="javascript:void(0)"></a>
+                                    </div> -->
+                                </div>
+                                <div class="attchment-name">
+                                    <!-- {{image.document_name}} -->
+                                    {{image.document_name | limitTo : 14}}{{image.document_name.length > 14 ? "..." : ""}}
+                                </div>
+                                <div class="text-right action_popup">
+                                    <a class="pointer" ng-click="showFilePopup($index)">
+                                        <i class="fa fa-ellipsis-v" aria-hidden="true" title="Option"></i>
+                                    </a>
+                                </div>
+                                <div ng-class="filePopup[$index]==true?'file_popup active':'file_popup'"
+                                    class="file_popup pull-right maintDownload">
+                                    <ul>
+                                        <a download="{{agreementImageUrl}}{{image.path}}"
+                                            href="{{agreementImageUrl}}{{image.path}}"><i title="DownLoad Now"
+                                                class="fa fa-cloud-download downIcon" aria-hidden="true"></i></a>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div ng-if="agreementDetail.propertyData.images==0"
+                                class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                <strong>
+                                    <center><i class="fa fa-paperclip mainattIcon"></i> No Files Attached!</center>
+                                </strong>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="horiLine marT20"></div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marT20">
+                    <div class="property shadow-hover">
+                        <a class="property-img inspection pointer">
+                            <!-- <a ng-click="goToPropertyDetail(agreementDetail.propertyData.property_id._id)"
+                            class="property-img inspection pointer"> -->
+                            <!-- <div class="img-fade"></div> -->
+                            <!-- <img ng-src="{{propertyImageUrl}}{{agreementDetail.propertyData.property_id.image[0].path}}" src="assets/images/placeholder.jpg"
+                                alt="Property Image"> -->
+                            <img ng-if="agreementDetail.propertyData.property_id.image[0].path && agreementDetail.propertyData.property_id.image[0].is_from_my_file==false && agreementDetail.propertyData.property_id.image[0].is_from_csv_file==false"
+                                ng-src="{{propertyImageUrl}}{{agreementDetail.propertyData.property_id.image[0].path}}" />
+                            <img ng-if="agreementDetail.propertyData.property_id.image[0].path && agreementDetail.propertyData.property_id.image[0].is_from_my_file==true  && agreementDetail.propertyData.property_id.image[0].is_from_csv_file==false"
+                                src="{{fileImageUrl}}{{agreementDetail.propertyData.property_id.image[0].path}}" />
+                            <img ng-if="agreementDetail.propertyData.property_id.image[0].path && agreementDetail.propertyData.property_id.image[0].is_from_csv_file==true && agreementDetail.propertyData.property_id.image[0].is_from_my_file==false"
+                                src="{{agreementDetail.propertyData.property_id.image[0].path}}" alt="propimg" />
+                            <img ng-if="!agreementDetail.propertyData.property_id.image[0].path"
+                                src="assets/images/placeholder.jpg" />
+                        </a>
+                        <!-- <div class="property-content">
+                            <div class="property-title">
+                                <h4>
+                                    <a class="text-capitalize pointer">
+                                        {{agreementDetail.propertyData.property_address}}
+                                    </a>
+                                    <br>
+                                    <p class="property-address" ng-if="agreementDetail.propertyData.property_id.description">
+                                        {{agreementDetail.propertyData.property_id.description  | limitTo : 250}}
+                                        {{agreementDetail.propertyData.property_id.description.length > 250 ? "..." : ""}}
+                                    </p>
+                                </h4>
+                                <div ng-if="!agreementDetail.propertyData.property_id.description"
+                                    class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                    <strong>
+                                        <center>No property description is added!</center>
+                                    </strong>
+                                </div>
+                                <table class="property-details  prop-card-view prop-list">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <img
+                                                    src="/assets/images/Bedroom-new.png" />{{agreementDetail.propertyData.property_id.number_bedroom}}
+                                            </td>
+                                            <td>
+                                                <img
+                                                    src="/assets/images/Bathroom-new.png" />{{agreementDetail.propertyData.property_id.number_of_bathroom}}
+                                            </td>
+                                            <td>
+                                                <img
+                                                    src="/assets/images/Garage-new.png" />{{agreementDetail.propertyData.property_id.number_of_parking}}
+                                            </td>
+                                            <td>
+                                                <img src="/assets/images/townhouse-new.png" /><span
+                                                    class="text-capitalize">{{agreementDetail.propertyData.property_id.property_type}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div> -->
+                    </div>
+
+
+                    <div class="Watches marT20">
+                        <h5>People involved on this cases</h5>
+                        <ul>
+                            <li ng-repeat="tenant in agreementDetail.propertyData.tenants">
+                                <img ng-src="{{userImageUrl}}{{tenant.users_id.image}}" src="assets/images/no_image.png"
+                                    alt="Tenant Image">
+                                <span class="text-capitalize">{{tenant.users_id.firstname}}
+                                    {{tenant.users_id.lastname}}</span>
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </li>
+                            <div ng-if="agreementDetail.propertyData.tenants.length==0"
+                                class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                <strong>
+                                    <center>No record to display</center>
+                                </strong>
+                            </div>
+                            <!-- <p class="maintWatcher" ng-if="agreementDetail.propertyData.tenants.length==0">No Tenants added yet</p> -->
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#example1").emojioneArea();
+            });
+            $('#sendMsg').click(function () {
+                $('.emojionearea-editor').empty();
+            });
+        </script>

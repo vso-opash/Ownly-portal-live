@@ -1,0 +1,239 @@
+<!-- <link href="/assets/css/style.css" rel="stylesheet" type="text/css">
+<div class="loginBody">
+    <div class="logo"></div>
+    <div class="reg_box " ng-init="getUserInfo()">
+        <h1> You are almost done!</h1>
+        <form id="invite_form" name="invite_form" novalidate>
+            <div class="row ">
+                <div class="col-sm-6 col-xs-12 marB20">
+                    <label>First name</label>
+                    <input type="text" readonly placeholder="Firstname" autocomplete="off" class="formInput cursorSt" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25"
+                        name="firstname" ng-model="userData.firstname" type="text" required/>
+                </div>
+                <div class="col-sm-6 col-xs-12 marB20">
+                    <label>Last name</label>
+                    <input readonly type="text" placeholder="Lastname" class="formInput cursorSt" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" ng-model="userData.lastname"
+                        type="text" name="lastname" required/>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-sm-6 col-xs-12 marB20">
+                    <label>Email address</label>
+                    <input readonly type="text" placeholder="email address" ng-maxlength="254" class="formInput cursorSt" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+                        name="email" ng-model="userData.email" required/>
+                </div>
+                <div class="col-sm-6 col-xs-12 marB20">
+                    <label>Mobile number</label>
+                    <input readonly type="text" class="formInput cursorSt" ng-model="userData.mobile_no" name="mobile_no" ng-maxlength="14" placeholder="mobile" ng-pattern="/^[0-9]/"
+                        ng-model="signStep2.mobile" required/>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-sm-6 col-xs-12 marB20">
+                    <label>Password</label>
+                    <input type="password" class="formInput" placeholder="password" name="password" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                        ng-model="userData.password" required/>
+                    <font color: "Red">
+                        <span ng-show="invite_form.password.$touched && invite_form.password.$error.required" class="redb">
+                            <font color="Red">This field is required.</font>
+                        </span>
+                    </font>
+                    <span class="text-danger" ng-show="invite_form.password.$error.pattern">
+                        <font color="Red">The password must be a combination of lowercase, uppercase, numeric, and special character with a
+                            maximum length of 15</font>
+                    </span>
+                </div>
+                <div class="col-sm-6 col-xs-12 marB20">
+                    <label>Confirm Password</label>
+                    <input type="password" class="formInput" placeholder="confirm password" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                        name="confirmPassword" ng-model="userData.confirmPassword" required/>
+                    <span class="text-danger" ng-show="invite_form.confirmPassword.$error.pattern">
+                        <font color="Red">The confirm password must be a combination of lowercase, uppercase, numeric, and special character
+                            with a maximum length of 15</font>
+                    </span>
+                    <span ng-show="invite_form.confirmPassword.$touched && invite_form.confirmPassword.$error.required" class="redb">
+                        <font color="Red">This field is required.</font>
+                    </span>
+                </div>
+                <div class="row">
+                <div class="col-sm-12 col-xs-12 marB20">
+                        <div class="checkbox marB20">
+                              
+                          <h3>
+                          <input id="checkbox-1"  ng-model="userData.checkedStatus" class="checkbox-custom" name="checkbox-1" type="checkbox" checked>
+                                <label for="checkbox-1" class="checkbox-custom-label">Yes, I understand and agree to <span>Syncitt Conditions</span> including
+                      <span>User agreement</span> and <span>Privacy Policy</span>.</label>
+                          </h3>
+                                                
+                             </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text_center" class="btn-width registration" >
+                <button class="registration" type="button" ng-disabled="invite_form.$invalid" ng-click="submitPassword(userData)">Create account</button>
+            </div>
+        </form>
+    </div>
+    <p class="message">Have an account?
+        <a class="pointer" ui-sref="login">Sign in here</a>
+    </p>
+
+</div>
+<style>
+    body {
+        font-family: "SF UI Text";
+        background-image: url('/assets/images/bg_register.png');
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style> -->
+
+
+
+<div class="section bg_reg" ng-init="getUserInfo()">
+    <div class="container">
+        <div class="logo"></div>
+        <div class="regis">
+            <form id="invite_form" name="invite_form" novalidate>
+                <div class="row">
+                    <h1 class="marB30">You are almost done!</h1>
+                    <div class="row ">
+                        <div class="col-sm-6 col-xs-12 marB20">
+                            <label>First name</label>
+                            <input type="text" autocomplete="off" class="formInput" ng-pattern="/^[a-zA-Z ]*$/"
+                                ng-maxlength="25" name="firstname" ng-model="userData.firstname" type="text" required />
+                            <span ng-show="invite_form.firstname.$touched && invite_form.firstname.$error.required"
+                                class="redb">
+                                <font color="Red">This field is required.</font>
+                            </span>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="invite_form.firstname.$error.pattern"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">First Name Must Contain Alphabet</font>
+                            </span>
+                            <span ng-show="invite_form.firstname.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 25 characters allowed</font>
+                            </span>
+                        </div>
+                        <div class="col-sm-6 col-xs-12 marB20">
+                            <label>Last name</label>
+                            <input type="text" class="formInput" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25"
+                                ng-model="userData.lastname" type="text" name="Last name" required />
+                            <span ng-show="invite_form.lastname.$touched && invite_form.lastname.$error.required"
+                                class="redb">
+                                <font color="Red">This field is required.</font>
+                            </span>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="invite_form.lastname.$error.pattern" class="error-span inner-error ng-binding">
+                                <font color="Red">Last Name Must Contain Alphabet</font>
+                            </span>
+                            <span ng-show="invite_form.lastname.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 25 characters allowed</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6 col-xs-12 marB20">
+                            <label>Email address</label>
+                            <input type="text" ng-maxlength="254" class="formInput"
+                                ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+                                name="email" ng-model="userData.email" required />
+                            <span ng-show="invite_form.email.$error.maxlength" class="redb">
+                                <font color="Red">Max 254 length is allowed.</font>
+                            </span>
+                            <span ng-show="invite_form.email.$error.pattern" class="redb">
+                                <font color="Red">Please Enter valid Email.</font>
+                            </span>
+                            <span ng-show="invite_form.email.$touched && invite_form.email.$error.required"
+                                class="redb">
+                                <font color="Red">This field is required.</font>
+                            </span>
+                        </div>
+                        <div class="col-sm-6 col-xs-12 marB20">
+                            <label>Mobile number</label>
+                            <input type="text" class="formInput" ng-model="userData.mobile_no" name="mobile_no"
+                                ng-maxlength="14" ng-pattern="/^[0-9]*$/" ng-model="signStep2.mobile" required />
+                            <font color: "Red">
+                                <span ng-show="invite_form.mobile_no.$touched && invite_form.mobile_no.$error.required"
+                                    class="redb">
+                                    <font color="Red">This field is required.</font>
+                                </span>
+                            </font>
+                            <span class="text-danger" ng-show="invite_form.mobile_no.$error.pattern">
+                                <font color="Red">Only numbers are allowed.</font>
+                            </span>
+                            <span ng-show="invite_form.mobile_no.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 14 digits are allowed</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6 col-xs-12">
+                            <label>Password</label>
+                            <input type="password" class="formInput" name="password"
+                                ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                                ng-model="userData.password" required />
+                            <font color: "Red">
+                                <span ng-show="invite_form.password.$touched && invite_form.password.$error.required"
+                                    class="redb">
+                                    <font color="Red">This field is required.</font>
+                                </span>
+                            </font>
+                            <span class="text-danger" ng-show="invite_form.password.$error.pattern">
+                                <font color="Red">It has to be a combination of lowercase, uppercase, numeric, and
+                                    special character.</font>
+                            </span>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <label>Confirm Password</label>
+                            <input type="password" class="formInput"
+                                ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                                name="confirmPassword" ng-model="userData.confirmPassword" required />
+                            <!-- <input type="password" placeholder="Confirm Password" class="formInput"  ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/"
+                      name="confirmPassword" ng-model="userData.confirmPassword" valid-password-c="userData.password" required/> -->
+                            <span class="text-danger" ng-show="invite_form.confirmPassword.$error.pattern">
+                                <font color="Red">It has to be a combination of lowercase, uppercase, numeric, and
+                                    special character.</font>
+                            </span>
+                            <span
+                                ng-show="invite_form.confirmPassword.$touched && invite_form.confirmPassword.$error.required"
+                                class="redb">
+                                <font color="Red">This field is required.</font>
+                            </span>
+                            <span class="redb"
+                                ng-show="invite_form.confirmPassword.$touched  && invite_form.confirmPassword.$error.noMatch">
+                                <font color="Red">Confirm password not matched</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12 marB20">
+                            <div class="checkbox marB20">
+                                <h3>
+                                    <input id="checkbox-1" ng-model="userData.checkedStatus" class="checkbox-custom"
+                                        name="checkbox-1" type="checkbox" checked>
+                                    <label for="checkbox-1" class="checkbox-custom-label">Yes, I understand and agree to
+                                        <span>Ownly Conditions</span> including
+                                        <span>User agreement</span> and
+                                        <span>Privacy Policy</span>.</label>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center marB20">
+                        <button ng-click="submitPassword(userData)" type="submit" class="btn-login">Create
+                            account</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <p class="message_line">Have an account?
+            <a ui-sref="login">Log in here</a>
+        </p>
+    </div>
+</div>

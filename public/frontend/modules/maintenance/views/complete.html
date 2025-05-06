@@ -1,0 +1,75 @@
+<!-- <div id="newRequest" class="modal newRequest"> -->
+<!-- Modal content -->
+<div class="modal-content main_newReq" style="width: 100%" ng-init="jobCompletedInit()">
+  <div class="modal-header countermodal-header">
+    <span class="close" ng-click="cancel()">&times;</span>
+    <h3>Mark request as complete</h3>
+  </div>
+  <div class="modal-body clearfix">
+    <form name="jobCompleted" id="jobCompleted" role="form" novalidate autocomplete="off">
+      <div class="row">
+        <span class="counter">
+          <!-- By marking this request as complete, you are automatically sending a request for the confirmation to the user. -->
+          By marking this request as complete, customer will be notified the job has been completed and to rate & review
+          your work. Please attach invoice and photo of your completed work for Customer Reference.
+        </span>
+        <div class="col-lg-12 col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left counterMsg">
+            <label class="control-label counterMsgLabel" for="settingFName">Message</label>
+            <textarea ng-maxlength="800" rows="8" cols="800" type="text" name="message " ng-model="complete.message "
+              class="form-control" placeholder="Message" required></textarea>
+          </div>
+          <span class="error-span inner-error ng-binding "
+            ng-show="jobCompleted.message.$error.required && jobCompleted.message.$touched "
+            class="error-span inner-error ng-binding ">
+            <font color="Red">Message is required</font>
+          </span>
+          <span ng-show="jobCompleted.message.$error.maxlength" class="error-span inner-error ng-binding">
+            <font color="Red">Max 800 characters allowed</font>
+          </span>
+        </div>
+        <div>
+          <ol>
+            <li ng-class="key==0 ? 'active': ''" ng-repeat="(key,files) in complete.images" data-slide-to="{{key}}"
+              data-target="#article-photo-carousel">
+              <button class="counterImg pull-right" type="button" ng-click="RemovePhoto($index)"><i
+                  class="fa fa-close"></i></button>
+              <img alt="Maintenance Image" style="height:100px;width:100px;"
+                ngf-src="!complete.images[key].$error && complete.images[key]" src="http://placehold.it/250x180">
+
+            </li>
+            <i ng-show="jobCompleted.file1.$error.maxSize">
+              <font color="Red">File too large max allowed size is 160MB</font>
+            </i>
+          </ol>
+          <ol>
+            <li ng-class="key==0 ? 'active': ''" ng-repeat="(key,files) in choosenFiles" data-slide-to="{{key}}"
+              data-target="#article-photo-carousel">
+              <button class="counterImg pull-right" type="button" ng-click="RemovePhotoFromMyFiles(key)"><i
+                  class="fa fa-close"></i></button>
+              <img alt="Maintenance Image" style="height:100px;width:100px;" ng-src="{{fileImageUrl}}{{files.path}}"
+                src="http://placehold.it/250x180">
+
+            </li>
+            <i ng-show="jobCompleted.file1.$error.maxSize">
+              <font color="Red">File too large max allowed size is 160MB</font>
+            </i>
+          </ol>
+        </div>
+        <div class="row">
+          <a class="maintAttach pointer" ngf-drop ngf-select ng-model="complete.images" class="drop-box"
+            ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-resize="{width: 1306, height: 400}"
+            ngf-max-size="160MB" ngf-allow-dir="true" accept="image/*,application/pdf" ngf-allow-dir="true">Attach
+            files</a>
+          <!-- <p class="maintChoose"> Or </p> -->
+          <!-- <a class="pointer" ng-click="chooseFromMyFiles()">Choose from My files</a> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-savechanges" ladda="loginLoading" data-style="slide-right"
+          ng-click="jobDone(complete)">Mark as complete</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- </div> -->

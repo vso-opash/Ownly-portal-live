@@ -1,0 +1,41 @@
+<div class="modal-content" style="width: 100%;" id="modal">
+        <div class="modal-header">
+            <button class="close" type="button" ng-click="close()">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 id="myModalLabel" class="modal-title">
+                <h3>My files</h3>
+            </h3>
+        </div>
+        <div class="modal-body clearfix" ng-init="filesInitialize()">
+            <form novalidate="">
+                            <div class="horiLine"></div>
+                                <div class="row file_list" ng-repeat="(key,document_listing) in documentList">
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3"><label class="check_container">
+                                    <input type="checkbox" value="{{document_listing}}" checklist-model="user" checklist-value="$index"><span class="checkmark"></span></label></div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                        <div class="atch_img img-responsive">
+                                            <div class="over">
+                                                <img ng-click="openImages(document_listing.document_path)" src="assets/images/doc.jpg" ng-src="{{fileImageUrl}}{{document_listing.document_path}}" class="img-responsive" alt="atch1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-6">
+                                        <div class="attchment-name">
+                                            {{document_listing.document_name}}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
+                                        {{document_listing.size}} KB
+                                    </div>
+                                </div>
+                                <div ng-if="documentList.length==0" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                                    <strong>No Files found!</strong>
+                                </div>
+                     <div class="modal-footer">
+                    <button class="btn btn-savechanges" ng-click="saveFile(user)">Upload</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>

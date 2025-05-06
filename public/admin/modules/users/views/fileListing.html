@@ -1,0 +1,115 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            File Management
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">
+                    <i class="fa fa-dashboard"></i> Dashboard </a>
+            </li>
+            <li>
+                <a ui-sref="FileManagement">
+                    <i class="fa fa-user-secret"></i>File Management</a>
+            </li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                            <div class="pull-right"><a ng-click="back()" ><i class="fa fa-angle-left margin-r-5" aria-hidden="true"></i> Back</a></div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-7">
+                                <div class="input-group input-group col-sm-6">
+                                    <input name="table_search" ng-model="searchUser" class="form-control pull-right ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"
+                                        placeholder="Search by Name" id="datepicker" autocomplete="false" required=""
+                                        type="text">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" ng-click="searchUserAdmin(searchUser)">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                        <button class="btn btn-default" ng-click="getUserFileListing()" title="Refresh user list" style="margin-left:6px;">
+                                            <i class="fa fa-refresh"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-5 text-right ng-scope">
+                                <!-- <div class="input-group input-group-sm pull-right">
+                                        <a class="btn btn-primary btn-flat btn-sm" ui-sref="addUser" title="Add user">Add New User</a>
+                                    </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body box box-warning table-responsive" ng-init="getUserFileListing()">
+                        <table class="table table-bordered  ng-table">
+                            <thead class="">
+                                <tr>
+                                    <th title="" class="header" style="cursor:default">
+                                        <div class="ng-table-header ">
+                                            <span>Image</span>
+                                        </div>
+
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header " ng-click='sortRecentUserColumn("document_name")' ng-class='sortClass("document_name")'>
+                                            <span>File Name</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header " ng-click='sortRecentUserColumn("updatedAt")' ng-class='sortClass("updatedAt")'>
+                                            <span>Created At</span>
+                                        </div>
+
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header " ng-click='sortRecentUserColumn("size")' ng-class='sortClass("size")'>
+                                            <span>Size</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable ">
+                                        <div class="ng-table-header changeCursorType">
+                                            <span>Action</span>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="document_listing in userFileList|orderBy:columnUser:reverseUser| itemsPerPage:8| filter:searchUser" class="">
+                                    <td>
+                                        <span class="chat-img pull-left">
+                                                <img width="100px" ng-if="!document_listing.document_type" ng-click="openImages(document_listing.document_path)" src="/assets/images/doc.jpg" ng-src="{{imageUrl}}{{document_listing.document_path}}" class="img-responsive" alt="">                                
+                                                <img width="100px" ng-if="document_listing.document_type=='excel'" src="/assets/images/xls.png" class="img-responsive disable agreeAttch"  alt="atch1">
+                                                <img width="100px" ng-if="document_listing.document_type=='doc'" src="/assets/images/word.png" class="img-responsive disable agreeAttch"  alt="atch1">
+                                                <img width="100px" ng-if="document_listing.document_type=='pdf'" src="/assets/images/pdf.png" class="img-responsive disable agreeAttch"  alt="atch1">
+                                                <img width="100px" ng-if="document_listing.document_type=='ppt'" src="/assets/images/ppt.png" class="img-responsive disable agreeAttch"  alt="atch1">    
+                                        </span>
+                                    </td>
+                                    <td class="text-capitalize">{{document_listing.document_name}}</td>
+                                    <td>{{document_listing.updatedAt |date}}</td>
+                                    <td>
+                                        <center>{{document_listing.size}} KB</center>
+                                    </td>
+                                    <td data-title="'Actions'" class="actions" data-title-text="Actions" align="center">
+                                        <a target="_blank" href="{{imageUrl}}{{document_listing.document_path}}" download>
+                                            <i class="fa fa-download" aria-hidden="true" title="Download File"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="userList.length==0" style='color:#605ca8;font-size: 15px;'>
+                            <center>No records found</center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right" style="font-size:14px;margin-bottom:25px;margin-top:-11px;margin-right: 13px;">
+                <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                </dir-pagination-controls>
+            </div>
+        </div>
+    </section>
+</div>

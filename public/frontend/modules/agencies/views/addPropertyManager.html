@@ -1,0 +1,131 @@
+<div class="modal-content" style="width: 100%" id="modal">
+  <div class="modal-header">
+    <button class="close" type="button" ng-click="cancel()">
+      <span aria-hidden="true">×</span>
+    </button>
+    <h3 id="myModalLabel" class="modal-title">
+      <strong>Add Property Manager</strong>
+    </h3>
+  </div>
+  <div class="modal-body">
+    <!-- agreementListing() -->
+    <form  name="createPropertyManagerForm" method="post" autocomplete="off" role="form" novalidate >
+      <div class="row" ng-init="initializeAddManager()">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingFName">First Name<font color="Red">*</font></label>
+            <input type=" text " name="firstname" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" ng-model="propertyManager1.firstname " class="form-control"
+              placeholder="First Name " required>
+            <span class="error-span inner-error ng-binding " ng-show="createPropertyManagerForm.firstname.$error.required && createPropertyManagerForm.firstname.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">First name is Required</font>
+            </span>
+            <span class="error-span inner-error ng-binding" ng-show="createPropertyManagerForm.firstname.$error.pattern" class="error-span inner-error ng-binding">
+              <font color="Red">First Name Must Contain Alphabet</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.firstname.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 25 characters allowed</font>
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="settingLName">Last Name<font color="Red">*</font></label>
+            <input type="text " name="lastname" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" ng-model="propertyManager1.lastname " class="form-control"
+              placeholder="Last Name " required>
+            <span class="error-span inner-error ng-binding " ng-show="createPropertyManagerForm.lastname.$error.required && createPropertyManagerForm.lastname.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Last name is Required</font>
+            </span>
+            <span class="error-span inner-error ng-binding" ng-show="createPropertyManagerForm.lastname.$error.pattern" class="error-span inner-error ng-binding">
+              <font color="Red">Last Name Must Contain Alphabet</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.lastname.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 25 characters allowed</font>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="product_categorie">Email<font color="Red">*</font></label>
+            <input type="text" ng-maxlength="254" name="email " ng-model="propertyManager1.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+              class="form-control " placeholder="example@syncitt.com " required>
+            <span ng-show="createPropertyManagerForm.email.$error.maxlength" class="redb">
+              <font color="Red">Max 254 length is allowed.</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.email.$error.pattern" class="redb">
+              <font color="Red">Please Enter valid Email.</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.email.$touched && createPropertyManagerForm.email.$error.required" class="redb">
+              <font color="Red">This field is required.</font>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="product_categorie">Phone Number<font color="Red">*</font></label>
+            <input type="text" name="mobile_no" ng-model="propertyManager1.mobile_no" class="form-control " ng-maxlength="14" placeholder="Phone Number"
+              ng-pattern="/^[0-9]/" min="0" required>
+            <span class="error-span inner-error ng-binding " ng-show="createPropertyManagerForm.phone_number.$error.required && createPropertyManagerForm.phone_number.$touched "
+              class="error-span inner-error ng-binding ">
+              <font color="Red">Phone number is Required</font>
+            </span>
+            <span class="text-danger" ng-show="createPropertyManagerForm.mobile_no.$error.pattern">
+              <font color="Red">Only positive numbers are allowed.</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.mobile_no.$error.maxlength" class="error-span inner-error ng-binding">
+              <font color="Red">Max 14 digits are allowed</font>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group text-left">
+            <label class="control-label" for="product_categorie">Password<font color="Red">*</font></label>
+            <input class="form-control frmInput" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{5,15}$/" name="password1"
+              placeholder="Password"  ng-model="propertyManager1.pwd" type="password" ng-maxlength="15" required/>
+            <span class="text-danger" ng-show="createPropertyManagerForm.password1.$error.pattern">
+              <font color="Red">It has to be a combination of lowercase, uppercase, numeric, and special character.</font>
+            </span>
+            <span ng-show="createPropertyManagerForm.password1.$touched && createPropertyManagerForm.password1.$error.required" class="redb">
+              <font color="Red">This field is required.</font>
+            </span>
+            <span class="text-danger" ng-show="createPropertyManagerForm.password1.$error.maxlength">
+              <font color="Red">Max allowed length is 15.</font>
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group text-left">
+              <label class="control-label" for="product_categorie">Confirm Password<font color="Red">*</font></label>
+              <input class="form-control frmInput" ng-pattern="\b{{propertyManager1.pwd}}\b" name="password2"
+                placeholder="Confirm Password"  ng-model="propertyManager1.conPwd" type="password" ng-maxlength="15" required/>
+              <!-- <span class="text-danger" ng-show="createPropertyManagerForm.password2.$error.pattern">
+                <font color="Red">It has to be a combination of lowercase, uppercase, numeric, and special character.</font>
+              </span> -->
+
+              <span ng-show="createPropertyManagerForm.password2.$touched && createPropertyManagerForm.password2.$error.required" class="redb">
+                <font color="Red">This field is required.</font>
+              </span>
+              <span class="text-danger" ng-show="createPropertyManagerForm.password2.$touched && createPropertyManagerForm.password2.$error.pattern && propertyManager1.pwd.length>0 ">
+                <font color="Red">Password & Confirm Password are not same</font>
+              </span>
+              <span class="text-danger" ng-show="createPropertyManagerForm.password2.$error.maxlength">
+                  <font color="Red">Max allowed length is 15.</font>
+                </span>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-savechanges" type="button" ladda="loginLoading" data-style="slide-right" ng-disabled="createPropertyManagerForm.$invalid" ng-click="addManager(propertyManager1)">Invite</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- <script>
+    $("#modal .close ").click()
+</script> -->

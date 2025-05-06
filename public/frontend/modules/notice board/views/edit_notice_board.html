@@ -1,0 +1,84 @@
+<div class="modal-content" style="width: 100%;" id="modal" ng-init="getAgencyProperty();noticeBoardInit();getNoticeBoardDetailPage();$rootScope.editNoticeProperties();">
+        <div class="modal-header">
+            <button class="close" type="button" ng-click="cancel()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            <h3 id="myModalLabel" class="modal-title">
+                <h3>Edit notice board</h3>
+            </h3>
+        </div>
+        <div class="modal-body clearfix">
+    
+            <form novalidate="" name="createNoticeForm" autocomplete="off">
+                <!-- <div class="row  marT20">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group text-left">
+                            <label class="control-label" for="product_categorie">Post title<font color="Red">*</font></label>
+                            <input type="text" class="form-control" name="postTitle" ng-model="noticeData.title" maxlength="400" required>
+                            <span ng-show="noticeData.title.length>399" class="error-span inner-error ng-binding">
+                                                <font color="Red">Max 400 characters allowed</font>
+                                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group text-left">
+                            <label class="control-label" for="product_categorie">Post details / descriptions<font color="Red">*</font></label>
+                            <textarea class="form-control" name="description" ng-model="noticeData.description" maxlength="1000" required> </textarea>
+                            <span ng-show="noticeData.description.length>999" class="error-span inner-error ng-binding">
+                                        <font color="Red">Max 1000 characters allowed</font>
+                                </span>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="row  marT20">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group text-left">
+                            <label class="control-label" for="product_categorie">Select property<font color="Red">*</font></label>
+                            <!-- <select name="selectProperty" ng-model="notice.property_id" name="created_by" class="form-control" required>
+                                  <option value="" disabled>Select Property </option>
+                                  <option ng-repeat="property in propertyList" value="{{property._id}}">{{property.address}}</option>
+                                </select> -->
+                            <div on-item-click="getEditUsersCount(newEditNoticeProperties)" isteven-multi-select input-model="checkedListProperty" output-model="newEditNoticeProperties" button-label="address" item-label="address"
+                                tick-property="ticked"></div>
+                            <span class="error-span inner-error ng-binding " ng-show="createNoticeForm.selectProperty.$error.required && createNoticeForm.selectProperty.$touched "
+                                class="error-span inner-error ng-binding ">
+                                <font color="Red">Select property is required</font>
+                              </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2 col-sm-2 col-md-8 marB10">
+                        <div class="add_members">
+                            <label class="control-label" for="product_categorie">Add Members<font color="Red">*</font></label>
+    
+                            <label class="check_container">
+                                    <input type="checkbox" ng-change="onClickFn(allOption)" ng-model="checkboxModel[allOption]" checked="checked"> {{allOption}} ({{totalCount}})
+                                        <span class="checkmark"></span>
+                                    </label>
+                            <div ng-repeat="(key,item) in data">
+                                <label class="check_container">{{item.name}}
+                                        <input type="checkbox" ng-change="onClickFn(item)" ng-model="checkboxModel[item]" checked="checked"> {{Items[key].name}}
+                                        <div class="count" ng-if="Items[key].name=='Agent'">({{agentCount}})</div>
+                                        <div class="count" ng-if="Items[key].name=='Tenant'">({{tenantCount}})</div>
+                                        <div class="count" ng-if="Items[key].name=='Property Owner'">({{ownerCount}})</div>
+                                        <div class="count" ng-if="Items[key].name=='Agency Owner'">({{agencyCount}})</div>
+                                        <span class="checkmark">
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="modal-footer">
+                    <button class="btn btn-savechanges" ng-click="saveNotice(noticeData)">Update</button>
+                </div>
+            </form>
+        </div>
+    
+    </div>
+    
+    <!-- searchAll = null -->
+    <!-- $scope.searchAll = ""; -->

@@ -1,0 +1,369 @@
+<div class="container">
+  <div class="row marT20">
+    <div class="setting-section" ng-init="getPropertyDetails();getPropertyAgreement();">
+      <ol class="breadcrumb">
+        <li><a class="text-capitalize pointer" ui-sref="propertyListing">Properties</a></li>
+        <li><a class="active text-capitalize "> {{propertyDetails.address | limitTo:200}}
+            {{propertyDetails.address > 200 ? "..." : ""}}</a></li>
+      </ol>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 horiLine marB30">
+        <div class="col-sm-7 project-detail marB20 ">
+          <h5>{{propertyDetails.address}}</h5>
+          <div ng-if="tenantsName.length && userLinkedProperty==true"> <span><img src="/assets/images/property-id.svg"
+                alt="id">Tenanted </span>
+            <span class="text-capitalize" ng-repeat="name in tenantsName"
+              ng-if="name.invited_to && name.invited_to != null && name.invited_to.firstname != ''">
+              <img src="/assets/images/use-user.svg" alt="user">
+              {{name.invited_to.firstname}} {{name.invited_to.lastname}}
+            </span>
+          </div>
+          <!-- <div class="row">
+                        <span class="alignPropertyId ng-binding">Property Id: #{{propertyDetails.property_id}}</span>
+                    </div> -->
+        </div>
+        <div ng-if="is_creater || createrAgency" class="col-sm-5 marT10 text-right">
+          <!-- <button ng-if="roleId==agencyCode||roleId==agentCode" class="btn btn-import" type="file" ngf-select="uploadCsv($file)" ngf-pattern="'.csv'" accept=".csv" ngf-max-height="1000" ngf-max-size="1MB"><i class="fa fa-cloud-upload" aria-hidden="true"></i>Import from CSV</button> -->
+          <button class="btn btn-property" ng-click="goToEditProperty(propertyDetails._id)"><i class="fa fa-pencil"
+              aria-hidden="true"></i>Edit property</button>
+        </div>
+        <!-- <div ng-if="!is_creater" class="col-sm-5 marT10">
+                    <button ng-if="roleId==agencyCode||roleId==agentCode" class="btn btn-import" type="file" ngf-select="uploadCsv($file)" ngf-pattern="'.csv'" accept=".csv" ngf-max-height="1000" ngf-max-size="1MB"><i class="fa fa-cloud-upload" aria-hidden="true"></i>Import from CSV</button>
+                </div>  -->
+        <!-- <div  ng-if="is_creater"  class="col-sm-2 marT10">
+                    <button  class="btn btn-import" type="file" ng-click="addPropertyAgreement(propertyDetails._id)"><i class="fa fa-cloud-upload" aria-hidden="true"></i>Upload documents</button>
+                 </div> -->
+      </div>
+
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"
+        ng-init="getPropertyTenantHistory();getPropertyMaintenanceHistory();">
+        <div class="property_Detail horiLine">
+          <div class="carousel slide article-slide" id="article-photo-carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner cont-slider pointer">
+              <div ng-class="key==0 ? 'item active':'item'" ng-repeat="(key,files) in propertyDetails.image">
+                <img ng-if="files.path && files.is_from_my_file==false && files.is_from_csv_file==false" alt="" title=""
+                  src="{{imageUrl}}{{files.path}}">
+                <!-- ng-click="openFullScreenSlider(propertyDetails.image)"  -->
+                <img ng-if="files.path && files.is_from_my_file==true && files.is_from_csv_file==false"
+                  src="{{fileImageUrl}}{{files.path}}" alt="propimg">
+                <!-- ng-click="openFullScreenSlider(propertyDetails.image)" -->
+                <img ng-if="files.path && files.is_from_csv_file==true && files.is_from_my_file==false"
+                  src="{{files.path}}" alt="propimg">
+                <!-- ng-click="openFullScreenSlider(propertyDetails.image)"  -->
+              </div>
+              <div ng-if="propertyDetails.image.length<1" class="item active">
+                <img src="assets/images/placeholder.jpg">
+              </div>
+            </div>
+            <!-- Indicators -->
+            <ol class="carousel-indicators clearfix" id="style-2-prop">
+
+              <li ng-class="key==0 ? 'active': ''" ng-repeat="(key,files) in propertyDetails.image"
+                data-slide-to="{{key}}" data-target="#article-photo-carousel">
+                <img alt="" ng-if="files.is_from_my_file==false  && files.is_from_csv_file==false"
+                  src="{{imageUrl}}thumb/{{files.path}}">
+                <img ng-if="files.path && files.is_from_my_file==true  && files.is_from_csv_file==false"
+                  src="{{fileImageUrl}}{{files.path}}" alt="propimg">
+                <img ng-if="files.path && files.is_from_csv_file==true && files.is_from_my_file==false"
+                  ng-click="openFullScreenSlider(propertyDetails.image)" src="{{files.path}}" alt="propimg">
+              </li>
+              <li ng-if="propertyDetails.image.length<1" class="active" data-slide-to="0"
+                data-target="#article-photo-carousel">
+                <img src="assets/images/placeholder.jpg">
+              </li>
+
+            </ol>
+          </div>
+        </div>
+        <div ng-if="agreementDetails && userLinkedProperty==true" class="appart_info marB20 marT20 clearfix">
+          <div class="col-sm-12 apt-list">
+            <h5><a href="/#!/detail_agreement/{{agreementDetails._id}}">{{agreementDetails.property_id.address}}
+                : Agreement #{{agreementDetails.agreement_id}}</a></h5>
+            <div class="apt-list-tagline">
+              <!-- {{agreementDetails.address_service_notice1}}    -->
+            </div>
+            <div class="apt-list-details">
+              <ul>
+                <!-- <li class="apt-firstuser" ng-repeat="tenant in agreementDetails.tenants"><img
+                                        ng-src="{{createrImageUrl}}{{tenant.users_id.image}}"
+                                        src="/assets/images/no_image.png"></li> -->
+                <li class="apt-firstuser" ng-repeat="tenant in agreementDetails.tenants"><img
+                    ng-src="{{createrImageUrl}}{{tenant.users_id.image}}" err-src="/assets/images/no_image.png"></li>
+                <!-- <li class="apt-firstuser"><img src="/assets/images/user.jpg"></li> -->
+                <li class="apt-list-img">
+                  <!-- <img src="/assets/images/no_image.png" ng-src="{{createrImageUrl + tenant.owner_id.image}}"> -->
+                  <img err-src="/assets/images/no_image.png" ng-src="{{createrImageUrl + tenant.owner_id.image}}">
+                  <!-- <img ng-src="{{createrImageUrl}}{{tenant.owner_id.image}}" err-src="/assets/images/no_image.png"> -->
+                </li>
+                <!-- <li class="apt-list-img"><img src="/assets/images/user.jpg"><img src="/assets/images/userpic.png"></li> -->
+                <li class="apt-list-icon"><img
+                    src="/assets/images/dollar.png"><span>{{agreementDetails.rent_price}}</span>
+                </li>
+                <li class="apt-list-icon"><img
+                    src="/assets/images/calendar.png"><span>{{agreementDetails.tenancy_start_date?agreementDetails.tenancy_start_date:'-'
+                    | date}}</span></li>
+                <li class="apt-list-icon"><img src="/assets/images/search.png"><span
+                    ng-show="agreementDetails.terms==1">Monthly</span><span
+                    ng-show="agreementDetails.terms==2">Yearly</span></li>
+                <li ng-show="!(agreementDetails.inspection_date[0]>todayDate)" class="apt-list-icon">
+                  <img
+                    src="/assets/images/calendar-serch-red.png"><span>{{agreementDetails.inspection_date?agreementDetails.inspection_date[0]:'-'
+                    | date}}</span>
+                </li>
+                <li ng-show="agreementDetails.inspection_date[0]>todayDate" class="apt-list-icon"><img
+                    src="/assets/images/calendar-serch.png"><span>{{agreementDetails.inspection_date?agreementDetails.inspection_date[0]:'-'
+                    | date}}</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="prop_des horiLine">
+          <h5>About this property</h5>
+          <p ng-text-truncate="propertyDetails.description" ng-tt-chars-threshold="500" ng-tt-more-label="Show more"
+            ng-tt-less-label="Show less"></p>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div style="cursor: not-allowed;" class="amenities_on_detail property_amenities horiLine clearfix"
+          ng-init="getAmenities()">
+          <h5>Amenities</h5>
+          <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i> <span>Wireless internet</span>
+                    </div> -->
+          <div class="row amenities-list">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" ng-repeat="(key, amenities_list) in amenitiesList">
+              <div class="form-group">
+                <div class="control-group">
+                  <label class="control control-checkbox" style="color: gray;">
+                    {{amenities_list.name}}
+                    <input type="checkbox" ng-model="propertyDetails.amenities[key].is_checked"
+                      class="fa fa-check-circle" value="false" onclick="return false;" />
+
+                    <div class="control_indicator"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-if="propertyDetails.other_amenity" class="amenities  horiLine clearfix">
+          <h5>Other Amenities</h5>
+          <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i> <span>Wireless internet</span>
+                    </div> -->
+          <p ng-bind-html="propertyDetails.other_amenity"></p>
+
+          <!-- <div class="form-group">
+                            <div class="control-group">
+                                <label class="control control-checkbox" style="color: gray;">
+                                {{amenities_list.name}}
+                                <div class="control_indicator"></div>
+                                </label>
+                            </div>
+                        </div> -->
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="map">
+          <h5>Map and location</h5>
+          <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3014.8378886747823!2d-74.17616368516894!3d40.91930023284541!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2fdca89f8497f%3A0x8847b207521b7611!2s37+Broadway%2C+Paterson%2C+NJ+07505%2C+USA!5e0!3m2!1sen!2sin!4v1508935702434"
+                        style="border:0" allowfullscreen="" width="100%" height="350" frameborder="0"></iframe> -->
+          <div id="googleMap" style="width:100%;height:300px;"></div>
+        </div>
+
+
+        <!-- <div class="his_sale">
+                    <h5>History of sales</h5>
+                    <p>Eut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non num- quam eius modi tempora
+                        incidun
+                    </p>
+                    <p>Eut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                </div> -->
+
+
+        <div ng-show="tenantHistoryDetails.length && userLinkedProperty==true" class="his_tenat">
+          <h5>History of tenancies</h5>
+          <div class="appart_info marT10 clearfix" ng-repeat="tenantHistory in tenantHistoryDetails">
+            <div class="col-sm-12 apt-list">
+              <h5><a href="/#!/detail_agreement/{{tenantHistory._id}}">{{tenantHistory.property_id.address}}
+                  : Agreement #{{tenantHistory.agreement_id}}</a></h5>
+              <div class="apt-list-tagline">
+                <!-- {{tenantHistory.address_service_notice1}} -->
+              </div>
+              <div class="apt-list-details">
+                <ul>
+                  <li class="apt-list-img">
+                    <!-- <img src="/assets/images/no_image.png" ng-src={{createrImageUrl}} {{tenantHistory.owner_id.image}}> -->
+                    <img ng-src="{{createrImageUrl}}{{tenantHistory.owner_id.image}}"
+                      err-src="/assets/images/no_image.png">
+                  </li>
+                  <li class="apt-firstuser" ng-repeat="tenant in tenantHistory.tenants">
+                    <!-- <img src="/assets/images/no_image.png" ng-src="{{createrImageUrl}}{{tenant.users_id.image}}"> -->
+                    <img ng-src="{{createrImageUrl}}{{tenant.users_id.image}}" err-src="/assets/images/no_image.png">
+                  </li>
+                  <li class="apt-list-icon"><img
+                      src="/assets/images/dollar.png"><span>{{tenantHistory.rent_price}}</span>
+                  </li>
+                  <li class="apt-list-icon"><img
+                      src="/assets/images/calendar.png"><span>{{tenantHistory.tenancy_start_date?tenantHistory.tenancy_start_date:'-'
+                      | date}}</span></li>
+                  <!-- <li ng-show="tenantHistory.tenancy_start_date" class="apt-list-icon"><img src="/assets/images/calendar.png"><span>{{tenantHistory.tenancy_start_date | date}}</span></li> -->
+                  <li class="apt-list-icon"><img src="/assets/images/search.png"><span
+                      ng-show="tenantHistory.terms==1">Monthly</span><span
+                      ng-show="tenantHistory.terms==2">Yearly</span></li>
+
+                  <li ng-show="!(tenantHistory.inspection_date[0]>todayDate)" class="apt-list-icon">
+                    <img
+                      src="/assets/images/calendar-serch-red.png"><span>{{tenantHistory.inspection_date[0]?tenantHistory.inspection_date[0]:'-'
+                      | date}}</span>
+                  </li>
+                  <li ng-show="tenantHistory.inspection_date[0]>todayDate" class="apt-list-icon"><img
+                      src="/assets/images/calendar-serch.png"><span>{{tenantHistory.inspection_date[0]?tenantHistory.inspection_date[0]:'-'
+                      | date}}</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div ng-show="!tenantHistoryDetails.length" class="alert alert-info fade in alert-dismissable"
+            style="margin-top:18px;">
+            <strong>No Record Found</strong>
+          </div>
+        </div>
+
+        <div ng-show="maintenanceHistoryDetails.length && userLinkedProperty==true" class="his_maint">
+          <h5>History of maintenance</h5>
+          <div class="his_main marT10 clearfix" ng-repeat="maintenanceHistory in maintenanceHistoryDetails">
+            <div class="col-sm-12 his_main_list">
+              <div class="his_img"><img ng-if="maintenanceHistory.created_by.image"
+                  ng-src="{{createrImageUrl}}{{maintenanceHistory.created_by.image}}" src="/assets/images/no_image.png">
+                <div ng-if="!maintenanceHistory.created_by.image" class="col-sm-3 default_60">
+                  {{maintenanceHistory.created_by.firstname.charAt(0).toUpperCase()}}{{maintenanceHistory.created_by.lastname.charAt(0).toUpperCase()}}
+                </div>
+              </div>
+
+              <div class="detail">
+                <h4><a
+                    href="/#!/maintance_detail/{{maintenanceHistory._id}}">{{maintenanceHistory.request_overview}}</a>
+                </h4>
+                <span><img src="/assets/images/property-id.svg" alt="id">Request ID:
+                  {{maintenanceHistory.request_id}} </span><span> <img src="/assets/images/use-user.svg" alt="user">
+                  {{maintenanceHistory.created_by.firstname}}</span>
+              </div>
+            </div>
+          </div>
+          <div ng-show="!maintenanceHistoryDetails.length" class="alert alert-info fade in alert-dismissable"
+            style="margin-top:18px;">
+            <strong>No Record Found</strong>
+          </div>
+        </div>
+        <div
+          ng-show="( (propertyDetails.created_by_agency_id == logged_in_agency_id && agentCode == roleId) || propertyDetails.owned_by == loggedIn || propertyDetails.created_by._id == loggedIn) && (applicant_list && applicant_list.length > 0)"
+          class="his_maint">
+          <h5>Applicants</h5>
+          <div class="his_main marT10 clearfix"
+            ng-repeat="applicant in applicant_list | orderBy : '-created' : false : dateComparator">
+            <div class="col-sm-12 his_main_list applicant-container">
+              <div class="his_img applicant-img"><img ng-if="applicant.created_by.image"
+                  ng-src="{{createrImageUrl}}{{applicant.created_by.image}}" src="/assets/images/no_image.png">
+                <div ng-if="!applicant.created_by.image" class="col-sm-3 default_60">
+                  {{applicant.created_by.firstname.charAt(0).toUpperCase()}}{{applicant.created_by.lastname.charAt(0).toUpperCase()}}
+                </div>
+              </div>
+              <div class="detail applicant-content">
+                <div class="">
+                  <span class="text-capitalize applicant-name">{{applicant.created_by.firstname}}
+                    {{applicant.created_by.lastname}}</span>
+                  <div class="applicant-second-wrap">
+                    <div class="rating-new clearfix rate_ball">
+                      <span uib-rating ng-model="applicant.averageRate" max="5" read-only="true"
+                        on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']"
+                        aria-labelledby="default-rating"></span>
+                      <!-- </div>
+                                        <div> -->
+                      {{propertyDetails.address | limitTo:60}}
+                    </div>
+                  </div>
+                </div>
+                <div class="applicant-second-wrap">
+                  <a target="_blank" href="/#!/view_application/{{applicant._id}}" class="btn btn-primary">View
+                    Application</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-show="!applicant_list.length" class="alert alert-info fade in alert-dismissable"
+            style="margin-top:18px;">
+            <strong>No Record Found</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="pr-btn-wrapper" ng-show="userActiveRoleId == tenant">
+          <a class="btn-property cst-btn-property" href="/#!/application_property/{{propertyDetails._id}}">Apply
+            for this property</a>
+        </div>
+        <!-- <div class="syncProfile"><button class="btn btn-property">Apply with SyncProfile</button> -->
+        <!-- <a ng-if="is_creater" ng-click="deleteProperty(propertyDetails.created_by._id)" class="pointer col-lg-1 deleteProperty" title="delete property" ><img title="Delete" src="assets/images/ios-trash.svg"></a>   -->
+        <!-- </div> -->
+        <div class="features">
+          <ul>
+            <li><i class="fa fa-map-marker" aria-hidden="true"></i> <span>{{propertyDetails.address}}</span>
+            </li>
+            <li><img src="assets/images/Bedroom-new.png" alt="bed"><span>{{propertyDetails.number_bedroom}}
+                Bedrooms</span></li>
+            <li><img src="assets/images/Bathroom-new.png" alt="bath"><span>{{propertyDetails.number_of_bathroom}}
+                Bathrooms</span>
+            </li>
+            <li> <img src="assets/images/Garage.svg" alt="garage"><span>{{propertyDetails.number_of_parking}}
+                Carports</span></li>
+            <li><i class="fa fa-home" aria-hidden="true"></i> <span
+                class="text-capitalize">{{propertyDetails.property_type}}</span></li>
+          </ul>
+          <div class="row">
+            <span class="spaceLeft">Floor Area(m2) - {{propertyDetails.floor_area}}</span>
+          </div>
+          <div class="row">
+            <span class="spaceLeft">Lot Area(m2) - {{propertyDetails.lot_erea}}</span>
+          </div>
+        </div>
+        <div class="agent_profile marT20 clearfix">
+          <div class="contact_info online-symb">
+            <div class="inspection">
+              <img ng-if="propertyDetails.created_by.image"
+                src="{{createrImageUrl}}{{propertyDetails.created_by.image}}" alt="" style="height:118px;width:119px">
+              <span
+                ng-class="propertyDetails.created_by.is_online == true ? 'colorGreen_tenant' : 'profile-detail-agnt-dot'"></span>
+
+              <div ng-if="!propertyDetails.created_by.image" class="default_100">
+                {{propertyDetails.created_by.firstname.charAt(0).toUpperCase()}}{{propertyDetails.created_by.lastname.charAt(0).toUpperCase()}}
+              </div>
+            </div>
+            <h5>{{propertyDetails.created_by.firstname}} {{propertyDetails.created_by.lastname}}</h5>
+            <div class="rating">
+              <span uib-rating ng-model=createdByRate.data max="max" read-only="true" on-hover="hoveringOver(value)"
+                on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+            </div>
+            <div class="clearfix"></div>
+            <p>{{createdByRate.data}} from {{createdByRate.total_review}} reviews</p>
+            <button ng-if="propertyDetails.created_by._id!=loggedIn"
+              ng-click="openAgentSendMessage(propertyDetails.created_by._id, propertyDetails.created_by.firstname)"
+              class="btn btn-property">Contact Agent</button>
+          </div>
+          <ul>
+            <li>Location<span>{{propertyDetails.created_by.city | limitTo: 50}},
+                {{propertyDetails.created_by.state | limitTo: 50}}</span></li>
+            <li>Phone number<span>{{propertyDetails.created_by.mobile_no}}</span></li>
+            <li>Joined<span>{{propertyDetails.created_by.createdAt|date}}</span></li>
+          </ul>
+        </div>
+        <!-- <div class="generate marB20">
+                    <h5>Generate report for this property</h5>
+                    <button class="btn btn-import"><img src="assets/images/reports_green.png" alt="report">Generate Reports</button>
+                </div> -->
+      </div>
+    </div>
+
+  </div>
+</div>

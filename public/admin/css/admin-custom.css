@@ -1,0 +1,48 @@
+.box-body > .table {
+   margin-bottom: 20px;
+}
+
+.no-side-padding {
+   padding-left: 0;
+}
+
+.ng-table .header {
+   background-color: #383838 !important;
+}
+
+.ng-table-counts.btn-group .btn.btn-default.ng-scope.active {
+   background-color: #605ca8 !important;
+}
+
+.pagination li.disabled a {
+   background-color: #605ca8 !important;
+}
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{
+     background-color: #605ca8 !important;
+     border-color: #fff !important;
+}
+#loading-bar .bar{
+	   background-color: #383838 !important;
+}
+
+.skin-yellow-light .sidebar-menu > li:hover > a, .skin-yellow-light .sidebar-menu > li.active > a {
+    color: #fff;
+    background: #605ca8;
+    border-left-color: #f39c12;
+}
+
+.redb_center {
+    color: red;
+    text-align: center;
+}
+
+/*admin dashboard image start*/
+.imageIcon{
+   margin-bottom: 20px;
+   max-height: 105px; 
+   opacity: 0.7; 
+   width: auto;
+}
+/*admin dashboard image end*/
+
+.actions-icons img {max-width:15px; display:block; margin:2px 0;}

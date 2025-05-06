@@ -1,0 +1,19 @@
+<div class="section bg">
+    <div class="container">
+        <div class="logo"></div>
+        <div class="login" ng-init='check_tenent_request()'>
+            <div class="row">
+                <form name="login_form" method="post" id="login" novalidate>
+                    <h1 class="marB30"> Accept or Decline Invitation to make yourself as Tentant</h1>
+                    <div class="text-center marB20">
+                        <button type="submit" ladda="loginLoading" data-style="slide-right" ng-click="update_tentant_status(1)" class="btn-login">Accept</button>
+                    </div>
+                    <p class="text-center">OR</p>
+                    <div class="text-center marB20">
+                        <button type="submit" ladda="loginLoading" data-style="slide-right" ng-click="update_tentant_status(2)" class="btn-login">Decline</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

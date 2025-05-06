@@ -1,0 +1,149 @@
+<div class="view-animate content-wrapper"  ng -view>
+        <!-- <section class="content-header" >
+            <h1>
+                Dashboard
+                <small>Control panel</small>
+            </h1>
+        </section> -->
+        <section class="content-header">
+            <h1>
+                Property Management
+            </h1>
+            <ol class="breadcrumb">
+                <li><a ui-sref="home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li><a class="active"><i class="fa fa-home"></i>Property Management</a></li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"> Search Filters </h3>
+                             <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                </button>
+                            </div>   
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <input class="form-control" type="text" ng-change="applyFilter()" ng-model="searchPropertyData" placeholder="Search by Property,Location,Seller">
+                                </div>
+                                <!-- <div class="col-sm-2">
+                                    <select class="form-control" ng-model="status">
+                                        <option value=0 > Status-All</option>
+                                        <option value=1>Published</option>
+                                        <option value=2>Pending</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                     <input type="text" class="form-control " placeholder="Created From" readonly uib-datepicker-popup name="date" ng-model="dt" is-open="popup2.opened" datepicker-options="options" close-text="Close" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default blueBtn" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                    </div>
+                                </div>
+                                 <div class="col-sm-2">
+                                    <div class="input-group">
+                                     <input type="text" class="form-control " placeholder="Created To"  ng-click="openEndDate()" readonly uib-datepicker-popup name="date" ng-model="dtEnd" is-open="popupEnd.opened" datepicker-options="options" close-text="Close" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default blueBtn" ng-click="openEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                    </div>
+                                </div> -->
+                                    <div class="col-sm-3 ">
+                                    <button class="btn btn-primary btn-sm mt10" ng-click="resetSearch()"><i class="fa fa-undo" title="Reset search filters"></i></button>
+                             
+                                    <button class="btn btn-primary btn-sm mt10"  ng-click="searchProperty(status,dt,dtEnd)"><i class="fa fa-search" title="Search for property(s)"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                </div>
+            </div>
+           <div ng-init="getAgentPropertyList()">
+        <div class="col-xs-12">
+             <div class="box box-warning">
+                <div class="box-body table-responsive" >
+                    <table class="table table-bordered ng-scope ng-table">
+                        <thead class="">
+                            <tr>
+                               <th title="" class="header" style="cursor:default"> 
+                                    <div class="ng-table-header "> <span>Image</span> </div>
+
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <!-- ngIf: !template -->
+                                    <div class="ng-table-header " ng-click='sortColumn("title")' ng-class='sortClass("title")'><span>Property</span> </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " ng-click='sortColumn("city")' ng-class='sortClass("city")'><span>City</span> </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor" width="110px">
+                                    <div class="ng-table-header " ng-click='sortColumn("owner_id.state")' ng-class='sortClass("owner_id.state")' ><span>State</span> </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor" >
+                                    <div class="ng-table-header " ng-click='sortColumn("owner_id.created_by.firstname")' ng-class='sortClass("owner_id.created_by.firstname")'><span>Agent</span> </div>
+                                </th>
+                                <th title="" class="header  sortable addCursor" width="110px" >
+                                    <div class="ng-table-header " ng-click='sortColumn("owner_id.owned_by.firstname")' ng-class='sortClass("owner_id.owned_by.firstname")'><span>Owner</span> </div>
+                                </th>
+                                 <th title="" class="header  sortable addCursor">
+                                    <div class="ng-table-header " > <span>Action</span> </div>
+                                </th> 
+                            </tr>
+                              </thead>
+                            <tbody>
+                          <tr dir-paginate="property in propertyList|orderBy:column:reverse|itemsPerPage:5|filter:searchPropertyData">
+                                <td><span class="chat-img pull-left"> <img src="./images/placeholder.jpg" ng-src="{{imageUrl}}/{{property.image[0].path}}"  width="100px" alt="Property"></span></td>
+                            <!-- <td><span class="chat-img pull-left"> <img err-src="/assets/images/chat_img.jpg"   ng-src="{{imageUrl}}/{{property.image[0].path}}" width="100px" alt="Property"></span></td> -->
+                            <td class="text-capitalize"><a ui-sref="propertyDetail({id:property._id})" class="viewProperty">{{property.title}}</a></td>
+                            <td class="text-capitalize">{{property.city}}</td>
+                            <td class="text-capitalize">{{property.state}}</td>
+                            <td class="text-capitalize"><a ui-sref="userDetail({id:property.created_by._id})">{{property.created_by.firstname}} {{property.created_by.lastname}}</a></td>
+                            <td class="text-capitalize" style="text-align:center"><a ui-sref="userDetail({id:property.owned_by._id})">{{property.owned_by.firstname}} {{property.owned_by.lastname}}</a></td>
+                            <td data-title="'Actions'" class="actions" data-title-text="Actions">
+                                <a  ui-sref="propertyDetail({id:property._id})" >
+                                    <i class="fa fa-eye" aria-hidden="true" title="View property"></i>
+                                </a>
+                                <!-- <a  ng-if="property.is_approved==false" ng-click="changePropertyStatusToTrue(property._id)">
+                                    <i class="fa fa-check" aria-hidden="true" title="Approve property"></i>
+                                </a>
+                                <a  ng-if="property.is_approved==true" ng-click="changePropertyStatusToApprove(property._id)" >
+                                    <i class="fa fa-remove" aria-hidden="true" title="Reject property"></i>
+                                </a>
+                                <a  ng-click="deleteProperty(property._id)">
+                                    <i class="fa fa-trash-o" aria-hidden="true" title="Delete property"></i>
+                                </a>
+                                <a ui-sref='emailTemplate({id:property._id})'>
+                                    <i class="fa fa-send-o" aria-hidden="true" title="Send email to seller"></i>
+                                </a> -->
+                        </td> 
+                        </tr>
+                    <div ng-show="propertyListStatus"></div>
+                     </tbody>
+                    </table>
+                     <div ng-if="propertyList.length==0" style='color:#605ca8;font-size: 15px;'><center>No records found</center></div> 
+                </div>
+             </div>
+                    <div  class="pull-right" style="font-size:14px;margin-bottom:25px;margin-top:-11px;margin-right: 4px;">
+                    <dir-pagination-controls max-size="5"  direction-links="true" boundary-links="true" >
+                    </dir-pagination-controls>
+                </div>
+        </div>
+    </div>
+    </section>
+    </div>
+<style>
+.propertyClass {
+text-transform: lowercase;
+}
+.btn.btn-sm.btn-info.uib-datepicker-current.ng-binding {
+display: none;
+}
+.btn.btn-sm.btn-danger.uib-clear.ng-binding {
+display: none;
+}
+</style>

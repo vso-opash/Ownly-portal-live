@@ -1,0 +1,142 @@
+<div class="modal-content" style="width: 100%;" id="modal" ng-init="noticeForRoles();">
+    <div class="modal-header">
+        <button class="close" type="button" ng-click="cancel()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h3 id="myModalLabel" class="modal-title">
+            <h3>Add new post</h3>
+        </h3>
+    </div>
+    <div class="modal-body clearfix">
+
+        <form novalidate="" name="addPostForm">
+            <div class="row  marT20">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                        <label class="control-label" for="product_categorie">Post title<font color="Red">*</font>
+                            </label>
+                        <input type="text" class="form-control" name="postTitle" ng-model="notice.title" maxlength="400"
+                            required>
+                        <span ng-show="notice.title.length>399" class="error-span inner-error ng-binding">
+                            <font color="Red">Max 400 characters allowed</font>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5 col-sm-5 col-md-5 marB10">
+                    <div class="add_members">
+                        <label class="control-label" for="product_categorie">Add Members<font color="Red">*</font>
+                            </label>
+                        <label class="check_container">
+                            <input type="checkbox" ng-change="onClickFn(allOption)" ng-model="checkboxModel[allOption]"
+                                checked="checked">Select All ({{totalCount}})
+                            <span class="checkmark"></span>
+                        </label>
+                        <div ng-repeat="(key,item) in data">
+                            <label class="check_container">{{item.name}}
+                                <input type="checkbox" ng-change="onClickFn(item)" ng-model="checkboxModel[item]"
+                                    checked="checked"> {{Items[key].name}}
+                                <div class="count" ng-if="Items[key].name=='Agent'">({{agentCount}})</div>
+                                <div class="count" ng-if="Items[key].name=='Tenant'">({{tenantCount}})</div>
+                                <div class="count" ng-if="Items[key].name=='Owner'">({{ownerCount}})</div>
+                                <div class="count" ng-if="Items[key].name=='Agency Owner'">({{agencyCount}})</div>
+                                <span class="checkmark">
+                            </label>
+                        </div>
+                        <label class="check_container">
+                            <input type="checkbox" ng-model="custom" ng-change="showCustom(custom)"
+                                checked="checked">Custom
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-7 col-sm-7 col-md-7">
+                    <div class="form-group text-left" ng-if="is_customPic">
+                        <label class="control-label" for="product_categorie">Pick custom member<font color="Red">*
+                            </font></label>
+                        <!-- <select name="selectProperty" ng-model="notice.property_id" name="created_by" class="form-control" required>
+                          <option value="" disabled>Select Property </option>
+                          <option ng-repeat="property in propertyList" value="{{property._id}}">{{property.address}}</option>
+                        </select> -->
+                        <div on-item-click="getUsersCount(noticeProperties)" isteven-multi-select
+                            input-model="customUserList" output-model="customSelectedUserList"
+                            button-label="firtname lastname" item-label="firstname lastname" tick-property="ticked">
+                        </div>
+
+                        <!-- <span class="error-span inner-error ng-binding " ng-show="createNoticeForm.selectProperty.$error.required && createNoticeForm.selectProperty.$touched "
+                            class="error-span inner-error ng-binding ">
+                        <font color="Red">Select property is required</font>
+                      </span> -->
+                    </div>
+                </div>
+                <!-- <div class="col-xs-8 col-sm-8 col-md-8 marB10">
+                    <div class="form-group text-left">
+                        <label class="control-label" for="product_categorie">Pick custom members</label>
+                        <div ng-disabled="!custom" class="form-group text-left text-capitalize" isteven-multi-select input-model="memberList" output-model="selectedMemberList" button-label="address" item-label="address"
+                        tick-property="ticked"></div>
+                    </div>
+                </div> -->
+                <!-- <div ng-disabled="!custom" class="col-xs-12 col-sm-12 col-md-12 tags">
+                    <ul>
+                        <li ng-repeat="(key,value) in newArray2">
+                            <img ng-src="{{userImageUrl}}{{value.image}}" src="assets/images/no_image.png" alt="img">
+                            <span class="text-capitalize">{{value.fullName}}</span>
+                            <button ng-click="removeWatcher(key)" class="fa fa-times" aria-hidden="true"></button>
+                        </li>
+                    </ul>
+                </div> -->
+
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                        <label class="control-label" for="product_categorie">Agenda and resolutions<font color="Red">*</font></label>
+                        <textarea class="form-control" rows="4" name="agenda" ng-model="notice.agenda_resolution" maxlength="1000" required> </textarea>
+                        <span ng-show="notice.agenda_resolution.length>999" class="error-span inner-error ng-binding">
+                            <font color="Red">Max 1000 characters allowed</font>
+                    </span>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                        <label class="control-label" for="product_categorie">Post details / descriptions<font
+                                color="Red">*</font></label>
+                        <textarea class="form-control" name="description" ng-model="notice.description" maxlength="1000"
+                            required> </textarea>
+                        <span ng-show="notice.description.length>999" class="error-span inner-error ng-binding">
+                            <font color="Red">Max 1000 characters allowed</font>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group text-left">
+                        <label class="control-label marB10" for="product_categorie">Do you want to enable thread for
+                            this post?</label>
+                        <div class="toggleSwitch">
+                            <label class="switch">
+                                <input checked="" type="checkbox" ng-model="notice.enable_thread_post">
+                                <span class="slider round"></span>
+                            </label>
+                            <p ng-show="notice.enable_thread_post==true">Yes, allow thread</p>
+                            <p ng-show="notice.enable_thread_post==false">No, not allow thread</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+                <button class="btn btn-savechanges" ng-click="noticePost(notice,custom)">Submit request</button>
+            </div>
+        </form>
+    </div>
+
+</div>

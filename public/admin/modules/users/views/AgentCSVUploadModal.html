@@ -1,0 +1,29 @@
+<div class="modal-content UserManagement UploadCSV-Modal" style="width: 100%;" id="modal">
+    <div class="modal-header">
+        <button class="close" type="button" ng-click="$dismiss('cancel')">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h3 id="myModalLabel" class="modal-title">
+            NEW USER
+            <strong> Upload CSV </strong>
+        </h3>
+    </div>
+    <div class="modal-body">
+        <div class="UploadCSV">
+            <div drop-zone ng-model="data.upload" class="one" callback-fn="fileUploadCtrlFn(data.upload)">
+                <!-- Transcluded content -->
+                <i><img src="/assets/images/UploadIcon.svg" /></i>
+                <p>Drag & Drop CSV file<span>Or <strong>Browse</strong></span></p>
+            </div>
+        </div>
+
+        <!-- <div class="UploadCSV-BTN">
+            <button type="button" class="btn btn-import">Cancel</button>
+        </div> -->
+        <!-- <pre>ctrl.data = {{data | json }} </pre> -->
+    </div>
+
+</div>
+<script>
+    $("#modal .close ").click()
+</script>

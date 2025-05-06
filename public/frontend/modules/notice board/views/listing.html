@@ -1,0 +1,205 @@
+<div class="ContentWrap" ng-init="noticeBoardList();">
+    <div class="ContentHead d-flex" ng-init="listingInitialize()">
+        <h2>Notice board</h2>
+        <div class="ml-auto TenanciesButtons" ng-if="canCreateNoticeBoard">
+            <button class="btn btn-property" ng-click="openAddModal()">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>New notice board</button>
+        </div>
+    </div>
+    <div class="RefineResults d-flex">
+        <div class="advanceSearchClass" ng-class="advanceSearchClass">
+            <button class="btn btn-secondary dropdown-toggle togle-default refine" ng-click="openRefineSearch()"
+                type="button" aria-haspopup="true" aria-expanded="false">
+                Refine results
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-menu">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="refine_dropdown">
+                            <form enctype="multipart/form-data" name="createPropertyStepTwo"
+                                ng-init="user_submit = false" role="form" novalidate autocomplete="off">
+                                <div class="refinehead horiLine">
+                                    <input ng-change="addressInitialize()" googleplace ng-model="property.address"
+                                        type="text" name="search" placeholder="Property ID, Name, Address"
+                                        class="search1">
+                                    <span class="searchico">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="filters">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group text-left">
+                                            <label class="control-label">Suburb</label>
+                                            <input id="locality" type="text" ng-model="agent.city" name="city"
+                                                class="form-control" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25">
+                                            <span class="error-span inner-error ng-binding"
+                                                ng-show="searchAgentForm.city.$error.pattern"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Agent Suburb must contain alphabet
+                                                </font>
+                                            </span>
+                                            <span ng-show="searchAgentForm.city.$error.maxlength"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Max 25 characters allowed</font>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group text-left">
+                                            <label class="control-label">State</label>
+                                            <input id="administrative_area_level_1" type="text" ng-model="agent.state"
+                                                name="state" class="form-control" ng-pattern="/^[a-zA-Z ]*$/"
+                                                ng-maxlength="35">
+                                            <span class="error-span inner-error ng-binding"
+                                                ng-show="searchAgentForm.state.$error.pattern"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Agent state must contain alphabet
+                                                </font>
+                                            </span>
+                                            <span ng-show="searchAgentForm.state.$error.maxlength"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Max 35 characters allowed</font>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group text-left">
+                                            <label class="control-label" for="settingLName">Postal
+                                                Code</label>
+                                            <input class="form-control frmInput margin_in text-capitalize"
+                                                name="zipcode" ng-model="agent.zipCode" placeholder="Postal Code"
+                                                type="text" ng-pattern="/^[0-9]{1,4}$/" ng-maxlength="4">
+                                            <span class="error-span inner-error ng-binding"
+                                                ng-show="searchAgentForm.zipcode.$error.pattern"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Postal Code must be number</font>
+                                            </span>
+                                            <span ng-show="searchAgentForm.zipcode.$error.maxlength"
+                                                class="error-span inner-error ng-binding">
+                                                <font color="Red">Max 4 digits allowed</font>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="text-left">
+                                            <a ng-click="clearSearch()" href="javascript:void(0)">Clear filters</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <button type="submit" ng-click="agentSearch(agent)"
+                                            class="btn btn-property pull-right">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="filtering-recent">
+            <ul>
+                <li>
+                    <a ng-click="selectedTab('All');" href="javascript:void(0)">All</a>
+                </li>
+                <li>
+                    <a ng-click="selectedTab('Favorites');" href="javascript:void(0)">Favorites</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="ContentBody">
+        <div class="row" ng-if="isAll" id="postView">
+            <div class="col-lg-4"
+                dir-paginate="notice in noticeList| itemsPerPage:10 | orderBy:orderProperty | filter:notice.property_id.address"
+                current-page="pagination.current">
+                <div class="property_listview shadow-hover">
+                    <a ui-sref="noticeBoardDetail({id:notice._id})" class="property-img inspection">
+                        <div class="img-fade "></div>
+                        <img ng-src="{{propertyImageUrl}}{{notice.property_id_arr[0].image[0].path}}"
+                            src="assets/images/placeholder.jpg" class="" alt="propimg ">
+                    </a>
+                    <div class="fav-heart_blue">
+                        <a ng-class="notice.is_fav==1?'pointer active':''" ng-click="addToFav(notice._id,notice.is_fav)"
+                            href="javascript:void(0)"></a>
+                    </div>
+                    <div class="noticeBoard">
+                        <div class="property-title">
+                            <h4>
+                                <a ui-sref="noticeBoardDetail({id:notice._id})" class="text-capitalize">{{notice.property_id_arr[0].address
+                                        | limitTo :30}}
+                                    {{notice.property_id_arr[0].address.length > 30 ? "..." : ""}}</a>
+                            </h4>
+                            <h4>{{notice.title | limitTo :30}} {{notice.title > 30 ? "..." : ""}}</h4>
+                            <p class="property-address">Plan Id:2341342455</p>
+                        </div>
+                        <div class="post_mem pull-right">
+                            <img src="assets/images/Tenants icons.svg" alt="member" class="tradimg">
+                            <span>{{notice.members_count}} members</span>
+                        </div>
+                        <div class="post_mem">
+                            <img src="assets/images/flag.svg" alt="property" class="marker">
+                            <span>{{notice.noticePostCnt}} posts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="isAll" class="col-lg-12">
+                <div ng-if="noticeList.length==0" class="alert alert-info fade in alert-dismissable"
+                    style="margin-top:18px;">
+                    <strong>No record to display</strong>
+                </div>
+            </div>
+        </div>
+        <!-- Favorites property -->
+        <div ng-if="isFavourites" class="row">
+            <div class="col-lg-4"
+                dir-paginate="notice in favNoticeBoardList| itemsPerPage:10 | orderBy:orderProperty | filter:notice.property_id.address"
+                current-page="pagination.current">
+                <div class="property_listview shadow-hover">
+                    <a ui-sref="noticeBoardDetail({id:notice._id})" class="property-img inspection">
+                        <div class="img-fade "></div>
+                        <img ng-src="{{propertyImageUrl}}{{notice.property_id_arr[0].image[0].path}}"
+                            src="assets/images/placeholder.jpg" class="" alt="propimg ">
+                    </a>
+                    <div class="fav-heart_blue">
+                        <a class="pointer active" ng-click="addToFav(notice._id,1)" href="javascript:void(0)"></a>
+                    </div>
+                    <div class="noticeBoard">
+                        <div class="property-title">
+                            <h4>
+                                <a ui-sref="noticeBoardDetail({id:notice._id})" class="text-capitalize">{{notice.property_id_arr[0].address
+                                        | limitTo :30}}
+                                    {{notice.property_id_arr[0].address.length > 30 ? "..." : ""}}</a>
+                            </h4>
+                            <h4>{{notice.title | limitTo :30}} {{notice.title > 30 ? "..." : ""}}</h4>
+                            <p class="property-address">Plan Id:2341342455</p>
+                        </div>
+                        <div class="post_mem pull-right">
+                            <img src="assets/images/Tenants icons.svg" alt="member" class="tradimg">
+                            <span>{{notice.members_count}} members</span>
+                        </div>
+                        <div class="post_mem">
+                            <img src="assets/images/flag.svg" alt="property" class="marker">
+                            <span>{{notice.noticePostCnt}} posts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="favNoticeBoardList.length==0&&isFavourites" class="alert alert-info fade in alert-dismissable"
+            style="margin-top:18px;">
+            <strong>No record to display</strong>
+        </div>
+        <p class="mainNoRecord" ng-if="propertyList.length==0&&favPropertyList.length==0">No Properties found</p>
+        <nav class="pagination-container">
+            <div class="pagination">
+                <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true"
+                    boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+                </dir-pagination-controls>
+            </div>
+        </nav>
+    </div>
+</div>

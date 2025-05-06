@@ -1,0 +1,143 @@
+<div class="content-wrapper" ng-init="getPropertyMaintenanceDetails()">
+    <section class="content-header">
+        <h1>
+            Maintenance maintenanceDetails
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">
+                    <i class="fa fa-dashboard"></i>Dashboard</a>
+            </li>
+            <li>
+                <a ng-click="back()">
+                    <i class="fa fa-home"></i>Maintenance maintenanceDetails</a>
+            </li>
+            <li>
+                <a class="active">
+                    <i class="fa fa-eye fa-eye-breadcrumb"></i>View</a>
+            </li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <!-- <h3 class="box-title">
+                            <i class="fa fa-building-o " aria-hidden="true">&nbsp;&nbsp;</i> View Property</h3> -->
+                        <div class="box-tools">
+                            <div class="input-group">
+                                &nbsp;&nbsp;
+                                <div class="pull-right">
+                                    <a ng-click="back()">
+                                        <i class="fa fa-angle-left margin-r-5" aria-hidden="true"></i> Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row docs-premium-template view_propDetail">
+                            <div class="col-sm-8 col-md-8">
+                                <div class="box box-solid">
+                                    <div class="box-body">
+                                        <h4>
+                                            {{maintenanceDetails.request_overview}}
+                                            <div>
+                                                <img src="/assets/images/map-marker.svg" alt="mapmarker" class="marker">
+                                                <span
+                                                    class="ng-binding">{{maintenanceDetails.property_id.property_name}}</span>
+                                                <img src="/assets/images/Traders_grey.svg" alt="trader" class="tradimg">
+                                                <span
+                                                    class="text-capitalize ng-binding">{{maintenanceDetails.trader_id.firstname}}
+                                                    {{maintenanceDetails.trader_id.lastname}}</span>
+                                            </div>
+                                        </h4>
+                                        <div class="media">
+                                            <!-- /.col -->
+                                            <div class="prop_des horiLine ng-scope">
+                                                <h5>Request details</h5>
+                                                <!-- ngIf: oneLineDescription -->
+                                                <p class="ng-binding ng-scope">
+                                                    {{maintenanceDetails.request_detail}}
+                                                </p>
+                                                <!-- end ngIf: oneLineDescription -->
+                                                <!-- ngIf: fullDescription -->
+
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <div class="file_grid">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h5>Attachments</h5>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4"
+                                                    ng-repeat="document_listing in maintenanceDetails.images">
+                                                    <div class="atch_img Inspections">
+                                                        <div class="">
+                                                            <a href="{{documentUrl}}{{document_listing.path}}"
+                                                                target="_blank">
+                                                                <img ng-click="openImages(document_listing.document_path)"
+                                                                    src="http://localhost:5095/document/1515561071201.jpg"
+                                                                    ng-src="{{documentUrl}}{{document_listing.path}}"
+                                                                    class="img-responsive" alt="atch1">
+                                                            </a>
+                                                        </div>
+                                                        <div class="fav-heart_blue">
+                                                            <a ng-click="addToFav(document_listing._id)"
+                                                                ng-class="document_listing.is_favorite==true?'active':''"></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attchment-name ng-binding">
+                                                        {{document_listing.path}}
+                                                    </div>
+                                                    <a href="#">
+                                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="amnt">
+                                    <div class="price">
+                                        <span class="ng-binding">{{maintenanceDetails.budget|currency}}</span>
+                                    </div>
+                                    <!-- <span class="pull-right ng-binding"> in 15days</span> -->
+                                    <!-- ngIf: traderBtn==true -->
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="agent_profile marT20 clearfix">
+                                    <div class="contact_info">
+                                        <img alt="" style="height:118px;width:119px"
+                                            ng-src="{{imageUrl}}/{{maintenanceDetails.trader_id.image}}"
+                                            src="{{imageUrl}}/no_image.png">
+                                        <h5 class="ng-binding">{{maintenanceDetails.trader_id.firstname}}
+                                            {{maintenanceDetails.trader_id.lastname}}</h5>
+                                    </div>
+                                    <ul>
+                                        <li>Location
+                                            <span class="ng-binding">{{maintenanceDetails.trader_id.city}},
+                                                {{maintenanceDetails.trader_id.state}}</span>
+                                        </li>
+                                        <li>Phone number
+                                            <span class="ng-binding">{{maintenanceDetails.trader_id.mobile_no}}</span>
+                                        </li>
+                                        <li>Joined
+                                            <span>{{maintenanceDetails.trader_id.createdAt|date}}</span>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

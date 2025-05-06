@@ -1,0 +1,285 @@
+<!-- tabs -->
+<div class="container">
+  <div class="row marT20" ng-init="getStartaUserList()">
+
+    <div class="setting-section">
+      <div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 horiLine ">
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-3 project-listing-latest ">
+            <h5>Starta Users</h5>
+          </div>
+          <div ng-show={{isPropertyOwner}} class="col-lg-7 col-md-7 col-sm-7 col-xs-9 marT10 text-right">
+            <button class="btn btn-property" ng-click="openRemoveTenant()">Request agent removal</button>
+          </div>
+        </div>
+        <div class="col-sm-12 horiLine">
+          <div class="col-sm-2">
+            <div>
+              <div ng-class="advanceSearchClass">
+                <button class="btn btn-secondary dropdown-toggle togle-default refine" ng-click="showPopup()" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Refine results
+                  <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2" id="agentSearchPopUp">
+                  <div class="row">
+                      <button style="margin-left: 243px;margin-top: 0px;" ng-click="hideSearchFilter()"><i class="fa fa-close"></i></button>
+                    <div class="col-sm-12 agentList">
+                      <div class="refine_dropdown">
+                        <form enctype="multipart/form-data" name="searchAgentForm" ng-init="user_submit = false" role="form" novalidate autocomplete="off">
+                          <div class="refinehead horiLine">
+                            <input ng-model="agent.name" type="text" name="search" placeholder="Name" class="search1">
+                            <span class="searchico">
+                              <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="filters">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                              <div class="form-group text-left">
+                                <label class="control-label">City</label>
+                                <input id="locality" type="text" ng-model="agent.city" name="city" class="form-control" ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25">
+                                <span class="error-span inner-error ng-binding" ng-show="searchAgentForm.city.$error.pattern" class="error-span inner-error ng-binding">
+                                  <font color="Red">Agent city must contain alphabet</font>
+                                </span>
+                                <span ng-show="searchAgentForm.city.$error.maxlength" class="error-span inner-error ng-binding">
+                                  <font color="Red">Max 25 characters allowed</font>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                              <div class="form-group text-left">
+                                <label class="control-label">State</label>
+                                <input id="administrative_area_level_1" type="text" ng-model="agent.state" name="state" class="form-control" ng-pattern="/^[a-zA-Z ]*$/"
+                                  ng-maxlength="35">
+                                <span class="error-span inner-error ng-binding" ng-show="searchAgentForm.state.$error.pattern" class="error-span inner-error ng-binding">
+                                  <font color="Red">Agent state must contain alphabet</font>
+                                </span>
+                                <span ng-show="searchAgentForm.state.$error.maxlength" class="error-span inner-error ng-binding">
+                                  <font color="Red">Max 35 characters allowed</font>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                              <div class="form-group text-left">
+                                <label class="control-label" for="settingLName">Postal Code</label>
+                                <input class="form-control frmInput margin_in text-capitalize" name="zipcode" ng-model="agent.zipCode" placeholder="Postal Code"
+                                  type="text" ng-pattern="/^[0-9]{1,4}$/" ng-maxlength="4">
+                                <span class="error-span inner-error ng-binding" ng-show="searchAgentForm.zipcode.$error.pattern" class="error-span inner-error ng-binding">
+                                  <font color="Red">Postal Code must be number</font>
+                                </span>
+                                <span ng-show="searchAgentForm.zipcode.$error.maxlength" class="error-span inner-error ng-binding">
+                                  <font color="Red">Max 4 digits allowed</font>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                              <div class="text-left">
+                                <a ng-click="clearSearch()" href="javascript:void(0)">Clear filters</a>
+                              </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                              <button ng-disabled="searchAgentForm.$invalid" type="submit" ng-click="agentSearch(agent)" class="btn btn-property pull-right">Submit</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-5 clearfix">
+            <div class="filtering-recent">
+              <ul>
+                <li ng-click="changeSelection(1)" ng-class="selected==1?'active':''">
+                  <a ng-click="getAgentList()" href="javascript:void(0)">All</a>
+                </li>
+                <li ng-click="changeSelection(2)" ng-class="selected==2?'active':''" ng-if="roleId==agencyCode">
+                  <a ng-click="getMyAgentList()" href="javascript:void(0)">My agents</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-sm-5 clearfix">
+            <div class="sort-grid">
+              <div class="dropdown default-oder">
+                <button class="btn btn-secondary dropdown-toggle togle-default" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  {{filterMatch}}
+                  <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item" type="button" ng-click="setOrderProperty('firstname')">Name</button>
+                  <button class="dropdown-item" type="button" ng-click="setOrderProperty('city')">City</button>
+                  <button class="dropdown-item" type="button" ng-click="setOrderProperty('address')">Address</button>
+                  <!-- <button class="dropdown-item" type="button">Something else here</button> -->
+                </div>
+              </div>
+              <span class="view-as">
+                <a href="javascript:void(0)" ng-click="showListView();">
+                  <i class="fa fa-bars"></i>
+                </a>
+                <a href="javascript:void(0);" ng-click="showGrideView();" id="">
+                  <i class="fa fa-th" aria-hidden="true"></i>
+                </a>
+                <!-- <a href="javascript:void(0);" id="">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                          </a> -->
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="setting-section">
+      <div class="row" ng-if="listView">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" dir-paginate="agent in agentList| itemsPerPage:8 | orderBy:orderProperty | filter:agent.name"
+            current-page="pagination.current">
+            <div class="agent_profile marT20 clearfix inspection">
+              <div class="contact_info">
+                <div class="img-width inspection">
+                  <a ui-sref="profile({id:agent.users[0]._id})">
+                    <img ng-src="{{imageUrl}}{{agent.users[0].image}}" alt="Agent Profile" ng-show="{{agent.users[0].hasOwnProperty('image')==true && agent.users[0].image!=''}}"
+                      alt="">
+                    <div ng-show="!agent.users[0].image.length>0 || !agent.users[0].image" class="default_121">
+                      {{agent.users[0].firstname.charAt(0).toUpperCase()}}{{agent.users[0].lastname.charAt(0).toUpperCase()}}
+                    </div>
+                  </a>
+                  <span class="colorGreen_agentOwner">
+                  </span>
+                </div>
+                <h5 class="text-capitalize">{{agent.users[0].firstname}} {{agent.users[0].lastname}}</h5>
+                <div class="rating">
+                  <span uib-rating ng-model="agent.users[0].averageRate" max="max" read-only="true" on-hover="hoveringOver(value)" on-leave="overStar = null"
+                    titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                </div>
+                <div class="clearfix"></div>
+                <p>{{agent.users[0].averageRate?agent.users[0].averageRate:0}} from {{agent.users[0].totalReviewLength?agent.users[0].totalReviewLength:0}} reviews</p>
+                <div class="clearfix"></div>
+                <p class="text-capitalize">{{agent.users[0].city}}, {{agent.users[0].state}}</p>
+                <button type="button" ng-click="openAgentSendMessage(agent.users[0]._id,agent.users[0].firstname)" class="btn btn-property">Contact Agent</button>
+              </div>
+              <div class="agent_cmpnylogo">
+                <!-- <img src="assets/images/raine_horn.png"  alt="profile"> -->
+                <img ng-show="agent.users[0].agency_id.logoImage" err-src="assets/images/raine_horn.png" ng-src="{{imageUrl}}{{agent.users[0].agency_id.logoImage}}"
+                  alt="profile">
+                <img ng-show="!agent.users[0].agency_id.logoImage" src="assets/images/raine_horn.png" alt="profile">
+              </div>
+              <div class="agent.users[0]_detail">
+                <ul>
+                  <li>Team member
+                    <span ng-if="agent.users[0].team_cnt">{{agent.users[0].team_cnt}}</span>
+                    <span ng-if="!agent.users[0].team_cnt">0</span>
+                  </li>
+                  <li>Inspection frequency
+                    <span>6/mo</span>
+                  </li>
+                  <li>No. of properties managed
+                    <span ng-if="agent.users[0].property_cnt">{{agent.users[0].property_cnt}}</span>
+                    <span ng-if="!agent.users[0].property_cnt">0</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div ng-if="agentList.length==0 && isSearchedAgent==false" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+            <strong>No Agents found to display</strong>
+          </div>
+          <div ng-if="agentList.length==0 && isSearchedAgent==true" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+              <strong>No searched results were found</strong>
+        </div>
+        </div>
+      </div>
+      <div ng-if="grideView">
+        <div class="row" dir-paginate="agent in agentList| itemsPerPage:8 | orderBy:orderProperty" current-page="pagination.current">
+          <div class="col-lg-12 agentlist marT20 marB20 inspection clearfix ">
+            <div class="agent_cmpnylogolist">
+              <img src="{{userImageUrl}}{{agent.users[0].agency_id.logoImage}}" alt="">
+            </div>
+            <div class="col-lg-1 col-sm-2 agentpro">
+              <div class="agentimg_width inspection">
+                <img ng-src="{{imageUrl}}{{agent.users[0].image}}" alt="" ng-show="agent.users[0].image.length>0">
+                <div ng-show="!agent.users[0].image.length>0 || !agent.users[0].image" class="default_121" style="height:70px;width:70px">
+                  {{agent.users[0].firstname.charAt(0).toUpperCase()}}{{agent.users[0].lastname.charAt(0).toUpperCase()}}
+                </div>
+                <div class="colorGreen"></div>
+              </div>
+            </div>
+            <div class="col-lg-11 col-sm-10">
+              <div class="row">
+                <ul>
+                  <li>
+                    <h5> {{agent.users[0].firstname}} {{agent.users[0].lastname}} </h5>
+                    <p> {{agent.users[0].agency_id.name}}
+                      <p>
+                  </li>
+                  <li>
+                    <span>
+                      <h5 ng-if="agent.users[0].totalPropertyCount">{{agent.users[0].totalPropertyCount}}</h5>
+                      <h5ng-if="!agent.users[0].totalPropertyCount">0<h5>
+                    </span>
+                    No. of properties managed 
+                  </li>
+                  <li>
+                    <span>
+                      <h5 ng-if="agent.users[0].team_cnt">{{agent.users[0].team_cnt}}</h5>
+                      <h5 ng-if="!agent.users[0].team_cnt">0</h5>
+                    </span>
+                    team member
+                  </li>
+                  <li>
+                    <span>
+                      <h5>6 Monthly </h5>
+                    </span>
+                    Ispection frequency
+                  </li>
+                  <li>
+                    <div class="rating">
+                      <span uib-rating ng-model="agent.users[0].averageRate" max="max" read-only="true" on-hover="hoveringOver(value)" on-leave="overStar = null"
+                      titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                    </div>
+                    <p>{{agent.users[0].averageRate?agent.users[0].averageRate:0}} from {{agent.users[0].totalReviewLength?agent.users[0].totalReviewLength:0}} reviews</p>
+                  </li>
+                  <li>
+                    <button ng-click="openAgentSendMessage(agent.users[0]._id,agent.users[0].firstname)" class="btn btn-start">Contact Agent</button>
+                  </li>
+                </ul>
+
+              </div>
+              <div class="thumblist">
+                <ul>
+                  <li class="thumb" ng-repeat="(key,image) in agent.users[0].images  | limitTo:4">
+                    <img src="{{userImageUrl}}{{image.url}}" alt="">
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+            <div ng-if="agentList.length==0 && isSearchedAgent==false" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                <strong>No Agent(s) found to display</strong>
+               
+            </div>
+            <div ng-if="agentList.length==0 && isSearchedAgent==true" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+                <strong>No searched results were found</strong>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <nav class="pagination-container marT20">
+        <div class="pagination">
+          <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true" boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+          </dir-pagination-controls>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+    {
+        "development": {
+            "config_id": "developement",
+            "URI": "mongodb://13.54.34.150:27017/admin",
+            "dbUser": "syncitt",
+            "dbPass": "syncitt@123",
+            "stripePublishableKey": "pk_test_kpzcl6wcferYLu6J73j9rwIi00yXh4xYoA",
+            "IS_HTTPS": false
+        },
+        "production": {
+            "config_id": "production",
+            "URI": "mongodb://52.65.124.36:27017/admin",
+            "dbUser": "syncitt",
+            "dbPass": "syncitt@123",
+            "stripePublishableKey": "pk_live_mqPmqCz4RvwfOy4xdbnL8lst00At7CDrc3",
+            "IS_HTTPS": true
+        }
+    }

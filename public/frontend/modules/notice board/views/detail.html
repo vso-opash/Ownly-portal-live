@@ -1,0 +1,219 @@
+<div class="container" ng-init="getNoticeBoardDetailPage();">
+  <div class="row marT20">
+
+    <div class="setting-section">
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 horiLine">
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 main_detail marB20">
+          <h5 class="text-capitalize">{{noticeData.property_id_arr[0].address | limitTo :30}}
+            {{noticeData.property_id_arr[0].address.length > 30 ? "..." : ""}}</h5>
+          <h4>{{noticeData.title | limitTo :30}} {{noticeData.title > 30 ? "..." : ""}}</h4>
+          <!-- <div>
+            <img src="assets/images/flag.svg" alt="property id" class="marker">
+            <span>{{noticeData.noticeboardposts.length}} posts</span>
+            <img src="assets/images/Tenants icons.svg" alt="calendar" class="tradimg">
+            <span>20 members</span>
+          </div> -->
+        </div>
+        <div ng-if="canCreateNoticeBoard" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 marT10 clearfix nt-board-detail-uebtn">
+          <button ng-show="noticeData.createdby == userId" class="btn btn-cancel" ng-click="deleteNoticeBoardData(noticeData._id,noticeData.noticeboard_id);">Delete</button>
+          <button ng-show="noticeData.createdby == userId" class="btn btn-save" ng-click="openEditNoticeBoardModal(noticeData._id,roleAccess,noticeData.property_id._id);">Edit</button>
+          <button class="btn btn-property add-post-btn" id="btn_removeagent" ng-click="openCreatePostModal(roleAccess)">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>New post
+          </button>
+          <!-- ng-show="canCreateNoticeBoard"  -->
+        </div>
+      </div>
+
+    </div>
+    <div class="clearfix"></div>
+    <div class="setting-section">
+
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="strata_post_cal">
+            <h5>Upcoming meetings/events</h5>
+            <div class="" ng-init="getInspectionOnCalendar()">
+              <!-- <img src="assets/images/calendar_home.png" alt "calendar"> -->
+              <div class="dashboard-calendar-sec" ng-show="agent==roleId || ownAgency==roleId || roleRecord.owner == roleId || roleRecord.tenant == roleId">
+                <div class="calendarCursor" ui-calendar="uiConfig.calendar" ng-model="eventSources2" ui-config="calendar"
+                  id="calendar"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+          <h4>Property List</h4>
+          <div class="marT20">
+            <ul ng-repeat="detail in noticeData.property_id_arr">
+              <a href="javascript:void(0);">{{propertyInspectionDate | date}}</a>
+              <li>
+                {{detail.address}}
+              </li>
+            </ul>
+
+            <!-- <ul>
+              <a href="javascript:void(0);">{{propertyInspectionDate | date}}</a>
+              <li ng-repeat="detail in noticeData.property_id_arr">
+              <li>
+                <p><strong>Address:</strong>{{propertyInspectionAddress}}</p>
+              </li>
+            </ul> -->
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-12 horiLine">
+        <div class="post_head">
+          <h5>Posts</h5>
+        </div>
+      </div>
+
+      <div class="col-sm-12 horiLine">
+        <div class="strata_post_fil">
+          <div class="col-sm-2 col-xs-6">
+            <div class="dropdown default-oder">
+              <button class="btn btn-secondary dropdown-toggle togle-default refine" type="button" id="dropdownMenu2"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Refine results <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </button>
+              <!-- <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button">Action</button>
+                <button class="dropdown-item" type="button">Another action</button>
+                <button class="dropdown-item" type="button">Something else here</button>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="col-sm-5 col-xs-6 clearfix">
+            <div class="filtering-recent">
+              <ul>
+                <li ng-class="isAllSelected==true?'active':''" class="active"><a ng-click="selectPostTab('All')" href="javascript:void(0);">All</a></li>
+                <!-- <li ng-class="isActive==true?'active':''"><a ng-click="selectPostTab('Active')" href="javascript:void(0);">Active</a></li>
+                <li ng-class="isArchive==true?'active':''"><a ng-click="selectPostTab('Archive')" href="javascript:void(0);">Archive</a></li> -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- <div class="col-sm-5 clearfix">
+            <div class="sort-grid">
+              <div class="dropdown default-oder">
+                <button class="btn btn-secondary dropdown-toggle togle-default" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                      By best match <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item" type="button">Action</button>
+                  <button class="dropdown-item" type="button">Another action</button>
+                  <button class="dropdown-item" type="button">Something else here</button>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+
+      <div ng-if="isAllSelected" class="row" id="postView">
+        <div class="col-lg-4" dir-paginate="post in noticeData.noticeboardposts| itemsPerPage:6" current-page="pagination.current">
+          <div class="post" ng-show="post.deleted==false">
+              <div class="posted_date">
+                  Posted On :
+                  <span>{{ post.createdAt | date : "y-MM-dd" }}</span></div>
+            <a class="pointer" ng-click="goToPostDetail(post._id)">
+              <h4>Announcement : {{post.title | limitTo :100}} {{post.title.length > 100 ? "..." : ""}}</h4>
+              <font color="Black">
+                <p>{{post.description| limitTo :300}} {{post.description.length > 300 ? "..." : ""}}</p>
+              </font>
+            </a>
+
+            <div class="post_mem">
+              <img src="assets/images/Tenants icons.svg" alt="calendar" class="tradimg">
+              <span>{{post.members_count}} members </span>
+            </div>
+          
+            <!-- <div class="tags">
+                <ul>
+                  <li ng-repeat="(key,allowedRole) in post.assign_to_roles | limitTo:4">
+                    <span>{{allowedRole.role_id.description}}</span>
+                  </li>
+                  
+                </ul>
+            </div> -->
+            <div class="post_del" ng-show="noticeData.createdby == userId">
+              <a class="pointer" ng-click="deletePost(post._id,noticeData._id)"><img src="assets/images/ios-trash.svg"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- active part -->
+      <div ng-if="isActive" class="row">
+        <div ng-if="isActive" class="col-lg-4">
+          <div class="post">
+            <!-- <a class="pointer" ng-click="goToPostDetail(post._id)">
+                  <h4>Announcement : {{post.title | limitTo :100}} {{post.title.length > 100 ? "..." : ""}}</h4>
+                  <font color="Black">
+                    <p>{{post.description| limitTo :300}} {{post.description.length > 300 ? "..." : ""}}</p>
+                  </font>
+                </a>
+    
+                <div class="post_mem">
+                  <img src="assets/images/Tenants icons.svg" alt="calendar" class="tradimg">
+                  <span>20 members</span>
+                </div>
+                <div ng-class='(key==1&&post.assign_to_roles.length>2)?"tags clearfix":"tags clearfix col-lg-3"' ng-repeat="(key,allowedRole) in post.assign_to_roles | limitTo:4">
+                  <ul>
+                    <li><span>{{allowedRole.role_id.description}}</span></li>
+                    <li ng-show="key==1 && post.assign_to_roles.length>2"><span>More</span></li>
+                  </ul>
+                </div>
+                <div class="post_del" ng-show="noticeData.createdby == userId">
+                  <a class="pointer" ng-click="deletePost(post._id,noticeData._id)"><img src="assets/images/ios-trash.svg"></a>
+                </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- Archive part-->
+      <div ng-if="isArchive" class="row">
+        <div ng-if="isArchive" class="col-lg-4">
+          <div class="post">
+            <!-- <a class="pointer" ng-click="goToPostDetail(post._id)">
+                  <h4>Announcement : {{post.title | limitTo :100}} {{post.title.length > 100 ? "..." : ""}}</h4>
+                  <font color="Black">
+                    <p>{{post.description| limitTo :300}} {{post.description.length > 300 ? "..." : ""}}</p>
+                  </font>
+                </a>
+    
+                <div class="post_mem">
+                  <img src="assets/images/Tenants icons.svg" alt="calendar" class="tradimg">
+                  <span>20 members</span>
+                </div>
+                <div ng-class='(key==1&&post.assign_to_roles.length>2)?"tags clearfix":"tags clearfix col-lg-3"' ng-repeat="(key,allowedRole) in post.assign_to_roles | limitTo:4">
+                  <ul>
+                    <li><span>{{allowedRole.role_id.description}}</span></li>
+                    <li ng-show="key==1 && post.assign_to_roles.length>2"><span>More</span></li>
+                  </ul>
+                </div>
+                <div class="post_del" ng-show="noticeData.createdby == userId">
+                  <a class="pointer" ng-click="deletePost(post._id,noticeData._id)"><img src="assets/images/ios-trash.svg"></a>
+                </div> -->
+          </div>
+        </div>
+      </div>
+      <div ng-if="noticeData.noticeboardposts.length==0" class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+        <strong>No record to display</strong>
+      </div>
+
+    </div>
+  </div>
+</div>
+<nav class="pagination-container">
+  <div class="pagination">
+    <dir-pagination-controls max-size="10" class="pagination-newer" direction-links="true" boundary-links="true"
+      on-page-change="pageChanged(newPageNumber)">
+    </dir-pagination-controls>
+  </div>
+</nav>

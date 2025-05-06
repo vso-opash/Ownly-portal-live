@@ -1,0 +1,132 @@
+<div class="view-animate content-wrapper" ng -view>
+    <section class="content-header">
+        <h1>
+            Advertising Manager
+        </h1>
+        <ol class="breadcrumb">
+            <li><a ui-sref="home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a class="active"><i class="fa fa-home"></i>Advertising Manager</a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Search Filters </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" ng-model="searchAdvertiseData"
+                                    placeholder="Search by Postcode">
+                            </div>
+                            <div class="col-sm-5">
+                                <button class="btn btn-primary btn-sm mt10" ng-click="resetSearch()"><i
+                                        class="fa fa-undo" title="Reset search filters"></i></button>
+
+                                <button class="btn btn-primary btn-sm mt10"
+                                    ng-click="getAdvertiseList(searchAdvertiseData)"><i class="fa fa-search"
+                                        title="Search for Advertise(es)"></i></button>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <button class="btn btn-import ng-scope" ui-sref="addAdvertisingManager">
+                                    ADD NEW AD</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-init="getAdvertiseList()">
+                <div class="col-xs-12">
+                    <div class="box-body box box-warning  table-responsive">
+                        <table class="table table-bordered ng-scope ng-table">
+                            <thead class="">
+                                <tr>
+                                    <th title="" class="header" style="cursor:default">
+                                        <div class="ng-table-header "> <span>Image</span> </div>
+
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header " ng-click='sortColumn("title")'
+                                            ng-class='sortClass("title")'><span>Ad Name</span> </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header " ng-click='sortColumn("createdAt")'
+                                            ng-class='sortClass("createdAt")'><span>Start Date</span> </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor" width="110px">
+                                        <div class="ng-table-header " ng-click='sortColumn("postcode")'
+                                            ng-class='sortClass("postcode")'><span>Target</span> </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header"><span>Views</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor" width="110px">
+                                        <div class="ng-table-header"><span>Clicks</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header "> <span>Action</span> </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="advertise in advertiseList|orderBy:column:reverse|itemsPerPage:10">
+                                    <td><span class="chat-img pull-left"> <img src="./images/placeholder.jpg"
+                                                ng-src="{{imageUrl}}/{{advertise.file}}" width="100px"
+                                                alt="advertise"></span></td>
+                                    <td class="text-capitalize">
+                                        {{advertise.name}}</td>
+                                    <td class="text-capitalize">{{advertise.createdAt | date}}</td>
+                                    <td class="text-capitalize">
+                                        {{advertise.postcode ? advertise.postcode : advertise.state}}</td>
+                                    <td class="text-capitalize"> {{advertise.viewed.length }}
+                                    </td>
+                                    <td class="text-capitalize" style="text-align:center">
+                                        {{advertise.clicked ? advertise.clicked:0}} </td>
+                                    <td data-title="'Actions'" class="actions" data-title-text="Actions">
+                                        <a ui-sref="viewAdvertisingManager({id:advertise._id})">
+                                            <i class="fa fa-eye" aria-hidden="true" title="View advertise"></i>
+                                        </a>
+                                        <i class="fa fa-circle" aria-hidden="true" style="color: green;"
+                                            aria-hidden="true" title="Active" ng-if="advertise.status=='active'"></i>
+                                        <i class="fa fa-circle" aria-hidden="true" style="color: orange;"
+                                            aria-hidden="true" title="Paused" ng-if="advertise.status=='paused'"></i>
+                                    </td>
+                                </tr>
+                                <!-- <div ng-show="propertyListStatus"></div> -->
+                            </tbody>
+                        </table>
+                        <div ng-if="advertiseList.length==0" style='color:#605ca8;font-size: 15px;'>
+                            <center>No records found</center>
+                        </div>
+                    </div>
+
+                    <div class="pull-right"
+                        style="font-size:14px;margin-bottom:25px;margin-top:-11px;margin-right: 4px;">
+                        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>
+<style>
+    .propertyClass {
+        text-transform: lowercase;
+    }
+
+    .btn.btn-sm.btn-info.uib-datepicker-current.ng-binding {
+        display: none;
+    }
+
+    .btn.btn-sm.btn-danger.uib-clear.ng-binding {
+        display: none;
+    }
+</style>

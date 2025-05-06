@@ -1,0 +1,196 @@
+<div class="ContentWrap" ng-init="initialize()">
+  <div class="ContentHead d-flex">
+    <h2>Disputes</h2>
+    <div class="ml-auto TenanciesButtons">
+      <button ng-if="userRoleId==tenant||userRoleId==agent||userRoleId==agency" class="btn btn-property"
+        ng-click="openAddDisputes()"> New dispute</button>
+    </div>
+  </div>
+  <div class="RefineResults d-flex">
+    <div class="dropdown default-oder droplist">
+      <button class="btn btn-secondary dropdown-toggle togle-default refine" type="button" ng-click="showPopup()"
+        id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Refine results
+        <i class="fa fa-caret-down" aria-hidden="true"></i>
+      </button>
+      <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2" id="disputeSearchPopUp">
+        <div class="row">
+          <button style="margin-left: 243px;margin-top: 0px;" ng-click="hideSearchFilter()">
+            <i class="fa fa-close"></i>
+          </button>
+          <div class="col-sm-12 agentList">
+            <div class="refine_dropdown">
+              <form enctype="multipart/form-data" name="searchDisputeForm" ng-init="user_submit = false" role="form"
+                novalidate autocomplete="off">
+                <div class="refinehead horiLine">
+                  <input ng-model="dispute.name" type="text" name="search" placeholder="Name" class="search1">
+                  <span class="searchico">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="filters">
+                  <!-- <div class="col-xs-12 col-sm-12 col-md-12">
+                                  <div class="form-group text-left">
+                                    <label class="control-label">Name</label>
+                                    <input id="locality" type="text" ng-model="tenant.city" name="city" class="form-control" ng-maxlength="100">
+                                    <span class="error-span inner-error ng-binding" ng-show="searchTenantForm.city.$error.pattern" class="error-span inner-error ng-binding">
+                                      <font color="Red">Tenant city must contain alphabet</font>
+                                    </span>
+                                    <span ng-show="searchTenantForm.city.$error.maxlength" class="error-span inner-error ng-binding">
+                                      <font color="Red">Max 100 characters allowed</font>
+                                    </span>
+                                  </div>
+                                </div> -->
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="text-left">
+                      <a ng-click="clearSearch()" href="javascript:void(0)">Clear filters</a>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button ng-disabled="searchTenantForm.$invalid" type="submit" ng-click="DisputeSearch(dispute)"
+                      class="btn btn-property pull-right">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filtering-recent">
+      <ul>
+        <li ng-click="selected=1" ng-class="selected==1?'active':''">
+          <a ng-click="getDisputesList()" href="javascript:void(0)">All</a>
+        </li>
+        <li ng-click="selected=2" ng-class="selected==2?'active':''">
+          <a ng-click="getRaisedDisputesList()" href="javascript:void(0)">Raised</a>
+        </li>
+        <!-- <li ng-click="selected=3" ng-class="selected==3?'active':''">
+                              <a href="javascript:void(0)">Unsuccessful</a>
+                          </li> -->
+        <li ng-click="selected=4" ng-class="selected==4?'active':''">
+          <a ng-click="getClosedDisputeList()" href="javascript:void(0)">Closed</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sort-grid ml-auto">
+      <div class="dropdown default-oder">
+        <button class="btn btn-secondary dropdown-toggle togle-default" type="button" id="dropdownMenu2"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{matchData}}
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu list-default-oder" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button" ng-click="setOrderDispute('updatedAt')">By days open
+            (highest to lowest)</button>
+          <button class="dropdown-item" type="button" ng-click="setOrderDispute('dispute_status')">In
+            Progress</button>
+          <!-- <button class="dropdown-item" type="button" ng-click="setOrderDispute('+dispute_status')">Resolved</button> -->
+          <button class="dropdown-item" type="button" ng-click="setOrderDispute('-dispute_status')">Closed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ContentBody">
+    <div ng-hide="agentView && maintNavList=='Requested by tenant'" class="row marT10"
+      dir-paginate="dispute in disputeList| itemsPerPage:8" current-page="pagination.current">
+      <div class="agnt_list clearfix">
+        <div class="col-sm-2 col-xs-12 agnt_mainImg clearfix">
+          <a href="/#!/dispute_details/{{dispute._id}}" class="property-img1 inspection">
+            <img
+              ng-if="dispute.property_id.image[0].path && dispute.property_id.image[0].is_from_my_file==false && dispute.property_id.image[0].is_from_csv_file==false"
+              src="{{imageUrl}}thumb/{{dispute.property_id.image[0].path}}" alt="propimg" style="height: 137px;">
+            <img
+              ng-if="dispute.property_id.image[0].path && dispute.property_id.image[0].is_from_my_file==true  && image.is_from_csv_file==false"
+              src="{{fileImageUrl}}{{dispute.property_id.image[0].path}}" alt="propimg" style="height: 137px;">
+            <img
+              ng-if="dispute.property_id.image[0].path && dispute.property_id.image[0].is_from_csv_file==true && dispute.property_id.image[0].is_from_my_file==false"
+              src="{{dispute.property_id.image[0].path}}" alt="propimg" style="height: 137px;">
+            <img ng-if="!dispute.property_id.image[0].path" src="assets/images/placeholder.jpg" style="height: 137px;">
+          </a>
+        </div>
+        <div class="col-sm-1 col-xs-2 text-center agntprofile detail clearfix">
+          <a href="/#!/profile/{{dispute.created_by_id._id}}">
+            <img class="createdByImage" ng-src="{{userImageUrl}}{{dispute.created_by_id.image}}"
+              src="assets/images/no_image.png">
+          </a>
+          <!-- <a href="/#!/profile/{{dispute.created_by_id._id}}" ng-show="!dispute.created_by_id.image.length>0 || !dispute.created_by_id.image" class="pointer" href="/#!/dispute.created_by_id_profile/{{dispute.created_by_id._id}}">
+                <div class="default_121">
+               {{dispute.created_by_id.firstname.charAt(0).toUpperCase()}}{{dispute.created_by_id.lastname.charAt(0).toUpperCase()}}
+                </div>
+              </a> -->
+        </div>
+        <div class="col-sm-9  col-xs-8 detail apt-list clearfix">
+          <div class="row">
+            <div class="col-sm-9 clearfix">
+              <h5 class="text-capitalize">
+                <a class="color_anchor" href="/#!/dispute_details/{{dispute._id}}">{{dispute.subject | limitTo :100}}
+                  {{dispute.subject.length > 100 ? "..." : ""}}</a>
+              </h5>
+              <div class="cat_id">
+                <span>
+                  <img src="assets/images/property-id.svg" alt="id">Requested ID : {{dispute.dispute_id}}
+                </span>
+                <div class="clearfix"></div>
+                <span style="position:relative; top: 10px;">
+                  <a href="/#!/profile/{{dispute.agent_id._id}}">
+                    <img class="createdByImage" ng-src="{{userImageUrl}}{{dispute.agent_id.image}}"
+                      src="assets/images/no_image.png" style="width: 35px; height: 35px; padding-right: 0px">
+                  </a>
+                </span>
+                <span style="position:relative; top: 10px;">
+
+                  <img class="createdByImage" ng-src="{{userImageUrl}}{{dispute.owner_id.image}}"
+                    src="assets/images/no_image.png"
+                    style="width: 35px; height: 35px;padding-right: 0px;border-radius: 50%;">
+                  </a>
+                  <!-- <a href="/#!/profile/{{dispute.owner_id._id}}" ng-show="!dispute.owner_id.image.length>0 || !dispute.owner_id.image" class="pointer" href="/#!/dispute.owner_id_profile/{{dispute.owner_id._id}}">
+                        <div class="default_121">
+                       {{dispute.owner_id.firstname.charAt(0).toUpperCase()}}{{dispute.owner_id.lastname.charAt(0).toUpperCase()}}
+                        </div>
+                      </a> -->
+                </span>
+              </div>
+            </div>
+            <!-- <div class="col-sm-1 col-xs-2 detail">
+                  <i class="fa fa-bell notibck" aria-hidden="true"></i>
+                </div>
+                <div class="col-sm-2 price-sec">
+                  <div class="price">
+                    <h4>${{maintain.budget}}</h4>
+                  </div>
+                  <div class="days">in {{maintain.difference | positive}} days </div>
+                </div> -->
+          </div>
+          <div class="row">
+            <div class="col-sm-5">
+            </div>
+            <div class="col-sm-7">
+              <div ng-if="dispute.dispute_status == 1" class="sent1 margin_top_dis dis_mar">In Progress</div>
+              <div ng-if="dispute.dispute_status == 2" class="accepted1 margin_top_dis dis_mar">Resolved</div>
+              <div ng-if="dispute.dispute_status == 3" class="booked1 margin_top_dis dis_status">Closed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="propertyListingSpace">
+      <div ng-if="disputeList.length==0 && isSearchedDispute == false"
+        class="alert alert-info fade in alert-dismissable" style="margin-top:18px;">
+        <strong>No Dispute found to display</strong>
+      </div>
+      <div ng-if="disputeList.length==0 && isSearchedDispute == true" class="alert alert-info fade in alert-dismissable"
+        style="margin-top:18px;">
+        <strong>No searched results were found</strong>
+      </div>
+    </div>
+    <nav class="pagination-container marT20">
+      <div class="pagination">
+        <dir-pagination-controls max-size="10" auto-hide="true" class="pagination-newer" direction-links="true"
+          boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+        </dir-pagination-controls>
+      </div>
+    </nav>
+  </div>
+</div>

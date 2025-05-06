@@ -1,0 +1,176 @@
+<div class="modal-content UserManagement" style="width: 100%;" id="modal">
+    <div class="modal-header">
+        <button class="close" type="button" ng-click="$dismiss('cancel')">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h3 id="myModalLabel" class="modal-title">
+            NEW USER
+            <strong> Create Profiles </strong>
+        </h3>
+    </div>
+    <div class="modal-body">
+
+        <form enctype="multipart/form-data" name="bulkImportAgentForm" ng-init="user_submit = false" role="form"
+            novalidate autocomplete="off">
+            <div class="MultiAgent">
+                <div ng-repeat="agent in bulkAgentData" class="MultiAgentDiv">
+                    <div class="col-md-12">
+                        <h3>Agent {{$index + 1}}</h3>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group text-left">
+                            <label class="control-label">First Name
+                            </label>
+                            <input ng-pattern="/^[a-zA-Z ]*$/" ng-maxlength="25" type="text" name="first_name{{$index}}"
+                                ng-model="agent.first_name" class="form-control" required>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="bulkImportAgentForm.first_name{{$index}}.$error.required"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">First name is Required</font>
+                            </span>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="bulkImportAgentForm.first_name{{$index}}.$error.pattern"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">First Name Must Contain Alphabet</font>
+                            </span>
+                            <span ng-show="bulkImportAgentForm.first_name{{$index}}.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 25 characters allowed</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group text-left">
+                            <label class="control-label lbl_LeftPadding">Last Name
+                            </label>
+                            <input type="text" name="last_name{{$index}}" ng-maxlength="25" ng-model="agent.last_name"
+                                class="form-control" required>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="bulkImportAgentForm.last_name{{$index}}.$error.required"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Last name is Required</font>
+                            </span>
+                            <span ng-show="bulkImportAgentForm.last_name{{$index}}.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 25 characters allowed</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group text-left">
+                            <label class="control-label">Email Address
+                            </label>
+                            <!-- ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" -->
+                            <input type="email" ng-maxlength="254" name="email{{$index}}" ng-model="agent.email"
+                                ng-pattern="/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9]+$)/" class="form-control"
+                                required>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="bulkImportAgentForm.email{{$index}}.$error.pattern"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Please enter proper email address</font>
+                            </span>
+                            <span ng-show="bulkImportAgentForm.email{{$index}}.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 254 characters allowed.</font>
+                            </span>
+                            <span ng-show="bulkImportAgentForm.email{{$index}}.$error.required"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Email is required.</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group text-left">
+                            <label class="control-label lbl_LeftPadding">Phone Number
+                            </label>
+                            <input type="text" name="phone_number{{$index}}" ng-model="agent.phone_number"
+                                class="form-control" ng-maxlength="14" ng-pattern="/^[0-9]/" required>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="bulkImportAgentForm.phone_number{{$index}}.$error.required">
+                                <font color="Red">Phone number is Required</font>
+                            </span>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="bulkImportAgentForm.phone_number{{$index}}.$error.pattern">
+                                <font color="Red">Only numbers are allowed.</font>
+                            </span>
+                            <span ng-show="bulkImportAgentForm.phone_number{{$index}}.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 14 digits are allowed</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group text-left">
+                            <label class="control-label lbl_LeftPadding">Suburb
+                            </label>
+                            <input type="text" name="suburb{{$index}}" ng-model="agent.suburb" class="form-control"
+                                required>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="bulkImportAgentForm.suburb{{$index}}.$error.required">
+                                <font color="Red">Suburb is Required</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group text-left">
+                            <label class="control-label lbl_LeftPadding">Postcode
+                            </label>
+                            <input type="text" name="post_code{{$index}}" ng-model="agent.post_code"
+                                class="form-control" ng-maxlength="4" ng-pattern="/^[0-9]/" required>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="bulkImportAgentForm.post_code{{$index}}.$error.required">
+                                <font color="Red">Postcode is Required</font>
+                            </span>
+                            <span class="error-span inner-error ng-binding"
+                                ng-show="bulkImportAgentForm.post_code{{$index}}.$error.pattern">
+                                <font color="Red">Only numbers are allowed.</font>
+                            </span>
+                            <span ng-show="bulkImportAgentForm.post_code{{$index}}.$error.maxlength"
+                                class="error-span inner-error ng-binding">
+                                <font color="Red">Max 4 digits are allowed</font>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group text-left">
+                            <label class="control-label">Country</label>
+                            <select class="form-control">
+                                <option selected>{{country}}</option>
+                            </select>
+                            <!-- <span class="error-span inner-error ng-binding "
+                                    ng-show="bulkImportAgentForm.country.$error.required && bulkImportAgentForm.country.$touched "
+                                    class="error-span inner-error ng-binding ">
+                                    <font color="Red">Country is Required</font>
+                                </span> -->
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group text-left">
+                            <label class="control-label">State</label>
+                            <select ng-model="agent.state" name="state{{$index}}" class="form-control" required>
+                                <option ng-repeat="state in stateList" value="{{state}}">
+                                    {{state}}</option>
+                            </select>
+                            <span class="error-span inner-error ng-binding "
+                                ng-show="bulkImportAgentForm.state{{$index}}.$error.required"
+                                class="error-span inner-error ng-binding ">
+                                <font color="Red">State is Required</font>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="UploadWrap">
+                <button class="btn PrimaryButtonBDR" ng-click="$dismiss('cancel')">Cancel</button>
+                <button class="btn PrimaryButton" ng-click="bulkImportAgents(bulkAgentData)"
+                    ng-disabled="bulkImportAgentForm.$invalid" class="btn btn-upload">Create
+                    Accounts</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+<script>
+    $("#modal .close ").click()
+</script>

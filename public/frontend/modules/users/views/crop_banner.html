@@ -1,0 +1,39 @@
+<div class="crop-image banner-img-modal modal-dialog modal-lg">
+    <div class="modal-content" id="modal">
+        <div class="modal-header">
+            <button class="close" type="button" ng-click="$dismiss('cancel')">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h3 id="myModalLabel" class="modal-title">
+                <strong> Crop Your Image </strong>
+            </h3>
+        </div>
+        <form enctype="multipart/form-data" name="createUserForm" role="form" novalidate autocomplete="off"></form>
+        <div class="modal-body">
+            <div class="cropArea">
+                <ui-cropper image="myImage" area-type="rectangle" aspect-ratio="5.2833" result-image="myCroppedImage"
+                     result-image-size='{w: 1585,h: 300}' init-max-area="true" 
+                    area-init-size="{ w: 1585, h: 300 }" result-image-size="{ w: 1585, h: 300 }, { w: 1585, h: 300 }" 
+                    allow-crop-resize-on-corners="false" result-image-format="image/jpeg"
+                    ></ui-cropper>
+            </div>
+            <!-- <image-crop data-height="300" data-width="1585" padding="200" max-size="1600" data-shape="square" src="myImage"
+                data-result="myCroppedImage" data-result-blob="resultBlob" crop="initCrop">
+            </image-crop> -->
+            <img ng-src="{{myCroppedImage}}" style="display :none;"></img>
+            <div ng-show="initCrop && !myCroppedImage">Invalid file.</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" ng-click="$dismiss('cancel')">Cancel</button>
+            <button class="btn btn-info" ng-click="upload_crop_image()">Crop</button>
+            <!-- upload_crop_image(myCroppedImage) -->
+        </div>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(document).find(".theme-whbl.block-ui .modal-dialog").css('width', 'fit-content');
+            $("#modal .close ").click();
+        });
+    </script>
+</div>

@@ -1,0 +1,435 @@
+<!-- tabs -->
+<div class="container">
+    <div class="row marT20" ng-init="getApplicationDetails();appli_property_details_click();">
+        <div class="setting-section">
+            <div class="app-detail-header">
+                <div class="project-listing-latest ">
+                    <h5>Application Details</h5>
+                </div>
+                <div class="app-btn-grp" ng-if="((application_details.property_id.created_by_agency_id == logged_in_agency_id && agentCode == roleId) || application_details.property_id.owned_by == loggedIn || application_details.property_id.created_by._id == loggedIn) && application_details.status == 0 ">
+                    <a href="javascript:void(0);" ng-click="openApplicationStatusPopup('Decline',application_details._id)"
+                        class="head-btn decline-btn">Decline</a>
+                    <a href="javascript:void(0);" ng-click="openApplicationStatusPopup('Approve',application_details._id)"
+                        class="head-btn approve-btn">Approve
+                        Application</a>
+                </div>
+                <div class="application-status" ng-if="(application_details.status == 1 || application_details.status == 2)">
+                    Application {{application_details.status == 1 ? "Approved" : "Declined"}}
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="app-body-wrap">
+            <div class="app-row">
+                <div class="col-sm-2 settingPage marT30">
+                    <ul class="nav nav-pills nav-stacked nav-editprofile">
+                        <li role="presentation" class="{{appli_property_details}}">
+                            <a class="pointer" ng-click="appli_property_details_click()" aria-controls="property_details"
+                                role="tab" data-toggle="tab">
+                                Property Details
+                                <span class="clearfix"></span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="{{appli_property_occupacy}}">
+                            <a class="pointer" ng-click="appli_property_occupacy_click()" aria-controls="occupact" role="tab"
+                                data-toggle="tab" aria-expanded="false">
+                                Occupancy
+                                <span class="clearfix"></span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="{{appli_property_agent_specific}}">
+                            <a class="pointer" ng-click="appli_property_agent_specific_click()" aria-controls="agent_specific"
+                                role="tab" data-toggle="tab" aria-expanded="false">
+                                Agent Specific
+                                <span class="clearfix"></span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="{{appli_property_moving_service}}">
+                            <a class="pointer" ng-click="appli_property_moving_service_click()" aria-controls="moving_service"
+                                role="tab" data-toggle="tab" aria-expanded="false">
+                                Moving Service
+                                <span class="clearfix"></span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="{{appli_property_identification}}">
+                            <a class="pointer" ng-click="appli_property_identification_click()" aria-controls="identification"
+                                role="tab" data-toggle="tab" aria-expanded="false">
+                                Identification
+                                <span class="clearfix"></span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="{{appli_property_declaration}}">
+                            <a class="pointer" ng-click="appli_property_declaration_click()" aria-controls="declaration"
+                                role="tab" data-toggle="tab" aria-expanded="false">
+                                Declaration
+                                <span class="clearfix"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-7 marT30">
+                    <div class="tab-content">
+                        <div id="" class="col-sm-12 tab-pane fade tabbedContent in {{appli_property_details}} ">
+                            <div class="application-details-container">
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Address</span>
+                                    <span class="app-sett-text"><a href="#!/property_details/{{application_details.property_id._id}}">{{application_details.property_id.address}}</a></span>
+                                </div>
+
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Type of Property</span>
+                                    <span class="app-sett-text text-capitalize">{{application_details.property_type}}</span>
+                                </div>
+
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">No. of Bedrooms</span>
+                                    <span class="app-sett-text text-capitalize">{{application_details.number_bedroom}}</span>
+                                </div>
+
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Commencement Date</span>
+                                    <span class="app-sett-text">{{application_details.preferred_comm_date | date :
+                                        "dd/MM/yy"}}</span>
+                                </div>
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Length of Lease</span>
+                                    <span class="app-sett-text">
+                                        {{(application_details.preferred_length_of_lease_years > 0) ?
+                                        application_details.preferred_length_of_lease_years + " Year(s)" : ""}}
+                                        {{(application_details.preferred_length_of_lease_months > 0) ?
+                                        application_details.preferred_length_of_lease_months + " Month(s)" : ""}}
+                                    </span>
+                                </div>
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Weekly Rent</span>
+                                    <span class="app-sett-text">${{application_details.weekly_rent}}</span>
+                                </div>
+
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Monthly Rent</span>
+                                    <span class="app-sett-text">${{application_details.monthly_rent}}</span>
+                                </div>
+
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title"> Bond</span>
+                                    <span class="app-sett-text">${{application_details.bond}}</span>
+                                </div>
+
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Why this proprty is right for Tenant?</span>
+                                    <span class="app-sett-text">{{application_details.why_propery_is_right_for_u}}</span>
+                                </div>
+
+
+                            </div>
+                            <div class="application-details-container">
+                                <h4 class="main-head-title">Property Manager Details</h4>
+
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Agency Name</span>
+                                    <span class="app-sett-text text-capitalize">{{application_details.agency_name}}</span>
+                                </div>
+
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Property Manager Name</span>
+                                    <span class="app-sett-text text-capitalize">{{application_details.property_manager_name}}</span>
+                                </div>
+
+                                <div class="pr-detail-content">
+                                    <span class="app-sett-title">Property Manager Email Address</span>
+                                    <span class="app-sett-text">{{application_details.property_manager_email}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 tab-pane fade tabbedContent in {{appli_property_occupacy}}">
+                            <div class="application-details-container">
+                                <span class="occ-heading">Occupancy</span>
+                                <span class="occ-sub-heading">Occupants</span>
+
+                                <span class="applicant-title">Primary Applicant</span>
+                                <span class="applicant-name text-capitalize">{{application_details.created_by.name}}</span>
+                                <br>
+                                <div class="occ-number" ng-show="application_details.members.length > 0">
+                                    <span class="occ-num-title">Aprat from the above, how many other people will be
+                                        occupying the property?</span>
+                                    <span class="occ-num-txt">{{application_details.members.length}}</span>
+                                </div>
+                                <div ng-show="application_details.members.length > 0">
+                                    <div class="occ-inner-wrap" ng-repeat="member in application_details.members">
+
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Name </span>
+                                            <span class="app-occ-text">{{ member.name }}</span>
+                                        </div>
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Age </span>
+                                            <span class="app-occ-text">{{ (member.age == '0' || member.age == 0) ? 'Less than 1' : member.age}} </span>    
+                                        </div>
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Relationship </span>
+                                            <span class="app-occ-text">{{relationships_list[member.relationship]["label"]}}</span>
+                                        </div>
+
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Will this occupant be on the lease? </span>
+                                            <span class="app-occ-text">{{ member.be_on_lease ==
+                                                true
+                                                ? "Yes" : "No" }}</span>
+                                        </div>
+
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Email </span>
+                                            <span class="app-occ-text">{{ member.email }}</span>
+                                        </div>
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Mobile/All day contact </span>
+                                            <span class="app-occ-text">{{ member.mobile_number }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-show="application_details.vehicles.length > 0">
+                                    <div class="occ-sub-heading">Vehicles</div>
+                                    <div class="occ-number" ng-show="application_details.members.length > 0">
+                                        <span class="occ-num-title">Hom many vehicals will be parked at the property?</span>
+                                        <span class="occ-num-txt">{{application_details.members.length}}</span>
+                                    </div>
+
+                                    <div class="occ-inner-wrap" ng-repeat="vehicle in application_details.vehicles">
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Vehicle Type </span>
+                                            <span class="app-occ-text">{{vehicle_types_list[vehicle.type]["label"]}}</span>
+                                        </div>
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Registration </span>
+                                            <span class="app-occ-text">{{ vehicle.registration }}</span>
+                                        </div>
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Make/Model </span>
+                                            <span class="app-occ-text">{{ vehicle.make_model }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-show="application_details.pets.length > 0">
+                                    <div class="occ-sub-heading">Pets</div>
+                                    <div class="occ-number" ng-show="application_details.members.length > 0">
+                                        <span class="occ-num-title">Number of Pets</span>
+                                        <span class="occ-num-txt">{{application_details.members.length}}</span>
+                                    </div>
+
+                                    <div class="occ-inner-wrap" ng-repeat="pet in application_details.pets">
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Type </span>
+                                            <span class="app-occ-text">{{pet_types_list[pet.type]["label"]}}</span>
+                                        </div>
+
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Type/Breed </span>
+                                            <span class="app-occ-text">{{ pet.breed }}</span>
+                                        </div>
+
+                                        <div class="occ-wrap">
+                                            <span class="app-occ-title">Council Registration No. </span>
+                                            <span class="app-occ-text">{{ pet.registration_number }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12  tab-pane fade tabbedContent  in {{appli_property_agent_specific}}">
+                            <div class="application-details-container">
+                                <span class="occ-heading">Further Questions</span>
+                                <div class="form-group d-flex" ng-repeat="(key,question) in agent_specific_questions_list">
+                                    <div class="control-group">
+                                        <div class="pr-detail-content">
+                                            <span class="app-sett-title que-title">{{question.name}}</span>
+                                            <span class="app-sett-text que-text">{{application_details.agent_specific[key].status
+                                                == true ? "Yes" : "No" }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 tab-pane fade tabbedContent in {{appli_property_moving_service}}">
+                            <div class="application-details-container">
+                                <h3 class="occ-heading">Need help moving house or
+                                    connecting utilities?</h3>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <div class="control-group radio-list" ng-init="need_help_moving_service = '1'">
+                                            <label>{{question.name}}</label>
+                                            <div class="radio-flex">
+                                                <label class="radio-lb" ng-if="application_details.need_help_moving_service == true">
+                                                    <p>Yes, Tenant wants and agree with Terms & Conditions.</a></p>
+                                                    <input type="radio" name="need_help_moving_service[{{question.value}}]"
+                                                        ng-model="application_details.need_help_moving_service" value="1"
+                                                        ng-checked="true" readonly />
+                                                    <div class="radio-chk"></div>
+                                                </label>
+                                                <label class="radio-lb" ng-if="application_details.need_help_moving_service == false">
+                                                    <p>No, Tenant don't need help with
+                                                        moving
+                                                        house or connecting utilities.</p>
+                                                    <input type="radio" name="need_help_moving_service[{{question.value}}]"
+                                                        ng-model="application_details.need_help_moving_service" value="0"
+                                                        readonly />
+                                                    <div class="radio-chk"></div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 tab-pane fade tabbedContent  in {{appli_property_identification}}">
+                            <div class="application-details-container">
+                                <h1 class="occ-heading">Identification</h1>
+                                <div id="uploaded_docs" ng-show="application_details.document_id && application_details.document_id.length > 0">
+                                    <div class="col-xs-12" ng-if="application_details.documentation_status">
+                                        <div class="col-xs-12">
+                                            <!-- <p class="head-title">Uploaded Documents</p> -->
+                                        </div>
+                                        <div class="identification-container-details">
+                                            <div class="row file_list" dir-paginate="document_listing in application_details.document_id| itemsPerPage:100 |orderBy:sortText track by $index"
+                                                current-page="pagination.current">
+                                                <div class="iden-content-wrap">
+                                                    <div class="iden-img-wrap">
+                                                        <div class="atch_img">
+                                                            <div class="over">
+                                                                <a href="{{fileImageUrl}}{{document_listing.document_path}}"
+                                                                    target="_blank">
+                                                                    <img ng-if="!document_listing.document_type" src="/assets/images/doc.jpg"
+                                                                        ng-src="{{fileImageUrl}}{{document_listing.document_path}}"
+                                                                        class="img-responsive" alt="">
+                                                                    <img ng-if="document_listing.document_type=='excel'"
+                                                                        src="assets/images/xls.png" class="img-responsive disable agreeAttch"
+                                                                        alt="atch1">
+                                                                    <img ng-if="document_listing.document_type=='doc'"
+                                                                        src="assets/images/word.png" class="img-responsive disable agreeAttch"
+                                                                        alt="atch1">
+                                                                    <img ng-if="document_listing.document_type=='pdf'"
+                                                                        src="assets/images/pdf.png" class="img-responsive disable agreeAttch"
+                                                                        alt="atch1">
+                                                                    <img ng-if="document_listing.document_type=='ppt'"
+                                                                        src="assets/images/ppt.png" class="img-responsive disable agreeAttch"
+                                                                        alt="atch1">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="iden-detail-wrap">
+                                                        <div class="attchment-name">
+                                                            <!-- <a ng-click="openImages(document_listing)"> -->
+                                                            <a href="{{fileImageUrl}}{{document_listing.document_path}}"
+                                                                target="_blank">
+                                                                {{document_listing.document_name}}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chk-content ident-check" ng-if="!application_details.documentation_status">
+                                    {{application_details.created_by.firstname
+                                    + " " +
+                                    application_details.created_by.lastname}}
+                                    prefer to give documents on-hand.
+                                    <label class="check_container">
+                                        <!-- <input type="checkbox" name="check" id="check" value="1" ng-model="application_details.documentation_status"> -->
+
+                                        <!-- <span class="checkmark"></span> -->
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 tab-pane fade tabbedContent in {{appli_property_declaration}}">
+                            <div class="application-details-container">
+                                <div class="decl-wrap">
+                                    <span class="declare-head">Property Inspection</span>
+                                    <span class="declare-content" ng-if="application_details.inspection_status == false">{{application_details.created_by.firstname
+                                        + " " +
+                                        application_details.created_by.lastname}}
+                                        have not yet inspected this
+                                        property</span>
+                                    <span class="declare-content" ng-if="application_details.inspection_status == true">Yes,
+                                        {{application_details.created_by.firstname
+                                        + " " +
+                                        application_details.created_by.lastname}} has inspected this
+                                        property</span>
+                                </div>
+
+                                <div class="decl-wrap">
+                                    <br>
+                                    <div class="row" ng-if="application_details.inspection_status == false">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 dec-txt pd-0">
+                                            {{application_details.created_by.firstname
+                                            + " " +
+                                            application_details.created_by.lastname}} requires to
+                                            inspect
+                                            the
+                                            property before applying.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="decl-wrap">
+                                    <span ng-if="application_details.inspection_status == false">
+                                        <span class="declare-head">When do Tenant intend to inspect the property</span>
+                                        <span class="declare-content">{{application_details.inspection_date|date:'dd/MM/yy'
+                                            }}</span>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="application-details-container">
+                                <div class="decl-wrap">
+                                    <span class="declare-head">Terms and Conditions</span>
+                                    <span class="declare-content">Accepted</span>
+                                </div>
+                            </div>
+                            <div class="application-details-container">
+                                <div class="decl-wrap">
+                                    <span class="declare-head">Tenancy Database</span>
+                                    <span class="declare-content">Accepted</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 marT30">
+                    <div class="app-profile">
+                        <div class="agent_profile  clearfix">
+                            <div class="contact_info online-symb">
+                                <div class="inspection">
+                                    <img ng-if="application_details.created_by.image" src="{{createrImageUrl}}{{application_details.created_by.image}}"
+                                        alt="" style="height:118px;width:119px">
+                                    <span ng-class="application_details.created_by.is_online == true ? 'colorGreen_tenant' : 'profile-detail-agnt-dot'"></span>
+
+                                    <div ng-if="!application_details.created_by.image" class="default_100">
+                                        {{application_details.created_by.firstname.charAt(0).toUpperCase()}}{{application_details.created_by.lastname.charAt(0).toUpperCase()}}
+                                    </div>
+                                </div>
+                                <h5>{{application_details.created_by.firstname}}
+                                    {{application_details.created_by.lastname}}</h5>
+                                <div class="rating">
+                                    <span uib-rating ng-model="application_details.created_by.averageRate" max="max"
+                                        read-only="true" on-hover="hoveringOver(value)" on-leave="overStar = null"
+                                        titles="['one','two','three']" aria-labelledby="default-rating"></span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <p>{{application_details.created_by.averageRate}} from
+                                    {{application_details.created_by.total_review}} reviews</p>
+                                <a ng-if="application_details.created_by._id!=loggedIn" target="_blank" href="#!/tenant_profile/{{application_details.created_by._id}}"
+                                    class="btn btn-property head-btn">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

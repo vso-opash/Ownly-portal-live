@@ -1,0 +1,35 @@
+<link href="/assets/css/style.css" rel="stylesheet" type="text/css">
+<div class="main_section loginImg">
+    <div class="container">
+        <div class="loginInfo registerInfo">
+            <div class="row">
+                <div class="col-sm-6 blueLogin" style='height:300px'>
+                    <div class="loginLogo">
+                        <img style="padding: 127px 1857px 1292px 184px;" src="/assets/images/logo-public-home.png">
+                        <!-- <img style="padding: 127px 1857px 1292px 184px;" src="/assets/images/logo.png"> -->
+                    </div>
+                </div>
+                <div class="col-sm-6 signInInfo" style='height:300px'>
+                    <h2 class="title">Verify User</h2>
+                    <div class="signFild">
+                        <form id="verify_form" name="verify_form" novalidate>
+                            <div class="form-group">
+                                <input class="form-control frmInput" name="otp" ng-maxlength="10"
+                                    placeholder="Enter verification code" ng-model="verify.otp" type="text">
+                                <span ng-show="verify_form.otp.$touched && verify_form.otp.$error.required"
+                                    class="redb">
+                                    <font color="Red">This field is required.</font>
+                                </span>
+                                <span ng-show="verify_form.otp.$error.maxlength"
+                                    class="error-span inner-error ng-binding">
+                                    <font color="Red">Max 10 digits allowed</font>
+                                </span>
+                            </div>
+                            <button type="button" class="btnSignIn" ng-disabled="verify_form.$invalid"
+                                ng-click="verifycode(verify)">Verify</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

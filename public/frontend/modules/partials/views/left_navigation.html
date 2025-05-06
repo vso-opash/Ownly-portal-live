@@ -1,0 +1,267 @@
+<section id="col-left" class="col-left-nano" ng-init="navOptioninit();">
+    <!-- Staging -->
+    <div ng-if="!isProd" id="col-left-inner" class="col-left-nano-content">
+        <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
+            <ul class="nav nav-pills nav-stacked main-side-menu">
+                <li ng-if="((permission.indexOf('dashboard') != -1))" ng-click="navSelect('Home')"
+                    ng-class="navBarOptionSelected=='Home'? 'active' : ''">
+                    <a ng-click="goToDashboardFromNav()" class="sidebar icon-home pointer">
+                        <img src="assets/images/home.png" /><img src="assets/images/home-mo.png" /> Home
+                    </a>
+                </li>
+                <!-- removed for now -->
+                <li ng-if="((permission.indexOf('property_listing') != -1))" ng-click="navSelect('Properties')"
+                    ng-class="navBarOptionSelected=='Properties'? 'active' : ''">
+                    <a ng-click="goToPropertyListingFromNav()" class="sidebar icon-prop pointer">
+                        <img src="assets/images/property.png" /><img src="assets/images/property-mo.png" />Properties
+                    </a>
+                    <!-- <ul class="submenu">
+                    <li> <a href="tables.html"> Simple </a> </li>
+                    <li> <a href="tables-advanced.html"> Advanced </a> </li>
+                    <li> <a href="users.html"> Users </a> </li>
+                  </ul> -->
+                </li>
+                <!-- removed for now -->
+
+                <!-- removed for now -->
+                <li ng-if="((permission.indexOf('agreement')!= -1))" ng-click="navSelect('Agreements')"
+                    ng-class="navBarOptionSelected=='Agreements'? 'active' : ''">
+                    <a ng-click="goToAgreementListing()" class="sidebar dropdown-toggle icon-agree pointer">
+                        <img src="assets/images/agreement.png" /><img src="assets/images/agreement-mo.png" />Tenancies
+                    </a>
+                </li>
+                <!-- removed for now -->
+
+                <li ng-if="((permission.indexOf('agency_profile')!= -1)) && isAssociatedWithAgency && current_role_id == roles_exist.agent"
+                    ng-click="navSelect('agency_profile')"
+                    ng-class="navBarOptionSelected=='agency_profile'? 'active' : ''">
+                    <a ng-click="goToMyAgencyFromNav()" class="sidebar icon-agency pointer">
+                        <img src="assets/images/agency.png" /><img src="assets/images/agency-mo.png" />My agency
+                    </a>
+                    <!-- <ul class="submenu">
+                    <li> <a href="email-inbox.html"> Inbox </a> </li>
+                    <li> <a href="email-detail.html"> Detail </a> </li>
+                    <li> <a href="email-compose.html"> Compose </a> </li>
+                  </ul> -->
+                </li>
+                <!-- removed for now -->
+                <li ng-if="((permission.indexOf('agents_listing')!=-1))" ng-click="navSelect('agents_listing')"
+                    ng-class="navBarOptionSelected=='agents_listing'? 'active' : ''">
+                    <a ng-click="goToAgentListingFromNav()" class="sidebar dropdown-toggle pointer">
+                        <img src="assets/images/user.png" /><img src="assets/images/user-mo.png" />Agents
+                    </a>
+                </li>
+                <li ng-if="((permission.indexOf('agencyhub')!=-1))" ng-click="navSelect('agencyhub')"
+                    ng-class="navBarOptionSelected=='agencyhub'? 'active' : ''">
+                    <a ng-click="goToAgencyHubFromNav()" class="sidebar dropdown-toggle pointer">
+                        <img src="assets/images/calendar-search-grey.png" /><img
+                            src="assets/images/calendar-search-mo.png" />AgencyHub
+                    </a>
+                </li>
+                <!-- removed for now -->
+                <li ng-if="((permission.indexOf('strata_users')!=-1))" ng-click="navSelect('strata_users')"
+                    ng-class="navBarOptionSelected=='strata_users'? 'active' : ''">
+                    <a ng-click="goToStrataUserListingFromNav()" class="sidebar dropdown-toggle pointer">
+                        <img src="assets/images/calendar-search.png" /><img
+                            src="assets/images/calendar-search-mo.png" />Starta
+                        Users
+                    </a>
+                </li>
+                <!-- removed for now -->
+                <li ng-if="((permission.indexOf('tenants_listing')!=-1))" ng-click="navSelect('tenants_listing')"
+                    ng-class="navBarOptionSelected=='tenants_listing'? 'active' : ''">
+                    <a ng-click="goToTenantListingFromNav()" class="sidebar icon-tenants pointer">
+                        <img src="assets/images/tenant.png" /><img src="assets/images/tenant-mo.png" />Tenants
+                    </a>
+                </li>
+                <!-- removed for now -->
+                <li ng-if="((permission.indexOf('trader_listing')!= -1))" ng-click="navSelect('trader_listing')"
+                    ng-class="navBarOptionSelected=='trader_listing'? 'active' : ''">
+                    <a ng-click="goToTraderListing()" class="sidebar icon-traders pointer">
+                        <img src="assets/images/trader.png" /><img src="assets/images/trader-mo.png" />Traders
+                    </a>
+                </li>
+                <li ng-if="((permission.indexOf('messages')!= -1))" ng-click="navSelect('TradMessagesers')"
+                    ng-class="navBarOptionSelected=='TradMessagesers'? 'active' : ''">
+                    <a ng-click="goToChatScreen()" class="sidebar icon-msg pointer">
+                        <img src="assets/images/msg.png" /><img src="assets/images/msg-mo.png" />Messages
+                    </a>
+                    <!-- <ul class="submenu">
+                    <li> <a href="calendar.html"> Calendar </a> </li>
+                    <li> <a href="gallery.html"> Gallery </a> </li>
+                    <li> <a href="gallery-v2.html"> Gallery v2 </a> </li>
+                    <li> <a href="pricing.html"> Pricing </a> </li>
+                    <li> <a href="projects.html"> Projects </a> </li>
+                    <li> <a href="team-members.html"> Team Members </a> </li>
+                    <li> <a href="timeline.html"> Timeline </a> </li>
+                    <li> <a href="timeline-grid.html"> Timeline Grid </a> </li>
+                    <li> <a href="user-profile.html"> User Profile </a> </li>
+                    <li> <a href="search.html"> Search Results </a> </li>
+                    <li> <a href="invoice.html"> Invoice </a> </li>
+                    <li> <a href="intro.html"> Tour Layout </a> </li>
+                  </ul> -->
+                </li>
+                <li ng-if="((permission.indexOf('maintenance')!= -1))" ng-click="navSelect('Maintenance')"
+                    ng-class="navBarOptionSelected=='Maintenance'? 'active' : ''">
+                    <a ng-click="goToMaintenanceListing()" class="sidebar icon-maint pointer">
+                        <img src="assets/images/maintenance.png" /><img
+                            src="assets/images/maintenance-mo.png" />Maintenance
+                    </a>
+                    <!-- <ul class="submenu">
+                    <li> <a href="form-elements.html"> Elements </a> </li>
+                    <li> <a href="x-editable.html"> X-Editable </a> </li>
+                    <li> <a href="form-wizard.html"> Wizard </a> </li>
+                    <li> <a href="form-wizard-popup.html"> Wizard popup </a> </li>
+                    <li> <a href="form-wysiwyg.html"> WYSIWYG </a> </li>
+                    <li> <a href="form-summernote.html"> WYSIWYG Summernote </a> </li>
+                    <li> <a href="form-ckeditor.html"> WYSIWYG CKEditor </a> </li>
+                    <li> <a href="form-dropzone.html"> Multiple File Upload </a> </li>
+                  </ul> -->
+                </li>
+                <!-- removed for now -->
+                <li ng-if="((permission.indexOf('noticeboard')!= -1))" ng-click="navSelect('noticeboard')"
+                    ng-class="navBarOptionSelected=='noticeboard'? 'active' : ''">
+                    <a href="/#!/notice_board_listing" class="sidebar dropdown-toggle icon-notice">
+                        <img src="assets/images/notice.png" /><img src="assets/images/notice-mo.png" />Notice boards
+                    </a>
+                </li>
+                <!-- removed for now -->
+                <li ng-if="((permission.indexOf('myFile')!= -1))" ng-click="navSelect('My_files')"
+                    ng-class="navBarOptionSelected=='My_files'? 'active' : ''">
+                    <a ng-click="goToFileListing()" class="sidebar dropdown-toggle icon-files pointer">
+                        <img src="assets/images/files.png" /><img src="assets/images/files-mo.png" />My Files
+                    </a>
+                </li>
+                <!-- <li ng-if="((permission.indexOf('inspection')!= -1))" ng-click="navSelect('Inspections')" ng-class="navBarOptionSelected=='Inspections'? 'active' : ''">
+                    <a href="javascript:void(0)" class="sidebar icon-inspec">
+                        <img src="assets/images/inspections.png" /><img src="assets/images/inspections-mo.png" />Inspection
+                    </a>
+                </li> -->
+                <li ng-if="((permission.indexOf('disputes')!= -1))" ng-click="navSelect('Disputes')"
+                    ng-class="navBarOptionSelected=='Disputes'? 'active' : ''">
+                    <a ng-click="goToDisputeListing()" class="sidebar dropdown-toggle icon-disputes pointer">
+                        <img src="assets/images/disputes.png" /><img src="assets/images/disputes-mo.png" />Disputes
+                    </a>
+                </li>
+                <!-- <li ng-if="((permission.indexOf('reports')!= -1))" ng-click="navSelect('Reports')" ng-class="navBarOptionSelected=='Reports'? 'active' : ''">
+                    <a href="javascript:void(0)" class="sidebar dropdown-toggle icon-reports">
+                        <img src="assets/images/reports.png" /><img src="assets/images/reports-mo.png" />Reports
+                    </a>
+                </li> -->
+                <li ng-if="((permission.indexOf('setting')!= -1))" ng-click="navSelect('Settings')"
+                    ng-class="navBarOptionSelected=='Settings'? 'active' : ''">
+                    <a ng-click="goToSettingPage()" class="sidebar dropdown-toggle icon-settings pointer">
+                        <img src="assets/images/settings.png" /><img src="assets/images/settings-mo.png" />Edit Profile
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- Production -->
+    <div ng-if="isProd" id="col-left-inner" class="col-left-nano-content">
+        <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
+            <ul class="nav nav-pills nav-stacked main-side-menu">
+                <li ng-if="((permission.indexOf('dashboard') != -1))" ng-click="navSelect('Home')"
+                    ng-class="navBarOptionSelected=='Home'? 'active' : ''">
+                    <a ng-click="goToDashboardFromNav()" class="sidebar icon-home pointer">
+                        <img src="assets/images/home.png" /><img src="assets/images/home-mo.png" /> Home
+                    </a>
+                </li>
+                <li ng-if="((permission.indexOf('agency_profile')!= -1)) && isAssociatedWithAgency && current_role_id == roles_exist.agent"
+                    ng-click="navSelect('agency_profile')"
+                    ng-class="navBarOptionSelected=='agency_profile'? 'active' : ''">
+                    <a ng-click="goToMyAgencyFromNav()" class="sidebar icon-agency pointer">
+                        <img src="assets/images/agency.png" /><img src="assets/images/agency-mo.png" />My agency
+                    </a>
+                    <!-- <ul class="submenu">
+                    <li> <a href="email-inbox.html"> Inbox </a> </li>
+                    <li> <a href="email-detail.html"> Detail </a> </li>
+                    <li> <a href="email-compose.html"> Compose </a> </li>
+                  </ul> -->
+                </li>
+                <li ng-if="((permission.indexOf('strata_users')!=-1))" ng-click="navSelect('strata_users')"
+                    ng-class="navBarOptionSelected=='strata_users'? 'active' : ''">
+                    <a ng-click="goToStrataUserListingFromNav()" class="sidebar dropdown-toggle pointer">
+                        <img src="assets/images/user.png" /><img src="assets/images/user-mo.png" />Starta Users
+                    </a>
+                </li>
+                <li ng-if="((permission.indexOf('trader_listing')!= -1))" ng-click="navSelect('trader_listing')"
+                    ng-class="navBarOptionSelected=='trader_listing'? 'active' : ''">
+                    <a ng-click="goToTraderListing()" class="sidebar icon-traders pointer">
+                        <img src="assets/images/trader.png" /><img src="assets/images/trader-mo.png" />Traders
+                    </a>
+                </li>
+                <li ng-if="((permission.indexOf('messages')!= -1))" ng-click="navSelect('TradMessagesers')"
+                    ng-class="navBarOptionSelected=='TradMessagesers'? 'active' : ''">
+                    <a ng-click="goToChatScreen()" class="sidebar icon-msg pointer">
+                        <img src="assets/images/msg.png" /><img src="assets/images/msg-mo.png" />Messages
+                    </a>
+                    <!-- <ul class="submenu">
+                    <li> <a href="calendar.html"> Calendar </a> </li>
+                    <li> <a href="gallery.html"> Gallery </a> </li>
+                    <li> <a href="gallery-v2.html"> Gallery v2 </a> </li>
+                    <li> <a href="pricing.html"> Pricing </a> </li>
+                    <li> <a href="projects.html"> Projects </a> </li>
+                    <li> <a href="team-members.html"> Team Members </a> </li>
+                    <li> <a href="timeline.html"> Timeline </a> </li>
+                    <li> <a href="timeline-grid.html"> Timeline Grid </a> </li>
+                    <li> <a href="user-profile.html"> User Profile </a> </li>
+                    <li> <a href="search.html"> Search Results </a> </li>
+                    <li> <a href="invoice.html"> Invoice </a> </li>
+                    <li> <a href="intro.html"> Tour Layout </a> </li>
+                  </ul> -->
+                </li>
+                <li ng-if="((permission.indexOf('maintenance')!= -1))" ng-click="navSelect('Maintenance')"
+                    ng-class="navBarOptionSelected=='Maintenance'? 'active' : ''">
+                    <a ng-click="goToMaintenanceListing()" class="sidebar icon-maint pointer">
+                        <img src="assets/images/maintenance.png" /><img
+                            src="assets/images/maintenance-mo.png" />Maintenance
+                    </a>
+                    <!-- <ul class="submenu">
+                    <li> <a href="form-elements.html"> Elements </a> </li>
+                    <li> <a href="x-editable.html"> X-Editable </a> </li>
+                    <li> <a href="form-wizard.html"> Wizard </a> </li>
+                    <li> <a href="form-wizard-popup.html"> Wizard popup </a> </li>
+                    <li> <a href="form-wysiwyg.html"> WYSIWYG </a> </li>
+                    <li> <a href="form-summernote.html"> WYSIWYG Summernote </a> </li>
+                    <li> <a href="form-ckeditor.html"> WYSIWYG CKEditor </a> </li>
+                    <li> <a href="form-dropzone.html"> Multiple File Upload </a> </li>
+                  </ul> -->
+                </li>
+                <!-- removed for now -->
+
+                <!-- removed for now -->
+                <li ng-if="((permission.indexOf('myFile')!= -1))" ng-click="navSelect('My_files')"
+                    ng-class="navBarOptionSelected=='My_files'? 'active' : ''">
+                    <a ng-click="goToFileListing()" class="sidebar dropdown-toggle icon-files pointer">
+                        <img src="assets/images/files.png" /><img src="assets/images/files-mo.png" />My Files
+                    </a>
+                </li>
+                <!-- <li ng-if="((permission.indexOf('inspection')!= -1))" ng-click="navSelect('Inspections')" ng-class="navBarOptionSelected=='Inspections'? 'active' : ''">
+                    <a href="javascript:void(0)" class="sidebar icon-inspec">
+                        <img src="assets/images/inspections.png" /><img src="assets/images/inspections-mo.png" />Inspection
+                    </a>
+                </li> -->
+                <li ng-if="((permission.indexOf('disputes')!= -1))" ng-click="navSelect('Disputes')"
+                    ng-class="navBarOptionSelected=='Disputes'? 'active' : ''">
+                    <a ng-click="goToDisputeListing()" class="sidebar dropdown-toggle icon-disputes pointer">
+                        <img src="assets/images/disputes.png" /><img src="assets/images/disputes-mo.png" />Disputes
+                    </a>
+                </li>
+                <!-- <li ng-if="((permission.indexOf('reports')!= -1))" ng-click="navSelect('Reports')" ng-class="navBarOptionSelected=='Reports'? 'active' : ''">
+                    <a href="javascript:void(0)" class="sidebar dropdown-toggle icon-reports">
+                        <img src="assets/images/reports.png" /><img src="assets/images/reports-mo.png" />Reports
+                    </a>
+                </li> -->
+                <li ng-if="((permission.indexOf('setting')!= -1))" ng-click="navSelect('Settings')"
+                    ng-class="navBarOptionSelected=='Settings'? 'active' : ''">
+                    <a ng-click="goToSettingPage()" class="sidebar dropdown-toggle icon-settings pointer">
+                        <img src="assets/images/settings.png" /><img src="assets/images/settings-mo.png" />Edit Profile
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,227 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Dashboard
+        </h1>
+    </section>
+    <section class="content" ng-init="getPropertyCount();getAdminStatisticsData();">
+        <div class="row">
+            <div class="col-xs-5">
+                <div isteven-multi-select name="daterange" input-model="dateRangeOpt" output-model="daterange"
+                    button-label="name" item-label="name" output-properties="name" tick-property="ticked"
+                    selection-mode="single" on-item-click="setdate(daterange)" ng-required
+                    on-reset="resetDaterange(daterange);"></div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12" ui-sref="trader_listing">
+                <div class="info-box bg-purple">
+                    <span class="info-box-icon">
+                        <i class="fa fa-user-secret"></i>
+                    </span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total
+                            <br> Trader</span>
+                        <span class="info-box-number">{{statisticsData.traderCount|number}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" ui-sref="propertyListing">
+                <div class="info-box bg-purple">
+                    <span class="info-box-icon">
+                        <i class="fa fa-home"></i>
+                    </span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total
+                            <br> Properties</span>
+                        <span class="info-box-number">{{statisticsData.propertyCount|number}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-purple">
+                    <span class="info-box-icon">
+                        <i class="fa fa-building-o"></i>
+                    </span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total
+                            <br> Agency</span>
+                        <span class="info-box-number">{{statisticsData.agencyCount|number}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" ui-sref="agents_listing">
+                <div class="info-box bg-purple">
+                    <span class="info-box-icon">
+                        <i class="fa fa-bank"></i>
+                    </span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total
+                            <br>Agent</span>
+                        <span class="info-box-number">{{statisticsData.agentCount|number}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-purple">
+                    <span class="info-box-icon">
+                        <i class="fa fa-bank"></i>
+                    </span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total
+                            <br>Strata Agency</span>
+                        <span class="info-box-number">{{statisticsData.strataCount|number}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" ui-sref="maintance_listing">
+                <div class="info-box bg-purple">
+                    <span class="info-box-icon">
+                        <i class="fa fa-bank"></i>
+                    </span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total
+                            <br>Maintenance</span>
+                        <span class="info-box-number">{{statisticsData.maintenancesCount|number}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-init="getAdminAgentRemovalList()">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            Agent - Pending Removal Request
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive">
+                        <table class="table table-bordered ng-scope ng-table" ng-init="getUnapprovedProperty()">
+                            <!-- ngInclude: templates.header -->
+                            <thead class="">
+                                <tr>
+                                    <th title="" class="header  sortable ">
+                                        <!-- ngIf: !template -->
+                                        <div class="ng-table-header pointerCursor ">
+                                            <span>Image</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header " ng-click='sortColumn("removed_req_by_user")'
+                                            ng-class='sortClassProperty("removed_req_to_user")'>
+                                            <span>REMOVE REQUEST BY USER</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header pointerCursor ">
+                                            <span>Image</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor" width="110px">
+                                        <div class="ng-table-header " ng-click='sortColumn("removed_req_to_user")'
+                                            ng-class='sortClassProperty("removed_req_to_user")'>
+                                            <span>Remove Request To User</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor" width="110px">
+                                        <div class="ng-table-header " ng-click='sortColumn("reason_of_removal_req")'
+                                            ng-class='sortClassProperty("removed_req_to_user")'>
+                                            <span>Reason For Removal</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header " ng-click='sortColumn("dayNumber")'
+                                            ng-class='sortClassProperty("dayNumber")'>
+                                            <span>Created</span>
+                                        </div>
+                                    </th>
+                                    <th title="" class="header  sortable ">
+                                        <div class="ng-table-header ">
+                                            <span>Status</span>
+                                        </div>
+                                    </th>
+                                    <!-- <th title="" class="header  sortable addCursor">
+                                        <div class="ng-table-header " > <span class=" sort-indicator">ACTION</span> </div>
+                                    </th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="removeableAgentList.length"
+                                    dir-paginate="removeData in removeableAgentList|orderBy:columnUser:reverseUser| itemsPerPage:8| filter:searchUser">
+                                    <td>
+                                        <span class="chat-img pull-left">
+                                            <img ng-if="removeData.removed_req_by_user.image" class="adminprofileimg"
+                                                ng-src="{{imageUrl}}/{{removeData.removed_req_by_user.image}}"
+                                                width="100px" alt="removeData">
+                                            <img ng-if="!removeData.removed_req_by_user.image" class="adminprofileimg"
+                                                ng-src="/assets/images/no_image.png" width="100px" alt="removeData">
+                                        </span>
+                                    </td>
+                                    <td class="text-capitalize">
+                                        <a ui-sref="userDetail({id:removeData.removed_req_by_user._id})"
+                                            class="viewProperty">{{removeData.removed_req_by_user.firstname}}
+                                            {{removeData.removed_req_by_user.lastname}}</a>
+                                    </td>
+                                    <td>
+                                        <span class="chat-img pull-left">
+                                            <img ng-if="removeData.removed_req_to_user.image" class="adminprofileimg"
+                                                ng-src="{{imageUrl}}/{{removeData.removed_req_to_user.image}}"
+                                                width="100px" alt="removeData">
+                                            <img ng-if="!removeData.removed_req_to_user.image" class="adminprofileimg"
+                                                ng-src="/assets/images/no_image.png" width="100px" alt="removeData">
+                                        </span>
+                                    </td>
+                                    <td class="text-capitalize">
+                                        <a ui-sref="userDetail({id:removeData.removed_req_to_user._id})"
+                                            class="viewProperty">{{removeData.removed_req_to_user.firstname}}
+                                            {{removeData.removed_req_to_user.lastname}}</a>
+                                    </td>
+                                    <td class="text-capitalize">{{removeData.reason_of_removal_req}}</td>
+                                    <td class="text-capitalize">{{removeData.createdAt | date}}</td>
+                                    <td data-title="'Status'" sortable="'status'" filter="{status:'text'}"
+                                        data-title-text="Status">
+                                        type <span class="label label-success ng-scope"
+                                            ng-if="removeData.is_approved_by_admin==true">Approved</span>
+                                        <span class="label label-warning ng-scope"
+                                            ng-if="removeData.is_approved_by_admin==false">Pending</span>
+                                    </td>
+                                </tr>
+                                <tr ng-if="!removeableAgentList.length">
+                                    <td colspan="7" style='color:#605ca8;font-size: 15px;'>
+                                        <center>No records found</center>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="pull-right"
+                            style="font-size:14px;margin-bottom:25px;margin-top:-11px;margin-right: 13px;">
+                            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                            </dir-pagination-controls>
+                        </div>
+                        <div ng-if="unApprovedProperty.length==0" style='color:#605ca8;font-size: 15px;'>
+                            <center>No records found</center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>use-user</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Agents---Property-details" transform="translate(-225.000000, -363.000000)" stroke-width="2" stroke="#7F829F">
+            <g id="Property-tile" transform="translate(-7.000000, -4.000000)">
+                <g id="Property-page---Property-tile">
+                    <g id="Property-main-details">
+                        <g id="Property-tile---List-version">
+                            <g id="content" transform="translate(27.000000, 297.000000)">
+                                <g id="Property-quick-details-Copy" transform="translate(206.000000, 70.000000)">
+                                    <g id="use-user">
+                                        <path d="M10.5681818,4.43181818 C10.5681818,6.31431818 9.04193182,7.84090909 7.15909091,7.84090909 C5.27625,7.84090909 3.75,6.31431818 3.75,4.43181818 C3.75,2.54897727 5.27625,1.02272727 7.15909091,1.02272727 C9.04193182,1.02272727 10.5681818,2.54897727 10.5681818,4.43181818 L10.5681818,4.43181818 Z" id="Stroke-110"></path>
+                                        <path d="M0.340909091,14.6590909 C0.340909091,10.89375 3.39375,7.84090909 7.15909091,7.84090909 C10.9244318,7.84090909 13.9772727,10.89375 13.9772727,14.6590909" id="Stroke-111"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
