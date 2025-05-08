@@ -2259,6 +2259,16 @@
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       $location.path("maintance_detail/" + id);
     };
+    $scope.maintainenceRedirectDetail = function (data) {
+      $rootScope.navBarOptionSelected = "Maintenance";
+      $localStorage.userData.routeState = "Maintenance";
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      if(data.created_by._id == $localStorage.loggedInUserId){
+        $location.path("job_detail/" + data.id);
+      } else {
+        $location.path("maintance_detail/" + data.id);
+      }
+    };
 
     $scope.goToJobDetail = function (id) {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
