@@ -741,8 +741,10 @@ display: none !important;
 }
 
 .scrollbar_msg_chat {
-    max-width: 350px!important;
-    margin-left: 0px!important
+    /* max-width: 350px!important; */
+    max-width: 100%;
+    margin-left: 0px!important;
+    float: none;
 }
 
 .default_50 {
@@ -802,16 +804,20 @@ display: none !important;
 .scrollbar {margin-left: 0px;float: left;height: 392px;width: 373px;background: #F5F5F5;margin-bottom: 25px;}
 .force-overflow {min-height: 450px;margin-bottom: 20px;}
 ::-webkit-scrollbar {
-    width: 0px;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
-    height: 7px;
-    width: 5px;
-    border: 1px solid #c7c5c5;
+    width: 6px;  /* Remove scrollbar space */
+    /* background: transparent; /* Optional: just make scrollbar invisible */
+    background-color: #F5F5F5;
+    /* height: 7px;
+    width: 5px; */
+    /* border: 1px solid #c7c5c5; */
 }
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
     /* background: #FF0000; */
-    background: #e2e4ed;
+    /* background: #e2e4ed; */
+    background: #46A4F2;
+    border-radius: 10px;
+    /* background-image: -webkit-linear-gradient(bottom, rgb(28, 58, 148) 0%, rgb(73, 125, 189) 44%, rgb(122, 153, 217) 72%); */
 }
 .profile_inspection_detail ul li{ float:none; display:flex;}
 .profile_inspection_detail ul li small{ width:45%; font-size:13px;}

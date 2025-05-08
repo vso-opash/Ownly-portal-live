@@ -2761,7 +2761,7 @@ starta_Post_date{max-width: 400px}
 
 ::-webkit-scrollbar {
     height: 0px!important;
-    width: 0px!important;
+    /* width: 0px!important; */
     border: 0px solid #c7c5c5!important;
 }
 
