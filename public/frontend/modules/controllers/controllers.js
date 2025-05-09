@@ -184,8 +184,8 @@
     $scope.maintenanceImageUrl = baseUrl + "/maintenance/";
     $scope.isAgentOwnerAgency =
       $localStorage.role_id == roleId.agent ||
-        $localStorage.role_id == roleId.ownAgency ||
-        $localStorage.role_id == roleId.owner
+      $localStorage.role_id == roleId.ownAgency ||
+      $localStorage.role_id == roleId.owner
         ? true
         : false;
     $scope.isTenant = $localStorage.role_id == roleId.tenant ? true : false;
@@ -394,7 +394,7 @@
           if ($localStorage.userData.agency_id) {
             obj.agency_id =
               $localStorage.userData.agency_id &&
-                $localStorage.userData.agency_id._id
+              $localStorage.userData.agency_id._id
                 ? $localStorage.userData.agency_id._id
                 : $localStorage.userData.agency_id;
           }
@@ -487,7 +487,7 @@
           if ($localStorage.userData.agency_id) {
             obj.agency_id =
               $localStorage.userData.agency_id &&
-                $localStorage.userData.agency_id._id
+              $localStorage.userData.agency_id._id
                 ? $localStorage.userData.agency_id._id
                 : $localStorage.userData.agency_id;
           }
@@ -1416,8 +1416,8 @@
       $scope.filteredAgent =
         $localStorage.superLoginfirstname && $localStorage.superLoginlastname
           ? $localStorage.loggedInfirstname +
-          " " +
-          $localStorage.loggedInlastname
+            " " +
+            $localStorage.loggedInlastname
           : "Select Agent";
       var currentURL = "",
         currentURL = window.location.hostname;
@@ -2263,7 +2263,10 @@
       $rootScope.navBarOptionSelected = "Maintenance";
       $localStorage.userData.routeState = "Maintenance";
       document.body.scrollTop = document.documentElement.scrollTop = 0;
-      if(data.created_by._id == $localStorage.loggedInUserId){
+      if (
+        data.created_by._id == $localStorage.loggedInUserId &&
+        $localStorage.role_id == roleId.owner
+      ) {
         $location.path("job_detail/" + data.id);
       } else {
         $location.path("maintance_detail/" + data.id);
@@ -2356,9 +2359,9 @@
           console.log("quotes => ");
           $location.path(
             "/quote_detail/" +
-            notification.maintenence_id +
-            "/" +
-            notification.from_user._id
+              notification.maintenence_id +
+              "/" +
+              notification.from_user._id
           );
         } else {
           $location.path("/maintance_detail/" + notification.maintenence_id);
