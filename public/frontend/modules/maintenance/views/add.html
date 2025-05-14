@@ -88,7 +88,7 @@
             <!-- ng-hide="isTaderPickFromSave" -->
             <div class="custome-dropdown" ng-hide="isTaderPickFromSave">
               <span class="fa-search-span">
-                <input type="text" id="query" ng-model="query" ng-change="searchTextbox(query)" />
+                <input type="text" id="query" ng-model="query" ng-change="!query || query.trim() === '' ? getTraders() : null; searchTextbox(query)" />
                 <!-- ng-change="getTraders()" -->
                 <button class="btn btn-default" ng-click="getTraders()"><i class="fa fa-search"></i></button>
               </span>
