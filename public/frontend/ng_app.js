@@ -768,7 +768,7 @@
             })
             .state('maintance_detail', {
                 title: 'maintance_detail',
-                url: '/maintance_detail/:id',
+                url: '/maintance_detail/:id?roleId',
                 cache: false,
                 controller: 'MaintenanceCtrl',
                 views: {

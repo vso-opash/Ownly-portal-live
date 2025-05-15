@@ -180,6 +180,26 @@
     $timeout,
     AgentService
   ) {
+    function checkAndHandleUrl() {
+      var targetId = "5a1d26b26ef60c3d44e9b377";
+      var currentPath = $location.path();
+      var queryParams = $location.search(); // e.g., { roleId: 'Trader' }
+      if (
+        currentPath.startsWith("/maintance_detail/") &&
+        queryParams.roleId === targetId
+      ) {
+        $location.search('roleId', null);
+        $scope.switchRolePermission(targetId);
+      }
+    }
+    // Run the check when the controller initializes
+    checkAndHandleUrl();
+
+    // Watch for route changes to handle dynamic URL updates
+    $scope.$on("$locationChangeSuccess", function () {
+      checkAndHandleUrl();
+    });
+
     $scope.maintenance = {};
     $scope.maintenanceImageUrl = baseUrl + "/maintenance/";
     $scope.isAgentOwnerAgency =
