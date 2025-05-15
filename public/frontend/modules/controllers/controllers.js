@@ -2260,16 +2260,10 @@
       $location.path("maintance_detail/" + id);
     };
     $scope.maintainenceRedirectDetail = function (data) {
-      $rootScope.navBarOptionSelected = "Maintenance";
-      $localStorage.userData.routeState = "Maintenance";
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-      if (
-        data.created_by._id == $localStorage.loggedInUserId &&
-        $localStorage.role_id == roleId.owner
-      ) {
-        $location.path("job_detail/" + data.id);
+      if (data?.request_type == 1 && !data?.trader_id) {
+        $scope.goToJobDetail(data.id);
       } else {
-        $location.path("maintance_detail/" + data.id);
+        $scope.maintainenceDetail(data.id);
       }
     };
 
