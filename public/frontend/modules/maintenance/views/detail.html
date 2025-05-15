@@ -634,15 +634,21 @@
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marT20">
                     <div class="amnt">
                         <div class="amnt-container">
-                            <div class="price"> $
-                                <span ng-if="trader_price">{{trader_price}}</span>
-                                <span ng-if="!trader_price">{{detail.budget}}</span>
+                            <div class="space-between">
+                                <span class="h5">{{trader_price ? 'Trader Price' : 'Budget'}}</span>
+                                <div class="price"> $
+                                    <span ng-if="trader_price">{{trader_price}}</span>
+                                    <span ng-if="!trader_price">{{detail.budget}}</span>
+                                </div>
                             </div>
                             <!-- <span class="pull-right" ng-if="trader_date_difference"> in
                                 {{trader_date_difference | positive}} days</span> -->
                             <!-- <span class="pull-right" ng-if="!trader_date_difference"> in
                                 {{detail.difference | positive}} days</span> -->
-                            <span class="pull-right">{{detail.due_date | date}}</span>
+                            <div>
+                                <span class="h5">Due Date</span>
+                                <span class="pull-right text-right">{{detail.due_date | date}}</span>
+                            </div>
 
                         </div>
                         <!-- <div class="amnt-container">

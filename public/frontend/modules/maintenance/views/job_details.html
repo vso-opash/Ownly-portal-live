@@ -203,11 +203,17 @@
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
                     <div class="amnt white-box">
                         <div class="amnt-container">
-                            <div class="price"> $
-                                <span>{{detail.budget}}</span>
-                            </div>
+                             <div class="space-between" ng-if="detail.budget">
+                                <span class="h5">Budget</span>
+                                 <div class="price"> $
+                                     <span>{{detail.budget}}</span>
+                                 </div>
+                             </div>
                             <!-- <span class="pull-right"> in {{detail.difference | positive}} days</span> -->
-                            <span class="pull-right">{{detail.due_date | date}}</span>
+                             <div class="space-between">
+                                <span class="h5">Due Date</span>
+                                <span class="pull-right text-right">{{detail.due_date | date}}</span>
+                             </div>
                         </div>
                         <!-- <div class="amnt-container">
                             <span class="pull-right">{{detail.due_date | date}}</span>

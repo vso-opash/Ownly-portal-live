@@ -2493,6 +2493,10 @@ font-weight: 500;}
     padding: 0 25px;
     padding-bottom: 20px;
 }
+.amnt .space-between{
+    display: flex;
+    justify-content: space-between;
+}
 .amnt .price{color: #50A4EA; display: inline-block}
 .amnt .price span{font-weight:600;}
 .amnt .price span.dollar-sym{
