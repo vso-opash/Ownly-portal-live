@@ -2234,7 +2234,11 @@
           $scope.maintainList = _.filter(
             $scope.gobalMaintenanceList,
             function (item) {
-              return item.req_status != MaintenanceState.sent;
+              if ($localStorage.role_id == roleId.owner) {
+                return item.req_status == MaintenanceState.sent;
+              } else {
+                return item.req_status != MaintenanceState.sent;
+              }
             }
           );
           //find only 4 from that list
