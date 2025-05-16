@@ -5388,6 +5388,10 @@ h4.full-username
     text-transform: uppercase;
     margin-top: 10px;
  }
+  .price-sec .status.sent
+ {
+   background-color: #00CFFF; 
+}
   .price-sec .status.accepted
  {
    background-color: #FDC614; 

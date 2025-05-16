@@ -677,6 +677,8 @@
                   </div>
                   <!-- <div class="days">in {{maintain.difference | positive}} days</div> -->
                   <div class="days"> {{maintain.due_date | date}} </div>
+                  <div ng-if="maintain.req_status == 1 && maintain.request_type == 0" class="status sent">Sent
+                  </div>
                   <div ng-if="maintain.req_status == 2 && maintain.request_type == 0" class="status accepted">ACCEPTED
                   </div>
                   <div ng-if="maintain.req_status == 3 && maintain.request_type == 0" class="dashboardMaintBook">Booked
@@ -1452,7 +1454,9 @@
                   </div>
                   <!-- <div class="days">in {{maintain.difference | positive}} days</div> -->
                   <div class="days"> {{maintain.due_date | date}} </div>
-                  <div ng-if="maintain.req_status == 2 && maintain.request_type == 0" class="status accepted">ACCEPTED
+                  <div ng-if="maintain.req_status == 1 && maintain.request_type == 0" class="status sent">Sent
+                  </div>
+                  <div ng-if="maintain.req_status == 2 && maintain.request_type == 0" class="status accepted">Accepted
                   </div>
                   <div ng-if="maintain.req_status == 3 && maintain.request_type == 0" class="dashboardMaintBook">Booked
                   </div>

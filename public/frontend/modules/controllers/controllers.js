@@ -2235,7 +2235,7 @@
             $scope.gobalMaintenanceList,
             function (item) {
               if ($localStorage.role_id == roleId.owner) {
-                return item.req_status == MaintenanceState.sent;
+                return item.req_status;
               } else {
                 return item.req_status != MaintenanceState.sent;
               }
