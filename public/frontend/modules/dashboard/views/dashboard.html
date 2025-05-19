@@ -648,18 +648,18 @@
                   <div class="his_img">
                     <a class="pointer"
                       ng-click="goToUserProfilePage(maintain.created_by._id, maintain.created_by_role._id)">
-                      <img ng-if="maintain.created_by.image && maintain.created_by.image!=''"
-                        ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                      <img ng-if="maintain.trader_id.image && maintain.trader_id.image!=''"
+                        ng-src="{{userImageUrl}}{{maintain.trader_id.image}}"
                         style="height:60px;width:60px;border-radius: 50%;" src="/assets/images/no_image.png" onerror="this.src='/assets/images/no_image.png'" >
-                      <div ng-if="!maintain.created_by.image" class="col-sm-3 default_50">
-                        {{maintain.created_by.firstname.charAt(0).toUpperCase()}}{{maintain.created_by.lastname.charAt(0).toUpperCase()}}
+                      <div ng-if="!maintain.trader_id.image" class="col-sm-3 default_50">
+                        {{maintain.trader_id.firstname.charAt(0).toUpperCase()}}{{maintain.trader_id.lastname.charAt(0).toUpperCase()}}
                       </div>
                       <!-- <img class="dashboardMaintUserImg" ng-src="{{maintenanceImageUrl}}{{maintain.images[0].path}}" src="assets/images/no_image.png"> -->
                     </a>
                   </div>
                 </div>
                 <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
-                  <span style="font-size: smaller">{{maintain.created_by.firstname + " " + maintain.created_by.lastname }}</span>
+                  <span style="font-size: smaller">{{maintain.trader_id.firstname + " " + maintain.trader_id.lastname }}</span>
                   <div class="maintain-title">
                     <h4>
                       <a class="pointer">{{maintain.request_overview |
@@ -679,7 +679,7 @@
                   <div class="days"> {{maintain.due_date | date}} </div>
                   <div ng-if="maintain.req_status == 1 && maintain.request_type == 0" class="status sent">Sent
                   </div>
-                  <div ng-if="maintain.req_status == 2 && maintain.request_type == 0" class="status accepted">ACCEPTED
+                  <div ng-if="maintain.req_status == 2 && maintain.request_type == 0" class="status accepted">Accepted
                   </div>
                   <div ng-if="maintain.req_status == 3 && maintain.request_type == 0" class="dashboardMaintBook">Booked
                   </div>
@@ -1425,18 +1425,18 @@
                   <div class="his_img">
                     <a class="pointer"
                       ng-click="goToUserProfilePage(maintain.created_by._id, maintain.created_by_role._id)">
-                      <img ng-if="maintain.created_by.image && maintain.created_by.image!=''"
-                        ng-src="{{userImageUrl}}{{maintain.created_by.image}}"
+                      <img ng-if="maintain.trader_id.image && maintain.trader_id.image!=''"
+                        ng-src="{{userImageUrl}}{{maintain.trader_id.image}}"
                         style="height:60px;width:60px;border-radius: 50%;" src="/assets/images/no_image.png">
-                      <div ng-if="!maintain.created_by.image" class="col-sm-3 default_50">
-                        {{maintain.created_by.firstname.charAt(0).toUpperCase()}}{{maintain.created_by.lastname.charAt(0).toUpperCase()}}
+                      <div ng-if="!maintain.trader_id.image" class="col-sm-3 default_50">
+                        {{maintain.trader_id.firstname.charAt(0).toUpperCase()}}{{maintain.trader_id.lastname.charAt(0).toUpperCase()}}
                       </div>
                       <!-- <img class="dashboardMaintUserImg" ng-src="{{maintenanceImageUrl}}{{maintain.images[0].path}}" src="assets/images/no_image.png"> -->
                     </a>
                   </div>
                 </div>
                 <div class="col-sm-7 col-md-7 col-lg-7 details-sec">
-                  <span style="font-size: smaller">{{maintain.created_by.firstname + " " + maintain.created_by.lastname }}</span>
+                  <span style="font-size: smaller">{{maintain.trader_id.firstname + " " + maintain.trader_id.lastname }}</span>
                   <div class="maintain-title">
                     <h4>
                       <a class="pointer">{{maintain.request_overview |
