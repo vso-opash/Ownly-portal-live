@@ -180,18 +180,19 @@
     $timeout,
     AgentService
   ) {
-    function checkAndHandleUrl() {
-      var targetId = "5a1d26b26ef60c3d44e9b377";
-      var currentPath = $location.path();
-      var queryParams = $location.search(); // e.g., { roleId: 'Trader' }
-      if (
+  function checkAndHandleUrl() {
+    let currentPath = $location.path();
+    let queryParams = $location.search();
+    let allRoleIds = Object.values(roleId);
+    if (
         currentPath.startsWith("/maintance_detail/") &&
-        queryParams.roleId === targetId
-      ) {
+        allRoleIds.includes(queryParams.roleId)
+    ) {
+        let targetId = queryParams.roleId;
         $location.search('roleId', null);
         $scope.switchRolePermission(targetId);
-      }
     }
+}
     // Run the check when the controller initializes
     checkAndHandleUrl();
 
