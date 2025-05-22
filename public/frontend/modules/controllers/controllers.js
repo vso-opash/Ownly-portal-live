@@ -180,28 +180,6 @@
     $timeout,
     AgentService
   ) {
-  function checkAndHandleUrl() {
-    let currentPath = $location.path();
-    let queryParams = $location.search();
-    let allRoleIds = Object.values(roleId);
-    if (
-        currentPath.startsWith("/maintance_detail/") &&
-        allRoleIds.includes(queryParams.roleId) &&
-        queryParams.roleId != $localStorage.role_id
-    ) {
-        let targetId = queryParams.roleId;
-        $scope.switchRolePermission(targetId);
-        $location.search('roleId', null);
-    }
-}
-    // Run the check when the controller initializes
-    checkAndHandleUrl();
-
-    // Watch for route changes to handle dynamic URL updates
-    $scope.$on("$locationChangeSuccess", function () {
-      checkAndHandleUrl();
-    });
-
     $scope.maintenance = {};
     $scope.maintenanceImageUrl = baseUrl + "/maintenance/";
     $scope.isAgentOwnerAgency =
@@ -2104,6 +2082,28 @@
       }
       blockUI.stop();
     };
+
+    function checkAndHandleUrl() {
+      let currentPath = $location.path();
+      let queryParams = $location.search();
+      let allRoleIds = Object.values(roleId);
+      if (
+          currentPath.startsWith("/maintance_detail/") &&
+          allRoleIds.includes(queryParams.roleId) &&
+          queryParams.roleId != $localStorage.role_id
+      ) {
+          let targetId = queryParams.roleId;
+          $scope.switchRolePermission(targetId);
+        }
+      $location.search('roleId', null);
+    }
+    // Run the check when the controller initializes
+    checkAndHandleUrl();
+
+    // Watch for route changes to handle dynamic URL updates
+    $scope.$on("$locationChangeSuccess", function () {
+      checkAndHandleUrl();
+    });
     /**
      * Function is change profile according to role id
      * @access private
