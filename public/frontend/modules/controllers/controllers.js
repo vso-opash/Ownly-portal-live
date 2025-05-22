@@ -186,11 +186,12 @@
     let allRoleIds = Object.values(roleId);
     if (
         currentPath.startsWith("/maintance_detail/") &&
-        allRoleIds.includes(queryParams.roleId)
+        allRoleIds.includes(queryParams.roleId) &&
+        queryParams.roleId != $localStorage.role_id
     ) {
         let targetId = queryParams.roleId;
-        $location.search('roleId', null);
         $scope.switchRolePermission(targetId);
+        $location.search('roleId', null);
     }
 }
     // Run the check when the controller initializes

@@ -145,6 +145,7 @@
     $scope.traders = [];
     $scope.showTraderSearch = false;
     $scope.query = "";
+    $scope.showSwitchProfileWarning = false;
     /**
      * Function is maintenance request init function
      * @access private
@@ -1651,7 +1652,8 @@
             roleId.trader == $localStorage.role_id &&
             $scope.detail.trader_id._id != $localStorage.loggedInUserId
           ) {
-            $location.path("maintance_listing");
+            // $location.path("maintance_listing");
+            $scope.showSwitchProfileWarning = true;
           }
 
           if (

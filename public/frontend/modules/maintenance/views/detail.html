@@ -24,6 +24,9 @@
                     </li>
                 </ol>
                 <div class="row">
+                    <div class="alert alert-warning" ng-if="showSwitchProfileWarning">
+                        <strong>Warning:</strong> You are viewing this request under the wrong profile. Please switch your profile to continue.
+                    </div>
                     <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 main_detail marB20">
                         <h5 class="text-capitalize">{{detail.request_overview}}</h5>
                         <div>
